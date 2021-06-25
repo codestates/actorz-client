@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import 'antd/dist/antd.css';
+import { Button } from 'antd';
 
 const Nav = () => {
   const [search, setSearch] = useState("");
@@ -18,20 +20,25 @@ const Nav = () => {
   return (
     <>
       <div id="nav">
-        <span className="title">Actorz</span>
         <div className="search">
-          <input
-            className="product-search"
+          <img src="https://media.vlpt.us/images/iooi75/post/4f4baec2-cb29-4b8b-b2ea-892cef41febc/Screen%20Shot%202021-06-22%20at%209.56.14%20PM.png" className="headerLogo"/>
+          
+          <input className="product-search"
             value={search}
-            placeholder="찾고 싶은 상품을 입력하세요"
+            placeholder="search ..."
             onChange={e => inputHandler(e)}
           ></input>
-          <button className="product-search-btn">검색</button>
+
+          <Button variant="outlined" className="product-search-btn">검색</Button>
+
+          <span className="signBtnPosition">
+            <Button variant="outlined" 
+            className="navSignInBtn" onClick={handleClickSignin}>Sign in</Button>
+              &nbsp;
+            <Button variant="outlined" 
+            className="navSignInBtn" onClick={handleClickSignup}>Sign up</Button>
+          </span>
         </div>
-        <span>
-          <button className="btn-nav" onClick={handleClickSignin}>로그인</button>
-          <button className="btn-nav" onClick={handleClickSignup}>회원가입</button>
-        </span>
       </div>
     </>
   );
