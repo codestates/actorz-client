@@ -1,6 +1,7 @@
 import Nav from "./components/Nav";
 import Intropage from "./pages/Intropage";
 import Mainpage from "./pages/Mainpage";
+import "./App.css"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 function App() {
