@@ -1,18 +1,32 @@
 import React, { useState } from "react";
+import Signin from "./Signin";
+import Signup from "./Signup";
 
 const Nav = () => {
   const [search, setSearch] = useState("");
+  const [clickSignin, setClickSignin] = useState(false);
+  const [clickSignup, setClickSignup] = useState(false);
 
   const inputHandler = (event) => {
     setSearch(event.target.value);
   };
 
   const handleClickSignin = () => {
-    console.log("로그인 모달창");
+    setClickSignup(false);
+    if (clickSignin) {
+      setClickSignin(false);
+    } else {
+      setClickSignin(true);
+    }
   };
 
   const handleClickSignup = () => {
-    console.log("회원가입 모달창");
+    setClickSignin(false);
+    if (clickSignup) {
+      setClickSignup(false);
+    } else {
+      setClickSignup(true);
+    }
   };
 
   return (
@@ -32,6 +46,8 @@ const Nav = () => {
           <button className="btn-nav" onClick={handleClickSignin}>로그인</button>
           <button className="btn-nav" onClick={handleClickSignup}>회원가입</button>
         </span>
+        {clickSignin ? <Signin handleClickSignin={handleClickSignin} handleClickSignup={handleClickSignup} /> : <></>}
+        {clickSignup ? <Signup handleClickSignin={handleClickSignin} handleClickSignup={handleClickSignup} /> : <></>}
       </div>
     </>
   );
