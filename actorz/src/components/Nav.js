@@ -40,7 +40,7 @@ const Nav = () => {
           <input
             className="product-search"
             value={search}
-            placeholder="search..."
+            placeholder=" search..."
             onChange={e => inputHandler(e)}
           ></input>
           <Button variant="outlined" className="product-search-btn">검색</Button>
