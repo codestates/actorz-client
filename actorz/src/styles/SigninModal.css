@@ -1,0 +1,107 @@
+#modal-background {
+    /* position: absolute; */
+    position: fixed;
+    flex-direction: column;
+    top: -20vh;
+    left: -15vw;
+    width: 140vw;
+    height: 140vh;
+    z-index: 10000;
+    padding-top: 14rem;
+    padding-left: 45rem;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(222, 230, 250, 0.8);
+    transition: 0.5s linear;
+  }
+  
+  #modal-container {
+    padding-top: 30px;
+    font-size: 10px;
+    border-radius: 9px;
+    width: 30rem;
+    height: 35rem;
+    position: absolute;
+    z-index: 10000;
+    background-color: #fff;
+    text-align: center;
+  }
+  
+  .modal-group {
+    padding: 10px;
+  }
+  
+  .modal-group > input {
+    font-size: 10px;
+  }
+
+  .err-message {
+    font-size: 20px;
+    color: red;
+  }
+  .modal-title .title {
+      font-size: 20px;
+      padding-bottom: 20px;
+  }
+
+  .modal-title .modal-welcome-message {
+      font-size: 25px;
+      padding-bottom: 15px;
+  }
+  
+  .modal-btn {
+    position: absolute;
+    top: 10px;
+    left: 420px;
+    font-size: 40px;
+    border: 0;
+    color: rgb(129, 163, 207);
+    background-color: white;
+  }
+  
+  .btn-login {
+    font-size: 18px;
+    width: 380px;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 5px;
+    margin-top: 20px;
+    padding: 15px;
+    background: white;
+  }
+
+  button.btn-login.login {
+      margin-top: 30px;
+  }
+
+  .kakao-logo {
+      width: 32px;
+      height: 32px;
+      float: left;
+  }
+   
+  #modal-section {
+    display: block;
+  }
+  
+  .modal-group {
+    margin-top: 30px;
+  }
+
+  .modal-group input {
+      width: 350px;
+      font-size: 20px; 
+      margin-top: 8px;
+      padding: 5px;
+  }
+  
+  input {
+    border: none;
+    border-bottom: 1px solid rgb(111, 111, 114);
+  }
+
+  .signup {
+      padding-top: 20px;
+      font-size: 15px;
+  }
+  
