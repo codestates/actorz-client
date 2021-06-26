@@ -69,8 +69,8 @@ const FileUpload = ({
 
   return (
     <>
-      <div id="modal-background">
-        <div id="modal-container">
+      <div id="upload-modal-background">
+        <div id="upload-modal-container">
           <FileUploadContainer>
             <InputLabel>포트폴리오에 올릴 사진 또는 동영상을 선택해주세요</InputLabel>
             <DragDropText>Drag and drop your files anywhere or</DragDropText>
