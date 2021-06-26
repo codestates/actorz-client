@@ -1,10 +1,12 @@
 import React from "react";
 import Nav from "../components/Nav";
+import Post from "./Post";
+
 const Mainpage = () => {
   return (
     <>
-      <Nav />
-      <div>메인페이지</div>
+      {/*  <Nav /> */}
+      <div><Post /></div>
     </>
   )
 }

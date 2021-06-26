@@ -148,7 +148,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         </button>
                       </>
                   }
-
                   <div className="signup" onClick={() => handleClickSignin(true)}>
                     이미 계정이 있으십나까? 로그인 하러 하기
                   </div>
