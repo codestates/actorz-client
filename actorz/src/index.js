@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Postupload from "./components/file-upload/file-upload.component";
 
 ReactDOM.render(
   <React.StrictMode>
