@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useSelector } from "react";
 import Nav from "../components/Nav";
-import Post from "./Post";
 
 const Mainpage = () => {
+
   return (
     <>
-      {/*  <Nav /> */}
-      <div><Post /></div>
+      <Nav />
+      <div>메인페이지</div>
     </>
   )
 }

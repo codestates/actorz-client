@@ -2,10 +2,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import Nav from '../components/Nav';
 import "../styles/Post.css";
 import img from "../images/actor.jpeg";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import Slider from "react-slick";
 
 const Post = () => {
-  const state = useSelector(state => state.userInfoReducer);
-  console.log(state);
+  const user = useSelector(user => user.userInfoReducer);
+  const post = useSelector(post => post.postInfoReducer);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1
+  };
 
   return (
     <>
@@ -15,21 +25,21 @@ const Post = () => {
       <div id="post-container">
         <img src={img} className="img" alt="프로필"></img>
         <span id="post-info">
-          <p className="name">{state.data.userInfo.name}</p>
+          <p className="name">{user.data.userInfo.name}</p>
           <ul>
             <strong>생년월일</strong>
-            <li className="dob">{state.data.userInfo.dob}</li>
+            <li className="dob">{user.data.userInfo.dob}</li>
             <strong>이메일</strong>
-            <li className="email">{state.data.userInfo.email}</li>
+            <li className="email">{user.data.userInfo.email}</li>
             <strong>소속사</strong>
-            <li className="company">{state.data.userInfo.company}</li>
+            <li className="company">{user.data.userInfo.company}</li>
 
           </ul>
         </span>
       </div>
       <span className="career">
         {
-          state.data.userInfo.careers.map(career => {
+          user.data.userInfo.careers.map(career => {
             return (
               <li>{`${career.year}` + ` ${career.title}` + ` / ` +
                 `${career.type.map(type => {
@@ -40,6 +50,15 @@ const Post = () => {
           })
         }
       </span>
+      {
+        <Slider {...settings} className="slider">
+          {
+            post.data.posts.map(post => {
+              return <img src={post.path}></img>;
+            })
+          }
+        </Slider>
+      }
     </>
   )
 }

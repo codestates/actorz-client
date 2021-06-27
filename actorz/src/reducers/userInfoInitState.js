@@ -1,4 +1,4 @@
-export const initialState = {
+export const userInfoInitState = {
   'data': {
     userInfo: {
       'id': 'user_id',
@@ -10,6 +10,18 @@ export const initialState = {
       'gender': 'male',
       'dob': '1900-05-05',
       'careers': [{
+        'title': '도깨비',
+        'year': 2016,
+        'type': ['액션', '판타지']
+      }, {
+        'title': '도깨비',
+        'year': 2016,
+        'type': ['액션', '판타지']
+      }, {
+        'title': '도깨비',
+        'year': 2016,
+        'type': ['액션', '판타지']
+      }, {
         'title': '도깨비',
         'year': 2016,
         'type': ['액션', '판타지']
