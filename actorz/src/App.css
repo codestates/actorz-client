@@ -17,7 +17,7 @@ a {
   width: 100vw;
   height: 45px;
   background-color: black;
-  z-index: 4;
+  /*z-index: 4;*/
 }
 
 .search {
@@ -49,11 +49,17 @@ a {
 }
 */
 
+.blockPositionNav {
+  width: 85%
+}
 .signBtnPosition {
   /*
   display: flex;
-  float: left;*/
+  float: left;
   margin-left: 350px;
+  */
+  display: flex;
+  width:auto;
 }
 
 .blockPosition {
@@ -217,8 +223,6 @@ a {
   bottom: 10px;
 }
 
-
-
 .mainIntro1 {
   color:rgb(255, 255, 255);
   font-size: large;
@@ -229,7 +233,6 @@ a {
   font-size: large;
 }
 
-
 .button2Position {
   padding: 20px;
   margin-top: 50px;
@@ -237,8 +240,6 @@ a {
   height: 100px;
 }
   
-
-
 /* new css */
 .middleContents {
   background-color: brown;
@@ -253,11 +254,297 @@ a {
   height: 50px;
 }
 
+
+/* **************************************** */
+/* ***************** 먼저 ****************** */
+/* **************************************** */
+
 .middleContents2 {
   height: 7000px; /* 벨로그 사진 붙이기 */
-  /* background-color: blue; */
+  display: flex;
+  /*vertical-align: top;*/
+  flex-direction: row;
 }
 
 
+@keyframes actorsEffect {
+  0% { margin-left:0px; }
+  100%  { margin-left:100px; }
+}
+/*
+  position: absolute;
+  opacity: 0;
+  right: 20px;
+  transition: 0.5s;
+*/
 
-/* 인트로페이지 중앙 꾸미는 부분 */
+/* 인트로페이지 중앙(사진) 꾸미는 부분 */
+
+/*
+.actorpPhotoposition {
+  width: 500px;
+  height: 300px;
+  margin-left: -100px;
+  margin-bottom: -50px;
+}
+
+.actorpPhotoposition::after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  right: 20px;
+  transition: 0.5s;
+}
+
+.actorpPhotoposition {
+  opacity: 1;
+  bottom: 10px;
+}
+
+*/
+
+.actor1995 {
+  width: 500px;
+  height: 300px;
+  margin-left: -100px;
+  margin-bottom: -50px;
+}
+
+.actor1995:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  right: 200px; 
+  color: white;
+  background-color: white;
+  transition: 0.5s;
+}
+
+.actor1995:hover:after {
+  opacity: 1;
+  bottom: 50px;
+}
+
+.actor1996 {
+  width: 500px;
+  height: 300px;
+  margin-left: 150px;
+  margin-bottom: -50px;
+}
+
+
+.actor1997 {
+  width: 500px;
+  height: 300px;
+  margin-left: -180px;
+  margin-bottom: -25px;
+}
+
+.actor1998 {
+  width: 500px;
+  height: 300px;
+  margin-left: 210px;
+  margin-bottom: -40px;
+}
+
+.actor1999 {
+  width: 500px;
+  height: 300px;
+  margin-left: -220px;
+  margin-bottom: -40px;
+}
+
+.actor2000 {
+  width: 500px;
+  height: 300px;
+  margin-left: 150px;
+}
+
+.actor2001 {
+  width: 500px;
+  height: 300px;
+  margin-left: -150px;
+  margin-bottom: -40px;
+}
+
+.actor2002 {
+  width: 500px;
+  height: 300px;
+  margin-left: -100px;
+  margin-bottom: -42px;
+}
+
+.actor2003 {
+  width: 500px;
+  height: 300px;
+  margin-left: 180px;
+  margin-bottom: -42px;
+}
+
+.actor2004 {
+  width: 500px;
+  height: 300px;
+  margin-left: -180px;
+  margin-bottom: -43px;
+}
+
+.actor2005 {
+  width: 500px;
+  height: 300px;
+  margin-bottom: -45px;
+}
+
+.actor2006 {
+  width: 500px;
+  height: 300px;
+  margin-bottom: -49px;
+}
+
+.actor2007 {
+  width: 500px;
+  height: 300px;
+  margin-bottom: -70px;
+}
+
+.actor2008 {
+  width: 500px;
+  height: 300px;
+  margin-bottom: -90px;
+}
+
+.actor2009 {
+  width: 500px;
+  height: 300px;
+  margin-bottom: -110px;
+}
+
+.actor2010 {
+  width: 500px;
+  height: 300px;
+  margin-bottom: -120px;
+}
+
+.actor2011 {
+  width: 500px;
+  height: 300px;
+  margin-bottom: -140px;
+}
+
+.actor2012 {
+  width: 400px;
+  height: 250px;
+  margin-left: -400px;
+}
+
+.actor2013 {
+  width: 500px;
+  height: 800px;
+  margin-right: -300px;
+}
+
+.actor2014 {
+  width: 500px;
+  height: 300px;
+  margin-top: -1500px;
+}
+
+.actor2015 {
+  width: 500px;
+  height: 500px;
+  margin-top: -800px;
+  margin-left: -340px;
+}
+
+.actor2016 {
+  width: 500px;
+  height: 300px;
+  margin-top: -400px;
+}
+
+.actor2017 {
+  width: 500px;
+  height: 600px;
+  margin-top: -150px;
+}
+
+.actor2018 {
+  width: 500px;
+  height: 600px;
+  margin-left: -520px;
+  margin-top: -180px;
+}
+
+.actor2019 {
+  width: 500px;
+  height: 600px;
+  margin-left: 150px;
+  margin-top: -290px;
+}
+
+.actor2020 {
+  width: 600px;
+  height: 400px;
+  margin-top: -30px;
+}
+
+/*
+.actorEffect01 {
+  width: 250px;
+  height: 150px;
+}
+
+.actorEffect02 {
+  width: 250px;
+  height: 150px;
+}
+
+.actorEffect03 {
+  width: 250px;
+  height: 150px;
+}
+
+.actorEffect04 {
+  width: 250px;
+  height: 150px;
+}
+
+.actorEffect05 {
+  width: 250px;
+  height: 150px;
+}
+*/
+
+.lastContents {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+}
+
+.lastContext {
+  color:rgb(0, 0, 0);
+  text-align: center;
+  /*margin-top: 200px;*/
+  font-size: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: bold;
+  margin-top: 50px;
+}
+
+
+/* *************************** */
+.actorCardposition {
+  text-align: center;
+  width: 60%;
+}
+
+.blackSpace01 {
+  
+  /*background-color: green; *//* ! 표시임 지워야함 */
+  
+  width: 20%;
+}
+
+.blackSpace02 {
+  /*background-color: yellow; *//* ! 표시임 지워야함 */
+  width: 20%;
+}
