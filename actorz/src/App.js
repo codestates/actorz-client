@@ -3,8 +3,10 @@ import Intropage from "./pages/Intropage";
 import Mainpage from "./pages/Mainpage";
 import "./App.css"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { useState } from "react";
 
 function App() {
+
   return (
     <Router>
       <div>
