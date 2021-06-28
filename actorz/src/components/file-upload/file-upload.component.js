@@ -119,8 +119,12 @@ const FileUpload = ({
               </PreviewList>
             </FilePreviewContainer>
           </FileUploadContainer>
-
-          <button className="cancel-btn">cancel</button>
+          <button
+            className="cancel-btn"
+            onClick={() => otherProps.handleClickUpload(false)}
+          >
+            cancel
+          </button>
           <button type="submit" className="upload-btn">
             upload
           </button>
