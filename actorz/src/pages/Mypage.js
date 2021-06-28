@@ -22,8 +22,8 @@ const Mypage = () => {
     <>
       <Nav />
       {!isEdit ? (
-        <div id="container1">
-          <div id="post-container">
+        <div id="mypage-container1">
+          <div id="mypage-container">
             <img src={img} className="img" alt="프로필"></img>
             <span id="post-info">
               <button
