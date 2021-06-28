@@ -4,9 +4,9 @@ import Slider from "react-slick";
 import img from "../images/actor.jpeg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "../styles/Post.css";
+import "../styles/Posts.css";
 
-const Post = () => {
+const Posts = () => {
   const user = useSelector((user) => user.userInfoReducer);
   const post = useSelector((post) => post.postInfoReducer);
   const settings = {
@@ -60,4 +60,4 @@ const Post = () => {
     </>
   );
 };
-export default Post;
+export default Posts;

@@ -5,7 +5,7 @@ import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import React, { useState } from "react";
 import Mypage from "./pages/Mypage";
-import Post from "./pages/Post";
+import Post from "./pages/Posts";
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <Switch>
           <Route path="/mainpage" component={Mainpage} />
           <Route path="/mypage" component={Mypage} />
-          <Route path="/post" component={Post} />
+          <Route path="/posts" component={Post} />
         </Switch>
       </div>
     </Router>

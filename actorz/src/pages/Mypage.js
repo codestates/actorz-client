@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Nav from "../components/Nav";
+import MypageEdit from "./MypageEdit";
 import img from "../images/actor.jpeg";
 import "../styles/Mypage.css";
-import MypageEdit from "./MypageEdit";
 
 const Mypage = () => {
   const user = useSelector((user) => user.userInfoReducer);
-  const post = useSelector((post) => post.postInfoReducer);
   const [isEdit, setIsEdit] = useState(false);
 
   const handeClickEditBtn = (boolean) => {
