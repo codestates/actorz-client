@@ -1,5 +1,7 @@
 import React from "react";
 import Nav from "../components/Nav";
+import '../mainpage.css';
+
 const Mainpage = () => {
   return (
     <>
