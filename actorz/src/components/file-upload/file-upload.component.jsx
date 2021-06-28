@@ -10,7 +10,7 @@ import {
   PreviewList,
   FileMetaData,
   RemoveFileIcon,
-  InputLabel
+  InputLabel,
 } from "./file-upload.styles";
 import "../../styles/Postupload.css";
 
@@ -46,7 +46,6 @@ const FileUpload = ({
     }
     return { ...files };
   };
-
   const callUpdateFilesCb = (files) => {
     const filesAsArray = convertNestedObjectToArray(files);
     updateFilesCb(filesAsArray);
@@ -72,7 +71,9 @@ const FileUpload = ({
       <div id="upload-modal-background">
         <div id="upload-modal-container">
           <FileUploadContainer>
-            <InputLabel>포트폴리오에 올릴 사진 또는 동영상을 선택해주세요</InputLabel>
+            <InputLabel>
+              포트폴리오에 올릴 사진 또는 동영상을 선택해주세요
+            </InputLabel>
             <DragDropText>Drag and drop your files anywhere or</DragDropText>
             <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
               <i className="fas fa-file-upload" />
@@ -120,7 +121,9 @@ const FileUpload = ({
           </FileUploadContainer>
 
           <button className="cancel-btn">cancel</button>
-          <button type="submit" className="upload-btn">upload</button>
+          <button type="submit" className="upload-btn">
+            upload
+          </button>
         </div>
       </div>
     </>

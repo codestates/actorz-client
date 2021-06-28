@@ -77,7 +77,11 @@ const Nav = () => {
               placeholder="  search..."
               onChange={(e) => inputHandler(e)}
             ></input>
-            <Button variant="outlined" className="product-search-btn">
+            <Button
+              variant="outlined"
+              className="product-search-btn"
+              onClick={handleClickUpload}
+            >
               검색
             </Button>
           </div>
