@@ -31,11 +31,18 @@ const Mainpage = () => {
 
   return (
     <>
-      <div className="blockhere">- </div>
+
+      <div className="blockhere"> </div>
       <div className="mainPage">
         <Nav />
-        <div className="leftSpace"> </div>
-        <div className="middleSpace">
+        <div className="leftSpace"> 
+          <div className="iconList"> 
+          </div>
+        </div>
+
+        <div className="newblockPosition"> </div>
+
+        <div className="middleSpace"> 
           <div className="midContents">
             <Link to="post">
               <div className="user">송중기</div>
@@ -54,8 +61,15 @@ const Mainpage = () => {
             />
           </div>
         </div>
-        <div className="rightSpace"> </div>
-        {clickupload ? (
+        <div className="newblockPosition2"> </div>
+
+        <div className="rightSpace"> 
+         
+          <div className="iconList2">
+          </div>
+        </div>
+      </div>
+{clickupload ? (
           <div>
             <form onSubmit={handleSubmit}>
               <FileUpload
@@ -67,7 +81,6 @@ const Mainpage = () => {
             </form>
           </div>
         ) : null}
-      </div>
     </>
   );
 };
