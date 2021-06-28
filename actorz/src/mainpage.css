@@ -1,3 +1,8 @@
+body {
+  margin: 0px;
+  /*width: 100vw;*/
+}
+
 .search {
 	display: flex;
 	padding: 6px;
@@ -27,5 +32,45 @@
 	display: flex;
 }
 
+.mainPage {
+	display: flex;
+  flex-direction: row;
+}
 
-  
+.blockhere {
+	display: flex;
+	width: 100vw;
+	height: 40px;
+}
+
+.leftSpace {
+	width: 20%;
+	height: 1000px;
+	background-color: red; /* ! 표시임 지워야함 */
+  /* width: 20%; */
+}
+
+.middleSpace {
+	width: 60%;
+	height: 1000px;
+  background-color: green;
+}
+
+.midContents {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+}
+
+.rightSpace {
+	width: 20%;
+	height: 1000px;
+	background-color: blue;
+
+}
+
+.user {
+	color: black;
+	font-size: 50px;
+
+}
