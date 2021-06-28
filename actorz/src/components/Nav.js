@@ -40,13 +40,13 @@ const Nav = () => {
           <div>
             <Link to="/mainpage">
               <img
-                src="https://media.vlpt.us/images/iooi75/post/4f4baec2-cb29-4b8b-b2ea-892cef41febc/Screen%20Shot%202021-06-22%20at%209.56.14%20PM.png"
+                src="https://media.vlpt.us/images/iooi75/post/f8c2abf6-7870-4347-b971-2a4b5a5ecdc5/Screen%20Shot%202021-06-28%20at%203.13.02%20PM.png"
                 className="headerLogo"
               />
             </Link>
           </div>
 
-          <div className="blackNav">- </div>
+          <div className="blackNav"> </div>
 
           <div className="searchTotalNav">
             <input
@@ -60,7 +60,7 @@ const Nav = () => {
             </Button>
           </div>
 
-          <div className="blackNav2">- </div>
+          <div className="blackNav2"> </div>
 
           <div className="signBtnPosition">
             <Button

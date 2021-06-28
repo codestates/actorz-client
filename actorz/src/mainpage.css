@@ -3,6 +3,21 @@ body {
   /*width: 100vw;*/
 }
 
+/*
+font {
+	font-family: arial sans-serif monospace;
+}
+*/
+.alinkEffect2 {
+	text-decoration: none;
+  color: black;
+}
+
+.noEffect {
+	text-decoration: none;
+  color: black;
+}
+
 .search {
 	display: flex;
 	padding: 6px;
@@ -11,13 +26,23 @@ body {
 	top: 0;
 	width: 100vw;
 	height: 45px;
-	background-color: black;
-	z-index: 4;
+	background-color: white;
+	border-bottom: 1px solid #e0e0e0;
 }
   
+.product-search {
+  height: 31.09px;
+  width: 250px;
+	border: solid 0.5px #e0e0e0;
+}	
+
+.product-search-btn {
+	border-bottom: 1px solid #e0e0e0;
+
+}
 .headerLogo {
 	width: 50px;
-	height: 30px;
+	height: 33px;
 }
 
 .blackNav {
@@ -47,13 +72,15 @@ body {
 	text-align: center;
 	width: 20%;
 	height: 1000px;
-	background-color: orange; /* ! 표시임 지워야함 */
   /* width: 20%; */
+	background-color: #fafafa;
 }
 
 .iconList {
+	/*margin-top:100%;*/
 	padding: 10px;
-	background-color: purple; /* ! 표시임 지워야함 */
+	border: solid 1px #e0e0e0;
+	background-color: #fafafa;
 	width: 11rem;
 	height: 17rem;
 	display: inline-block;
@@ -62,43 +89,144 @@ body {
 
 
 .middleSpace {
-	width: 50%;
+	width: 45%;
 	height: 1000px;
-  background-color: green; /* ! 표시임 지워야함 */
+  background-color: #fafafa;
 }
 
 .midContents {
+	/*
 	display: flex;
 	flex-direction: column;
+	*/
+	margin-top: 2rem;
+	border: solid 1px #e0e0e0;
 	text-align: center;
+	background-color: #fafafa;
+}
+
+.midContentDownPart {
+	padding: 30px;
 }
 
 .rightSpace {
 	text-align: center;
 	width: 20%;
 	height: 1000px;
-	background-color: lightblue; /* ! 표시임 지워야함 */
+	background-color: #fafafa;
 }
 
+/* TEMP
 .iconList2 {
 	padding: 10px;
-	background-color: purple; /* ! 표시임 지워야함 */
 	width: 11rem;
 	height: 17rem;
 	display: inline-block;
 	margin-top: 2rem;
 }
+*/
 
 .newblockPosition {
-	width: 5%;
+	width: 10%;
+	background-color: #fafafa;
 }
 
 .newblockPosition2 {
-	width: 5%;
+	width: 10%;
+	background-color: #fafafa;
 }
 
 .user {
+	text-align: center;
 	color: black;
-	font-size: 50px;
+	font-size: 10px;
 }
 
+#Footer {
+  display: flex;
+  left: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 40px;
+  background-color: white;
+  font-size: 15px;
+  color: black;
+  z-index: 4; 
+	border-top: solid 1px #e0e0e0;
+}
+
+.exampleIMG {
+	max-width: 100%;
+	/*transition: all 0.35s;*/
+}
+
+.exampleIMG:hover {
+	opacity: 1;
+}
+
+.exampleIMG::after {
+	content: '';
+	display: block;
+	position: absolute;
+	top:0;
+	left:0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.5);
+	z-index: 1;
+	opacity: 0;
+	transition: all 0.35s;
+}
+
+.midContentUpPart {
+	display: flex;
+	padding: 5px;
+	height: 50px;
+	border-bottom: 1px solid #e0e0e0;
+	max-width: 800px;
+	width: 100%;
+	margin: 0 auto;
+}
+
+.postNamePart {
+	font-family: arial sans-serif monospace;
+	font-weight: bold;
+	margin-left: 10px;
+	margin-top: 8px; 
+	text-align: center;
+}
+
+.spaceDirection {
+	display: flex;
+	flex-direction: column;
+}
+
+.homeButton {
+	display: flex;
+	height: 50px;
+	border-bottom: 1px solid #e0e0e0;
+}
+
+.homeButtonIcon {
+	font-size: 30px;
+
+}
+
+
+.homeButtonText {
+	width: 100%;
+	padding: 15px;
+	margin-right: 30px;
+}
+
+
+.realIcon {
+	color: #686466;
+}
+
+/*
+.exampleProfile {
+	width: 11rem;
+	height: 17rem;
+}
+*/

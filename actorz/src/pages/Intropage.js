@@ -239,10 +239,10 @@ const Intropage = () => {
           <ToolOutlined className="footerIcon" />
           &nbsp;&nbsp;&nbsp;&nbsp;
           <span className="footerName">김선들 |</span>
-          <a href='https://github.com/SundeulDonaKim' target='_blank'>
+          <a href='https://github.com/SundeulDonaKim' target='_blank' className="alinkEffect">
             <GithubOutlined className="footerIcon" />
           </a>
-          <a href='https://velog.io/@dandelion' target='_blank'>
+          <a href='https://velog.io/@dandelion' target='_blank' className="alinkEffect">
           <FormOutlined className="footerIcon" />
           </a>
           <InstagramOutlined className="footerIcon" />
@@ -251,10 +251,10 @@ const Intropage = () => {
 
         <div className="footerUser2">
           <span className="footerName">이한빈 |</span>
-          <a href='https://github.com/lhb7021' target='_blank'>
+          <a href='https://github.com/lhb7021' target='_blank' className="alinkEffect">
             <GithubOutlined className="footerIcon" />
           </a>
-          <a href='https://velog.io/@lhb7021' target='_blank'>
+          <a href='https://velog.io/@lhb7021' target='_blank' className="alinkEffect">
           <FormOutlined className="footerIcon" />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -262,10 +262,10 @@ const Intropage = () => {
 
         <div className="footerUser3">
           <span className="footerName">유지원 |</span>
-          <a href='https://github.com/jiweon21' target='_blank'>
+          <a href='https://github.com/jiweon21' target='_blank' className="alinkEffect">
             <GithubOutlined className="footerIcon" />
           </a>
-          <a href='https://velog.io/@jiwon22' target='_blank'>
+          <a href='https://velog.io/@jiwon22' target='_blank' className="alinkEffect">
           <FormOutlined className="footerIcon" />
           </a>
           <YoutubeOutlined className="footerIcon" />
@@ -274,10 +274,10 @@ const Intropage = () => {
 
         <div className="footerUser4">
           <span className="footerName">임현택 |</span>
-          <a href='https://github.com/Captainjack-kor' target='_blank'>
+          <a href='https://github.com/Captainjack-kor' target='_blank' className="alinkEffect">
             <GithubOutlined className="footerIcon" />
           </a>
-          <a href='https://velog.io/@iooi75' target='_blank'>
+          <a href='https://velog.io/@iooi75' target='_blank' className="alinkEffect">
           <FormOutlined className="footerIcon" />
           </a>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

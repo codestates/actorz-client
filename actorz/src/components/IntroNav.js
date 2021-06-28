@@ -30,8 +30,6 @@ const IntroNav = () => {
   return (
     <>
       <div id="nav">
-        <span className="title">Actorz</span>
-
         <div className="introNavbar">
           <div>
             <Link to="/">
