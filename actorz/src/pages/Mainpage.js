@@ -7,7 +7,7 @@ import MypageEdit from "./MypageEdit";
 import FileUpload from "../components/file-upload/file-upload.component";
 import 'antd/dist/antd.css';
 import { Button } from 'antd';
-import { IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
+import { UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
 import IntroNav from "../components/IntroNav";
 import { Avatar } from '@material-ui/core';
 
@@ -59,11 +59,11 @@ const Mainpage = () => {
 
               <div className="homeButton">
                 <div className="homeButtonIcon"> 
-                  <Link className="noEffect" onClick={() => handleClickUpload(true)}>
+                  <Link className="noEffect" onClick={() => handleClickUpload(true)} to="/mainpage">
                     <FileAddOutlined className="realIcon"/>
                   </Link>
                 </div>
-                 <Link className="noEffect">
+                 <Link className="noEffect" to="/mainpage">
                   <div className="homeButtonText" onClick={() => handleClickUpload(true)}>
                       Post
                   </div>
@@ -73,7 +73,7 @@ const Mainpage = () => {
               <div className="homeButton">
                 <div className="homeButtonIcon"> 
                   <Link className="noEffect" to="/mypage" onClick={() => handleClickUpload(true)}>
-                    <IdcardOutlined className="realIcon"/>
+                    <UserOutlined className="realIcon"/>
                   </Link>
                 </div>
                  <Link className="noEffect" to="/mypage" onClick={() => handleClickUpload(true)}>
@@ -120,11 +120,27 @@ const Mainpage = () => {
             </div>
             
             <div className="midContentDownPart">
-              <img
-                src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
-                alt=""
-                className="exampleIMG"
-              />
+              <div className="effecTest">
+                <a href="/mainpage">
+                  <div className="screen">
+                    <div className="top"> 고윤정 테스트</div>
+                    <div className="bottom">
+                      <HeartOutlined className="testIcon"/>
+                    </div>
+                    <img
+                    src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
+                    alt=""
+                    className="exampleIMG"
+                  />
+                  </div>
+                  {/* <img
+                    src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
+                    alt=""
+                    className="exampleIMG"
+                  /> */}
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
