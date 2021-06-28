@@ -1,0 +1,105 @@
+@import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+#post-container {
+  margin-top: 70px;
+  margin-left: 100px;
+  display: flex;
+}
+#container1 {
+  position: absolute;
+  border: 2px solid rgba(0, 0, 0, 0.246);
+  margin-top: 50px;
+  margin-left: 200px;
+  width: 1100px;
+  box-shadow: 20px -16px rgba(93, 93, 104, 0.2);
+}
+
+#post-info {
+  height: 20px;
+  margin-left: 60px;
+}
+
+#post-info ul {
+  padding-top: 40px;
+  font-size: 20px;
+}
+
+.post-edit {
+  position: absolute;
+  margin-left: 450px;
+  margin-top: 20px;
+  border: 0px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.name {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+.dob,
+.email,
+.company {
+  padding-bottom: 10px;
+}
+
+.img {
+  width: 300px;
+}
+
+ul {
+  padding: 0px;
+}
+
+li {
+  list-style: none;
+}
+
+.career {
+  font-size: 40px;
+  margin-left: 100px;
+  margin-top: 20px;
+}
+
+.career-add-btn {
+  font-size: 40px;
+  border-radius: 30px;
+  background-color: white;
+  margin: 10px;
+  color: rgb(33, 66, 143);
+}
+
+.career-box li {
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 20px;
+  margin-top: 30px;
+  margin-left: 100px;
+  margin-bottom: 60px;
+  padding-top: 15px;
+  padding-left: 15px;
+  height: 130px;
+  width: 800px;
+  border: 1px solid black;
+}
+
+.career-delete-btn {
+  position: absolute;
+  margin-left: 750px;
+  border: 0px;
+  background-color: white;
+}
+
+.career-year {
+  margin-left: 80px;
+}
+.genre-tag-box {
+  margin-top: 15px;
+}
+
+.genre-tag {
+  border: 1px solid;
+  border-radius: 20px;
+  padding: 6px;
+  margin: 15px;
+}

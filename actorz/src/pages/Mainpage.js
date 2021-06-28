@@ -8,7 +8,7 @@ const Mainpage = () => {
       <Nav />
       <div>메인페이지</div>
     </>
-  )
-}
+  );
+};
 
 export default Mainpage;
