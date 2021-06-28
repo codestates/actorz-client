@@ -1,0 +1,41 @@
+.container {
+  border: 1px solid black;
+  margin-left: 180px;
+  margin-top: 130px;
+  width: 1000px;
+  height: 1200px;
+  display: flex;
+}
+
+.post-name {
+  font-size: 40px;
+  margin-left: 40px;
+  margin-top: 20px;
+}
+
+.img {
+  margin: 40px;
+}
+
+.video {
+  width: 900px;
+  height: 600px;
+  margin-left: 40px;
+  margin-bottom: 50px;
+}
+
+.info {
+  height: 20px;
+}
+
+.like {
+  position: absolute;
+  font-size: 20px;
+  margin-top: 100px;
+}
+
+.genre {
+  position: absolute;
+  font-size: 30px;
+  margin-top: 30px;
+}

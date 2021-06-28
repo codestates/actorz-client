@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import Nav from "../components/Nav";
 import Slider from "react-slick";
 import img from "../images/actor.jpeg";
@@ -53,7 +54,16 @@ const Posts = () => {
       {
         <Slider {...settings} className="slider">
           {post.data.posts.map((post) => {
-            return <img src={post.path}></img>;
+            return (
+              <Link
+                to={{
+                  pathname: `/post/${post.id}`,
+                  state: { id: post.id },
+                }}
+              >
+                <img src={post.path} />
+              </Link>
+            );
           })}
         </Slider>
       }
