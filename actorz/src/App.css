@@ -90,7 +90,7 @@ a {
   animation: introContentsEffectDisplay 1s 0.3s normal 1 ease forwards;
   display: flex;
   flex-direction: column;
-  padding: 80px;
+  padding: 30px;
   text-align: center;
 }
 
@@ -237,7 +237,7 @@ a {
   padding: 20px;
   margin-top: 50px;
   text-align: center;
-  height: 100px;
+  height: 0px;
 }
   
 /* new css */
@@ -267,10 +267,13 @@ a {
 }
 
 
+/*
 @keyframes actorsEffect {
   0% { margin-left:0px; }
   100%  { margin-left:100px; }
 }
+*/
+
 /*
   position: absolute;
   opacity: 0;
@@ -310,20 +313,13 @@ a {
   margin-bottom: -50px;
 }
 
-.actor1995:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  right: 200px; 
-  color: white;
-  background-color: white;
-  transition: 0.5s;
-}
 
-.actor1995:hover:after {
-  opacity: 1;
-  bottom: 50px;
+/*
+[data-trigger].invisible {
+  opacity: 0;
+  top: 20px;
 }
+*/
 
 .actor1996 {
   width: 500px;
@@ -514,6 +510,11 @@ a {
 }
 */
 
+.actorLastimage {
+  width: 800px;
+  height: 400px;
+}
+
 .lastContents {
   height: 200px;
   display: flex;
@@ -547,4 +548,20 @@ a {
 .blackSpace02 {
   /*background-color: yellow; *//* ! 표시임 지워야함 */
   width: 20%;
+}
+
+
+
+/* ******************* */
+
+[data-trigger] {
+  opacity: 0;
+  position: relative;
+  top: 100px;
+  transition: 1s ease-out;
+}
+
+[data-trigger].visible {
+  opacity: 1;
+  top: 0;
 }

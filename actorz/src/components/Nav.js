@@ -43,7 +43,9 @@ const Nav = () => {
             </a>
           </div>
 
-          <div>
+          <div className="blackNav">- </div>
+
+          <div className="searchTotalNav">
             <input
               className="product-search"
               value={search}
@@ -52,6 +54,8 @@ const Nav = () => {
             ></input>
             <Button variant="outlined" className="product-search-btn">검색</Button>
           </div>
+
+          <div className="blackNav2">- </div>
 
           <div className="signBtnPosition">
             <Button variant="outlined"
