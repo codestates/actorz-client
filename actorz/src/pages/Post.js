@@ -1,20 +1,20 @@
-import { useSelector, useDispatch } from 'react-redux';
-import Nav from '../components/Nav';
-import "../styles/Post.css";
+import { useSelector, useDispatch } from "react-redux";
+import Nav from "../components/Nav";
+import Slider from "react-slick";
 import img from "../images/actor.jpeg";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Slider from "react-slick";
+import "../styles/Post.css";
 
 const Post = () => {
-  const user = useSelector(user => user.userInfoReducer);
-  const post = useSelector(post => post.postInfoReducer);
+  const user = useSelector((user) => user.userInfoReducer);
+  const post = useSelector((post) => post.postInfoReducer);
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 1
+    slidesToScroll: 1,
   };
 
   return (
@@ -33,33 +33,31 @@ const Post = () => {
             <li className="email">{user.data.userInfo.email}</li>
             <strong>소속사</strong>
             <li className="company">{user.data.userInfo.company}</li>
-
           </ul>
         </span>
       </div>
       <span className="career">
-        {
-          user.data.userInfo.careers.map(career => {
-            return (
-              <li>{`${career.year}` + ` ${career.title}` + ` / ` +
-                `${career.type.map(type => {
+        {user.data.userInfo.careers.map((career) => {
+          return (
+            <li>
+              {`${career.year}` +
+                ` ${career.title}` +
+                ` / ` +
+                `${career.type.map((type) => {
                   return type;
-                })}`
-              }</li>
-            )
-          })
-        }
+                })}`}
+            </li>
+          );
+        })}
       </span>
       {
         <Slider {...settings} className="slider">
-          {
-            post.data.posts.map(post => {
-              return <img src={post.path}></img>;
-            })
-          }
+          {post.data.posts.map((post) => {
+            return <img src={post.path}></img>;
+          })}
         </Slider>
       }
     </>
-  )
-}
+  );
+};
 export default Post;

@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Merienda&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 #post-container {
   margin-top: 10px;
   margin-left: 300px;
@@ -19,7 +19,7 @@
   font-size: 72px;
   margin-top: 100px;
   margin-left: 300px;
-  font-family: 'Merienda', cursive;
+  font-family: "Merienda", cursive;
 }
 
 #post-info {
@@ -32,14 +32,17 @@
   margin-bottom: 10px;
 }
 
-.dob, .email, .company{
+.dob,
+.email,
+.company {
   padding-bottom: 10px;
 }
 
 .img {
   width: 300px;
-/*   margin-top: 120px;
- */}
+  /*   margin-top: 120px;
+ */
+}
 
 ul {
   padding: 0px;
@@ -50,7 +53,7 @@ li {
 }
 
 .career li {
-  font-family: 'Nanum Gothic', sans-serif;
+  font-family: "Nanum Gothic", sans-serif;
   font-size: 17px;
   margin-top: 20px;
   margin-left: 300px;
@@ -66,7 +69,7 @@ li {
   padding: 20px;
 }
 
-.slider img:hover{
+.slider img:hover {
   transform: scale(1.1);
   transition: all 0.3s ease-in-out;
 }
