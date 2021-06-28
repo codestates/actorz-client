@@ -20,9 +20,9 @@ const Post = () => {
   return (
     <>
       <Nav />
-      <div id="container1"></div>
+      <div id="post-container1"></div>
       <div id="post-title">Actor</div>
-      <div id="post-container">
+      <div id="container">
         <img src={img} className="img" alt="프로필"></img>
         <span id="post-info">
           <p className="name">{user.data.userInfo.name}</p>
@@ -36,7 +36,7 @@ const Post = () => {
           </ul>
         </span>
       </div>
-      <span className="career">
+      <span className="post-career">
         {user.data.userInfo.careers.map((career) => {
           return (
             <li>
