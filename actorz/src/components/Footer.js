@@ -16,7 +16,7 @@ const Footer = () => {
           <a href='https://velog.io/@dandelion' target='_blank' className="alinkEffect2">
             <FormOutlined className="footerIcon" />
           </a>
-          <InstagramOutlined className="footerIcon" />
+          {/* <InstagramOutlined className="footerIcon" /> */}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
 
@@ -39,7 +39,7 @@ const Footer = () => {
           <a href='https://velog.io/@jiwon22' target='_blank' className="alinkEffect2">
             <FormOutlined className="footerIcon" />
           </a>
-          <YoutubeOutlined className="footerIcon" />
+          {/* <YoutubeOutlined className="footerIcon" /> */}
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </div>
 

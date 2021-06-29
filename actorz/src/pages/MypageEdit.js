@@ -7,6 +7,10 @@ import {
 } from "../actions/userAction";
 import img from "../images/actor.jpeg";
 import "../styles/MypageEdit.css";
+import Iconlist from "../components/Iconlist";
+import Nav from "../components/Nav";
+import { SaveOutlined, EditOutlined, DeleteOutlined, UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
+import Footer from '../components/Footer';
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
@@ -83,7 +87,100 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   return (
     <>
-      <div id="mypage-container1">
+      <div className="blockhere"> </div>
+          <div className="mainPage">
+            <Nav />   
+            <Iconlist />
+            
+            <div className="newblockPosition"> </div>
+
+            <div className="middleSpace">
+              <div className="midContents">
+                <div className="buttonHeader">
+                 <SaveOutlined className="editButton" onClick={() => handleClickSaveBtn()}/>
+                 &nbsp;&nbsp;
+                 <DeleteOutlined className="deleteButton"/>
+                </div>
+                <div className="midContentDownPart">
+                  <div className="displayPosition">
+                    <div className="fixedSize">
+                        <img src="https://media.vlpt.us/images/iooi75/post/167ee00c-d4ca-4ffe-b034-504673f8e1f1/image.png" className="testPic" />
+                    </div>
+
+                    <div className="fixedContent">
+                      <p className="name">{user.data.userInfo.name}</p>
+                      <ul>
+                        <strong>생년월일</strong>
+                        <li className="dob">
+                          <input
+                            type="text"
+                            className="highlightDisplay"
+                            defaultValue={user.data.userInfo.dob}
+                            onChange={handleInputValue("dob")}
+                          />
+                        </li>
+                        <strong>이메일</strong>
+                        <li className="email">
+                          <input
+                            type="text"
+                            className="highlightDisplay"
+                            defaultValue={user.data.userInfo.email}
+                            onChange={handleInputValue("email")}
+                          ></input>
+                        </li>
+                        <strong>소속사</strong>
+                        <li className="company">
+                          <input
+                            type="text"
+                            className="highlightDisplay"
+                            defaultValue={user.data.userInfo.company}
+                            onChange={handleInputValue("company")}
+                          ></input>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="careerTitle">
+                    Career 🏆
+                  </div>
+                  <div className="careerContent">
+                    <span className="career-box">
+                      <li className="career-li">
+                        <button className="career-btn" onClick={handleClickConfirmBtn}>
+                          추가
+                        </button>
+                        <span className="career-title">제목: </span>
+                        <input type="text" onChange={handleInputValue("title")} />
+                        <span className="career-year">활동연도: </span>
+                        <input type="text" onChange={handleInputValue("year")} />
+                        <div>
+                          <span>태그: </span>
+                          <input
+                            placeholder="태그를 입력하세요"
+                            className="tag"
+                            onKeyPress={handleTagBtn}
+                          />
+                        </div>
+                        <div className="genre-tag-box">
+                          {tag.map((el) => {
+                            return <span className="genre-tag">{el}</span>;
+                          })}
+                        </div>
+                      </li>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="newblockPosition2"> </div>
+
+            <div className="rightSpace">  
+              <div className="iconList2"> </div>
+            </div>
+          </div>
+        <Footer />
+      {/* <div id="mypage-container1">
         <div id="mypage-container">
           <img src={img} className="img" alt="프로필"></img>
           <span id="post-info">
@@ -120,9 +217,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           </span>
         </div>
         <span className="career">경력</span>
-        {/* <button className="career-add-btn" onClick={handleClickAddBtn}>
+        { <button className="career-add-btn" onClick={handleClickAddBtn}>
           + 추가
-        </button> */}
+        </button> }
         <span className="career-box">
           <li className="career-li">
             <button className="career-btn" onClick={handleClickConfirmBtn}>
@@ -176,7 +273,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
             );
           })}
         </span>
-      </div>
+      </div> */}
     </>
   );
 };

@@ -111,43 +111,6 @@ const Mypage = () => {
               <div className="iconList2"> </div>
             </div>
           </div>
-        
-
-            {/* <div id="mypage-container">
-              <img src={img} className="img" alt="프로필"></img>
-              <span id="post-info">
-                <button
-                  className="post-edit"
-                  onClick={() => handeClickEditBtn(true)}
-                >
-                  프로필 수정
-                </button>
-                <p className="name">{user.data.userInfo.name}</p>
-                <ul>
-                  <strong>생년월일</strong>
-                  <li className="dob">{user.data.userInfo.dob}</li>
-                  <strong>이메일</strong>
-                  <li className="email">{user.data.userInfo.email}</li>
-                  <strong>소속사</strong>
-                  <li className="company">{user.data.userInfo.company}</li>
-                </ul>
-              </span>
-            </div> */}
-            {/*     
-            <span className="career">
-              {user.data.userInfo.careers.map((career) => {
-                return (
-                  <li>
-                    {`${career.year}` +
-                      ` ${career.title}` +
-                      ` / ` +
-                      `${career.type.map((type) => {
-                        return type;
-                      })}`}
-                  </li>
-                );
-              })}
-            </span> */}
         <Footer />
       </>
       ) : (

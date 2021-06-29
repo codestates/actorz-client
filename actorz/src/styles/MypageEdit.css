@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+/*
 #post-container {
   margin-top: 70px;
   margin-left: 100px;
@@ -37,15 +38,19 @@
   font-size: 50px;
   margin-bottom: 10px;
 }
-
+*/
+/*
 .dob,
 .email,
 .company {
   padding-bottom: 10px;
+  background-color: lightyellow;
 }
+*/
 
-.img {
-  width: 300px;
+.highlightDisplay {
+  border-bottom: 1px solid #e0e0e0;
+  background-color: lightyellow;
 }
 
 ul {
@@ -58,7 +63,6 @@ li {
 
 .career {
   font-size: 40px;
-  margin-left: 100px;
   margin-top: 25px;
 }
 
@@ -102,3 +106,4 @@ li {
   padding: 6px;
   margin: 15px;
 }
+
