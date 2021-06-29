@@ -66,10 +66,6 @@ li {
   width: 800px;
 }
 
-.slider img {
-  padding: 20px;
-}
-
 .slider img:hover {
   transform: scale(1.1);
   transition: all 0.3s ease-in-out;

@@ -1,41 +1,114 @@
+#post-modal-background {
+  /* position: absolute; */
+  position: fixed;
+  flex-direction: column;
+  top: -40vh;
+  left: -40vw;
+  width: 140vw;
+  height: 140vh;
+  z-index: 10000;
+  padding-top: 14rem;
+  padding-left: 45rem;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.8);
+}
+
 .container {
-  border: 1px solid black;
-  margin-left: 180px;
+  background-color: white;
+  margin-left: -60px;
+  border-radius: 15px;
   margin-top: 130px;
-  width: 1000px;
-  height: 1200px;
+  width: 1300px;
+  height: 80%;
   display: flex;
+  overflow-y: hidden;
+  /*   overflow-y: scroll;
+ */
+}
+
+.container::-webkit-scrollbar {
+  width: 6px;
 }
 
 .post-name {
-  font-size: 40px;
-  margin-left: 40px;
-  margin-top: 20px;
+  font-size: 22px;
+  margin: 15px 15px;
 }
 
-.img {
+.post-image {
   margin: 40px;
+  margin-top: 72px;
+  height: 600px;
+  object-fit: cover;
 }
 
 .video {
-  width: 900px;
+  width: 1200px;
   height: 600px;
-  margin-left: 40px;
-  margin-bottom: 50px;
+  margin-top: 72px;
 }
 
 .info {
   height: 20px;
 }
 
+.info-box {
+  display: flex;
+  position: fixed;
+  margin-bottom: 50px;
+  width: 1300px;
+}
 .like {
-  position: absolute;
   font-size: 20px;
-  margin-top: 100px;
+  margin: 15px 1100px;
+}
+
+.heart-img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  margin: 15px 1200px;
 }
 
 .genre {
   position: absolute;
-  font-size: 30px;
-  margin-top: 30px;
+  font-size: 14px;
+  margin: 21px 125px;
+}
+
+.img-box {
+  text-align: center;
+  display: flex;
+  /*   flex-direction: column;
+ */
+}
+
+.float-btn-box {
+  position: absolute;
+  margin-top: 140px;
+  margin-left: 1250px;
+  padding: 10px;
+}
+
+.float-btn {
+  margin-top: 20px;
+  padding: 2px;
+  color: white;
+}
+
+.float-profile-btn,
+.float-love-btn,
+.float-email-btn {
+  width: 50px;
+}
+
+.float-profile-title,
+.float-love-title {
+  margin-top: 5px;
+  margin-left: 5px;
+}
+
+.float-email-title {
+  margin-top: 5px;
 }
