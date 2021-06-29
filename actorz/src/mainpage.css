@@ -4,101 +4,99 @@ body {
 }
 
 .search {
-	display: flex;
-	padding: 6px;
-	position: fixed;
-	left: 0;
-	top: 0;
-	width: 100vw;
-	height: 45px;
-	background-color: black;
-	z-index: 4;
+  display: flex;
+  padding: 6px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 45px;
+  background-color: black;
+  z-index: 4;
 }
-  
+
 .headerLogo {
-	width: 50px;
-	height: 30px;
+  width: 50px;
+  height: 30px;
 }
 
 .blackNav {
-	width: 40%;
+  width: 40%;
 }
 
 .blackNav2 {
-	width: 30%;
+  width: 30%;
 }
 
 .searchTotalNav {
-	display: flex;
+  display: flex;
 }
 
 .mainPage {
-	display: flex;
+  display: flex;
   flex-direction: row;
 }
 
 .blockhere {
-	display: flex;
-	width: 100vw;
-	height: 40px;
+  display: flex;
+  width: 100vw;
+  height: 40px;
 }
 
 .leftSpace {
-	text-align: center;
-	width: 20%;
-	height: 1000px;
-	background-color: orange; /* ! 표시임 지워야함 */
+  text-align: center;
+  width: 20%;
+  height: 1000px;
+  background-color: orange; /* ! 표시임 지워야함 */
   /* width: 20%; */
 }
 
 .iconList {
-	padding: 10px;
-	background-color: purple; /* ! 표시임 지워야함 */
-	width: 11rem;
-	height: 17rem;
-	display: inline-block;
-	margin-top: 2rem;
+  padding: 10px;
+  background-color: purple; /* ! 표시임 지워야함 */
+  width: 11rem;
+  height: 17rem;
+  display: inline-block;
+  margin-top: 2rem;
 }
 
-
 .middleSpace {
-	width: 50%;
-	height: 1000px;
+  width: 50%;
+  height: 1000px;
   background-color: green; /* ! 표시임 지워야함 */
 }
 
 .midContents {
-	display: flex;
-	flex-direction: column;
-	text-align: center;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .rightSpace {
-	text-align: center;
-	width: 20%;
-	height: 1000px;
-	background-color: lightblue; /* ! 표시임 지워야함 */
+  text-align: center;
+  width: 20%;
+  height: 1000px;
+  background-color: lightblue; /* ! 표시임 지워야함 */
 }
 
 .iconList2 {
-	padding: 10px;
-	background-color: purple; /* ! 표시임 지워야함 */
-	width: 11rem;
-	height: 17rem;
-	display: inline-block;
-	margin-top: 2rem;
+  padding: 10px;
+  background-color: purple; /* ! 표시임 지워야함 */
+  width: 11rem;
+  height: 17rem;
+  display: inline-block;
+  margin-top: 2rem;
 }
 
 .newblockPosition {
-	width: 5%;
+  width: 5%;
 }
 
 .newblockPosition2 {
-	width: 5%;
+  width: 5%;
 }
 
 .user {
-	color: black;
-	font-size: 50px;
+  color: black;
+  font-size: 50px;
 }
-

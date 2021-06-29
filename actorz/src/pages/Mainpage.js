@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav";
 import { Link } from "react-router-dom";
-import Post from "../pages/Post";
+import Posts from "../pages/Posts";
 import Mypage from "../pages/Mypage";
 import MypageEdit from "./MypageEdit";
 import FileUpload from "../components/file-upload/file-upload.component";
@@ -31,20 +31,18 @@ const Mainpage = () => {
 
   return (
     <>
-
       <div className="blockhere"> </div>
       <div className="mainPage">
         <Nav />
-        <div className="leftSpace"> 
-          <div className="iconList"> 
-          </div>
+        <div className="leftSpace">
+          <div className="iconList"></div>
         </div>
 
         <div className="newblockPosition"> </div>
 
-        <div className="middleSpace"> 
+        <div className="middleSpace">
           <div className="midContents">
-            <Link to="post">
+            <Link to="posts">
               <div className="user">송중기</div>
             </Link>
 
@@ -63,24 +61,22 @@ const Mainpage = () => {
         </div>
         <div className="newblockPosition2"> </div>
 
-        <div className="rightSpace"> 
-         
-          <div className="iconList2">
-          </div>
+        <div className="rightSpace">
+          <div className="iconList2"></div>
         </div>
       </div>
-{clickupload ? (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <FileUpload
-                accept=".jpg,.png,.jpeg, .mp4"
-                multiple
-                updateFilesCb={updateUploadedFiles}
-                handleClickUpload={handleClickUpload}
-              />
-            </form>
-          </div>
-        ) : null}
+      {clickupload ? (
+        <div>
+          <form onSubmit={handleSubmit}>
+            <FileUpload
+              accept=".jpg,.png,.jpeg, .mp4"
+              multiple
+              updateFilesCb={updateUploadedFiles}
+              handleClickUpload={handleClickUpload}
+            />
+          </form>
+        </div>
+      ) : null}
     </>
   );
 };
