@@ -46,26 +46,26 @@ font {
 }
 
 .blackNav {
-	width: 40%;
+  width: 40%;
 }
 
 .blackNav2 {
-	width: 30%;
+  width: 30%;
 }
 
 .searchTotalNav {
-	display: flex;
+  display: flex;
 }
 
 .mainPage {
-	display: flex;
+  display: flex;
   flex-direction: row;
 }
 
 .blockhere {
-	display: flex;
-	width: 100vw;
-	height: 40px;
+  display: flex;
+  width: 100vw;
+  height: 40px;
 }
 
 .leftSpace {
@@ -86,7 +86,6 @@ font {
 	display: inline-block;
 	margin-top: 2rem;
 }
-
 
 .middleSpace {
 	width: 45%;

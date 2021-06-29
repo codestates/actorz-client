@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addUserCareer, removeUserCareer } from "../actions/userAction";
+import {
+  editUserInfo,
+  addUserCareer,
+  removeUserCareer,
+} from "../actions/userAction";
 import img from "../images/actor.jpeg";
 import "../styles/MypageEdit.css";
 
@@ -17,11 +21,11 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
-      setDob({ [key]: event.target.value });
+      setDob(event.target.value);
     } else if (key === "email") {
-      setEmail({ [key]: event.target.value });
+      setEmail(event.target.value);
     } else if (key === "company") {
-      setCompany({ [key]: event.target.value });
+      setCompany(event.target.value);
     } else if (key === "title") {
       setTitle({ [key]: event.target.value });
     } else if (key === "year") {
@@ -46,17 +50,35 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleClickSaveBtn = () => {
+    console.log(email);
+
+    handeClickEditBtn(false);
+    dispatch(
+      editUserInfo({
+        id: user.data.userInfo.id,
+        mainPic: user.data.userInfo.mainPic,
+        email: email,
+        name: user.data.userInfo.name,
+        company: company,
+        provider: user.data.userInfo.provider,
+        gender: user.data.userInfo.gender,
+        dob: dob,
+        careers: user.data.userInfo.careers,
+      })
+    );
+  };
+
+  const handleClickConfirmBtn = () => {
     if (title.title !== undefined && year.year !== undefined) {
       dispatch(
         addUserCareer({
-          id: 5, //나중에 바꾸기
+          id: null,
           title: title.title,
           year: Number(year.year),
           type: tag,
         })
       );
     }
-    handeClickEditBtn(false);
   };
 
   return (
@@ -98,9 +120,33 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           </span>
         </div>
         <span className="career">경력</span>
-        <button className="career-add-btn" onClick={handleClickAddBtn}>
+        {/* <button className="career-add-btn" onClick={handleClickAddBtn}>
           + 추가
-        </button>
+        </button> */}
+        <span className="career-box">
+          <li className="career-li">
+            <button className="career-btn" onClick={handleClickConfirmBtn}>
+              추가
+            </button>
+            <span className="career-title">제목: </span>
+            <input type="text" onChange={handleInputValue("title")} />
+            <span className="career-year">활동연도: </span>
+            <input type="text" onChange={handleInputValue("year")} />
+            <div>
+              <span>태그: </span>
+              <input
+                placeholder="태그를 입력하세요"
+                className="tag"
+                onKeyPress={handleTagBtn}
+              />
+            </div>
+            <div className="genre-tag-box">
+              {tag.map((el) => {
+                return <span className="genre-tag">{el}</span>;
+              })}
+            </div>
+          </li>
+        </span>
 
         <span className="career-box">
           {user.data.userInfo.careers.map((career) => {
@@ -130,39 +176,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
             );
           })}
         </span>
-        {clickCareer.map((career) => {
-          return (
-            <span className="career-box">
-              <li className="career-li">
-                <button
-                  className="career-delete-btn"
-                  onClick={() => {
-                    handleDeleteBtn(career.id);
-                  }}
-                >
-                  X
-                </button>
-                <span className="career-title">제목: </span>
-                <input type="text" onChange={handleInputValue("title")} />
-                <span className="career-year">활동연도: </span>
-                <input type="text" onChange={handleInputValue("year")} />
-                <div>
-                  <span>태그: </span>
-                  <input
-                    placeholder="태그를 입력하세요"
-                    className="tag"
-                    onKeyPress={handleTagBtn}
-                  />
-                </div>
-                <div className="genre-tag-box">
-                  {tag.map((el) => {
-                    return <span className="genre-tag">{el}</span>;
-                  })}
-                </div>
-              </li>
-            </span>
-          );
-        })}
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav";
 import { Link } from "react-router-dom";
-import Post from "../pages/Post";
+import Posts from "../pages/Posts";
 import Mypage from "../pages/Mypage";
 import MypageEdit from "./MypageEdit";
 import FileUpload from "../components/file-upload/file-upload.component";
@@ -37,7 +37,6 @@ const Mainpage = () => {
 
   return (
     <>
-
       <div className="blockhere"> </div>
       <div className="mainPage">
         <Nav />
@@ -103,7 +102,7 @@ const Mainpage = () => {
 
         <div className="newblockPosition"> </div>
 
-        <div className="middleSpace"> 
+        <div className="middleSpace">
           <div className="midContents">
             <div className="midContentUpPart"> 
               <div>

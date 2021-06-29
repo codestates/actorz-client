@@ -59,15 +59,14 @@ li {
 .career {
   font-size: 40px;
   margin-left: 100px;
-  margin-top: 20px;
+  margin-top: 25px;
 }
 
-.career-add-btn {
-  font-size: 40px;
-  border-radius: 30px;
+.career-btn {
+  position: absolute;
+  margin-left: 720px;
+  border: 0px;
   background-color: white;
-  margin: 10px;
-  color: rgb(33, 66, 143);
 }
 
 .career-box li {
