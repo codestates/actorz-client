@@ -71,7 +71,7 @@ font {
 .leftSpace {
 	text-align: center;
 	width: 20%;
-	height: 1000px;
+	height: 100vh;
   /* width: 20%; */
 	background-color: #fafafa;
 }
@@ -89,8 +89,9 @@ font {
 
 .middleSpace {
 	width: 45%;
-	height: 1000px;
+	height: 100vh;
   background-color: #fafafa;
+	margin-bottom: 5rem;
 }
 
 .midContents {
@@ -100,18 +101,23 @@ font {
 	*/
 	margin-top: 2rem;
 	border: solid 1px #e0e0e0;
-	text-align: center;
+	/*text-align: center;*/
 	background-color: #fafafa;
 }
 
 .midContentDownPart {
+	display: flex;
+	flex-direction: column;
+	/*flex-wrap: wrap;*/
+	/*height: 100vh;*/
 	padding: 30px;
+	
 }
 
 .rightSpace {
 	text-align: center;
 	width: 20%;
-	height: 1000px;
+	height: 100vh;
 	background-color: #fafafa;
 }
 
@@ -200,11 +206,12 @@ font {
 	margin-right: 30px;
 }
 
-
 .realIcon {
 	color: #686466;
 }
-
+.realIcon:hover {
+	color: #61ace2;
+}
 /*
 .exampleProfile {
 	width: 11rem;

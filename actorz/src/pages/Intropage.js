@@ -1,10 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom"
-import Nav from "../components/Nav";
+import { Link } from "react-router-dom";
 import '../App.css'
 import 'antd/dist/antd.css';
 import { Button } from 'antd';
-import { GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
+import { ArrowDownOutlined, UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, YoutubeOutlined} from '@ant-design/icons';
 import IntroNav from "../components/IntroNav";
 import ScrollTrigger from '@terwanerik/scrolltrigger';
 const trigger = new ScrollTrigger();

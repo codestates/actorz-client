@@ -1,11 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+html {
+  font-size: 100%;
+  background-color: #fafafa;
+}
+/*
 #mypage-container {
   margin-top: 70px;
   margin-left: 100px;
   display: flex;
 }
+*/
 
+/*
 #mypage-container1 {
   position: absolute;
   border: 2px solid rgba(0, 0, 0, 0.246);
@@ -14,16 +22,19 @@
   width: 1100px;
   box-shadow: 20px -16px rgba(93, 93, 104, 0.2);
 }
-
+*/
+/*
 #post-info {
   height: 20px;
   margin-left: 60px;
 }
 
+
 #post-info ul {
   padding-top: 40px;
   font-size: 20px;
 }
+
 
 .post-edit {
   position: absolute;
@@ -33,9 +44,11 @@
   border-radius: 5px;
   font-size: 20px;
 }
+*/
 
 .name {
-  font-size: 50px;
+  /*font: italic 1.2em "Fira Sans", serif;*/
+  font-size: 25px;
   margin-bottom: 10px;
 }
 
@@ -43,10 +56,6 @@
 .email,
 .company {
   padding-bottom: 10px;
-}
-
-.img {
-  width: 300px;
 }
 
 ul {
@@ -57,10 +66,99 @@ li {
   list-style: none;
 }
 
+.careerTitle {
+  font: italic small-caps bold 16px/2 cursive;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.career {
+  height: 50%;
+}
+
+.careerContent {
+  margin-top: 0rem;
+  /*text-align: left;*/
+  /*background-color: yellow;*/  /* TEST  */
+  margin-left: -6rem;
+}
+
 .career li {
-  font-family: "Nanum Gothic", sans-serif;
-  font-size: 20px;
-  margin-top: 50px;
-  margin-left: 100px;
-  margin-bottom: 60px;
+  /*font-family: "Nanum Gothic", sans-serif;*/
+  font-size: 1rem;
+  text-align: left;
+}
+
+
+.fixedSize {
+  /*
+  width: 15rem;
+  height: 20rem;*/
+  /*background-color: yellow;*/
+}
+
+.testPic {
+  width: 15rem;
+  height: 20rem;
+  object-fit: cover;
+}
+
+.midContentDownPart .div {
+  /* display: flex; */
+}
+
+.fixedContent {
+  padding: 30px;
+  /*max-width:100%;*/
+  height: 20rem;
+  background-color: #fafafa;
+}
+
+.displayPosition {
+  display: flex;
+  /*flex-direction: column;*/
+  /*text-align: center;*/
+  flex-wrap: wrap;
+  align-content: flex-start;
+}
+
+/*
+.midContentDownPart2 {
+	display: flex;
+	flex-direction: column;
+	// flex-wrap: wrap;
+	padding: 30px;
+}
+*/
+
+
+
+/* * Button */
+.buttonHeader {
+  color: gray;
+  font-size: 2rem;
+  text-align: right;
+  margin-top: 0.2rem;
+  margin-right: 1rem;
+}
+
+.editButton {
+  padding:3px;
+  border: 1px solid lightgray;
+}
+
+.editButton:hover {
+  color: #1655cb;
+  border: 1px solid #1655cb;
+}
+
+.deleteButton {
+  padding:3px;
+  border: 1px solid lightgray;
+}
+
+.deleteButton:hover {
+  color: red;
+  border: 1px solid red;
 }
