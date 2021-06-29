@@ -3,12 +3,12 @@ import { postInitState } from "./postInitState";
 
 const postInfoReducer = (state = postInitState, action) => {
   switch (action.type) {
-    case SELECT_POST_INFO:
-      return Object.assign({}, state, {
-        posts: state.data.posts.filter((el) => {
-          return el.id === action.payload.id;
-        }),
-      });
+    // case SELECT_POST_INFO:
+    //   return Object.assign({}, state, {
+    //     posts: state.data.posts.filter((el) => {
+    //       return el.id === action.payload.id;
+    //     }),
+    //   });
     default:
       return state;
   }
