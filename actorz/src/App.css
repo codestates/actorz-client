@@ -1,11 +1,13 @@
 body {
   margin: 0px;
+  background-color: eeeeee;
   /*width: 100vw;*/
 }
 
-a { 
+.alinkEffect { 
   text-decoration: none;
-  color: white
+  color: white;
+
 }
 
 .introNavbar {
@@ -36,18 +38,6 @@ a {
   width: 50px;
   height: 30px;
 }
-
-/* *상단 nav바 검색하고 검색창
-.product-search {
-  height: 31.09px;
-  width: 250px;
-  margin-left: 525px;
-}
-
-.product-search-btn {
-  height: 31.09px;
-}
-*/
 
 .blockPositionNav {
   width: 85%
