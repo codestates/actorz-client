@@ -1,21 +1,34 @@
-import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import Post from "../pages/Post";
 import Nav from "../components/Nav";
-import Slider from "react-slick";
 import img from "../images/actor.jpeg";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/Posts.css";
 
 const Posts = () => {
+  const [clickModal, setClickModal] = useState(false);
   const user = useSelector((user) => user.userInfoReducer);
   const post = useSelector((post) => post.postInfoReducer);
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+  };
+
+  const handleClickPost = (boolean, id) => {
+    if (boolean) {
+      setClickModal(true);
+      window.history.pushState(null, "", `/post/${id}`);
+    } else {
+      setClickModal(false);
+      window.history.pushState(null, "", `/posts`);
+    }
   };
 
   return (
@@ -55,7 +68,23 @@ const Posts = () => {
         <Slider {...settings} className="slider">
           {post.data.posts.map((post) => {
             return (
-              <Link
+              <img
+                src={post.path}
+                onClick={() => handleClickPost(true, post.id)}
+              ></img>
+            );
+          })}
+        </Slider>
+      }
+      {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+    </>
+  );
+};
+export default Posts;
+
+/* 
+
+ <Link
                 to={{
                   pathname: `/post/${post.id}`,
                   state: { id: post.id },
@@ -63,11 +92,4 @@ const Posts = () => {
               >
                 <img src={post.path} />
               </Link>
-            );
-          })}
-        </Slider>
-      }
-    </>
-  );
-};
-export default Posts;
+*/
