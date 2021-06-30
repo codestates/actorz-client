@@ -104,22 +104,46 @@ li {
 
 .career-delete-btn {
   /* position: absolute; */
-  margin-left: 15rem;
+  /*margin-left: 0;*/
+  flex: 1;
+  text-align: right;
+  align-self: flex-end;
+  margin-bottom: 0.5rem;
   /* border: 0px; */
   /* background-color: white; */
 }
 
 .tag {
+  /*
   margin-top: 0.3rem;
+  */
+  display: flex;
+  height: 1.5rem;
+}
+
+.tag .tagPosition {
+  margin-right: 0.5rem;
+}
+
+.career-title {
+  margin-right: 0.5rem;
 }
 
 .career-year {
+  /*
+  border-left: 1px solid #e0e0e0;
+  */
   margin-left: 4rem;
-}
-.genre-tag-box {
-  margin-top: 15px;
+  margin-right: 0.5rem;
 }
 
+.genre-tag-box {
+  margin-top: 1rem;
+}
+
+.career-tag {
+  margin-right: 0.5rem;
+}
 
 .genre-tag {
   border: 1px solid lightgray;
@@ -129,3 +153,7 @@ li {
 }
 
 
+.careerDivide {
+  display: flex;
+  height: 1.5rem;
+}
