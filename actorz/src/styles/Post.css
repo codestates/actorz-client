@@ -11,6 +11,9 @@
   padding-left: 45rem;
   justify-content: center;
   align-items: center;
+  /*   transition: 0.1s linear;
+ */
+  transition: all, 0.5s;
   background: rgba(0, 0, 0, 0.8);
 }
 
@@ -23,6 +26,7 @@
   height: 80%;
   display: flex;
   overflow-y: hidden;
+
   /*   overflow-y: scroll;
  */
 }
