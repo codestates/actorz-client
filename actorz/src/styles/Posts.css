@@ -61,9 +61,12 @@ li {
 }
 
 .slider {
+  margin-bottom: 4rem;
+  /*
   margin-top: 50px;
   margin-left: 280px;
-  width: 800px;
+  */
+  /*width: 800px;*/
 }
 
 .slider img:hover {

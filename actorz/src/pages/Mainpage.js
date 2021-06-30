@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import Nav from "../components/Nav";
 import { Link } from "react-router-dom";
 import FileUpload from "../components/file-upload/file-upload.component";
-import "antd/dist/antd.css";
-import { Avatar } from "@material-ui/core";
+import 'antd/dist/antd.css';
+import { Button } from 'antd';
+import { HeartOutlined } from '@ant-design/icons';
+import IntroNav from "../components/IntroNav";
+import { Avatar } from '@material-ui/core';
+import Iconlist from '../components/Iconlist';
+import Footer from '../components/Footer';
 import "../mainpage.css";
 import {
   UserOutlined,
@@ -47,75 +52,9 @@ const Mainpage = () => {
     <>
       <div className="blockhere"> </div>
       <div className="mainPage">
-        <Nav />
-        <div className="leftSpace">
-          <div className="iconList">
-            <div className="spaceDirection">
-              <div className="homeButton">
-                <div className="homeButtonIcon">
-                  <Link className="noEffect" to="/mainpage">
-                    <HomeOutlined className="realIcon" />
-                  </Link>
-                </div>
-                <Link className="noEffect" to="/mainpage">
-                  <div className="homeButtonText">Home</div>
-                </Link>
-              </div>
+        <Nav />   
+        <Iconlist />
 
-              <div className="homeButton">
-                <div className="homeButtonIcon">
-                  <Link
-                    className="noEffect"
-                    onClick={() => handleClickUpload(true)}
-                    to="/mainpage"
-                  >
-                    <FileAddOutlined className="realIcon" />
-                  </Link>
-                </div>
-                <Link className="noEffect" to="/mainpage">
-                  <div
-                    className="homeButtonText"
-                    onClick={() => handleClickUpload(true)}
-                  >
-                    Post
-                  </div>
-                </Link>
-              </div>
-
-              <div className="homeButton">
-                <div className="homeButtonIcon">
-                  <Link
-                    className="noEffect"
-                    to="/mypage"
-                    onClick={() => handleClickUpload(true)}
-                  >
-                    <UserOutlined className="realIcon" />
-                  </Link>
-                </div>
-                <Link
-                  className="noEffect"
-                  to="/mypage"
-                  onClick={() => handleClickUpload(true)}
-                >
-                  <div className="homeButtonText">Mypage</div>
-                </Link>
-              </div>
-
-              <div className="homeButton">
-                <div className="homeButtonIcon">
-                  <Link className="noEffect" to="/mainpage">
-                    <HeartOutlined className="realIcon" />
-                  </Link>
-                </div>
-                <Link className="noEffect" to="/mainpage">
-                  <div className="homeButtonText">Like</div>
-                </Link>
-              </div>
-
-              <div className="likeButton"></div>
-            </div>
-          </div>
-        </div>
 
         <div className="newblockPosition"> </div>
 
@@ -149,11 +88,6 @@ const Mainpage = () => {
                       className="exampleIMG"
                     />
                   </div>
-                  {/* <img
-                    src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
-                    alt=""
-                    className="exampleIMG"
-                  /> */}
                 </a>
               </div>
             </div>
@@ -165,88 +99,7 @@ const Mainpage = () => {
           <div className="iconList2"> </div>
         </div>
       </div>
-
-      <div id="Footer">
-        <div className="footerUser1">
-          <ToolOutlined className="footerIcon" />
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <span className="footerName">김선들 |</span>
-          <a
-            href="https://github.com/SundeulDonaKim"
-            target="_blank"
-            className="alinkEffect2"
-          >
-            <GithubOutlined className="footerIcon" />
-          </a>
-          <a
-            href="https://velog.io/@dandelion"
-            target="_blank"
-            className="alinkEffect2"
-          >
-            <FormOutlined className="footerIcon" />
-          </a>
-          <InstagramOutlined className="footerIcon" />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-
-        <div className="footerUser2">
-          <span className="footerName">이한빈 |</span>
-          <a
-            href="https://github.com/lhb7021"
-            target="_blank"
-            className="alinkEffect2"
-          >
-            <GithubOutlined className="footerIcon" />
-          </a>
-          <a
-            href="https://velog.io/@lhb7021"
-            target="_blank"
-            className="alinkEffect2"
-          >
-            <FormOutlined className="footerIcon" />
-          </a>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-
-        <div className="footerUser3">
-          <span className="footerName">유지원 |</span>
-          <a
-            href="https://github.com/jiweon21"
-            target="_blank"
-            className="alinkEffect2"
-          >
-            <GithubOutlined className="footerIcon" />
-          </a>
-          <a
-            href="https://velog.io/@jiwon22"
-            target="_blank"
-            className="alinkEffect2"
-          >
-            <FormOutlined className="footerIcon" />
-          </a>
-          <YoutubeOutlined className="footerIcon" />
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-
-        <div className="footerUser4">
-          <span className="footerName">임현택 |</span>
-          <a
-            href="https://github.com/Captainjack-kor"
-            target="_blank"
-            className="alinkEffect2"
-          >
-            <GithubOutlined className="footerIcon" />
-          </a>
-          <a
-            href="https://velog.io/@iooi75"
-            target="_blank"
-            className="alinkEffect2"
-          >
-            <FormOutlined className="footerIcon" />
-          </a>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-      </div>
+      <Footer />
 
       <div>
         {clickupload ? (
@@ -261,7 +114,8 @@ const Mainpage = () => {
             </form>
           </div>
         ) : null}
-      </div>
+        </div>
+      
     </>
   );
 };
