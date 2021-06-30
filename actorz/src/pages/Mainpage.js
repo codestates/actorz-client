@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import FileUpload from "../components/file-upload/file-upload.component";
 import 'antd/dist/antd.css';
 import { Button } from 'antd';
-import { HeartOutlined } from '@ant-design/icons';
 import IntroNav from "../components/IntroNav";
 import { Avatar } from '@material-ui/core';
 import Iconlist from '../components/Iconlist';
