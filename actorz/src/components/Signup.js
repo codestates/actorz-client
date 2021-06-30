@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import server from "../apis/server";
 import "../styles/SignupModal.css";
 
 const Signup = ({ handleClickSignup, handleClickSignin }) => {
@@ -50,10 +51,19 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
     }
   };
 
-  const handleClickActorSignupBtn = () => {
+  const handleClickActorSignupBtn = async () => {
     if (dob.dob.length !== 10 || dob.dob[4] !== "-" || dob.dob[7] !== "-") {
       setError("생년월일 형식을 지켜서 작성해주세요");
     } else if (email !== "" && password !== "" && name !== "" && dob !== "") {
+      await server.post(`signup`, {
+        email: email.email,
+        password: password.passowrd,
+        name: name.name,
+        company: company.company,
+        provider: "local",
+        gender: gender.gender,
+        dob: dob.dob,
+      });
     } else {
       setError("필수 항목을 모두 적어주세요");
     }
