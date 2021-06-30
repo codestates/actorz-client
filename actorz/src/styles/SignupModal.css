@@ -1,116 +1,132 @@
 c#modal-background {
-    /* position: absolute; */
-    position: fixed;
-    flex-direction: column;
-    top: -20vh;
-    left: -15vw;
-    width: 140vw;
-    height: 140vh;
-    z-index: 10000;
-    padding-top: 14rem;
-    padding-left: 45rem;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(222, 230, 250, 0.8);
-    transition: 0.5s linear;
-  }
-  
-  #modal-container {
-    padding-top: 30px;
-    font-size: 10px;
-    border-radius: 9px;
-    width: 35rem;
-    height: 42rem;
-    position: absolute;
-    z-index: 10000;
-    background-color: #fff;
-    text-align: center;
-  }
-  
-  .modal-group-signup {
-    padding: 10px;
-    color: red;
-    font-size: 20px;
-    margin-top: 10px;
-  }
-  .modal-group-signup input {
-    color: black;
-  }
-  
-  
-  .modal-group-signup > input {
-    font-size: 10px;
-    width: 350px;
-    font-size: 20px; 
-  }
+  /* position: absolute; */
+  position: fixed;
+  flex-direction: column;
+  top: -20vh;
+  left: -15vw;
+  width: 140vw;
+  height: 140vh;
+  z-index: 10000;
+  padding-top: 14rem;
+  padding-left: 45rem;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(222, 230, 250, 0.8);
+  transition: 0.5s linear;
+}
 
-  .modal-group-signup-gender {
-    padding-right: 290px;
-    font-size: 20px;
-  }
+#modal-container {
+  padding-top: 30px;
+  font-size: 10px;
+  border-radius: 9px;
+  width: 35rem;
+  height: 42rem;
+  position: absolute;
+  z-index: 10000;
+  background-color: #fff;
+  text-align: center;
+  overflow-y: scroll;
+}
 
-  .err-message {
-    font-size: 20px;
-    color: red;
-  }
+#modal-container::-webkit-scrollbar {
+  width: 6px;
+}
 
-  .modal-title .title {
-      font-size: 20px;
-      padding-bottom: 20px;
-  }
+.modal-group-signup {
+  padding: 10px;
+  color: red;
+  font-size: 20px;
+  margin-top: 10px;
+}
+.modal-group-signup input {
+  font-size: 10px;
+  color: black;
+}
 
-  .modal-title .modal-welcome-message {
-      font-size: 25px;
-  }
+.modal-group-signup > input {
+  font-size: 10px;
+  width: 350px;
+  font-size: 20px;
+}
 
-  .modal-group-signup-role {
-    font-size: 20px;
-    padding-right: 20px;
-  }
-  
-  .modal-group-signup-role input,
-  .modal-group-signup-gender input
-  {
-    margin: 8px;
-  }
-  
-  .modal-btn {
-    position: absolute;
-    top: 10px;
-    left: 510px;
-    font-size: 40px;
-    border: 0;
-    color: rgb(129, 163, 207);
-    background-color: white;
-  }
-  
-  .btn-login {
-    font-size: 18px;
-    width: 380px;
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 5px;
-    margin-top: 20px;
-    padding: 15px;
-    background: white;
-  }
-   
-  #modal-section {
-    display: block;
-  }
-  
-  .gender input {
-    width: 20px;
-    font-size: 20px;
-  }
-  
-  input {
-    border: none;
-    border-bottom: 1px solid rgb(111, 111, 114);
-  }
+.modal-group-signup-gender {
+  padding-right: 290px;
+  font-size: 20px;
+}
 
-  .signup {
-      padding-top: 20px;
-      font-size: 15px;
-  }
-  
+/* .company-address-box {
+  margin: 0px 0px 0px 40px;
+}
+
+.company-address-box .modal-group-signup {
+  padding: 0px;
+}
+
+.company-address-box .modal-group-signup > input {
+  width: 120px;
+  font-size: 10px;
+} */
+
+.err-message {
+  font-size: 20px;
+  color: red;
+}
+
+.modal-title .title {
+  font-size: 20px;
+  padding-bottom: 20px;
+}
+
+.modal-title .modal-welcome-message {
+  font-size: 25px;
+}
+
+.modal-group-signup-role {
+  font-size: 20px;
+  padding-right: 20px;
+}
+
+.modal-group-signup-role input,
+.modal-group-signup-gender input {
+  margin: 8px;
+}
+
+.modal-btn {
+  position: absolute;
+  top: 10px;
+  left: 510px;
+  font-size: 40px;
+  border: 0;
+  color: rgb(129, 163, 207);
+  background-color: white;
+}
+
+.btn-login {
+  font-size: 18px;
+  width: 380px;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 20px;
+  padding: 15px;
+  background: white;
+}
+
+#modal-section {
+  display: block;
+}
+
+.gender input {
+  width: 20px;
+  font-size: 20px;
+}
+
+input {
+  border: none;
+  border-bottom: 1px solid rgb(111, 111, 114);
+}
+
+.signup {
+  padding-top: 20px;
+  font-size: 15px;
+}

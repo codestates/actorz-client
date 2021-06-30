@@ -143,7 +143,7 @@ const FileUpload = ({
             <input
               type="text"
               placeholder="간단한 설명글을 적어주세요"
-              className="desc"
+              className="post-desc"
               onChange={handleInputValue("desc")}
             />
 

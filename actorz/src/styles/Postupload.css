@@ -56,7 +56,7 @@
   display: flex;
 }
 
-input.desc {
+input.post-desc {
   float: left;
   margin: 0px 0px 0px 30px;
   width: 250px;
