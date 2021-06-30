@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import kakao from "../images/kakao.png";
 import google from "../images/google.png";
+import server from "../apis/server";
 import "../styles/SigninModal.css";
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
@@ -8,23 +9,48 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [password, setPassword] = useState("");
   const [err, setError] = useState("");
 
+  const handleInputValue = (key) => (event) => {
+    if (key === "email") {
+      setEmail({ [key]: event.target.value });
+    } else if (key === "password") {
+      setPassword({ [key]: event.target.value });
+    }
+  };
+
+  const handleClickSigninBtn = async () => {
+    try {
+      if (email !== "" && password !== "") {
+        await server
+          .post(`/login`, {
+            email: email.email,
+            password: password.password,
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              console.log("로그인 성공");
+              handleClickClose();
+            } else if (res.status === 401) {
+              alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
+            }
+          });
+      } else {
+        setError("모든 항목은 필수입니다");
+      }
+    } catch {
+      alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+    }
+  };
+
+  const handleClickGoogleBtn = () => {
+    console.log("google login");
+  };
+
+  const handleClickKakaoBtn = () => {
+    console.log("kakao login");
+  };
+
   const handleClickClose = () => {
     handleClickSignin(false);
-  };
-
-  const handleInputValue = (key) => (e) => {
-    if (key === "email") {
-      setEmail({ [key]: e.target.value });
-    } else if (key === "password") {
-      setPassword({ [key]: e.target.value });
-    }
-  };
-
-  const handleClickSigninBtn = () => {
-    if (email !== "" && password !== "") {
-    } else {
-      setError("모든 항목은 필수입니다");
-    }
   };
 
   return (
@@ -65,12 +91,26 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                   >
                     로그인
                   </button>
-                  <button className="btn-login btn-login-kakao">
-                    <img src={google} className="kakao-logo"></img>
+                  <button
+                    className="btn-login btn-login-kakao"
+                    onClick={handleClickGoogleBtn}
+                  >
+                    <img
+                      src={google}
+                      alert="google-logo"
+                      className="kakao-logo"
+                    ></img>
                     구글로 로그인하기
                   </button>
-                  <button className="btn-login btn-login-kakao">
-                    <img src={kakao} className="kakao-logo"></img>
+                  <button
+                    className="btn-login btn-login-kakao"
+                    onClick={handleClickKakaoBtn}
+                  >
+                    <img
+                      src={kakao}
+                      alert="kakao-logo"
+                      className="kakao-logo"
+                    ></img>
                     카카오로 로그인하기
                   </button>
                   <div
