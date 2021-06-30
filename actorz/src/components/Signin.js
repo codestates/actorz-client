@@ -41,6 +41,14 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     }
   };
 
+  const handleClickGoogleBtn = () => {
+    console.log("google login");
+  };
+
+  const handleClickKakaoBtn = () => {
+    console.log("kakao login");
+  };
+
   const handleClickClose = () => {
     handleClickSignin(false);
   };
@@ -83,12 +91,26 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                   >
                     로그인
                   </button>
-                  <button className="btn-login btn-login-kakao">
-                    <img src={google} className="kakao-logo"></img>
+                  <button
+                    className="btn-login btn-login-kakao"
+                    onClick={handleClickGoogleBtn}
+                  >
+                    <img
+                      src={google}
+                      alert="google-logo"
+                      className="kakao-logo"
+                    ></img>
                     구글로 로그인하기
                   </button>
-                  <button className="btn-login btn-login-kakao">
-                    <img src={kakao} className="kakao-logo"></img>
+                  <button
+                    className="btn-login btn-login-kakao"
+                    onClick={handleClickKakaoBtn}
+                  >
+                    <img
+                      src={kakao}
+                      alert="kakao-logo"
+                      className="kakao-logo"
+                    ></img>
                     카카오로 로그인하기
                   </button>
                   <div
