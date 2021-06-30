@@ -36,8 +36,7 @@
   border: 0px;
   border-radius: 11px;
   float: left;
-  margin-left: 80px;
-  margin-top: 10px;
+  margin: 70px 0px 0px 80px;
   background-color: rgb(242, 248, 250);
 }
 
@@ -49,7 +48,29 @@
   border: 0px;
   border-radius: 11px;
   float: right;
-  margin-right: 80px;
-  margin-top: 10px;
+  margin: 70px 80px 0px 0px;
   background-color: rgb(242, 248, 250);
+}
+
+.desc-box {
+  display: flex;
+}
+
+input.desc {
+  float: left;
+  margin: 0px 0px 0px 30px;
+  width: 250px;
+  height: 30px;
+  font-size: 18px;
+}
+
+div.genre {
+  margin: 50px 0px 0px 6px;
+  width: 400px;
+  height: 30px;
+  font-size: 14px;
+}
+
+div input {
+  margin: 0px 2px 0px 12px;
 }
