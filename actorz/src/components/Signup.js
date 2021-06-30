@@ -61,7 +61,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         name: name.name,
         company: company.company,
         provider: "local",
-        gender: gender.gender,
+        /*gender: gender.gender,*/
         dob: dob.dob,
       });
     } else {
@@ -170,7 +170,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       </div>
                       {err ? <div className="err-message">{err}</div> : null}
                       <button
-                        className="btn-login"
+                         className="btn-login"
                         type="submit"
                         onClick={handleClickActorSignupBtn}
                       >

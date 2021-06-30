@@ -17,7 +17,7 @@ const Post = ({ handleClickPost }) => {
 
   return (
     <>
-      <Nav />
+      <Nav />  
       <div id="post-modal-background" onClick={() => handleClickPost(false)}>
         <div className="float-btn-box">
           <div className="float-btn">

@@ -10,6 +10,7 @@ import "../styles/Posts.css";
 import Iconlist from "../components/Iconlist";
 import { CloseOutlined, SaveOutlined, EditOutlined, DeleteOutlined, UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
 import Footer from '../components/Footer';
+import { Link } from "react-router-dom";
 
 
 const Posts = () => {
@@ -91,18 +92,16 @@ const Posts = () => {
                   <Slider {...settings} className="slider">
                     {post.data.posts.map((post) => {
                       return (
-                        <Link
-                          to={{
-                            pathname: `/post/${post.id}`,
-                            state: { id: post.id },
-                          }}
-                        >
-                          <img src={post.path} />
-                        </Link>
+                        <img
+                          src={post.path}
+                          onClick={() => handleClickPost(true, post.id)}
+                        ></img>
                       );
                     })}
                   </Slider>
-      
+                  
+                   {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                  
                 </div>
               </div>
             </div>
@@ -157,7 +156,7 @@ const Posts = () => {
           })}
         </Slider>
       }
-      {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+      {clickModal ? <Post handleClickPost={handleClickPost} /> : null} */}
     </>
   );
 };
