@@ -65,7 +65,7 @@ font {
 .blockhere {
   display: flex;
   width: 100vw;
-  height: 40px;
+  height: 3rem;
 }
 
 .leftSpace {
@@ -101,6 +101,7 @@ font {
 	flex-direction: column;
 	*/
 	margin-top: 2rem;
+	margin-bottom: 2rem;
 	border: solid 1px #e0e0e0;
 	/*text-align: center;*/
 	background-color: #fafafa;
@@ -153,9 +154,9 @@ font {
   left: 0;
   bottom: 0;
   width: 100%;
-  height: 2rem;
+  height: 1rem;
   background-color: white;
-  font-size: 15px;
+  font-size: 0.5rem;
   color: black;
   z-index: 4; 
 	border-top: solid 1px #e0e0e0;

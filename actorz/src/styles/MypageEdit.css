@@ -63,17 +63,32 @@ li {
 
 .career {
   font-size: 40px;
-  margin-top: 25px;
+  margin-top: 10px;
 }
-
+/*
 .career-btn {
   position: absolute;
-  margin-left: 720px;
   border: 0px;
   background-color: white;
 }
+*/
+
+.careerButton {
+
+}
+
+
+.careerButtonPosition {
+  flex: 1;
+  text-align: right;
+  align-self: flex-end;
+  margin-bottom: 0.3rem
+}
+
 
 .career-box li {
+  padding: 10px;
+  /*
   font-family: "Nanum Gothic", sans-serif;
   font-size: 20px;
   margin-top: 30px;
@@ -83,27 +98,34 @@ li {
   padding-left: 15px;
   height: 130px;
   width: 800px;
-  border: 1px solid black;
+  */
+  border: 1px solid lightgray;
 }
 
 .career-delete-btn {
-  position: absolute;
-  margin-left: 740px;
-  border: 0px;
-  background-color: white;
+  /* position: absolute; */
+  margin-left: 15rem;
+  /* border: 0px; */
+  /* background-color: white; */
+}
+
+.tag {
+  margin-top: 0.3rem;
 }
 
 .career-year {
-  margin-left: 80px;
+  margin-left: 4rem;
 }
 .genre-tag-box {
   margin-top: 15px;
 }
 
+
 .genre-tag {
-  border: 1px solid;
-  border-radius: 20px;
-  padding: 6px;
-  margin: 15px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 0.2rem;
+  margin: 1rem;
 }
+
 

@@ -9,8 +9,10 @@ import img from "../images/actor.jpeg";
 import "../styles/MypageEdit.css";
 import Iconlist from "../components/Iconlist";
 import Nav from "../components/Nav";
-import { SaveOutlined, EditOutlined, DeleteOutlined, UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
+import { CloseOutlined, SaveOutlined, EditOutlined, DeleteOutlined, UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
 import Footer from '../components/Footer';
+import "antd/dist/antd.css";
+import { Button } from "antd";
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
@@ -98,8 +100,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
               <div className="midContents">
                 <div className="buttonHeader">
                  <SaveOutlined className="editButton" onClick={() => handleClickSaveBtn()}/>
-                 &nbsp;&nbsp;
-                 <DeleteOutlined className="deleteButton"/>
+                 {/* <DeleteOutlined className="deleteButton"/> */}
                 </div>
                 <div className="midContentDownPart">
                   <div className="displayPosition">
@@ -140,25 +141,31 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                       </ul>
                     </div>
                   </div>
-                  
+                <div className="careerTitleDivide"> 
                   <div className="careerTitle">
                     Career 🏆
                   </div>
+                  <div className="careerButtonPosition">
+                    <Button variant="outlined" className="careerButton"  onClick={handleClickConfirmBtn}>
+                      Add
+                    </Button>
+                  </div>
+                </div>
+                
                   <div className="careerContent">
-                    <span className="career-box">
+                    <div className="career-box">
                       <li className="career-li">
-                        <button className="career-btn" onClick={handleClickConfirmBtn}>
-                          추가
-                        </button>
+                        
                         <span className="career-title">제목: </span>
-                        <input type="text" onChange={handleInputValue("title")} />
+                        <input type="text" className="highlightDisplay" onChange={handleInputValue("title")} />
                         <span className="career-year">활동연도: </span>
-                        <input type="text" onChange={handleInputValue("year")} />
+                        <input type="text" className="highlightDisplay" onChange={handleInputValue("year")} />
                         <div>
-                          <span>태그: </span>
+                        <br></br>
+                          <span >태그: </span>
                           <input
                             placeholder="태그를 입력하세요"
-                            className="tag"
+                            className="highlightDisplay"
                             onKeyPress={handleTagBtn}
                           />
                         </div>
@@ -168,9 +175,31 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           })}
                         </div>
                       </li>
-                    </span>
+                    </div>
                   </div>
-                </div>
+                  <span className="career-box">
+                    {user.data.userInfo.careers.map((career) => {
+                        return (
+                          <>
+                          <li className="career-li">
+                            <span className="career-title">제목: </span>
+                            <span>{career.title}</span>
+                            <span className="career-year">활동연도: </span>
+                            <span>{career.year}</span>
+                            <CloseOutlined className="career-delete-btn" onClick={() => {handleDeleteBtn(career.id)}}/>
+                            <div className="tag">
+                              <span>태그: </span>
+                              {`${career.type.map((type) => {
+                                return type;
+                              })}`}
+                            </div>
+                          </li>
+                        </>
+                      );
+                    })}
+                  </span>
+              </div> 
+                
               </div>
             </div>
             <div className="newblockPosition2"> </div>
@@ -180,100 +209,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
             </div>
           </div>
         <Footer />
-      {/* <div id="mypage-container1">
-        <div id="mypage-container">
-          <img src={img} className="img" alt="프로필"></img>
-          <span id="post-info">
-            <button className="post-edit" onClick={() => handleClickSaveBtn()}>
-              저장
-            </button>
-            <p className="name">{user.data.userInfo.name}</p>
-            <ul>
-              <strong>생년월일</strong>
-              <li className="dob">
-                <input
-                  type="text"
-                  defaultValue={user.data.userInfo.dob}
-                  onChange={handleInputValue("dob")}
-                />
-              </li>
-              <strong>이메일</strong>
-              <li className="email">
-                <input
-                  type="text"
-                  defaultValue={user.data.userInfo.email}
-                  onChange={handleInputValue("email")}
-                ></input>
-              </li>
-              <strong>소속사</strong>
-              <li className="company">
-                <input
-                  type="text"
-                  defaultValue={user.data.userInfo.company}
-                  onChange={handleInputValue("company")}
-                ></input>
-              </li>
-            </ul>
-          </span>
-        </div>
-        <span className="career">경력</span>
-        { <button className="career-add-btn" onClick={handleClickAddBtn}>
-          + 추가
-        </button> }
-        <span className="career-box">
-          <li className="career-li">
-            <button className="career-btn" onClick={handleClickConfirmBtn}>
-              추가
-            </button>
-            <span className="career-title">제목: </span>
-            <input type="text" onChange={handleInputValue("title")} />
-            <span className="career-year">활동연도: </span>
-            <input type="text" onChange={handleInputValue("year")} />
-            <div>
-              <span>태그: </span>
-              <input
-                placeholder="태그를 입력하세요"
-                className="tag"
-                onKeyPress={handleTagBtn}
-              />
-            </div>
-            <div className="genre-tag-box">
-              {tag.map((el) => {
-                return <span className="genre-tag">{el}</span>;
-              })}
-            </div>
-          </li>
-        </span>
-
-        <span className="career-box">
-          {user.data.userInfo.careers.map((career) => {
-            return (
-              <>
-                <li className="career-li">
-                  <button
-                    className="career-delete-btn"
-                    onClick={() => {
-                      handleDeleteBtn(career.id);
-                    }}
-                  >
-                    X
-                  </button>
-                  <span className="career-title">제목: </span>
-                  <span>{career.title}</span>
-                  <span className="career-year">활동연도: </span>
-                  <span>{career.year}</span>
-                  <div>
-                    <span>태그: </span>
-                    {`${career.type.map((type) => {
-                      return type;
-                    })}`}
-                  </div>
-                </li>
-              </>
-            );
-          })}
-        </span>
-      </div> */}
     </>
   );
 };

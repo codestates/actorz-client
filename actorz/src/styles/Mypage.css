@@ -28,15 +28,16 @@ li {
   border-bottom: 1px solid #e0e0e0;
 }
 
+.careerTitleDivide {
+  display: flex;
+}
 .career {
   height: 50%;
 }
 
 .careerContent {
-  margin-top: 0rem;
   /*text-align: left;*/
   /*background-color: yellow;*/  /* TEST  */
-  /*margin-left: -6rem;*/
 }
 
 .career li {

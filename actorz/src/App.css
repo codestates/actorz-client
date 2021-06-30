@@ -108,9 +108,9 @@ body {
   left: 0;
   bottom: 0;
   width: 100vw;
-  height: 40px;
+  height: 2rem;
   background-color: rgb(0, 0, 0);
-  font-size: 15px;
+  font-size: 1rem;
   color: white;
   z-index: 4; 
 }
@@ -127,12 +127,12 @@ body {
 
 
 .footerIcon {
-  padding: 8px;
-  font-size: 20px;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
 .footerName {
-  padding: 7px;
+  padding: 1rem;
 }
 
 

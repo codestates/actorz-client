@@ -59,9 +59,8 @@ const Mypage = () => {
             <div className="middleSpace">
               <div className="midContents">
                 <div className="buttonHeader">
-                 <EditOutlined className="editButton" onClick={() => handeClickEditBtn(true)}/>
-                 &nbsp;&nbsp;
-                 <DeleteOutlined className="deleteButton"/>
+                 <EditOutlined className="editButton" onClick={() => handeClickEditBtn(true)}/>    
+                 {/* <DeleteOutlined className="deleteButton"/> */}
                 </div>
                 <div className="midContentDownPart">
                   <div className="displayPosition">
