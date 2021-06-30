@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
+
 #post-modal-background {
   /* position: absolute; */
   position: fixed;
@@ -46,7 +48,7 @@
 .video {
   width: 1200px;
   height: 600px;
-  margin-top: 72px;
+  margin: 72px 0px 30px 30px;
 }
 
 .info {
@@ -62,14 +64,23 @@
 
 .like {
   font-size: 20px;
-  margin: 15px 1100px;
+  margin: 15px 1080px;
+}
+
+.delete-btn {
+  position: absolute;
+  font-size: 35px;
+  margin: 0px 0px 0px 1250px;
+  border: 0px;
+  background-color: white;
+  color: rgb(129, 163, 207);
 }
 
 .heart-img {
   position: absolute;
   width: 30px;
   height: 30px;
-  margin: 15px 1200px;
+  margin: 15px 1180px;
 }
 
 .genre {
@@ -78,12 +89,20 @@
   margin: 21px 125px;
 }
 
-.img-box {
-  text-align: center;
+.desc {
+  background-color: rgb(243, 253, 255);
+  position: absolute;
+  width: 334px;
+  margin: 60px 0px 0px 13px;
+  font-family: "Nanum Gothic Coding", monospace;
 }
 
-.img img {
-  height: 700px;
+/* .desc {
+  margin: 0px 0px 20px 13px;
+} */
+
+.img-box {
+  text-align: center;
 }
 
 .float-btn-box {
