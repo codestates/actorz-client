@@ -5,7 +5,7 @@ export const postInitState = {
       {
         id: 1,
         type: "picture or video",
-        path: img,
+        path: "https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png",
         content: "asdfas",
         /* 'createdAt': date type,
             'updatedAt': date type, */
@@ -27,7 +27,7 @@ export const postInitState = {
       {
         id: 3,
         type: "picture or video",
-        path: img,
+        path: "https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png",
         content: "asdfas",
         /* 'createdAt': date type,
             'updatedAt': date type, */
@@ -49,7 +49,7 @@ export const postInitState = {
       {
         id: 5,
         type: "picture or video",
-        path: img,
+        path: "https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png",
         content: "asdfas",
         /* 'createdAt': date type,
             'updatedAt': date type, */
@@ -61,7 +61,6 @@ export const postInitState = {
         id: 6,
         type: "picture or video",
         path: img,
-        content: "asdfas",
         /* 'createdAt': date type,
             'updatedAt': date type, */
         genre: ["공포", "스릴러"],
@@ -71,7 +70,7 @@ export const postInitState = {
       {
         id: 7,
         type: "picture or video",
-        path: img,
+        path: "https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png",
         content: "asdfas",
         /* 'createdAt': date type,
             'updatedAt': date type, */

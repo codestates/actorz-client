@@ -8,10 +8,27 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/Posts.css";
 import Iconlist from "../components/Iconlist";
-import { CloseOutlined, SaveOutlined, EditOutlined, DeleteOutlined, UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
-import Footer from '../components/Footer';
+import {
+  CloseOutlined,
+  SaveOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  UserOutlined,
+  IdcardOutlined,
+  HeartOutlined,
+  FileAddOutlined,
+  HomeOutlined,
+  GithubOutlined,
+  ToolOutlined,
+  InstagramOutlined,
+  FormOutlined,
+  FacebookOutlined,
+  YoutubeOutlined,
+  VerticalAlignBottomOutlined,
+  ArrowDownOutlined,
+} from "@ant-design/icons";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
-
 
 const Posts = () => {
   const [clickModal, setClickModal] = useState(false);
@@ -22,8 +39,12 @@ const Posts = () => {
     dots: true,
     infinite: true,
     speed: 500,
+    pauseOnHover: true,
+    autoplay: true,
+    draggable: false,
     slidesToShow: 4,
-    slidesToScroll: 1,
+    slidesToScroll: 2,
+    arrows: true,
   };
 
   const handleClickPost = (boolean, id) => {
@@ -38,81 +59,82 @@ const Posts = () => {
 
   return (
     <>
-          <div className="blockhere"> </div>
-          <div className="mainPage">
-            <Nav />   
-            <Iconlist />
-            
-            <div className="newblockPosition"> </div>
+      <div className="blockhere"> </div>
+      <div className="mainPage">
+        <Nav />
+        <Iconlist />
 
-            <div className="middleSpace">
-              <div className="midContents">
-                <div className="buttonHeader">
-                  <DeleteOutlined className="deleteButton"/>
+        <div className="newblockPosition"> </div>
+
+        <div className="middleSpace">
+          <div className="midContents">
+            <div className="buttonHeader">
+              <DeleteOutlined className="deleteButton" />
+            </div>
+            <div className="midContentDownPart">
+              <div className="displayPosition">
+                <div className="fixedSize">
+                  <img
+                    src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
+                    className="testPic"
+                  />
                 </div>
-                <div className="midContentDownPart">
-                  <div className="displayPosition">
-                    <div className="fixedSize">
-                        <img src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png" className="testPic" />
-                    </div>
 
-                    <div className="fixedContent">
-                        <p className="name">{user.data.userInfo.name}</p>
-                        <ul>
-                          <strong>생년월일</strong>
-                          <li className="dob">{user.data.userInfo.dob}</li>
-                          <strong>이메일</strong>
-                          <li className="email">{user.data.userInfo.email}</li>
-                          <strong>소속사</strong>
-                          <li className="company">{user.data.userInfo.company}</li>
-                        </ul>
-                    </div>
-                  </div>
-                  {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
-                  <div className="careerTitle">
-                    Career 🏆
-                  </div>
-                  <div className="careerContent">
-                    <div className="career">
-                      {user.data.userInfo.careers.map((career) => {
-                      return (
-                        <li>
-                        {`${career.year}` +
-                        ` ${career.title}` +
-                        ` / ` +
-                        `${career.type.map((type) => {
-                          return type;
-                        })}`}
-                        </li>
-                       );
-                      })}
-                    </div>
-                  </div>
-
-                  <Slider {...settings} className="slider">
-                    {post.data.posts.map((post) => {
-                      return (
-                        <img
-                          src={post.path}
-                          onClick={() => handleClickPost(true, post.id)}
-                        ></img>
-                      );
-                    })}
-                  </Slider>
-                  
-                   {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
-                  
+                <div className="fixedContent">
+                  <p className="name">{user.data.userInfo.name}</p>
+                  <ul>
+                    <strong>생년월일</strong>
+                    <li className="dob">{user.data.userInfo.dob}</li>
+                    <strong>이메일</strong>
+                    <li className="email">{user.data.userInfo.email}</li>
+                    <strong>소속사</strong>
+                    <li className="company">{user.data.userInfo.company}</li>
+                  </ul>
                 </div>
               </div>
-            </div>
-            <div className="newblockPosition2"> </div>
+              {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
+              <div className="careerTitle">Career 🏆</div>
+              <div className="careerContent">
+                <div className="career">
+                  {user.data.userInfo.careers.map((career) => {
+                    return (
+                      <li>
+                        {`${career.year}` +
+                          ` ${career.title}` +
+                          ` / ` +
+                          `${career.type.map((type) => {
+                            return type;
+                          })}`}
+                      </li>
+                    );
+                  })}
+                </div>
+              </div>
+              <div className="slider-img-box">
+                <Slider {...settings} className="slider">
+                  {post.data.posts.map((post) => {
+                    return (
+                      <img
+                        src={post.path}
+                        onClick={() => handleClickPost(true, post.id)}
+                      ></img>
+                    );
+                  })}
+                </Slider>
+              </div>
 
-            <div className="rightSpace">  
-              <div className="iconList2"> </div>
+              {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
             </div>
           </div>
-        <Footer />
-      
+        </div>
+        <div className="newblockPosition2"> </div>
+
+        <div className="rightSpace">
+          <div className="iconList2"> </div>
+        </div>
+      </div>
+      <Footer />
+
       {/* <Nav />
       <div id="post-container1"></div>
       <div id="post-title">Actor</div>

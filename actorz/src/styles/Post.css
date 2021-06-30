@@ -11,8 +11,7 @@
   padding-left: 45rem;
   justify-content: center;
   align-items: center;
-  /*   transition: 0.1s linear;
- */
+  transition: 0.1s linear;
   transition: all, 0.5s;
   background: rgba(0, 0, 0, 0.8);
 }
@@ -20,15 +19,12 @@
 .container {
   background-color: white;
   margin-left: -60px;
-  border-radius: 15px;
+  border-radius: 8px;
   margin-top: 130px;
   width: 1300px;
   height: 80%;
   display: flex;
-  overflow-y: hidden;
-
-  /*   overflow-y: scroll;
- */
+  overflow-y: scroll;
 }
 
 .container::-webkit-scrollbar {
@@ -63,6 +59,7 @@
   margin-bottom: 50px;
   width: 1300px;
 }
+
 .like {
   font-size: 20px;
   margin: 15px 1100px;
@@ -83,9 +80,10 @@
 
 .img-box {
   text-align: center;
-  display: flex;
-  /*   flex-direction: column;
- */
+}
+
+.img img {
+  height: 700px;
 }
 
 .float-btn-box {

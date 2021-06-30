@@ -11,13 +11,9 @@ import Nav from "../components/Nav";
 import heart from "../images/heart.png";
 import "../styles/Post.css";
 const Post = ({ handleClickPost }) => {
-  //const post = useSelector((post) => post.postInfoReducer);
-  // const dispatch = useDispatch();
-  // dispatch(selectPostInfo(props.history.location.state.id));
-
   return (
     <>
-      <Nav />  
+      <Nav />
       <div id="post-modal-background" onClick={() => handleClickPost(false)}>
         <div className="float-btn-box">
           <div className="float-btn">
@@ -42,12 +38,24 @@ const Post = ({ handleClickPost }) => {
               <span className="like">31</span>
             </div>
             <div className="img-box">
-              <img src={image1} className="post-image" alt="이미지"></img>
-              <img src={image2} className="post-image" alt="이미지"></img>
-              <img src={image3} className="post-image" alt="이미지"></img>
-              <video controls className="video">
-                <source src={video}></source>
-              </video>
+              <div className="div-img">
+                <img
+                  src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
+                  className="post-image"
+                  alt="이미지"
+                ></img>
+              </div>
+              <div className="imgg">
+                <img src={image2} className="post-image" alt="이미지"></img>
+              </div>
+              <div className="imgg">
+                <img src={image3} className="post-image" alt="이미지"></img>
+              </div>
+              <div className="imgg">
+                <video controls className="video">
+                  <source src={video}></source>
+                </video>
+              </div>
             </div>
           </div>
         </div>
