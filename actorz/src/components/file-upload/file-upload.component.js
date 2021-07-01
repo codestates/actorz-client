@@ -31,6 +31,9 @@ const FileUpload = ({
   const fileInputField = useRef(null);
   const [files, setFiles] = useState({});
 
+  const [genre, setGenre] = useState([]);
+  const [desc, setDesc] = useState("");
+
   const handleUploadBtnClick = () => {
     fileInputField.current.click();
   };
@@ -64,6 +67,23 @@ const FileUpload = ({
     delete files[fileName];
     setFiles({ ...files });
     callUpdateFilesCb({ ...files });
+  };
+
+  const handleInputValue = (key) => (event) => {
+    if (key === "desc") {
+      setDesc(event.target.value);
+      console.log(desc);
+      console.log(genre);
+    } else if (key === "genre") {
+      if (event.target.checked) {
+        setGenre([...genre, event.target.value]);
+      } else {
+        const filteredGenre = genre.filter((el) => {
+          return el !== event.target.value;
+        });
+        setGenre(filteredGenre);
+      }
+    }
   };
 
   return (
@@ -119,6 +139,60 @@ const FileUpload = ({
               </PreviewList>
             </FilePreviewContainer>
           </FileUploadContainer>
+          <div className="desc-box">
+            <input
+              type="text"
+              placeholder="간단한 설명글을 적어주세요"
+              className="post-desc"
+              onChange={handleInputValue("desc")}
+            />
+
+            <div className="genre">
+              <input
+                type="checkbox"
+                name="genre"
+                value="액션"
+                onChange={handleInputValue("genre")}
+              />
+              액션
+              <input
+                type="checkbox"
+                name="genre"
+                value="공포"
+                onChange={handleInputValue("genre")}
+              />
+              공포
+              <input
+                type="checkbox"
+                name="genre"
+                value="코미디"
+                onChange={handleInputValue("genre")}
+              />
+              코미디
+              <input
+                type="checkbox"
+                name="genre"
+                value="로맨스"
+                onChange={handleInputValue("genre")}
+              />
+              로맨스
+              <input
+                type="checkbox"
+                name="genre"
+                value="판타지"
+                onChange={handleInputValue("genre")}
+              />
+              판타지
+              <input
+                type="checkbox"
+                name="genre"
+                value="기타"
+                onChange={handleInputValue("genre")}
+              />
+              기타
+            </div>
+          </div>
+
           <button
             className="cancel-btn"
             onClick={() => otherProps.handleClickUpload(false)}

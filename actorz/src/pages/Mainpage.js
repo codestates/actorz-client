@@ -1,29 +1,13 @@
 import React, { useState } from "react";
 import Nav from "../components/Nav";
-import { Link } from "react-router-dom";
 import FileUpload from "../components/file-upload/file-upload.component";
-import 'antd/dist/antd.css';
-import { Button } from 'antd';
-import IntroNav from "../components/IntroNav";
-import { Avatar } from '@material-ui/core';
-import Iconlist from '../components/Iconlist';
-import Footer from '../components/Footer';
+import { Link } from "react-router-dom";
+import { Avatar } from "@material-ui/core";
+import Iconlist from "../components/Iconlist";
+import Footer from "../components/Footer";
+import "antd/dist/antd.css";
 import "../mainpage.css";
-import {
-  UserOutlined,
-  IdcardOutlined,
-  HeartOutlined,
-  FileAddOutlined,
-  HomeOutlined,
-  GithubOutlined,
-  ToolOutlined,
-  InstagramOutlined,
-  FormOutlined,
-  FacebookOutlined,
-  YoutubeOutlined,
-  VerticalAlignBottomOutlined,
-  ArrowDownOutlined,
-} from "@ant-design/icons";
+import { HeartOutlined } from "@ant-design/icons";
 
 const Mainpage = () => {
   const [newfile, setNewFile] = useState({
@@ -51,9 +35,8 @@ const Mainpage = () => {
     <>
       <div className="blockhere"> </div>
       <div className="mainPage">
-        <Nav />   
+        <Nav />
         <Iconlist />
-
 
         <div className="newblockPosition"> </div>
 
@@ -61,13 +44,13 @@ const Mainpage = () => {
           <div className="midContents">
             <div className="midContentUpPart">
               <div>
-                <Link to="posts">
+                <Link to="/posts">
                   <Avatar className="exampleProfile" src="/broken-image.jpg" />
                 </Link>
               </div>
 
               <div className="postNamePart">
-                <Link to="posts">
+                <Link to="/posts">
                   <div className="user">goyounjung</div>
                 </Link>
               </div>
@@ -113,8 +96,7 @@ const Mainpage = () => {
             </form>
           </div>
         ) : null}
-        </div>
-      
+      </div>
     </>
   );
 };

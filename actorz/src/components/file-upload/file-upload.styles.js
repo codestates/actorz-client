@@ -9,7 +9,7 @@ export const FileUploadContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 400px;
+  height: 300px;
   background-color: white;
 `;
 
@@ -140,9 +140,8 @@ export const PreviewList = styled.section`
   width: 550px;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 40px;
-  margin-left: 120px;
-  
+  margin-top: 30px;
+  margin-left: 100px;
 
   @media only screen and (max-width: 400px) {
     flex-direction: column;

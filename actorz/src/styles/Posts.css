@@ -69,7 +69,34 @@ li {
   /*width: 800px;*/
 }
 
+.slider-img-box {
+  margin-top: 10px;
+  width: 550px;
+}
+
 .slider img:hover {
   transform: scale(1.1);
   transition: all 0.3s ease-in-out;
+}
+
+.slick-slider .slick-list {
+  display: block;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  position: relative;
+}
+
+button.slick-arrow.slick-next::before,
+button.slick-arrow.slick-prev::before {
+  font-size: 25px;
+  color: white;
+}
+
+.slick-prev {
+  z-index: 1;
+  left: 1px;
+}
+
+.slick-next {
+  right: 5px;
 }

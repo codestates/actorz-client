@@ -3,15 +3,17 @@ import server from "../apis/server";
 import "../styles/SignupModal.css";
 
 const Signup = ({ handleClickSignup, handleClickSignin }) => {
-  const [email, setEmail] = useState("");
+  /* const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [company, setCompany] = useState("");
   const [provider, setProvider] = useState("");
-  const [dob, setDob] = useState("");
-  const [address, setAddress] = useState("");
+  const [dob, setDob] = useState(""); */
+  const [actorSignup, setActorSignup] = useState({});
+  const [recruitorSignup, setRecruitorSignup] = useState({});
+  /*  const [address, setAddress] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [jobTitle, setJobTitle] = useState("");
+  const [jobTitle, setJobTitle] = useState(""); */
   const [err, setError] = useState("");
   const [role, setRole] = useState("배우");
 
@@ -20,7 +22,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   };
 
   const handleInputActorValue = (key) => (event) => {
-    if (key === "email") {
+    /* if (key === "email") {
       setEmail({ [key]: event.target.value });
     } else if (key === "password") {
       setPassword({ [key]: event.target.value });
@@ -32,11 +34,12 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       setProvider({ [key]: event.target.value });
     } else if (key === "dob") {
       setDob({ [key]: event.target.value });
-    }
+    } */
+    setActorSignup({ ...actorSignup, [key]: event.target.value });
   };
 
   const handleInputRecruitorValue = (key) => (event) => {
-    if (key === "name") {
+    /* if (key === "name") {
       setName({ [key]: event.target.value });
     } else if (key === "address") {
       setAddress({ [key]: event.target.value });
@@ -48,32 +51,34 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       setPhoneNumber({ [key]: event.target.value });
     } else if (key === "jobTitle") {
       setJobTitle({ [key]: event.target.value });
-    }
+    } */
+    setRecruitorSignup({ ...recruitorSignup, [key]: event.target.value });
   };
 
   const handleClickActorSignupBtn = async () => {
-    if (dob.dob.length !== 10 || dob.dob[4] !== "-" || dob.dob[7] !== "-") {
+    /* if (dob.dob.length !== 10 || dob.dob[4] !== "-" || dob.dob[7] !== "-") {
       setError("생년월일 형식을 지켜서 작성해주세요");
     } else if (email !== "" && password !== "" && name !== "" && dob !== "") {
       await server.post(`signup`, {
-        email: email.email,
+        //email: email.email,
         password: password.passowrd,
         name: name.name,
         company: company.company,
         provider: "local",
         /*gender: gender.gender,*/
-        dob: dob.dob,
-      });
-    } else {
+    // dob: dob.dob,
+    // }); */
+    /*  } else {
       setError("필수 항목을 모두 적어주세요");
-    }
+    } */
   };
 
   const handleClickRecruitorSignupBtn = () => {
-    if (name !== "" && address !== "" && email !== "" && password !== "") {
+    /* if (name !== "" && address !== "" && email !== "" && password !== "") {
     } else {
       setError("필수 항목을 모두 적어주세요");
-    }
+    } */
+    console.log(recruitorSignup);
   };
 
   const handleClickRadio = (event) => {
@@ -164,13 +169,14 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           name="gender"
                           defaultChecked
                           value="남"
+                          onChange={handleInputActorValue("gender")}
                         />
                         남
                         <input type="radio" name="gender" value="여" />여
                       </div>
                       {err ? <div className="err-message">{err}</div> : null}
                       <button
-                         className="btn-login"
+                        className="btn-login"
                         type="submit"
                         onClick={handleClickActorSignupBtn}
                       >
@@ -182,25 +188,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       <div className="modal-group-signup">
                         *
                         <input
-                          type="text"
-                          placeholder="회사명"
-                          onChange={handleInputRecruitorValue("name")}
-                        />
-                      </div>
-                      <div className="modal-group-signup">
-                        *
-                        <input
-                          type="text"
-                          placeholder="회사주소"
-                          onChange={handleInputRecruitorValue("address")}
-                        />
-                      </div>
-                      <div className="modal-group-signup">
-                        *
-                        <input
                           type="email"
                           placeholder="이메일"
-                          onChange={handleInputRecruitorValue("email")}
+                          onChange={handleInputActorValue("email")}
                         />
                       </div>
                       <div className="modal-group-signup">
@@ -208,13 +198,73 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         <input
                           type="password"
                           placeholder="비밀번호"
-                          onChange={handleInputRecruitorValue("password")}
+                          onChange={handleInputActorValue("password")}
                         />
                       </div>
                       <div className="modal-group-signup">
+                        *
                         <input
                           type="text"
-                          placeholder="전화번호"
+                          placeholder="이름"
+                          onChange={handleInputActorValue("name")}
+                        />
+                      </div>
+                      <div className="modal-group-signup">
+                        *
+                        <input
+                          type="text"
+                          placeholder="생년월일 (1990-01-02)"
+                          onChange={handleInputActorValue("dob")}
+                        />
+                      </div>
+                      <div className="modal-group-signup">
+                        *
+                        <input
+                          type="text"
+                          placeholder="회사명"
+                          onChange={handleInputRecruitorValue("name")}
+                        />
+                      </div>
+                      <div className="company-address-box">
+                        <div className="modal-group-signup city">
+                          *
+                          <input
+                            type="text"
+                            placeholder="시/도"
+                            onChange={handleInputRecruitorValue("address-city")}
+                          />
+                        </div>
+                        <div className="modal-group-signup">
+                          <input
+                            type="text"
+                            placeholder="시/군/구"
+                            onChange={handleInputRecruitorValue(
+                              "address-street"
+                            )}
+                          />
+                        </div>
+                        <div className="modal-group-signup">
+                          <input
+                            type="text"
+                            placeholder="우편번호"
+                            onChange={handleInputRecruitorValue(
+                              "address-zipcode"
+                            )}
+                          />
+                        </div>
+                      </div>
+                      <div className="modal-group-signup">
+                        <input
+                          type="email"
+                          placeholder="회사 이메일"
+                          onChange={handleInputRecruitorValue("email")}
+                        />
+                      </div>
+
+                      <div className="modal-group-signup">
+                        <input
+                          type="text"
+                          placeholder="회사 전화번호"
                           onChange={handleInputRecruitorValue("phoneNumber")}
                         />
                       </div>
@@ -224,6 +274,16 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           placeholder="직책"
                           onChange={handleInputRecruitorValue("jobTitle")}
                         />
+                      </div>
+                      <div className="modal-group-signup-gender">
+                        <input
+                          type="radio"
+                          name="gender"
+                          defaultChecked
+                          value="남"
+                        />
+                        남
+                        <input type="radio" name="gender" value="여" />여
                       </div>
                       {err ? <div className="err-message">{err}</div> : null}
                       <button
