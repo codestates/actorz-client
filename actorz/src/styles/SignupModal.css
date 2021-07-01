@@ -1,4 +1,4 @@
-c#modal-background {
+#modal-background {
   /* position: absolute; */
   position: fixed;
   flex-direction: column;
@@ -54,18 +54,20 @@ c#modal-background {
   font-size: 20px;
 }
 
-/* .company-address-box {
-  margin: 0px 0px 0px 40px;
+.company-address-box {
+  display: flex;
+  margin: 0px 0px 0px 90px;
 }
 
 .company-address-box .modal-group-signup {
   padding: 0px;
+  margin-right: 26px;
 }
 
 .company-address-box .modal-group-signup > input {
-  width: 120px;
-  font-size: 10px;
-} */
+  width: 90px;
+  font-size: 20px;
+}
 
 .err-message {
   font-size: 20px;
