@@ -183,15 +183,3 @@ const Posts = () => {
   );
 };
 export default Posts;
-
-/* 
-
- <Link
-                to={{
-                  pathname: `/post/${post.id}`,
-                  state: { id: post.id },
-                }}
-              >
-                <img src={post.path} />
-              </Link>
-*/

@@ -127,14 +127,43 @@ body {
 
 
 .footerIcon {
-  padding: 0.5rem;
   font-size: 1rem;
+  padding: 0.5rem
+
 }
 
 .footerName {
-  padding: 1rem;
+  padding: 0.5rem;
+  margin-right: 0.2rem;
+  
 }
 
+.footerUser {
+  /*
+  background-color: red;
+  */
+}
+
+.footerUser1 {
+  padding: 0.25rem;
+  border-right: 1px solid #e0e0e0;
+
+}
+
+.footerUser2 {
+  padding: 0.25rem;
+  border-right: 1px solid #e0e0e0;
+}
+
+.footerUser3 {
+  padding: 0.25rem;
+  border-right: 1px solid #e0e0e0;
+}
+
+.footerUser4 {
+  padding: 0.25rem;
+  border-right: 1px solid #e0e0e0;
+}
 
 .startButton1 {
     /*transform: translate(0vw, 20vh);*/
