@@ -1,3 +1,28 @@
+import server from "../apis/server";
+const userInfoInitState;
+
+try {
+  server
+    .get(`/user/:user_id`, {
+      headers: {
+        Authorization: `Bearer {/* 액세스 토큰 */}`,
+      },
+    })
+    .then((res) => {
+      if(res.status === 200) {
+        userInfoInitState = res;
+      } else if(res.status === 401) {
+        alert("유효하지 않은 아이디입니다.\n다시 로그인 해주세요");
+      }
+    });
+} catch {
+  alert(
+    "회원 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다.\n 잠시 후 다시 이용해주세요"
+  );
+}
+
+export default userInfoInitState;
+
 export const userInfoInitState = {
   data: {
     userInfo: {
