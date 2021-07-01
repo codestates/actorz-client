@@ -61,23 +61,24 @@ const Nav = () => {
 
           <div className="blackNav2"> </div>
 
-          <div className="signBtnPosition">
-            <Button
-              variant="outlined"
-              className="navSignInBtn"
-              onClick={handleClickSignin}
-            >
-              Sign in
-            </Button>
-            &nbsp;
-            <Button
-              variant="outlined"
-              className="navSignInBtn"
-              onClick={handleClickSignup}
-            >
-              Sign up
-            </Button>
-          </div>
+          {}
+            <div className="signBtnPosition">
+              <Button
+                variant="outlined"
+                className="navSignInBtn"
+                onClick={handleClickSignin}
+              >
+                Sign in
+              </Button>
+              &nbsp;
+              <Button
+                variant="outlined"
+                className="navSignInBtn"
+                onClick={handleClickSignup}
+              >
+                Sign up
+              </Button>
+            </div>
         </div>
 
         {clickSignin ? (

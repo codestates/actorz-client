@@ -8,8 +8,18 @@ import Footer from "../components/Footer";
 import "antd/dist/antd.css";
 import "../mainpage.css";
 import { HeartOutlined } from "@ant-design/icons";
+import Google from '../components/Googlelogin';
+import Googlelogout from '../components/Googlelogout';
 
 const Mainpage = () => {
+  
+  const logout = () => {
+    console.log('logout'); 
+  }
+  const responseGoogle = (res) => {
+    console.log(res);
+  }
+
   const [newfile, setNewFile] = useState({
     profileImages: [],
   });
@@ -37,6 +47,7 @@ const Mainpage = () => {
       <div className="mainPage">
         <Nav />
         <Iconlist />
+        
 
         <div className="newblockPosition"> </div>
 
@@ -50,17 +61,20 @@ const Mainpage = () => {
               </div>
 
               <div className="postNamePart">
-                <Link to="/posts">
+                <Link to="/posts" >
                   <div className="user">goyounjung</div>
                 </Link>
               </div>
+
             </div>
 
             <div className="midContentDownPart">
               <div className="effecTest">
                 <a href="/mainpage">
                   <div className="screen">
-                    <div className="top"> 고윤정 테스트</div>
+                    <div className="top"> 고윤정 테스트
+                    <Googlelogout />
+                    </div>
                     <div className="bottom">
                       <HeartOutlined className="testIcon" />
                     </div>

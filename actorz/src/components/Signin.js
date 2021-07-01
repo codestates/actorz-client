@@ -3,6 +3,7 @@ import kakao from "../images/kakao.png";
 import google from "../images/google.png";
 import server from "../apis/server";
 import "../styles/SigninModal.css";
+import Google from '../components/Googlelogin';
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
@@ -98,17 +99,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       </button>
                     </div>
                     <div>
-                      <button
-                        className="btn-login btn-login-kakao"
-                        onClick={handleClickGoogleBtn}
-                      >
-                        <img
-                          src={google}
-                          alert="google-logo"
-                          className="kakao-logo"
-                        ></img>
-                        구글로 로그인하기
-                      </button>
+                      <Google />
                     </div>
                     <div>
                     <button
