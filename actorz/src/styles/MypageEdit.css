@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+/*
 #post-container {
   margin-top: 70px;
   margin-left: 100px;
@@ -37,15 +38,19 @@
   font-size: 50px;
   margin-bottom: 10px;
 }
-
+*/
+/*
 .dob,
 .email,
 .company {
   padding-bottom: 10px;
+  background-color: lightyellow;
 }
+*/
 
-.img {
-  width: 300px;
+.highlightDisplay {
+  border-bottom: 1px solid #e0e0e0;
+  background-color: lightyellow;
 }
 
 ul {
@@ -58,19 +63,32 @@ li {
 
 .career {
   font-size: 40px;
-  margin-left: 100px;
-  margin-top: 20px;
+  margin-top: 10px;
+}
+/*
+.career-btn {
+  position: absolute;
+  border: 0px;
+  background-color: white;
+}
+*/
+
+.careerButton {
+
 }
 
-.career-add-btn {
-  font-size: 40px;
-  border-radius: 30px;
-  background-color: white;
-  margin: 10px;
-  color: rgb(33, 66, 143);
+
+.careerButtonPosition {
+  flex: 1;
+  text-align: right;
+  align-self: flex-end;
+  margin-bottom: 0.3rem
 }
+
 
 .career-box li {
+  padding: 10px;
+  /*
   font-family: "Nanum Gothic", sans-serif;
   font-size: 20px;
   margin-top: 30px;
@@ -80,26 +98,34 @@ li {
   padding-left: 15px;
   height: 130px;
   width: 800px;
-  border: 1px solid black;
+  */
+  border: 1px solid lightgray;
 }
 
 .career-delete-btn {
-  position: absolute;
-  margin-left: 750px;
-  border: 0px;
-  background-color: white;
+  /* position: absolute; */
+  margin-left: 15rem;
+  /* border: 0px; */
+  /* background-color: white; */
+}
+
+.tag {
+  margin-top: 0.3rem;
 }
 
 .career-year {
-  margin-left: 80px;
+  margin-left: 4rem;
 }
 .genre-tag-box {
   margin-top: 15px;
 }
 
+
 .genre-tag {
-  border: 1px solid;
-  border-radius: 20px;
-  padding: 6px;
-  margin: 15px;
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 0.2rem;
+  margin: 1rem;
 }
+
+

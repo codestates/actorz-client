@@ -1,11 +1,13 @@
 body {
   margin: 0px;
+  background-color: eeeeee;
   /*width: 100vw;*/
 }
 
-a { 
+.alinkEffect { 
   text-decoration: none;
-  color: white
+  color: white;
+
 }
 
 .introNavbar {
@@ -36,18 +38,6 @@ a {
   width: 50px;
   height: 30px;
 }
-
-/* *상단 nav바 검색하고 검색창
-.product-search {
-  height: 31.09px;
-  width: 250px;
-  margin-left: 525px;
-}
-
-.product-search-btn {
-  height: 31.09px;
-}
-*/
 
 .blockPositionNav {
   width: 85%
@@ -95,7 +85,7 @@ a {
 }
 
 .scrollIcon {
-  color:rgb(255, 255, 255);
+  color: white;
   /*margin-top: 200px;*/
   font-size: 40px;
 }
@@ -118,9 +108,9 @@ a {
   left: 0;
   bottom: 0;
   width: 100vw;
-  height: 40px;
+  height: 2rem;
   background-color: rgb(0, 0, 0);
-  font-size: 15px;
+  font-size: 1rem;
   color: white;
   z-index: 4; 
 }
@@ -137,12 +127,12 @@ a {
 
 
 .footerIcon {
-  padding: 8px;
-  font-size: 20px;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
 
 .footerName {
-  padding: 7px;
+  padding: 1rem;
 }
 
 
