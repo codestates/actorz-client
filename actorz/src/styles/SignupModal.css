@@ -1,5 +1,6 @@
-c#modal-background {
-    /* position: absolute; */
+/*
+#modal-background {
+    position: absolute;
     position: fixed;
     flex-direction: column;
     top: -20vh;
@@ -14,6 +15,7 @@ c#modal-background {
     background-color: rgba(222, 230, 250, 0.8);
     transition: 0.5s linear;
   }
+
   
   #modal-container {
     padding-top: 30px;
@@ -26,7 +28,7 @@ c#modal-background {
     background-color: #fff;
     text-align: center;
   }
-  
+*/
   .modal-group-signup {
     padding: 10px;
     color: red;

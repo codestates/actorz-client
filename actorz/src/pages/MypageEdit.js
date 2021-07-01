@@ -155,20 +155,24 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                   <div className="careerContent">
                     <div className="career-box">
                       <li className="career-li">
-                        
-                        <span className="career-title">제목: </span>
-                        <input type="text" className="highlightDisplay" onChange={handleInputValue("title")} />
-                        <span className="career-year">활동연도: </span>
-                        <input type="text" className="highlightDisplay" onChange={handleInputValue("year")} />
-                        <div>
+                        <div className="careerDivide">
+                          <div className="career-title">제목:</div>
+                          <input type="text" className="highlightDisplay" onChange={handleInputValue("title")} />
+                          <div className="career-year">활동연도:</div>
+                          <input type="text" className="highlightDisplay" onChange={handleInputValue("year")} />
+                        </div>
                         <br></br>
-                          <span >태그: </span>
+                        <div className="careerDivide">
+                          <div className="career-tag">태그:</div>
+                          <div>
                           <input
                             placeholder="태그를 입력하세요"
                             className="highlightDisplay"
                             onKeyPress={handleTagBtn}
                           />
+                          </div>
                         </div>
+
                         <div className="genre-tag-box">
                           {tag.map((el) => {
                             return <span className="genre-tag">{el}</span>;
@@ -182,16 +186,22 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         return (
                           <>
                           <li className="career-li">
-                            <span className="career-title">제목: </span>
-                            <span>{career.title}</span>
-                            <span className="career-year">활동연도: </span>
-                            <span>{career.year}</span>
-                            <CloseOutlined className="career-delete-btn" onClick={() => {handleDeleteBtn(career.id)}}/>
-                            <div className="tag">
-                              <span>태그: </span>
-                              {`${career.type.map((type) => {
-                                return type;
-                              })}`}
+                            <div className="careerDivide">
+                              <div className="career-title">제목:</div>
+                              <div>{career.title}</div>
+                              <div className="career-year">활동연도:</div>
+                              <div>{career.year}</div>
+                              <CloseOutlined className="career-delete-btn" onClick={() => {handleDeleteBtn(career.id)}}/> 
+                            </div>
+                            <div className="careerDivide">
+                              <div className="tag">
+                                <div className="tagPosition">태그:</div>
+                                <div>
+                                {`${career.type.map((type) => {
+                                  return type;
+                                })}`}
+                                </div>
+                              </div>
                             </div>
                           </li>
                         </>
