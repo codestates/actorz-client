@@ -100,7 +100,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
               <div className="midContents">
                 <div className="buttonHeader">
                  <SaveOutlined className="editButton" onClick={() => handleClickSaveBtn()}/>
-                 {/* <DeleteOutlined className="deleteButton"/> */}
                 </div>
                 <div className="midContentDownPart">
                   <div className="displayPosition">

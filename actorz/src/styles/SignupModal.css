@@ -1,5 +1,6 @@
+/*
 #modal-background {
-  /* position: absolute; */
+  position: absolute;
   position: fixed;
   flex-direction: column;
   top: -20vh;
@@ -27,16 +28,18 @@
   text-align: center;
   overflow-y: scroll;
 }
+*/
+
 
 #modal-container::-webkit-scrollbar {
-  width: 6px;
+  width: 0.5rem;
 }
 
 .modal-group-signup {
-  padding: 10px;
+  padding: 0.6rem;
   color: red;
-  font-size: 20px;
-  margin-top: 10px;
+  font-size: 1.25rem;
+  margin-top: 0.6rem;
 }
 .modal-group-signup input {
   font-size: 10px;
@@ -45,12 +48,12 @@
 
 .modal-group-signup > input {
   font-size: 10px;
-  width: 350px;
+  width: 15.5rem;
   font-size: 20px;
 }
 
 .modal-group-signup-gender {
-  padding-right: 290px;
+  padding-right: 15rem;
   font-size: 20px;
 }
 
@@ -60,23 +63,23 @@
 }
 
 .company-address-box .modal-group-signup {
-  padding: 0px;
+  padding: 0rem;
   margin-right: 26px;
 }
 
 .company-address-box .modal-group-signup > input {
   width: 90px;
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .err-message {
-  font-size: 20px;
+  font-size: 1.25rem;
   color: red;
 }
 
 .modal-title .title {
-  font-size: 20px;
-  padding-bottom: 20px;
+  font-size: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 
 .modal-title .modal-welcome-message {
@@ -103,16 +106,6 @@
   background-color: white;
 }
 
-.btn-login {
-  font-size: 18px;
-  width: 380px;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 5px;
-  margin-top: 20px;
-  padding: 15px;
-  background: white;
-}
 
 #modal-section {
   display: block;
@@ -132,3 +125,4 @@ input {
   padding-top: 20px;
   font-size: 15px;
 }
+

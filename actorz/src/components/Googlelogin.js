@@ -21,7 +21,7 @@ const Google = () => {
       render={renderProps => (
        <button 
         onClick={renderProps.onClick} disabled={renderProps.disabled}
-        className="btn-login btn-login-kakao"
+        className="btn-login login"
        >
         <img
           src={google}

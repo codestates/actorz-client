@@ -3,6 +3,14 @@ body {
   /*width: 100vw;*/
 }
 
+h1, p {
+  font-family: Lato;
+}
+
+.nothing {
+  color: black;
+}
+
 /*
 font {
 	font-family: arial sans-serif monospace;
@@ -263,13 +271,14 @@ font {
   opacity: 0;
   transition: all 0.35s;
 }
+
 .screen .top {
   position: absolute;
   bottom: 150%;
-  left: 15rem;
+  margin-left: 3.5rem;
   z-index: 2;
   color: #fff;
-  font-size: 26px;
+  font-size: 1.5rem;
   font-weight: 900;
   transition: all 0.35s;
 }

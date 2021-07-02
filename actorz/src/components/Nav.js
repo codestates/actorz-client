@@ -15,6 +15,7 @@ const Nav = () => {
   };
 
   const handleClickSignin = () => {
+
     setClickSignup(false);
     if (clickSignin) {
       setClickSignin(false);
