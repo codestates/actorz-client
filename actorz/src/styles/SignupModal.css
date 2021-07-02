@@ -36,35 +36,45 @@
 }
 
 .modal-group-signup {
+  display: flex;
   padding: 0.6rem;
-  color: red;
+  /* color: red; */
   font-size: 1.25rem;
-  margin-top: 0.6rem;
 }
+
+.importEffect {
+  margin-top: 0.3rem;
+  color: red;
+}
+
 .modal-group-signup input {
-  font-size: 10px;
-  color: black;
+  width: 15rem;
+  font-size: 0.5rem;
+  padding: 0.2rem;
+  background-color: #fafafa;
+  font-family: Lato;
 }
 
 .modal-group-signup > input {
-  font-size: 10px;
-  width: 15.5rem;
-  font-size: 20px;
+  font-size: 1rem;
+  width: 15rem;
+  height: 1rem;
+  background-color: #fafafa;
+  font-family: Lato;
 }
 
 .modal-group-signup-gender {
-  padding-right: 15rem;
-  font-size: 20px;
+  font-size: 0.5rem;
+  margin-right: 1.5rem;
 }
 
 .company-address-box {
   display: flex;
-  margin: 0px 0px 0px 90px;
 }
 
 .company-address-box .modal-group-signup {
   padding: 0rem;
-  margin-right: 26px;
+  margin-right: 2rem;
 }
 
 .company-address-box .modal-group-signup > input {
@@ -73,8 +83,25 @@
 }
 
 .err-message {
-  font-size: 1.25rem;
+  font-size: 0.5rem;
   color: red;
+}
+
+.btn-login2 {
+  font-size: 0.5rem;
+  width: 15.5rem;
+  height: 2rem;
+  border: 1px solid lightgray;
+  border-radius: 0.8rem;
+  margin-top: 0.2rem;
+  /* padding: 1rem; */
+  background: #fafafa;
+}
+
+.signUpbtnPosition2 {
+  display: flex;
+  margin-top: 0.6rem;
+  margin-left: 2rem;
 }
 
 .modal-title .title {
@@ -82,38 +109,26 @@
   padding-bottom: 1.25rem;
 }
 
-.modal-title .modal-welcome-message {
-  font-size: 25px;
-}
-
 .modal-group-signup-role {
-  font-size: 20px;
-  padding-right: 20px;
+  font-size: 0.5rem;
+  padding-right: 1.25rem;
 }
 
-.modal-group-signup-role input,
-.modal-group-signup-gender input {
-  margin: 8px;
+.modal-group-signup-role input{
+  margin-top: 1rem;
 }
 
-.modal-btn {
-  position: absolute;
-  top: 10px;
-  left: 510px;
-  font-size: 40px;
-  border: 0;
-  color: rgb(129, 163, 207);
-  background-color: white;
+.odal-group-signup-gender input {
+  margin-top: 1rem;
 }
-
 
 #modal-section {
   display: block;
 }
 
 .gender input {
-  width: 20px;
-  font-size: 20px;
+  width: 1.25rem;
+  font-size: 1.25rem;
 }
 
 input {
@@ -122,7 +137,7 @@ input {
 }
 
 .signup {
-  padding-top: 20px;
-  font-size: 15px;
+  padding-top: 1.25rem;
+  font-size: 1rem;
 }
 
