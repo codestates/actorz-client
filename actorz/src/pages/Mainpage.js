@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
 import FileUpload from "../components/file-upload/file-upload.component";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPostInfo } from "../actions/postAction";
+import server from "../apis/server";
 import { Avatar } from "@material-ui/core";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
+
 import "antd/dist/antd.css";
 import "../mainpage.css";
 import { HeartOutlined } from "@ant-design/icons";
@@ -14,13 +18,8 @@ import 'semantic-ui-css/semantic.min.css';
 import { Card, Icon, Image } from 'semantic-ui-react';
 
 const Mainpage = () => {
-  
-  const logout = () => {
-    console.log('logout'); 
-  }
-  const responseGoogle = (res) => {
-    console.log(res);
-  }
+  const post = useSelector((post) => post.postInfoReducer);
+  const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({
     profileImages: [],
@@ -42,6 +41,22 @@ const Mainpage = () => {
     event.preventDefault();
     // 여기에 이미지 올리는 로직 작성해야 함
   };
+
+  useEffect(() => {
+    try {
+      server.get(`/post`).then((res) => {
+        if (res.status === 200) {
+          dispatch(getAllPostInfo(res.data.data));
+        }
+      });
+    } catch (err) {
+      alert(
+        "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다 \n 잠시 후 다시 이용해주세요"
+      );
+    }
+  }, []);
+
+  console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>

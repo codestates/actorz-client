@@ -4,17 +4,8 @@ import "../styles/SignupModal.css";
 import { CloseOutlined } from "@ant-design/icons";
 
 const Signup = ({ handleClickSignup, handleClickSignin }) => {
-  /* const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
-  const [company, setCompany] = useState("");
-  const [provider, setProvider] = useState("");
-  const [dob, setDob] = useState(""); */
   const [actorSignup, setActorSignup] = useState({});
   const [recruitorSignup, setRecruitorSignup] = useState({});
-  /*  const [address, setAddress] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [jobTitle, setJobTitle] = useState(""); */
   const [err, setError] = useState("");
   const [role, setRole] = useState("배우");
 
@@ -23,63 +14,121 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   };
 
   const handleInputActorValue = (key) => (event) => {
-    /* if (key === "email") {
-      setEmail({ [key]: event.target.value });
-    } else if (key === "password") {
-      setPassword({ [key]: event.target.value });
-    } else if (key === "name") {
-      setName({ [key]: event.target.value });
-    } else if (key === "company") {
-      setCompany({ [key]: event.target.value });
-    } else if (key === "provider") {
-      setProvider({ [key]: event.target.value });
-    } else if (key === "dob") {
-      setDob({ [key]: event.target.value });
-    } */
     setActorSignup({ ...actorSignup, [key]: event.target.value });
   };
 
   const handleInputRecruitorValue = (key) => (event) => {
-    /* if (key === "name") {
-      setName({ [key]: event.target.value });
-    } else if (key === "address") {
-      setAddress({ [key]: event.target.value });
-    } else if (key === "email") {
-      setEmail({ [key]: event.target.value });
-    } else if (key === "password") {
-      setPassword({ [key]: event.target.value });
-    } else if (key === "phoneNumber") {
-      setPhoneNumber({ [key]: event.target.value });
-    } else if (key === "jobTitle") {
-      setJobTitle({ [key]: event.target.value });
-    } */
     setRecruitorSignup({ ...recruitorSignup, [key]: event.target.value });
   };
 
-  const handleClickActorSignupBtn = async () => {
-    /* if (dob.dob.length !== 10 || dob.dob[4] !== "-" || dob.dob[7] !== "-") {
-      setError("생년월일 형식을 지켜서 작성해주세요");
-    } else if (email !== "" && password !== "" && name !== "" && dob !== "") {
-      await server.post(`signup`, {
-        //email: email.email,
-        password: password.passowrd,
-        name: name.name,
-        company: company.company,
-        provider: "local",
-        /*gender: gender.gender,*/
-    // dob: dob.dob,
-    // }); */
-    /*  } else {
-      setError("필수 항목을 모두 적어주세요");
-    } */
+  const setGender = (gender) => {
+    if (gender === "남") {
+      return false;
+    } else if (gender === "여") {
+      return true;
+    } else {
+      return false;
+    }
   };
 
-  const handleClickRecruitorSignupBtn = () => {
-    /* if (name !== "" && address !== "" && email !== "" && password !== "") {
-    } else {
-      setError("필수 항목을 모두 적어주세요");
-    } */
-    console.log(recruitorSignup);
+  const handleClickActorSignupBtn = async () => {
+    const { email, password, name, dob, company, gender } = actorSignup;
+    try {
+      if (
+        email !== undefined &&
+        password !== undefined &&
+        name !== undefined &&
+        dob !== undefined
+      ) {
+        if (dob.length !== 10 || dob[4] !== "-" || dob[7] !== "-") {
+          setError("생년월일 형식을 지켜서 작성해주세요");
+        } else {
+          setError("");
+          await server
+            .post(`signup`, {
+              email: email,
+              password: password,
+              name: name,
+              company: company,
+              //provider: "local",
+              gender: setGender(gender),
+              dob: dob,
+            })
+            .then((res) => {
+              if (res.status === 201) {
+                console.log("회원가입 성공");
+              }
+            });
+        }
+      } else {
+        setError("필수 항목을 모두 적어주세요");
+      }
+    } catch (err) {
+      if (err.message === "Request failed with status code 409") {
+        alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
+      } else {
+        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+      }
+    }
+  };
+
+  const handleClickRecruitorSignupBtn = async () => {
+    const {
+      email,
+      password,
+      name,
+      dob,
+      gender,
+      bName,
+      bAddress_city,
+      bAddress_street,
+      bAddress_zipcode,
+      bEmail,
+      phoneNum,
+      jobTitle,
+    } = recruitorSignup;
+
+    try {
+      if (
+        email !== undefined &&
+        password !== undefined &&
+        name !== undefined &&
+        dob !== undefined &&
+        bName !== undefined &&
+        bAddress_city !== undefined &&
+        bAddress_street !== undefined &&
+        bAddress_zipcode !== undefined
+      ) {
+        if (dob.length !== 10 || dob[4] !== "-" || dob[7] !== "-") {
+          setError("생년월일 형식을 지켜서 작성해주세요");
+        } else {
+          setError("");
+          await server.post(`signup`, {
+            email: email,
+            password: password,
+            name: name,
+            provider: "local",
+            gender: setGender(gender),
+            dob: dob,
+            recruitor: {
+              bName: bName,
+              bAddress: {
+                city: bAddress_city,
+                street: bAddress_street,
+                zipcode: bAddress_zipcode,
+              },
+              bEmail: bEmail,
+              phoneNum: phoneNum,
+              jobTitle: jobTitle,
+            },
+          });
+        }
+      } else {
+        setError("필수 항목을 모두 적어주세요");
+      }
+    } catch {
+      alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+    }
   };
 
   const handleClickRadio = (event) => {
@@ -193,6 +242,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       </div>
                       <div>
                         {err ? <div className="err-message">{err}</div> : null}
+
                       </div>
                       <button
                         className="btn-login2"
@@ -217,7 +267,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                             type="email"
                             placeholder="이메일"
-                            onChange={handleInputActorValue("email")}
+                            onChange={handleInputRecruitorValue("email")}
                           />
                         </div>
                       </div>
@@ -227,7 +277,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                             type="password"
                             placeholder="비밀번호"
-                            onChange={handleInputActorValue("password")}
+                            onChange={handleInputRecruitorValue("password")}
                           />
                         </div>
                       </div>
@@ -237,7 +287,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                           type="text"
                           placeholder="이름"
-                          onChange={handleInputActorValue("name")}
+                          onChange={handleInputRecruitorValue("name")}
                           />
                         </div>
                       </div>
@@ -247,7 +297,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                           type="text"
                           placeholder="생년월일 (1990-01-02)"
-                          onChange={handleInputActorValue("dob")}
+                          onChange={handleInputRecruitorValue("dob")}
                           />
                         </div>
                       </div>
@@ -257,7 +307,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                           type="text"
                           placeholder="회사명"
-                          onChange={handleInputActorValue("name")}
+                          onChange={handleInputRecruitorValue("name")}
                           />
                         </div>
                       </div>
@@ -278,7 +328,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                             type="text"
                             placeholder="시/군/구"
                             onChange={handleInputRecruitorValue(
-                              "address-street"
+                              "bAddress_street"
                             )}
                           />
                         </div>
@@ -287,7 +337,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                             type="text"
                             placeholder="우편번호"
                             onChange={handleInputRecruitorValue(
-                              "address-zipcode"
+                              "bAddress_zipcode"
                             )}
                           />
                         </div>
@@ -332,6 +382,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           name="gender"
                           defaultChecked
                           value="남"
+                          onChange={handleInputRecruitorValue("gender")}
                         />
                         &nbsp;남
                         <input type="radio" name="gender" value="여" />&nbsp;여
