@@ -13,10 +13,11 @@ import { CloseOutlined, SaveOutlined } from "@ant-design/icons";
 import Footer from "../components/Footer";
 import "antd/dist/antd.css";
 import { Button } from "antd";
+import { Radio } from "antd";
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
-  console.log(user);
+  //console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
   const [tag, setTag] = useState([]);
@@ -25,6 +26,32 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [company, setCompany] = useState(user.data.userInfo.company);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
+  const [category, setCategory] = useState("");
+  const tagOptions = [
+    { label: "드라마", value: "드라마" },
+    { label: "영화", value: "영화" },
+    { label: "뮤지컬", value: "뮤지컬" },
+    { label: "연극", value:  "연극" },
+    { label: "광고", value: "광고" },
+    { label: "뮤직비디오", value: "뮤직비디오" },
+  ];
+
+  const onChangeTag = (e) => {
+    console.log('버튼눌렀음', e.target.value);
+    if(e.target.value==="드라마"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="영화"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="뮤지컬"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="연극"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="광고"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="뮤직비디오"){
+      setTag([e.target.value]);
+    }
+  };
 
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
@@ -44,11 +71,11 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     setClickCareer([...clickCareer, "career"]);
   }; */
 
-  const handleTagBtn = (event) => {
-    if (event.key === "Enter") {
-      setTag([...tag, event.target.value]);
-    }
-  };
+  // const handleTagBtn = (event) => {
+  //   if (event.key === "Enter") {
+  //     setTag([...tag, event.target.value]);
+  //   }
+  // };
 
   const handleDeleteBtn = (id) => {
     dispatch(removeUserCareer(id));
@@ -157,7 +184,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 </div>
               </div>
               <div className="careerTitleDivide">
-                <div className="careerTitle">Career 🏆</div>
+                <div className="careerTitle">Career </div>
+                <div className="iconTitle">🏆</div>
                 <div className="careerButtonPosition">
                   <Button
                     variant="outlined"
@@ -187,22 +215,38 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                       />
                     </div>
                     <br></br>
-                    <div className="careerDivide">
-                      <div className="career-tag">태그:</div>
+                    <div className="careerDivide2">
+                      <div className="career-tag2">태그:</div>
                       <div>
+                      <Radio.Group 
+                        className="radioButton"
+                        options={tagOptions}
+                        optionType="button"
+                        buttonStyle="solid"
+                        onChange={onChangeTag}
+                      />
+                      </div>
+                      {/* <Radio.Group
+                        options={optionsWithDisabled}
+                        onChange={this.onChange4}
+                        value={value4}
+                        optionType="button"
+                        buttonStyle="solid"
+                      /> */}
+                      {/* <div>
                         <input
                           placeholder="태그를 입력하세요"
                           className="highlightDisplay"
                           onKeyPress={handleTagBtn}
                         />
-                      </div>
+                      </div> */}
                     </div>
 
-                    <div className="genre-tag-box">
+                    {/* <div className="genre-tag-box">
                       {tag.map((el) => {
                         return <span className="genre-tag">{el}</span>;
                       })}
-                    </div>
+                    </div> */}
                   </li>
                 </div>
               </div>
