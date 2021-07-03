@@ -1,11 +1,17 @@
 #modal-background {
   position: fixed;
   /* flex-direction: column; */
-  top: -20vh;
+  top: -26vh;
   left: -15vw;
   width: 140vw;
   height: 140vh;
   z-index: 10000;
+  /*
+   width, height : 100주면 센터로간다. 
+   로그아웃 때문에 모달창의 센터를 맞추면 보기가 흉해진다.
+   코드로 자체적으로 효과를 주어 값을 올릴지 버튼을 지금처럼
+   수동적으로 위로 올려서 쓸지 고민해봐야함. (반응형 적용시 모달창이 생각보다 올라감)
+  */
   /* padding-top: 14rem;
   padding-left: 45rem; */
   /* justify-content: center;
@@ -18,6 +24,7 @@
 }
 
 #modal-container {
+  overflow-y: auto;
   /* display: flex;  */
   /* opacity: 0; */
   transition: all 1s ease;

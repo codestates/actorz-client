@@ -73,9 +73,11 @@ const Mainpage = () => {
             
             <Card.Content>
               <Card.Header>
-                <Link to="/posts" >
-                  <div className="nothing">Goyounjung</div>
-                </Link>
+                <div className="nothing2">
+                  <Link to="/posts" >
+                    <div className="nothing">Goyounjung</div>
+                  </Link>
+                </div>
               </Card.Header>
               <Card.Meta>
                 <span className="date">Joined in 2021</span>

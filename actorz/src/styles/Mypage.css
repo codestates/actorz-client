@@ -67,7 +67,7 @@ li {
 }
 
 .fixedContent {
-  padding: 30px;
+  padding: 2rem;
   /*max-width:100%;*/
   flex: 1;
   height: 20rem;
@@ -120,4 +120,8 @@ li {
 .deleteButton:hover {
   color: red;
   border: 1px solid red;
+}
+
+.nothing2 {
+  width: 3rem;
 }

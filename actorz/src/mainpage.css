@@ -85,7 +85,7 @@ font {
 
 .iconList {
   /*margin-top:100%;*/
-  padding: 10px;
+  padding: 0.2rem;
   border: solid 1px #e0e0e0;
   background-color: #fafafa;
   width: 11rem;
@@ -205,11 +205,14 @@ font {
 
 .homeButtonIcon {
   font-size: 2rem;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 .homeButtonText {
   width: 100%;
   padding: 1rem;
+  
   margin-right: 2rem;
 }
 

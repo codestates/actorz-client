@@ -30,6 +30,9 @@
 }
 */
 
+.reposition {
+  margin-left: 0.5rem;
+}
 
 #modal-container::-webkit-scrollbar {
   width: 0.5rem;
@@ -40,12 +43,27 @@
   padding: 0.6rem;
   /* color: red; */
   font-size: 1.25rem;
+  margin-left: 1rem;
+}
+
+.modal-group-signup2 {
+  display: flex;
+  padding: 0.6rem;
+  /* color: red; */
+  font-size: 1.25rem;
+  margin-left: 1rem;
 }
 
 .importEffect {
   margin-top: 0.3rem;
   color: red;
 }
+
+.importEffect2 {
+  margin-top: 0.3rem;
+  color: red;
+}
+
 
 .modal-group-signup input {
   width: 15rem;
@@ -54,6 +72,16 @@
   background-color: #fafafa;
   font-family: Lato;
 }
+
+.modal-group-signup2 input {
+  width: 3.8rem;
+  font-size: 0.5rem;
+  padding: 0.2rem;
+  margin-left: -0.6rem;
+  background-color: #fafafa;
+  font-family: Lato;
+}
+
 
 .modal-group-signup > input {
   font-size: 1rem;
@@ -69,17 +97,39 @@
 }
 
 .company-address-box {
-  display: flex;
+  display: flex; 
 }
 
-.company-address-box .modal-group-signup {
-  padding: 0rem;
-  margin-right: 2rem;
+.modal-group-signup3 {
+  flex: 1;
+  width: 3rem;
+  font-size: 0.5rem;
+  background: #fafafa;
+
 }
 
-.company-address-box .modal-group-signup > input {
-  width: 90px;
-  font-size: 1.25rem;
+..modal-group-signup4 {
+  flex: 1;
+  width: 3rem;
+  font-size: 0.5rem;
+  background: #fafafa;
+
+}
+
+.modal-group-signup2 { 
+
+
+}
+
+.modal-group-signup2 > input {
+  font-size: 0.5rem;
+  background-color: #fafafa;
+  font-family: Lato;
+}
+
+.company-address-box .modal-group-signup2 > input {
+  width: 4rem;
+  font-size: 0.5rem;
 }
 
 .err-message {
@@ -93,14 +143,20 @@
   height: 2rem;
   border: 1px solid lightgray;
   border-radius: 0.8rem;
-  margin-top: 0.2rem;
+  margin-top: 0.8rem;
   /* padding: 1rem; */
   background: #fafafa;
 }
 
 .signUpbtnPosition2 {
   display: flex;
-  margin-top: 0.6rem;
+  margin-top: 0.8rem;
+  margin-left: 2rem;
+}
+
+.signUpbtnPosition3 {
+  display: flex;
+  margin-top: -3rem;
   margin-left: 2rem;
 }
 
@@ -139,5 +195,16 @@ input {
 .signup {
   padding-top: 1.25rem;
   font-size: 1rem;
+}
+
+
+.modal-welcome-message2 {
+  background-color: red;
+}
+
+.moreInfo {
+  height: 34rem;
+  background: #fafafa;
+
 }
 
