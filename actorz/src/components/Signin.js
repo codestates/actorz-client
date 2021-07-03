@@ -3,7 +3,8 @@ import kakao from "../images/kakao.png";
 import google from "../images/google.png";
 import server from "../apis/server";
 import "../styles/SigninModal.css";
-
+import Google from '../components/Googlelogin';
+import { CloseOutlined } from "@ant-design/icons";
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -71,79 +72,74 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
         <form onSubmit={(e) => e.preventDefault()}>
           <div id="modal-background">
             <div id="modal-container">
-              <div id="modal-header"></div>
-              <div id="modal-section">
+              <div className="buttonHeader">
+              </div>
+
                 <div className="modalCancleBtn">
-                  <button className="modal-btn" onClick={handleClickClose}>
-                    X
-                  </button>
+                     
                 </div>
                 <div className="modal-title">
-                  <div className="title">로그인</div>
-
-                  <div className="modal-welcome-message">
-                    Actorz에 오신것을 환영합니다
+                  <div className="title">
+                  <div>Sign In </div>
+                  
+                  <CloseOutlined
+                    className="closeBtn"
+                    onClick={handleClickClose} />
                   </div>
-                  <div className="modal-group">
-                    <input
-                      type="email"
-                      placeholder="이메일"
-                      onChange={handleInputValue("email")}
-                    />
-                  </div>
-                  <div className="modal-group">
+                </div>   
+                <div className="modal-welcome-message">
+                   Welcome to Actorz
+                </div>
+                <div className="modal-group">
+                  <input
+                    type="email"
+                    placeholder=" email"
+                    onChange={handleInputValue("email")}
+                  />
+                </div>
+                <div className="modal-group">
                     <input
                       type="password"
-                      placeholder="비밀번호"
+                      placeholder=" password"
                       onChange={handleInputValue("password")}
                     />
-                  </div>
-                  {err ? <div className="err-message">{err}</div> : null}
-                  <div className="modalButtonPosition">
-                    <div>
-                      <button
-                        className="btn-login login"
-                        type="submit"
-                        onClick={handleClickSigninBtn}
-                      >
-                        로그인
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        className="btn-login btn-login-kakao"
-                        onClick={handleClickGoogleBtn}
-                      >
-                        <img
-                          src={google}
-                          alert="google-logo"
-                          className="kakao-logo"
-                        ></img>
-                        구글로 로그인하기
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        className="btn-login btn-login-kakao"
-                        onClick={handleClickKakaoBtn}
-                      >
-                        <img
-                          src={kakao}
-                          alert="kakao-logo"
-                          className="kakao-logo"
-                        ></img>
-                        카카오로 로그인하기
-                      </button>
-                    </div>
-                    <div
-                      className="signup"
-                      onClick={() => handleClickSignup(true)}
-                    >
-                      아직 계정이 없으십니까? 회원가입 하러 하기
-                    </div>
-                  </div>
                 </div>
-              </div>
+                <div>
+                  {err ? <div className="err-message">{err}</div> : null}
+                </div>
+                <div className="modalButtonPosition"> 
+                  <div className="loginBtnPosition">
+                    <button
+                      className="btn-login login"
+                      type="submit"
+                      onClick={handleClickSigninBtn}
+                    >
+                      <div className="settingBtn"> 로그인 </div>
+                    </button>
+                  </div>
+                  <div>
+                    <Google />
+                  </div>
+                  <div className="loginBtnPosition">
+                    <button
+                      className="btn-login login"
+                      onClick={handleClickKakaoBtn}
+                    >
+                    <img
+                      src={kakao}
+                      alert="kakao-logo"
+                      className="kakao-logo"
+                      ></img>
+                        <div className="settingBtn"> 카카오로 로그인하기 </div>     
+                    </button>
+                    </div>
+                    <div className="signUpbtnPosition">
+                      <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
+                      <div className="movetoSignUpBtn"  onClick={() => handleClickSignup(true)}>
+                         회원가입 하러 하기 
+                      </div>
+                    </div>
+                  </div>
             </div>
           </div>
         </form>

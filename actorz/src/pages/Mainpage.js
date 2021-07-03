@@ -12,6 +12,10 @@ import Footer from "../components/Footer";
 import "antd/dist/antd.css";
 import "../mainpage.css";
 import { HeartOutlined } from "@ant-design/icons";
+import Google from '../components/Googlelogin';
+import { render } from 'react-dom';
+import 'semantic-ui-css/semantic.min.css';
+import { Card, Icon, Image } from 'semantic-ui-react';
 
 const Mainpage = () => {
   const post = useSelector((post) => post.postInfoReducer);
@@ -60,10 +64,52 @@ const Mainpage = () => {
       <div className="mainPage">
         <Nav />
         <Iconlist />
+        
 
         <div className="newblockPosition"> </div>
 
         <div className="middleSpace">
+          <div className="midContents">
+          <Card centered={true} fluid={true}>
+            <div className="effecTest">
+                <a href="/mainpage">
+                  <div className="screen">
+                    {/* <div className="top"> 이기능쓰긴함?
+                    </div> */}
+                    <div className="bottom">
+                      <HeartOutlined className="testIcon" />
+                    </div>
+                    <Image src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png" 
+                    className="exampleIMG"
+                    />
+                  </div>
+                </a>
+              </div>
+            
+            <Card.Content>
+              <Card.Header>
+                <div className="nothing2">
+                  <Link to="/posts" >
+                    <div className="nothing">Goyounjung</div>
+                  </Link>
+                </div>
+              </Card.Header>
+              <Card.Meta>
+                <span className="date">Joined in 2021</span>
+              </Card.Meta>
+              <Card.Description>
+                 Sundeul is a good speaker in the world.
+              </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+              <a>
+                <Icon name="like" />
+                522 Friends
+              </a>
+            </Card.Content>
+          </Card>
+          </div>
+
           <div className="midContents">
             <div className="midContentUpPart">
               <div>
@@ -73,17 +119,19 @@ const Mainpage = () => {
               </div>
 
               <div className="postNamePart">
-                <Link to="/posts">
+                <Link to="/posts" >
                   <div className="user">goyounjung</div>
                 </Link>
               </div>
+
             </div>
 
             <div className="midContentDownPart">
               <div className="effecTest">
                 <a href="/mainpage">
                   <div className="screen">
-                    <div className="top"> 고윤정 테스트</div>
+                    <div className="top"> 고윤정 테스트
+                    </div>
                     <div className="bottom">
                       <HeartOutlined className="testIcon" />
                     </div>

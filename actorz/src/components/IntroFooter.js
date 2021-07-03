@@ -2,7 +2,7 @@ import React from 'react'
 import { ArrowDownOutlined, UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, YoutubeOutlined} from '@ant-design/icons';
 
 const IntroFooter = () => {
-  return(
+  return (
     <div id="initFooter">
       <div className="footerUser1">
         <ToolOutlined className="footerIcon" />

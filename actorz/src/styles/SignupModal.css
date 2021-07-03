@@ -1,5 +1,6 @@
+/*
 #modal-background {
-  /* position: absolute; */
+  position: absolute;
   position: fixed;
   flex-direction: column;
   top: -20vh;
@@ -27,91 +28,154 @@
   text-align: center;
   overflow-y: scroll;
 }
+*/
+
+.reposition {
+  margin-left: 0.5rem;
+}
 
 #modal-container::-webkit-scrollbar {
-  width: 6px;
+  width: 0.5rem;
 }
 
 .modal-group-signup {
-  padding: 10px;
-  color: red;
-  font-size: 20px;
-  margin-top: 10px;
-}
-.modal-group-signup input {
-  font-size: 10px;
-  color: black;
+  display: flex;
+  padding: 0.6rem;
+  /* color: red; */
+  font-size: 1.25rem;
+  margin-left: 1rem;
 }
 
+.modal-group-signup2 {
+  display: flex;
+  padding: 0.6rem;
+  /* color: red; */
+  font-size: 1.25rem;
+  margin-left: 1rem;
+}
+
+.importEffect {
+  margin-top: 0.3rem;
+  color: red;
+}
+
+.importEffect2 {
+  margin-top: 0.3rem;
+  color: red;
+}
+
+
+.modal-group-signup input {
+  width: 15rem;
+  font-size: 0.5rem;
+  padding: 0.2rem;
+  background-color: #fafafa;
+  font-family: Lato;
+}
+
+.modal-group-signup2 input {
+  width: 3.8rem;
+  font-size: 0.5rem;
+  padding: 0.2rem;
+  margin-left: -0.6rem;
+  background-color: #fafafa;
+  font-family: Lato;
+}
+
+
 .modal-group-signup > input {
-  font-size: 10px;
-  width: 350px;
-  font-size: 20px;
+  font-size: 1rem;
+  width: 15rem;
+  height: 1rem;
+  background-color: #fafafa;
+  font-family: Lato;
 }
 
 .modal-group-signup-gender {
-  padding-right: 290px;
-  font-size: 20px;
+  font-size: 0.5rem;
+  margin-right: 1.5rem;
 }
 
 .company-address-box {
-  display: flex;
-  margin: 0px 0px 0px 90px;
+  display: flex; 
 }
 
-.company-address-box .modal-group-signup {
-  padding: 0px;
-  margin-right: 26px;
+.modal-group-signup3 {
+  flex: 1;
+  width: 3rem;
+  font-size: 0.5rem;
+  background: #fafafa;
+
 }
 
-.company-address-box .modal-group-signup > input {
-  width: 90px;
-  font-size: 20px;
+..modal-group-signup4 {
+  flex: 1;
+  width: 3rem;
+  font-size: 0.5rem;
+  background: #fafafa;
+
+}
+
+.modal-group-signup2 { 
+
+
+}
+
+.modal-group-signup2 > input {
+  font-size: 0.5rem;
+  background-color: #fafafa;
+  font-family: Lato;
+}
+
+.company-address-box .modal-group-signup2 > input {
+  width: 4rem;
+  font-size: 0.5rem;
 }
 
 .err-message {
-  font-size: 20px;
+  font-size: 0.5rem;
   color: red;
 }
 
-.modal-title .title {
-  font-size: 20px;
-  padding-bottom: 20px;
+.btn-login2 {
+  font-size: 0.5rem;
+  width: 15.5rem;
+  height: 2rem;
+  border: 1px solid lightgray;
+  border-radius: 0.8rem;
+  margin-top: 0.8rem;
+  /* padding: 1rem; */
+  background: #fafafa;
 }
 
-.modal-title .modal-welcome-message {
-  font-size: 25px;
+.signUpbtnPosition2 {
+  display: flex;
+  margin-top: 0.8rem;
+  margin-left: 2rem;
+}
+
+.signUpbtnPosition3 {
+  display: flex;
+  margin-top: -3rem;
+  margin-left: 2rem;
+}
+
+.modal-title .title {
+  font-size: 1.25rem;
+  padding-bottom: 1.25rem;
 }
 
 .modal-group-signup-role {
-  font-size: 20px;
-  padding-right: 20px;
+  font-size: 0.5rem;
+  padding-right: 1.25rem;
 }
 
-.modal-group-signup-role input,
-.modal-group-signup-gender input {
-  margin: 8px;
+.modal-group-signup-role input{
+  margin-top: 1rem;
 }
 
-.modal-btn {
-  position: absolute;
-  top: 10px;
-  left: 510px;
-  font-size: 40px;
-  border: 0;
-  color: rgb(129, 163, 207);
-  background-color: white;
-}
-
-.btn-login {
-  font-size: 18px;
-  width: 380px;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 5px;
-  margin-top: 20px;
-  padding: 15px;
-  background: white;
+.odal-group-signup-gender input {
+  margin-top: 1rem;
 }
 
 #modal-section {
@@ -119,8 +183,8 @@
 }
 
 .gender input {
-  width: 20px;
-  font-size: 20px;
+  width: 1.25rem;
+  font-size: 1.25rem;
 }
 
 input {
@@ -129,6 +193,18 @@ input {
 }
 
 .signup {
-  padding-top: 20px;
-  font-size: 15px;
+  padding-top: 1.25rem;
+  font-size: 1rem;
 }
+
+
+.modal-welcome-message2 {
+  background-color: red;
+}
+
+.moreInfo {
+  height: 34rem;
+  background: #fafafa;
+
+}
+

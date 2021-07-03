@@ -82,7 +82,8 @@ li {
   flex: 1;
   text-align: right;
   align-self: flex-end;
-  margin-bottom: 0.3rem
+  margin-bottom: 0.3rem;
+  z-index: 1;
 }
 
 
@@ -109,6 +110,7 @@ li {
   text-align: right;
   align-self: flex-end;
   margin-bottom: 0.5rem;
+
   /* border: 0px; */
   /* background-color: white; */
 }

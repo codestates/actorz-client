@@ -123,7 +123,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     className="testPic"
                   />
                 </div>
-
                 <div className="fixedContent">
                   <p className="name">{user.data.userInfo.name}</p>
                   <ul>
