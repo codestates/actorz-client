@@ -1,39 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "../pages/Post";
 import Nav from "../components/Nav";
-import img from "../images/actor.jpeg";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/Posts.css";
 import Iconlist from "../components/Iconlist";
-import {
-  CloseOutlined,
-  SaveOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  UserOutlined,
-  IdcardOutlined,
-  HeartOutlined,
-  FileAddOutlined,
-  HomeOutlined,
-  GithubOutlined,
-  ToolOutlined,
-  InstagramOutlined,
-  FormOutlined,
-  FacebookOutlined,
-  YoutubeOutlined,
-  VerticalAlignBottomOutlined,
-  ArrowDownOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
 
 const Posts = () => {
   const [clickModal, setClickModal] = useState(false);
+  //console.log(user);
   const user = useSelector((user) => user.userInfoReducer);
   const post = useSelector((post) => post.postInfoReducer);
+  console.log(post);
+
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   const settings = {
     dots: true,
@@ -111,16 +97,19 @@ const Posts = () => {
                 </div>
               </div>
               <div className="slider-img-box">
-                <Slider {...settings} className="slider">
-                  {post.data.posts.map((post) => {
-                    return (
-                      <img
-                        src={post.path}
-                        onClick={() => handleClickPost(true, post.id)}
-                      ></img>
-                    );
-                  })}
-                </Slider>
+                {/* {
+                  <Slider {...settings} className="slider">
+                    {post.data.posts.map((post) => {
+                      console.log(post.path[0].path);
+                      return (
+                        <img
+                          src={post.path[0].path}
+                          onClick={() => handleClickPost(true, post.id)}
+                        ></img>
+                      );
+                    })}
+                  </Slider>
+                } */}
               </div>
 
               {clickModal ? <Post handleClickPost={handleClickPost} /> : null}

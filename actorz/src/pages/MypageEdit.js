@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import server from "../apis/server";
 import {
   editUserInfo,
   addUserCareer,
@@ -8,33 +9,16 @@ import {
 import "../styles/MypageEdit.css";
 import Iconlist from "../components/Iconlist";
 import Nav from "../components/Nav";
-import {
-  CloseOutlined,
-  SaveOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  UserOutlined,
-  IdcardOutlined,
-  HeartOutlined,
-  FileAddOutlined,
-  HomeOutlined,
-  GithubOutlined,
-  ToolOutlined,
-  InstagramOutlined,
-  FormOutlined,
-  FacebookOutlined,
-  YoutubeOutlined,
-  VerticalAlignBottomOutlined,
-  ArrowDownOutlined,
-} from "@ant-design/icons";
+import { CloseOutlined, SaveOutlined } from "@ant-design/icons";
 import Footer from "../components/Footer";
 import "antd/dist/antd.css";
 import { Button } from "antd";
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
+  console.log(user);
   const dispatch = useDispatch();
-  const [clickCareer, setClickCareer] = useState([]);
+  //const [clickCareer, setClickCareer] = useState([]);
   const [tag, setTag] = useState([]);
   const [dob, setDob] = useState(user.data.userInfo.dob);
   const [email, setEmail] = useState(user.data.userInfo.email);
@@ -56,9 +40,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     }
   };
 
-  const handleClickAddBtn = () => {
+  /* const handleClickAddBtn = () => {
     setClickCareer([...clickCareer, "career"]);
-  };
+  }; */
 
   const handleTagBtn = (event) => {
     if (event.key === "Enter") {
@@ -70,23 +54,34 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     dispatch(removeUserCareer(id));
   };
 
-  const handleClickSaveBtn = () => {
-    console.log(email);
-
+  const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
-    dispatch(
-      editUserInfo({
-        id: user.data.userInfo.id,
-        mainPic: user.data.userInfo.mainPic,
-        email: email,
-        name: user.data.userInfo.name,
-        company: company,
-        provider: user.data.userInfo.provider,
-        gender: user.data.userInfo.gender,
-        dob: dob,
-        careers: user.data.userInfo.careers,
+    let newUserInfo = {
+      id: user.data.userInfo.id,
+      mainPic: user.data.userInfo.mainPic,
+      email: email,
+      name: user.data.userInfo.name,
+      company: company,
+      provider: user.data.userInfo.provider,
+      gender: user.data.userInfo.gender,
+      dob: dob,
+      careers: user.data.userInfo.careers,
+    };
+    dispatch(editUserInfo(newUserInfo));
+    await server
+      .post(`/user/:user_id/update`, {
+        //서버에서는 req.headers["authorization"]으로 토큰을 받고있는데 이렇게 보내고 콘솔 찍어보면 req.body.headers에 들어간다...
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+        newUserInfo, //수정한 유저 정보가 들어있음.
       })
-    );
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        throw err;
+      });
   };
 
   const handleClickConfirmBtn = () => {

@@ -21,23 +21,35 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     try {
       if (email !== "" && password !== "") {
         await server
-          .post(`/login`, {
-            email: email.email,
-            password: password.password,
-          })
+          .post(
+            `/login`,
+            {
+              email: email.email,
+              password: password.password,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             if (res.status === 200) {
-              console.log("로그인 성공");
+              localStorage.setItem("accessToken", res.data.data.accessToken);
+              console.log(res.headers);
               handleClickClose();
-            } else if (res.status === 401) {
-              alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
             }
           });
       } else {
         setError("모든 항목은 필수입니다");
       }
-    } catch {
-      alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+    } catch (err) {
+      if (err.message === "Request failed with status code 401") {
+        alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
+      } else {
+        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+      }
     }
   };
 
@@ -61,14 +73,14 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             <div id="modal-container">
               <div id="modal-header"></div>
               <div id="modal-section">
-              <div className="modalCancleBtn">
-                    <button className="modal-btn" onClick={handleClickClose}>
-                      X
-                    </button>
-                  </div>
+                <div className="modalCancleBtn">
+                  <button className="modal-btn" onClick={handleClickClose}>
+                    X
+                  </button>
+                </div>
                 <div className="modal-title">
                   <div className="title">로그인</div>
-                  
+
                   <div className="modal-welcome-message">
                     Actorz에 오신것을 환영합니다
                   </div>
@@ -87,14 +99,14 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     />
                   </div>
                   {err ? <div className="err-message">{err}</div> : null}
-                  <div className="modalButtonPosition"> 
+                  <div className="modalButtonPosition">
                     <div>
                       <button
                         className="btn-login login"
                         type="submit"
                         onClick={handleClickSigninBtn}
                       >
-                      로그인
+                        로그인
                       </button>
                     </div>
                     <div>
@@ -111,17 +123,17 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       </button>
                     </div>
                     <div>
-                    <button
-                      className="btn-login btn-login-kakao"
-                      onClick={handleClickKakaoBtn}
-                    >
-                      <img
-                        src={kakao}
-                        alert="kakao-logo"
-                        className="kakao-logo"
-                      ></img>
-                      카카오로 로그인하기
-                    </button>
+                      <button
+                        className="btn-login btn-login-kakao"
+                        onClick={handleClickKakaoBtn}
+                      >
+                        <img
+                          src={kakao}
+                          alert="kakao-logo"
+                          className="kakao-logo"
+                        ></img>
+                        카카오로 로그인하기
+                      </button>
                     </div>
                     <div
                       className="signup"
