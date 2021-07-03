@@ -1,36 +1,42 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Nav from "../components/Nav";
 import MypageEdit from "./MypageEdit";
 import "../styles/Mypage.css";
-import {
-  EditOutlined,
-  DeleteOutlined,
-  UserOutlined,
-  IdcardOutlined,
-  HeartOutlined,
-  FileAddOutlined,
-  HomeOutlined,
-  GithubOutlined,
-  ToolOutlined,
-  InstagramOutlined,
-  FormOutlined,
-  FacebookOutlined,
-  YoutubeOutlined,
-  VerticalAlignBottomOutlined,
-  ArrowDownOutlined,
-} from "@ant-design/icons";
 import "antd/dist/antd.css";
-import { Link } from "react-router-dom";
+import { EditOutlined } from "@ant-design/icons";
 import FileUpload from "../components/file-upload/file-upload.component";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
+import server from "../apis/server";
+import { getUserInfo } from "../actions/userAction";
 
 const Mypage = () => {
+  const user = useSelector((user) => user.userInfoReducer);
+  const dispatch = useDispatch();
+
+  useEffect(() => getUser(), []);
+
+  const getUser = async () => {
+    await server
+      .get(`/user/:user_id`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(getUserInfo(res.data.data.userInfo));
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
   const [newfile, setNewFile] = useState({
     profileImages: [],
   });
-  const user = useSelector((user) => user.userInfoReducer);
   const [isEdit, setIsEdit] = useState(false);
 
   const handeClickEditBtn = (boolean) => {
@@ -57,6 +63,7 @@ const Mypage = () => {
     event.preventDefault();
     // 여기에 이미지 올리는 로직 작성해야 함
   };
+  console.log(user); //여기에 서버에서 가져온 유저 정보가 담겨있음.
 
   return (
     <>
@@ -96,29 +103,37 @@ const Mypage = () => {
                         <strong>이메일</strong>
                         <li className="email">{user.data.userInfo.email}</li>
                         <strong>소속사</strong>
-                        <li className="company">
-                          {user.data.userInfo.company}
-                        </li>
+                        {user.data.userInfo.company ? (
+                          <li className="company">
+                            {user.data.userInfo.company}
+                          </li>
+                        ) : (
+                          <li className="company"></li>
+                        )}
                       </ul>
                     </div>
                   </div>
                   {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
                   <div className="careerTitle">Career 🏆</div>
                   <div className="careerContent">
-                    <div className="career">
-                      {user.data.userInfo.careers.map((career) => {
-                        return (
-                          <li>
-                            {`${career.year}` +
-                              ` ${career.title}` +
-                              ` / ` +
-                              `${career.type.map((type) => {
-                                return type;
-                              })}`}
-                          </li>
-                        );
-                      })}
-                    </div>
+                    {user.data.userInfo.careers ? (
+                      <div className="career">
+                        {user.data.userInfo.careers.map((career) => {
+                          return (
+                            <li>
+                              {`${career.year}` +
+                                ` ${career.title}` +
+                                ` / ` +
+                                `${career.type.map((type) => {
+                                  return type;
+                                })}`}
+                            </li>
+                          );
+                        })}
+                      </div>
+                    ) : (
+                      <div className="career"></div>
+                    )}
                   </div>
                 </div>
               </div>

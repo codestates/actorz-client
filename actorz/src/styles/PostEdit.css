@@ -105,6 +105,16 @@
   text-align: center;
 }
 
+img.post-image {
+  border: 1px solid rgb(129, 163, 207);
+}
+
+.photo-delete-btn {
+  font-size: 35px;
+  border: 0px;
+  background-color: white;
+}
+
 .float-btn-box {
   position: absolute;
   margin-top: 140px;

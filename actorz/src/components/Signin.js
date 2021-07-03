@@ -21,23 +21,35 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     try {
       if (email !== "" && password !== "") {
         await server
-          .post(`/login`, {
-            email: email.email,
-            password: password.password,
-          })
+          .post(
+            `/login`,
+            {
+              email: email.email,
+              password: password.password,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+              withCredentials: true,
+            }
+          )
           .then((res) => {
             if (res.status === 200) {
-              console.log("로그인 성공");
+              localStorage.setItem("accessToken", res.data.data.accessToken);
+              console.log(res.headers);
               handleClickClose();
-            } else if (res.status === 401) {
-              alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
             }
           });
       } else {
         setError("모든 항목은 필수입니다");
       }
-    } catch {
-      alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+    } catch (err) {
+      if (err.message === "Request failed with status code 401") {
+        alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
+      } else {
+        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+      }
     }
   };
 

@@ -25,6 +25,8 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       return false;
     } else if (gender === "여") {
       return true;
+    } else {
+      return false;
     }
   };
 
@@ -47,23 +49,25 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               password: password,
               name: name,
               company: company,
-              provider: "local",
+              //provider: "local",
               gender: setGender(gender),
               dob: dob,
             })
             .then((res) => {
               if (res.status === 201) {
                 console.log("회원가입 성공");
-              } else if (res.status === 409) {
-                alert("이미 존재하는 이메일입니다.");
               }
             });
         }
       } else {
         setError("필수 항목을 모두 적어주세요");
       }
-    } catch {
-      alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+    } catch (err) {
+      if (err.message === "Request failed with status code 409") {
+        alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
+      } else {
+        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+      }
     }
   };
 
