@@ -55,12 +55,12 @@ const Mainpage = () => {
 
         <div className="middleSpace">
           <div className="midContents">
-          <Card>
+          <Card centered={true} fluid={true}>
             <div className="effecTest">
                 <a href="/mainpage">
                   <div className="screen">
-                    <div className="top"> 이기능쓰긴함?
-                    </div>
+                    {/* <div className="top"> 이기능쓰긴함?
+                    </div> */}
                     <div className="bottom">
                       <HeartOutlined className="testIcon" />
                     </div>
