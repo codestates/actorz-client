@@ -61,14 +61,14 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             <div id="modal-container">
               <div id="modal-header"></div>
               <div id="modal-section">
-              <div className="modalCancleBtn">
-                    <button className="modal-btn" onClick={handleClickClose}>
-                      X
-                    </button>
-                  </div>
+                <div className="modalCancleBtn">
+                  <button className="modal-btn" onClick={handleClickClose}>
+                    X
+                  </button>
+                </div>
                 <div className="modal-title">
                   <div className="title">로그인</div>
-                  
+
                   <div className="modal-welcome-message">
                     Actorz에 오신것을 환영합니다
                   </div>
@@ -87,14 +87,14 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     />
                   </div>
                   {err ? <div className="err-message">{err}</div> : null}
-                  <div className="modalButtonPosition"> 
+                  <div className="modalButtonPosition">
                     <div>
                       <button
                         className="btn-login login"
                         type="submit"
                         onClick={handleClickSigninBtn}
                       >
-                      로그인
+                        로그인
                       </button>
                     </div>
                     <div>
@@ -111,17 +111,17 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       </button>
                     </div>
                     <div>
-                    <button
-                      className="btn-login btn-login-kakao"
-                      onClick={handleClickKakaoBtn}
-                    >
-                      <img
-                        src={kakao}
-                        alert="kakao-logo"
-                        className="kakao-logo"
-                      ></img>
-                      카카오로 로그인하기
-                    </button>
+                      <button
+                        className="btn-login btn-login-kakao"
+                        onClick={handleClickKakaoBtn}
+                      >
+                        <img
+                          src={kakao}
+                          alert="kakao-logo"
+                          className="kakao-logo"
+                        ></img>
+                        카카오로 로그인하기
+                      </button>
                     </div>
                     <div
                       className="signup"
