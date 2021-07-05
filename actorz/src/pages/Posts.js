@@ -15,7 +15,7 @@ const Posts = () => {
   //console.log(user);
   const user = useSelector((user) => user.userInfoReducer);
   const post = useSelector((post) => post.postInfoReducer);
-  console.log(post);
+  //console.log(post);
 
   useEffect(() => {
     console.log(user);
@@ -54,9 +54,6 @@ const Posts = () => {
 
         <div className="middleSpace">
           <div className="midContents">
-            <div className="buttonHeader">
-              <DeleteOutlined className="deleteButton" />
-            </div>
             <div className="midContentDownPart">
               <div className="displayPosition">
                 <div className="fixedSize">
