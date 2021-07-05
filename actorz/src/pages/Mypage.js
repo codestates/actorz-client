@@ -161,7 +161,7 @@ const Mypage = () => {
         <div>
           <form onSubmit={handleSubmit}>
             <FileUpload
-              accept=".jpg,.png,.jpeg, .mp4"
+              accept=".jpg,.png,.jpeg,.mp4"
               multiple
               updateFilesCb={updateUploadedFiles}
               handleClickUpload={handleClickUpload}

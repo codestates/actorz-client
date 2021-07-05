@@ -19,6 +19,7 @@ const Mainpage = () => {
   const [clickModal, setClickModal] = useState(false);
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
+  console.log(user);
   const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({
