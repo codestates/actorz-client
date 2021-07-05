@@ -48,7 +48,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             }
           });
 
-        await server
+        await server //로그인한 유저의 정보를 state에 저장
           .get(`/user/:user_id`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -62,21 +62,6 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           .catch((err) => {
             throw err;
           });
-
-        // await server //로그인한 유저의 정보를 state에 저장
-        //   .get(`/user/:user_id`, {
-        //     headers: {
-        //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        //     },
-        //   })
-        //   .then((res) => {
-        //     if (res.status === 200) {
-        //       dispatch(getUserInfo(res.data.data.userInfo));
-        //     }
-        //   })
-        //   .catch((err) => {
-        //     throw err;
-        //   });
       } else {
         setError("모든 항목은 필수입니다");
       }
