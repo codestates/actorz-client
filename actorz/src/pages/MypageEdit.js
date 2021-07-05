@@ -9,14 +9,15 @@ import {
 import "../styles/MypageEdit.css";
 import Iconlist from "../components/Iconlist";
 import Nav from "../components/Nav";
-import { CloseOutlined, SaveOutlined } from "@ant-design/icons";
+import { CloseOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import Footer from "../components/Footer";
 import "antd/dist/antd.css";
 import { Button } from "antd";
+import { Radio } from "antd";
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
-  console.log(user);
+  //console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
   const [tag, setTag] = useState([]);
@@ -25,6 +26,31 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [company, setCompany] = useState(user.data.userInfo.company);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
+  const [category, setCategory] = useState("");
+  const tagOptions = [
+    { label: "드라마", value: "드라마" },
+    { label: "영화", value: "영화" },
+    { label: "뮤지컬", value: "뮤지컬" },
+    { label: "연극", value:  "연극" },
+    { label: "광고", value: "광고" },
+    { label: "뮤직비디오", value: "뮤직비디오" },
+  ];
+
+  const onChangeTag = (e) => {
+    if(e.target.value==="드라마"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="영화"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="뮤지컬"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="연극"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="광고"){
+      setTag([e.target.value]);
+    } else if(e.target.value==="뮤직비디오"){
+      setTag([e.target.value]);
+    }
+  };
 
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
@@ -44,11 +70,11 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     setClickCareer([...clickCareer, "career"]);
   }; */
 
-  const handleTagBtn = (event) => {
-    if (event.key === "Enter") {
-      setTag([...tag, event.target.value]);
-    }
-  };
+  // const handleTagBtn = (event) => {
+  //   if (event.key === "Enter") {
+  //     setTag([...tag, event.target.value]);
+  //   }
+  // };
 
   const handleDeleteBtn = (id) => {
     dispatch(removeUserCareer(id));
@@ -75,9 +101,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         newUserInfo, //수정한 유저 정보가 들어있음.
+        
       })
       .then((res) => {
-        console.log(res);
+        console.log('결과확인: '+ res);
       })
       .catch((err) => {
         throw err;
@@ -113,7 +140,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 className="editButton"
                 onClick={() => handleClickSaveBtn()}
               />
-              {/* <DeleteOutlined className="deleteButton"/> */}
+              <DeleteOutlined className="deleteButton"/>
             </div>
             <div className="midContentDownPart">
               <div className="displayPosition">
@@ -157,7 +184,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 </div>
               </div>
               <div className="careerTitleDivide">
-                <div className="careerTitle">Career 🏆</div>
+                <div className="careerTitle">Career </div>
+                <div className="iconTitle">🏆</div>
                 <div className="careerButtonPosition">
                   <Button
                     variant="outlined"
@@ -187,21 +215,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                       />
                     </div>
                     <br></br>
-                    <div className="careerDivide">
-                      <div className="career-tag">태그:</div>
+                    <div className="careerDivide2">
+                      <div className="career-tag2">태그:</div>
                       <div>
-                        <input
-                          placeholder="태그를 입력하세요"
-                          className="highlightDisplay"
-                          onKeyPress={handleTagBtn}
-                        />
+                      <Radio.Group 
+                        className="radioButton"
+                        options={tagOptions}
+                        optionType="button"
+                        buttonStyle="solid"
+                        onChange={onChangeTag}
+                      />
                       </div>
-                    </div>
-
-                    <div className="genre-tag-box">
-                      {tag.map((el) => {
-                        return <span className="genre-tag">{el}</span>;
-                      })}
                     </div>
                   </li>
                 </div>
@@ -212,10 +236,11 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <>
                       <li className="career-li">
                         <div className="careerDivide">
-                          <div className="career-title">제목:</div>
-                          <div>{career.title}</div>
-                          <div className="career-year">활동연도:</div>
-                          <div>{career.year}</div>
+                          <div className="career-title">제목:{career.title}</div>
+                          {/* <div>{career.title}</div> */}
+                          <div className="career-year">활동연도:{career.year}</div>
+                          {/* <div>{career.year}</div> */}
+                          <div className="blockhereplz"></div> 
                           <CloseOutlined
                             className="career-delete-btn"
                             onClick={() => {

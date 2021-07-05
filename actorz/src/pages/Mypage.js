@@ -4,7 +4,7 @@ import Nav from "../components/Nav";
 import MypageEdit from "./MypageEdit";
 import "../styles/Mypage.css";
 import "antd/dist/antd.css";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import FileUpload from "../components/file-upload/file-upload.component";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
@@ -16,6 +16,22 @@ const Mypage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => getUser(), []);
+
+   const handeDeleteAccount = async () => {
+    await server
+      .get(`/user/:user_id/delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+          console.log(res);
+          //if(res.data.data.id !== null){}
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
 
   const getUser = async () => {
     await server
@@ -67,7 +83,6 @@ const Mypage = () => {
 
   return (
     <>
-      <Nav />
       {!isEdit ? (
         <>
           <div className="blockhere"> </div>
@@ -84,7 +99,7 @@ const Mypage = () => {
                     className="editButton"
                     onClick={() => handeClickEditBtn(true)}
                   />
-                  {/* <DeleteOutlined className="deleteButton"/> */}
+                  <DeleteOutlined className="deleteButton" onClick={() => handeDeleteAccount()}/>
                 </div>
                 <div className="midContentDownPart">
                   <div className="displayPosition">

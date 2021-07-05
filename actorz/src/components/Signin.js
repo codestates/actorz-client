@@ -7,10 +7,14 @@ import Google from '../components/Googlelogin';
 import Naver from '../components/Naverlogin';
 
 import { CloseOutlined } from "@ant-design/icons";
-const Signin = ({ handleClickSignin, handleClickSignup }) => {
+import Nav from "../components/Nav";
+
+const Signin = ({ handleClickSignin, handleClickSignup,  }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setError] = useState("");
+  const [login, setLogin] = useState(false);
+
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -20,7 +24,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     }
   };
 
-  const handleClickSigninBtn = async () => {
+  const handleClickSigninBtn = async () => { 
     try {
       if (email !== "" && password !== "") {
         await server
@@ -34,7 +38,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           .then((res) => {
             if (res.status === 200) {
               localStorage.setItem("accessToken", res.data.data.accessToken);
-              // console.log(res.headers);
+              console.log('로그인에 성공하였습니다.');    
               handleClickClose();
             }
           });
