@@ -1,3 +1,4 @@
+export const SET_USER_INFO = "SET_USER_INFO";
 export const GET_USER_INF0 = "GET_USER_INFO";
 export const EDIT_USER_INFO = "EDIT_USER_INFO";
 export const ADD_USER_CAREER = "ADD_USER_CAREER";

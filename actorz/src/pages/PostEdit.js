@@ -2,38 +2,38 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editPostInfo, removePostPhoto } from "../actions/postAction";
 import Nav from "../components/Nav";
+import Postupload from "../components/post-upload/post-upload.component";
 import profile from "../images/profile.png";
 import love from "../images/thumb-up.png";
 import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/PostEdit.css";
-import Postupload from "../components/post-upload/post-upload.component";
 
-const PostEdit = ({ handleClickPost, handleClickEditBtn }) => {
+const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
   const [desc, setDesc] = useState("");
   const post = useSelector((post) => post.postInfoReducer);
+  const [newfile, setNewFile] = useState(postinfo.media);
+  const [clickupload, setClickUpload] = useState(false);
   const dispatch = useDispatch();
+  console.log(postinfo);
+  console.log(postinfo.media);
   //console.log(post);
 
   //console.log(post);
   //console.log(post.data.posts[0].path);
 
-  const handleClickDeleteBtn = (id) => {
+  const handleClickDeleteBtn = (_id) => {
     //console.log(id);
-    dispatch(removePostPhoto(id));
+    dispatch(removePostPhoto(_id));
   };
 
-  const [newfile, setNewFile] = useState([...post.data.posts[0].path]);
-
-  const [clickupload, setClickUpload] = useState(false);
-
-  const handleClickUpload = (boolean) => {
+  /* const handleClickUpload = (boolean) => {
     if (boolean) {
       setClickUpload(true);
     } else {
       setClickUpload(false);
     }
-  };
+  }; */
 
   const handleInputValue = (key) => (event) => {
     if (key === "desc") {
@@ -43,27 +43,33 @@ const PostEdit = ({ handleClickPost, handleClickEditBtn }) => {
   };
 
   const handleClickSaveBtn = () => {
-    //console.log("aaaaaaaaaaa");
+    console.log("aaaaaaaaaaa");
+    console.log(postinfo);
     handleClickEditBtn(false);
-    //console.log(newfile, desc.desc, post.data.posts[0].genre);
+    console.log(desc.desc);
     dispatch(
       editPostInfo({
-        type: "file",
-        path: newfile,
+        ...postinfo,
         content: desc.desc,
-        genre: post.data.posts[0].genre,
+        media: newfile,
       })
     );
+    console.log(newfile);
   };
 
   const updateUploadedFiles = (files) => {
-    setNewFile([...newfile, { id: null, path: files[0].name }]);
-    //console.log(newfile);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // 여기에 이미지 올리는 로직 작성해야 함
+    var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+    if (
+      fileExt === "img" ||
+      fileExt === "jpg" ||
+      fileExt === "png" ||
+      fileExt === "jpeg"
+    ) {
+      console.log("Aa");
+      setNewFile([...newfile, { path: files[0].name, type: "img" }]);
+    } else if (fileExt === "mp4") {
+      setNewFile([...newfile, { path: files[0].name, type: "video" }]);
+    }
   };
 
   return (
@@ -98,13 +104,8 @@ const PostEdit = ({ handleClickPost, handleClickEditBtn }) => {
             <div className="info-box">
               <div className="post-name">Kimcoding</div>
               <img src={heart} className="heart-img"></img>
-              <span className="genre">
-                |
-                {post.data.posts[0].genre.map((genre) => {
-                  return `${genre},`;
-                })}
-              </span>
-              <span className="like">{post.data.posts[0].likes.length}</span>
+              <span className="genre">|{postinfo.genre}</span>
+              <span className="like">{postinfo.likes.length}</span>
               <button
                 className="delete-btn"
                 onClick={() => handleClickPost(false)}
@@ -113,38 +114,30 @@ const PostEdit = ({ handleClickPost, handleClickEditBtn }) => {
               </button>
               <input
                 type="text"
-                defaultValue={post.data.posts[0].content}
+                defaultValue={postinfo.content}
                 className="desc"
                 onChange={handleInputValue("desc")}
               ></input>
             </div>
             <div className="img-box">
               <div className="div-img">
-                {post.data.posts[0].path.map((img) => {
-                  var fileExt = img.path.substring(
-                    img.path.lastIndexOf(".") + 1
-                  );
-                  if (
-                    fileExt === "png" ||
-                    fileExt === "jpg" ||
-                    fileExt === "jpeg"
-                  ) {
+                {postinfo.media.map((img) => {
+                  if (img.type === "img") {
                     return (
                       <>
                         <img
-                          src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
+                          src={img.path}
                           className="post-image"
                           alt="이미지"
                         ></img>
+                        X
                         <button
                           className="photo-delete-btn"
-                          onClick={() => handleClickDeleteBtn(img.id)}
-                        >
-                          X
-                        </button>
+                          onClick={() => handleClickDeleteBtn(img._id)}
+                        ></button>
                       </>
                     );
-                  } else if (fileExt === "mp4") {
+                  } else {
                     return (
                       <>
                         <video controls className="video">
@@ -153,20 +146,17 @@ const PostEdit = ({ handleClickPost, handleClickEditBtn }) => {
                         <button
                           className="photo-delete-btn"
                           onClick={() => handleClickDeleteBtn(img.id)}
-                        >
-                          X
-                        </button>
+                        ></button>
                       </>
                     );
                   }
                 })}
               </div>
-              <form onSubmit={handleSubmit}>
+              <form>
                 <Postupload
                   accept=".jpg,.png,.jpeg, .mp4"
                   multiple
                   updateFilesCb={updateUploadedFiles}
-                  handleClickUpload={handleClickUpload}
                 />
               </form>
             </div>

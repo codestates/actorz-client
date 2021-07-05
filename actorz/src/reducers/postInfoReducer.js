@@ -23,12 +23,10 @@ const postInfoReducer = (state = postInitState, action) => {
       return { data: { posts: [filteredPhoto] } };
 
     case EDIT_POST_INFO:
-      //console.log(action.payload);
       const a = Object.assign({}, state, {
-        data: action.payload,
+        data: { posts: action.payload },
       });
-      //console.log(a);
-      return { data: action.payload };
+      return a;
 
     default:
       return state;

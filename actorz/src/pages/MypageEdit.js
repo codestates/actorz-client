@@ -16,7 +16,7 @@ import { Button } from "antd";
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
-  console.log(user);
+  //console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
   const [tag, setTag] = useState([]);
@@ -70,7 +70,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     dispatch(editUserInfo(newUserInfo));
     await server
       .post(`/user/:user_id/update`, {
-        //서버에서는 req.headers["authorization"]으로 토큰을 받고있는데 이렇게 보내고 콘솔 찍어보면 req.body.headers에 들어간다...
+        //서버에서는 req.headers["authorization"]으로 토큰을 받고있는데 이렇게 보내고 콘솔 찍어보면 req.body.headers에 들어간다...?
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -118,10 +118,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
             <div className="midContentDownPart">
               <div className="displayPosition">
                 <div className="fixedSize">
-                  <img
-                    src="https://media.vlpt.us/images/iooi75/post/167ee00c-d4ca-4ffe-b034-504673f8e1f1/image.png"
-                    className="testPic"
-                  />
+                  <img src={user.data.userInfo.mainPic} className="testPic" />
                 </div>
                 <div className="fixedContent">
                   <p className="name">{user.data.userInfo.name}</p>
@@ -226,11 +223,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <div className="careerDivide">
                           <div className="tag">
                             <div className="tagPosition">태그:</div>
-                            <div>
-                              {`${career.type.map((type) => {
-                                return type;
-                              })}`}
-                            </div>
+                            <div>{career.type}</div>
                           </div>
                         </div>
                       </li>

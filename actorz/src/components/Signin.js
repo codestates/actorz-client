@@ -1,14 +1,20 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserInfo } from "../actions/userAction";
+
 import kakao from "../images/kakao.png";
 import google from "../images/google.png";
 import server from "../apis/server";
 import "../styles/SigninModal.css";
-import Google from '../components/Googlelogin';
+import Google from "../components/Googlelogin";
 import { CloseOutlined } from "@ant-design/icons";
+
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setError] = useState("");
+  const user = useSelector((user) => user.userInfoReducer);
+  const dispatch = useDispatch();
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -21,7 +27,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const handleClickSigninBtn = async () => {
     try {
       if (email !== "" && password !== "") {
-        await server
+        await server //로그인
           .post(
             `/login`,
             {
@@ -38,10 +44,39 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           .then((res) => {
             if (res.status === 200) {
               localStorage.setItem("accessToken", res.data.data.accessToken);
-              console.log(res.headers);
               handleClickClose();
             }
           });
+
+        await server
+          .get(`/user/:user_id`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              dispatch(getUserInfo(res.data.data.userInfo));
+            }
+          })
+          .catch((err) => {
+            throw err;
+          });
+
+        // await server //로그인한 유저의 정보를 state에 저장
+        //   .get(`/user/:user_id`, {
+        //     headers: {
+        //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        //     },
+        //   })
+        //   .then((res) => {
+        //     if (res.status === 200) {
+        //       dispatch(getUserInfo(res.data.data.userInfo));
+        //     }
+        //   })
+        //   .catch((err) => {
+        //     throw err;
+        //   });
       } else {
         setError("모든 항목은 필수입니다");
       }
@@ -72,74 +107,71 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
         <form onSubmit={(e) => e.preventDefault()}>
           <div id="modal-background">
             <div id="modal-container">
-              <div className="buttonHeader">
-              </div>
+              <div className="buttonHeader"></div>
 
-                <div className="modalCancleBtn">
-                     
-                </div>
-                <div className="modal-title">
-                  <div className="title">
+              <div className="modalCancleBtn"></div>
+              <div className="modal-title">
+                <div className="title">
                   <div>Sign In </div>
-                  
+
                   <CloseOutlined
                     className="closeBtn"
-                    onClick={handleClickClose} />
-                  </div>
-                </div>   
-                <div className="modal-welcome-message">
-                   Welcome to Actorz
-                </div>
-                <div className="modal-group">
-                  <input
-                    type="email"
-                    placeholder=" email"
-                    onChange={handleInputValue("email")}
+                    onClick={handleClickClose}
                   />
                 </div>
-                <div className="modal-group">
-                    <input
-                      type="password"
-                      placeholder=" password"
-                      onChange={handleInputValue("password")}
-                    />
+              </div>
+              <div className="modal-welcome-message">Welcome to Actorz</div>
+              <div className="modal-group">
+                <input
+                  type="email"
+                  placeholder=" email"
+                  onChange={handleInputValue("email")}
+                />
+              </div>
+              <div className="modal-group">
+                <input
+                  type="password"
+                  placeholder=" password"
+                  onChange={handleInputValue("password")}
+                />
+              </div>
+              <div>{err ? <div className="err-message">{err}</div> : null}</div>
+              <div className="modalButtonPosition">
+                <div className="loginBtnPosition">
+                  <button
+                    className="btn-login login"
+                    type="submit"
+                    onClick={handleClickSigninBtn}
+                  >
+                    <div className="settingBtn"> 로그인 </div>
+                  </button>
                 </div>
                 <div>
-                  {err ? <div className="err-message">{err}</div> : null}
+                  <Google />
                 </div>
-                <div className="modalButtonPosition"> 
-                  <div className="loginBtnPosition">
-                    <button
-                      className="btn-login login"
-                      type="submit"
-                      onClick={handleClickSigninBtn}
-                    >
-                      <div className="settingBtn"> 로그인 </div>
-                    </button>
-                  </div>
-                  <div>
-                    <Google />
-                  </div>
-                  <div className="loginBtnPosition">
-                    <button
-                      className="btn-login login"
-                      onClick={handleClickKakaoBtn}
-                    >
+                <div className="loginBtnPosition">
+                  <button
+                    className="btn-login login"
+                    onClick={handleClickKakaoBtn}
+                  >
                     <img
                       src={kakao}
                       alert="kakao-logo"
                       className="kakao-logo"
-                      ></img>
-                        <div className="settingBtn"> 카카오로 로그인하기 </div>     
-                    </button>
-                    </div>
-                    <div className="signUpbtnPosition">
-                      <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
-                      <div className="movetoSignUpBtn"  onClick={() => handleClickSignup(true)}>
-                         회원가입 하러 하기 
-                      </div>
-                    </div>
+                    ></img>
+                    <div className="settingBtn"> 카카오로 로그인하기 </div>
+                  </button>
+                </div>
+                <div className="signUpbtnPosition">
+                  <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
+                  <div
+                    className="movetoSignUpBtn"
+                    onClick={() => handleClickSignup(true)}
+                  >
+                    회원가입 하러 하기
                   </div>
+                </div>
+              </div>
             </div>
           </div>
         </form>

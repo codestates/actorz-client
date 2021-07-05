@@ -9,9 +9,9 @@ import { userInfoInitState } from "./userInfoInitState";
 const userInfoReducer = (state = userInfoInitState, action) => {
   switch (action.type) {
     case GET_USER_INF0:
-      console.log(action.payload);
       return Object.assign({}, state, {
         data: action.payload,
+        isLogin: true,
       });
 
     case EDIT_USER_INFO:
@@ -34,6 +34,7 @@ const userInfoReducer = (state = userInfoInitState, action) => {
         ),
       });
       return { data: { userInfo: filteredCareer } };
+
     default:
       return state;
   }
