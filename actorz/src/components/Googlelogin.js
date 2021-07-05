@@ -1,16 +1,29 @@
 import React from 'react';
 import Googlelogin from 'react-google-login';
+import server from '../apis/server';
 import google from "../images/google.png";
 
-const Google = () => {
-  const responseGoogle = (res) => {
+const Google = ({ handleClickClose }) => {
+
+  const responseGoogle = async (googleData) => {
+    await server.post("/login/google", {
+      token: googleData.tokenId
+    }).then(res => {
+      if (res.status === 200) {
+        localStorage.setItem("accessToken", res.data.data.accessToken);
+        handleClickClose();
+      } else if (res.status === 201) {
+        localStorage.setItem("accessToken", res.data.data.accessToken);
+        handleClickClose();
+        // edit needed
+      } else {
+        alert("구글 로그인 중 오류가 발생했습니다.");
+      }
+    });
     // console.log(res);
     console.log('---------------------')
-    console.log("email: "+res.profileObj.email);
-    console.log("Name: "+res.profileObj.name);
-    console.log("googleId: "+res.profileObj.googleId);
-    console.log("imageUrl: "+res.profileObj.imageUrl);
-    console.log("accessToken: " + res.accessToken);
+    console.log("email: "+ googleData.profileObj.email);
+    // console.log("accessToken: " + googleData.accessToken);
     console.log('---------------------')
   }
 
@@ -27,6 +40,7 @@ const Google = () => {
           src={google}
           alert="google-logo"
           className="kakao-logo"
+          alt="google-login-logo"
         ></img>
        구글로 로그인하기</button>
       )}

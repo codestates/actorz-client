@@ -4,6 +4,8 @@ import google from "../images/google.png";
 import server from "../apis/server";
 import "../styles/SigninModal.css";
 import Google from '../components/Googlelogin';
+import Naver from '../components/Naverlogin';
+
 import { CloseOutlined } from "@ant-design/icons";
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
@@ -27,18 +29,12 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             {
               email: email.email,
               password: password.password,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-              withCredentials: true,
             }
           )
           .then((res) => {
             if (res.status === 200) {
               localStorage.setItem("accessToken", res.data.data.accessToken);
-              console.log(res.headers);
+              // console.log(res.headers);
               handleClickClose();
             }
           });
@@ -117,22 +113,12 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       <div className="settingBtn"> 로그인 </div>
                     </button>
                   </div>
-                  <div>
-                    <Google />
+                  <div className="loginBtnPosition">
+                    <Google handleClickClose={handleClickClose}/>
                   </div>
                   <div className="loginBtnPosition">
-                    <button
-                      className="btn-login login"
-                      onClick={handleClickKakaoBtn}
-                    >
-                    <img
-                      src={kakao}
-                      alert="kakao-logo"
-                      className="kakao-logo"
-                      ></img>
-                        <div className="settingBtn"> 카카오로 로그인하기 </div>     
-                    </button>
-                    </div>
+                    <Naver handleClickClose={handleClickClose}/>
+                  </div>
                     <div className="signUpbtnPosition">
                       <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
                       <div className="movetoSignUpBtn"  onClick={() => handleClickSignup(true)}>
