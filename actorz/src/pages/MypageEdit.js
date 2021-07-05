@@ -17,6 +17,8 @@ import { Radio } from "antd";
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
+  // userinforeducer에서 판단한다.
+
   //console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
@@ -131,6 +133,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleClickConfirmBtn = () => {
+    document.getElementsByClassName('highlightDisplay')[3].value="";
+    document.getElementsByClassName('highlightDisplay')[4].value="";
     if (title.title !== undefined && year.year !== undefined) {
       dispatch(
         addUserCareer({
