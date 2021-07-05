@@ -3,16 +3,45 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Button } from "antd";
+import server from "../apis/server";
 
 const Nav = () => {
   const [search, setSearch] = useState("");
   const [clickSignin, setClickSignin] = useState(false);
   const [clickSignup, setClickSignup] = useState(false);
+  const [isLogin, setIsLogin] = useState(false);
+  //const dispatch = useDispatch();
+
+  //const isLogin = false;
 
   const inputHandler = (event) => {
     setSearch(event.target.value);
   };
+
+  const handleClicklogout = async () => {
+    await server
+      .get(`/user/logout`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          if(res.data.data.id !== null){
+            console.log('logout success!');
+            localStorage.removeItem("accessToken"); 
+            window.location = "/mainpage";
+            //setIsLogin(false);
+          }
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
 
   const handleClickSignin = () => {
 
@@ -25,7 +54,7 @@ const Nav = () => {
   };
 
   const handleClickSignup = () => {
-    setClickSignin(false);
+    setIsLogin(false);
     if (clickSignup) {
       setClickSignup(false);
     } else {
@@ -62,7 +91,16 @@ const Nav = () => {
 
           <div className="blackNav2"> </div>
 
-          {}
+
+
+          { isLogin ? (
+            <div className="signBtnPosition">
+             <Button variant="outlined" className="navSignInBtn2" onClick={handleClicklogout}>
+              logout
+             </Button>
+            </div>
+          )
+            : ( 
             <div className="signBtnPosition">
               <Button
                 variant="outlined"
@@ -79,7 +117,10 @@ const Nav = () => {
               >
                 Sign up
               </Button>
-            </div>
+            </div> 
+            
+            )
+          }
         </div>
 
         {clickSignin ? (

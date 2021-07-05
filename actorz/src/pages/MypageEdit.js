@@ -9,7 +9,7 @@ import {
 import "../styles/MypageEdit.css";
 import Iconlist from "../components/Iconlist";
 import Nav from "../components/Nav";
-import { CloseOutlined, SaveOutlined } from "@ant-design/icons";
+import { CloseOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import Footer from "../components/Footer";
 import "antd/dist/antd.css";
 import { Button } from "antd";
@@ -37,7 +37,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   ];
 
   const onChangeTag = (e) => {
-    console.log('버튼눌렀음', e.target.value);
     if(e.target.value==="드라마"){
       setTag([e.target.value]);
     } else if(e.target.value==="영화"){
@@ -102,9 +101,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
         newUserInfo, //수정한 유저 정보가 들어있음.
+        
       })
       .then((res) => {
-        console.log(res);
+        console.log('결과확인: '+ res);
       })
       .catch((err) => {
         throw err;
@@ -140,7 +140,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 className="editButton"
                 onClick={() => handleClickSaveBtn()}
               />
-              {/* <DeleteOutlined className="deleteButton"/> */}
+              <DeleteOutlined className="deleteButton"/>
             </div>
             <div className="midContentDownPart">
               <div className="displayPosition">
@@ -226,27 +226,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         onChange={onChangeTag}
                       />
                       </div>
-                      {/* <Radio.Group
-                        options={optionsWithDisabled}
-                        onChange={this.onChange4}
-                        value={value4}
-                        optionType="button"
-                        buttonStyle="solid"
-                      /> */}
-                      {/* <div>
-                        <input
-                          placeholder="태그를 입력하세요"
-                          className="highlightDisplay"
-                          onKeyPress={handleTagBtn}
-                        />
-                      </div> */}
                     </div>
-
-                    {/* <div className="genre-tag-box">
-                      {tag.map((el) => {
-                        return <span className="genre-tag">{el}</span>;
-                      })}
-                    </div> */}
                   </li>
                 </div>
               </div>
@@ -256,10 +236,11 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <>
                       <li className="career-li">
                         <div className="careerDivide">
-                          <div className="career-title">제목:</div>
-                          <div>{career.title}</div>
-                          <div className="career-year">활동연도:</div>
-                          <div>{career.year}</div>
+                          <div className="career-title">제목:{career.title}</div>
+                          {/* <div>{career.title}</div> */}
+                          <div className="career-year">활동연도:{career.year}</div>
+                          {/* <div>{career.year}</div> */}
+                          <div className="blockhereplz"></div> 
                           <CloseOutlined
                             className="career-delete-btn"
                             onClick={() => {

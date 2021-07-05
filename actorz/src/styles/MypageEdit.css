@@ -48,6 +48,11 @@
 }
 */
 
+/* div{
+  overflow: hidden;
+  word-wrap: ellipsis;
+} */
+
 .highlightDisplay {
   border-bottom: 1px solid #e0e0e0;
   background-color: lightyellow;
@@ -85,7 +90,7 @@ li {
 
 .careerButtonPosition {
   flex: 1;
-  text-align: right;
+  text-align: right; 
   align-self: flex-end;
   margin-bottom: 0.3rem;
   z-index: 1;
@@ -111,6 +116,10 @@ li {
   border: 1px solid lightgray;
 }
 
+.deleteButton {
+  margin-left: 0.5rem;
+}
+
 .career-delete-btn {
   /* position: absolute; */
   /*margin-left: 0;*/
@@ -133,6 +142,7 @@ li {
 }
 
 .career-title {
+
 }
 
 .career-year {
@@ -177,4 +187,8 @@ li {
 .careerDivide2 {
   display: flex;
   height: 2.5rem;
+}
+
+.blockhereplz {
+  flex: 20;
 }

@@ -189,7 +189,7 @@ input {
 .signUpbtnPosition {
   display: flex;
   margin-top: 3rem;
-  margin-left: 2rem;
+  margin-left: 1.3rem;
 }
 .movetoSignUp {
   font-size: 0.5rem;
