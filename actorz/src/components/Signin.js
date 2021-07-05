@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getUserInfo } from "../actions/userAction";
+
 import kakao from "../images/kakao.png";
 import google from "../images/google.png";
 import server from "../apis/server";
@@ -9,12 +12,13 @@ import Naver from '../components/Naverlogin';
 import { CloseOutlined } from "@ant-design/icons";
 import Nav from "../components/Nav";
 
-const Signin = ({ handleClickSignin, handleClickSignup,  }) => {
+const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setError] = useState("");
+  const user = useSelector((user) => user.userInfoReducer);
+  const dispatch = useDispatch();
   const [login, setLogin] = useState(false);
-
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -27,7 +31,7 @@ const Signin = ({ handleClickSignin, handleClickSignup,  }) => {
   const handleClickSigninBtn = async () => { 
     try {
       if (email !== "" && password !== "") {
-        await server
+        await server //로그인
           .post(
             `/login`,
             {
@@ -41,6 +45,21 @@ const Signin = ({ handleClickSignin, handleClickSignup,  }) => {
               console.log('로그인에 성공하였습니다.');    
               handleClickClose();
             }
+          });
+
+        await server //로그인한 유저의 정보를 state에 저장
+          .get(`/user/:user_id`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          })
+          .then((res) => {
+            if (res.status === 200) {
+              dispatch(getUserInfo(res.data.data.userInfo));
+            }
+          })
+          .catch((err) => {
+            throw err;
           });
       } else {
         setError("모든 항목은 필수입니다");
@@ -72,40 +91,47 @@ const Signin = ({ handleClickSignin, handleClickSignup,  }) => {
         <form onSubmit={(e) => e.preventDefault()}>
           <div id="modal-background">
             <div id="modal-container">
-              <div className="buttonHeader">
-              </div>
+              <div className="buttonHeader"></div>
 
-                <div className="modalCancleBtn">
-                     
-                </div>
-                <div className="modal-title">
-                  <div className="title">
+              <div className="modalCancleBtn"></div>
+              <div className="modal-title">
+                <div className="title">
                   <div>Sign In </div>
-                  
+
                   <CloseOutlined
                     className="closeBtn"
-                    onClick={handleClickClose} />
-                  </div>
-                </div>   
-                <div className="modal-welcome-message">
-                   Welcome to Actorz
-                </div>
-                <div className="modal-group">
-                  <input
-                    type="email"
-                    placeholder=" email"
-                    onChange={handleInputValue("email")}
+                    onClick={handleClickClose}
                   />
                 </div>
-                <div className="modal-group">
-                    <input
-                      type="password"
-                      placeholder=" password"
-                      onChange={handleInputValue("password")}
-                    />
+              </div>
+              <div className="modal-welcome-message">Welcome to Actorz</div>
+              <div className="modal-group">
+                <input
+                  type="email"
+                  placeholder=" email"
+                  onChange={handleInputValue("email")}
+                />
+              </div>
+              <div className="modal-group">
+                <input
+                  type="password"
+                  placeholder=" password"
+                  onChange={handleInputValue("password")}
+                />
+              </div>
+              <div>{err ? <div className="err-message">{err}</div> : null}</div>
+              <div className="modalButtonPosition">
+                <div className="loginBtnPosition">
+                  <button
+                    className="btn-login login"
+                    type="submit"
+                    onClick={handleClickSigninBtn}
+                  >
+                    <div className="settingBtn"> 로그인 </div>
+                  </button>
                 </div>
                 <div>
-                  {err ? <div className="err-message">{err}</div> : null}
+                  <Google />
                 </div>
                 <div className="modalButtonPosition"> 
                   <div className="loginBtnPosition">
@@ -130,6 +156,8 @@ const Signin = ({ handleClickSignin, handleClickSignup,  }) => {
                       </div>
                     </div>
                   </div>
+                </div>
+              </div>
             </div>
           </div>
         </form>

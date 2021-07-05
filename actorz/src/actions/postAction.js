@@ -23,8 +23,6 @@ export const removePostPhoto = (id) => {
 export const editPostInfo = (posts) => {
   return {
     type: EDIT_POST_INFO,
-    payload: {
-      posts,
-    },
+    payload: [posts],
   };
 };

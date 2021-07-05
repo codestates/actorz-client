@@ -1,30 +1,29 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
+import Post from "./Post";
 import FileUpload from "../components/file-upload/file-upload.component";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPostInfo } from "../actions/postAction";
 import server from "../apis/server";
-import { Avatar } from "@material-ui/core";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
-
 import "antd/dist/antd.css";
 import "../mainpage.css";
 import { HeartOutlined } from "@ant-design/icons";
-import Google from '../components/Googlelogin';
-import { render } from 'react-dom';
-import 'semantic-ui-css/semantic.min.css';
-import { Card, Icon, Image } from 'semantic-ui-react';
+import "semantic-ui-css/semantic.min.css";
+import { Card, Icon, Image } from "semantic-ui-react";
 
 const Mainpage = () => {
+  const [clickupload, setClickUpload] = useState(false);
+  const [clickModal, setClickModal] = useState(false);
   const post = useSelector((post) => post.postInfoReducer);
+  const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({
     profileImages: [],
   });
-  const [clickupload, setClickUpload] = useState(false);
 
   const handleClickUpload = (boolean) => {
     if (boolean) {
@@ -42,9 +41,19 @@ const Mainpage = () => {
     // 여기에 이미지 올리는 로직 작성해야 함
   };
 
-  useEffect(() => {
+  const handleClickPost = (boolean, id) => {
+    if (boolean) {
+      setClickModal(true);
+      window.history.pushState(null, "", `/post/${id}`);
+    } else {
+      setClickModal(false);
+      window.history.pushState(null, "", `/mainpage`);
+    }
+  };
+
+  useEffect(async () => {
     try {
-      server.get(`/post`).then((res) => {
+      await server.get(`/post`).then((res) => {
         if (res.status === 200) {
           dispatch(getAllPostInfo(res.data.data));
         }
@@ -56,7 +65,7 @@ const Mainpage = () => {
     }
   }, []);
 
-  console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
+  //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
@@ -64,53 +73,69 @@ const Mainpage = () => {
       <div className="mainPage">
         <Nav />
         <Iconlist />
-        
 
         <div className="newblockPosition"> </div>
 
         <div className="middleSpace">
           <div className="midContents">
-          <Card centered={true} fluid={true}>
-            <div className="effecTest">
-                <a href="/mainpage">
-                  <div className="screen">
-                    {/* <div className="top"> 이기능쓰긴함?
-                    </div> */}
-                    <div className="bottom">
-                      <HeartOutlined className="testIcon" />
-                    </div>
-                    <Image src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png" 
-                    className="exampleIMG"
-                    />
-                  </div>
-                </a>
-              </div>
-            
-            <Card.Content>
-              <Card.Header>
-                <div className="nothing2">
-                  <Link to="/posts" >
-                    <div className="nothing">Goyounjung</div>
-                  </Link>
-                </div>
-              </Card.Header>
-              <Card.Meta>
-                <span className="date">Joined in 2021</span>
-              </Card.Meta>
-              <Card.Description>
-                 Sundeul is a good speaker in the world.
-              </Card.Description>
-            </Card.Content>
-            <Card.Content extra>
-              <a>
-                <Icon name="like" />
-                522 Friends
-              </a>
-            </Card.Content>
-          </Card>
+            {post.data.data
+              ? post.data.data.posts.posts.reverse().map((post) => {
+                  return (
+                    <Card centered={true} fluid={true} key={post._id}>
+                      <div className="effecTest">
+                        <div
+                          className="screen"
+                          onClick={() => handleClickPost(true, post._id)}
+                        >
+                          {/* <div className="top"> 이기능쓰긴함?</div> */}
+                          <div className="bottom">
+                            <HeartOutlined className="testIcon" />
+                          </div>
+                          <Image
+                            src={post.media[0].path}
+                            className="exampleIMG"
+                          />
+                        </div>
+                      </div>
+
+                      <Card.Content>
+                        <Card.Header>
+                          <div className="nothing2">
+                            <Link
+                              to={{
+                                pathname: `/posts`,
+                                state: {
+                                  id: post.userInfo.user_id,
+                                },
+                              }}
+                            >
+                              <div className="nothing">
+                                {post.userInfo.name}
+                              </div>
+                            </Link>
+                          </div>
+                        </Card.Header>
+                        <Card.Meta>
+                          <span className="date">
+                            Updated at {post.updatedAt}
+                          </span>
+                        </Card.Meta>
+                        <Card.Description>{post.content}</Card.Description>
+                      </Card.Content>
+                      <Card.Content extra>
+                        <a>
+                          <Icon name="like" />
+                          {post.likes.length}
+                        </a>
+                      </Card.Content>
+                    </Card>
+                  );
+                })
+              : null}
+            {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
           </div>
 
-          <div className="midContents">
+          {/* <div className="midContents">
             <div className="midContentUpPart">
               <div>
                 <Link to="/posts">
@@ -144,7 +169,7 @@ const Mainpage = () => {
                 </a>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="newblockPosition2"> </div>
 

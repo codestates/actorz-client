@@ -40,7 +40,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         name !== undefined &&
         dob !== undefined
       ) {
-        if (dob.length !== 10 || dob[4] !== "-" || dob[7] !== "-") {
+        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
           setError("생년월일 형식을 지켜서 작성해주세요");
         } else {
           setError("");
@@ -99,7 +99,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         bAddress_street !== undefined &&
         bAddress_zipcode !== undefined
       ) {
-        if (dob.length !== 10 || dob[4] !== "-" || dob[7] !== "-") {
+        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
           setError("생년월일 형식을 지켜서 작성해주세요");
         } else {
           setError("");
@@ -149,117 +149,122 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               <div id="modal-section">
                 <div className="modal-title">
                   <div className="title">
-                    <div>Sign Up </div>  
+                    <div>Sign Up </div>
                     <CloseOutlined
                       className="closeBtn"
-                      onClick={handleClickClose} />
+                      onClick={handleClickClose}
+                    />
                   </div>
-                </div>   
-                <div className="modal-welcome-message">
-                  Welcome to Actorz
                 </div>
-                  <div className="modal-group-signup-role">
-                    <input
-                      type="radio"
-                      name="role"
-                      value="배우"
-                      defaultChecked
-                      onClick={handleClickRadio}
-                    />
-                    &nbsp;배우
-                    <input
-                      type="radio"
-                      name="role"
-                      value="리크루터"
-                      onClick={handleClickRadio}
-                    />
-                    &nbsp;리크루터
-                  </div>
+                <div className="modal-welcome-message">Welcome to Actorz</div>
+                <div className="modal-group-signup-role">
+                  <input
+                    type="radio"
+                    name="role"
+                    value="배우"
+                    defaultChecked
+                    onClick={handleClickRadio}
+                  />
+                  &nbsp;배우
+                  <input
+                    type="radio"
+                    name="role"
+                    value="리크루터"
+                    onClick={handleClickRadio}
+                  />
+                  &nbsp;리크루터
+                </div>
 
-                  {role === "배우" ? (
-                    <>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                            type="email"
-                            placeholder="이메일"
-                            onChange={handleInputActorValue("email")}
-                          />
-                        </div>
+                {role === "배우" ? (
+                  <>
+                    <div className="modal-group-signup">
+                      <div className="importEffect">*</div>
+                      <div>
+                        <input
+                          type="email"
+                          placeholder="이메일"
+                          onChange={handleInputActorValue("email")}
+                        />
                       </div>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                            type="password"
-                            placeholder="비밀번호"
-                            onChange={handleInputActorValue("password")}
-                          />
-                        </div>
+                    </div>
+                    <div className="modal-group-signup">
+                      <div className="importEffect">*</div>
+                      <div>
+                        <input
+                          type="password"
+                          placeholder="비밀번호"
+                          onChange={handleInputActorValue("password")}
+                        />
                       </div>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
+                    </div>
+                    <div className="modal-group-signup">
+                      <div className="importEffect">*</div>
+                      <div>
+                        <input
                           type="text"
                           placeholder="이름"
                           onChange={handleInputActorValue("name")}
-                          />
-                        </div>
-                      </div>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">&nbsp;&nbsp;</div>
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="소속사"
-                            onChange={handleInputActorValue("company")}
-                          />
-                        </div>
-                      </div>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                          type="text"
-                          placeholder="생년월일 (1990-01-02)"
-                          onChange={handleInputActorValue("dob")}
-                          />
-                        </div>
-                      </div>
-                      
-                      <div className="modal-group-signup-gender">
-                        <input
-                          type="radio"
-                          name="gender"
-                          defaultChecked
-                          value="남"
-                          onChange={handleInputActorValue("gender")}
                         />
-                        &nbsp;남
-                        <input type="radio" name="gender" value="여" />&nbsp;여
                       </div>
+                    </div>
+                    <div className="modal-group-signup">
+                      <div className="importEffect">&nbsp;&nbsp;</div>
                       <div>
-                        {err ? <div className="err-message">{err}</div> : null}
+                        <input
+                          type="text"
+                          placeholder="소속사"
+                          onChange={handleInputActorValue("company")}
+                        />
+                      </div>
+                    </div>
+                    <div className="modal-group-signup">
+                      <div className="importEffect">*</div>
+                      <div>
+                        <input
+                          type="text"
+                          placeholder="생년월일 (1990,01,02)"
+                          onChange={handleInputActorValue("dob")}
+                        />
+                      </div>
+                    </div>
 
+                    <div className="modal-group-signup-gender">
+                      <input
+                        type="radio"
+                        name="gender"
+                        defaultChecked
+                        value="남"
+                        onChange={handleInputActorValue("gender")}
+                      />
+                      &nbsp;남
+                      <input type="radio" name="gender" value="여" />
+                      &nbsp;여
+                    </div>
+                    <div>
+                      {err ? <div className="err-message">{err}</div> : null}
+                    </div>
+                    <button
+                      className="btn-login2"
+                      type="submit"
+                      onClick={handleClickActorSignupBtn}
+                    >
+                      회원가입
+                    </button>
+                    <div className="signUpbtnPosition2">
+                      <div className="movetoSignUp">
+                        {" "}
+                        아직 계정이 없으십니까?
                       </div>
-                      <button
-                        className="btn-login2"
-                        type="submit"
-                        onClick={handleClickActorSignupBtn}
+                      <div
+                        className="movetoSignUpBtn"
+                        onClick={() => handleClickSignin(true)}
                       >
-                        회원가입
-                      </button>
-                      <div className="signUpbtnPosition2">
-                        <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
-                        <div className="movetoSignUpBtn"  onClick={() => handleClickSignin(true)}>
-                          로그인 하러 하기 
-                        </div>
+                        로그인 하러 하기
                       </div>
-                    </>
-                  ) : (
-                    <>
+                    </div>
+                  </>
+                ) : (
+                  <>
                     <div className="moreInfo">
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
@@ -285,9 +290,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         <div className="importEffect">*</div>
                         <div>
                           <input
-                          type="text"
-                          placeholder="이름"
-                          onChange={handleInputRecruitorValue("name")}
+                            type="text"
+                            placeholder="이름"
+                            onChange={handleInputRecruitorValue("name")}
                           />
                         </div>
                       </div>
@@ -295,9 +300,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         <div className="importEffect">*</div>
                         <div>
                           <input
-                          type="text"
-                          placeholder="생년월일 (1990-01-02)"
-                          onChange={handleInputRecruitorValue("dob")}
+                            type="text"
+                            placeholder="생년월일 (1990,01,02)"
+                            onChange={handleInputRecruitorValue("dob")}
                           />
                         </div>
                       </div>
@@ -305,9 +310,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         <div className="importEffect">*</div>
                         <div>
                           <input
-                          type="text"
-                          placeholder="회사명"
-                          onChange={handleInputRecruitorValue("name")}
+                            type="text"
+                            placeholder="회사명"
+                            onChange={handleInputRecruitorValue("name")}
                           />
                         </div>
                       </div>
@@ -315,11 +320,13 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       <div className="modal-group-signup2">
                         <div className="importEffect">*</div>
                         <div className="modal-group-signup3">
-                          <div className="reposition">  
+                          <div className="reposition">
                             <input
                               type="text"
                               placeholder="시/도"
-                              onChange={handleInputRecruitorValue("address-city")}
+                              onChange={handleInputRecruitorValue(
+                                "address-city"
+                              )}
                             />
                           </div>
                         </div>
@@ -385,7 +392,8 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           onChange={handleInputRecruitorValue("gender")}
                         />
                         &nbsp;남
-                        <input type="radio" name="gender" value="여" />&nbsp;여
+                        <input type="radio" name="gender" value="여" />
+                        &nbsp;여
                       </div>
                       {err ? <div className="err-message">{err}</div> : null}
                       <button
@@ -395,16 +403,22 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       >
                         회원가입
                       </button>
+                    </div>
+
+                    <div className="signUpbtnPosition3">
+                      <div className="movetoSignUp">
+                        {" "}
+                        이미 계정이 있으십니까?
                       </div>
-                    
-                   <div className="signUpbtnPosition3">
-                      <div className="movetoSignUp"> 이미 계정이 있으십니까?</div>
-                      <div className="movetoSignUpBtn"  onClick={() => handleClickSignin(true)}>
-                         로그인 하러 하기 
+                      <div
+                        className="movetoSignUpBtn"
+                        onClick={() => handleClickSignin(true)}
+                      >
+                        로그인 하러 하기
                       </div>
                     </div>
                   </>
-                  )}
+                )}
               </div>
             </div>
           </div>
