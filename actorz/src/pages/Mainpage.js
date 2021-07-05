@@ -19,7 +19,8 @@ const Mainpage = () => {
   const [clickModal, setClickModal] = useState(false);
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
-  console.log(user);
+  //console.log(user);
+  //console.log(post);
   const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({
@@ -80,7 +81,7 @@ const Mainpage = () => {
         <div className="middleSpace">
           <div className="midContents">
             {post.data.data
-              ? post.data.data.posts.posts.reverse().map((post) => {
+              ? post.data.data.posts.posts.map((post) => {
                   return (
                     <Card centered={true} fluid={true} key={post._id}>
                       <div className="effecTest">
