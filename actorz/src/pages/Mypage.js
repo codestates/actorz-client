@@ -9,7 +9,7 @@ import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
 import "../styles/Mypage.css";
 import "antd/dist/antd.css";
-import { EditOutlined } from "@ant-design/icons";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const Mypage = () => {
   const user = useSelector((user) => user.userInfoReducer);
@@ -19,6 +19,25 @@ const Mypage = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => getUser(), []);
+
+  const handleDeleteAccount = async () => {
+      await server
+      .get(`/user/:user_id/delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log('회원탈퇴');
+          localStorage.removeItem("accessToken"); 
+          window.location = "/mainpage";
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }
 
   const getUser = async () => {
     await server
@@ -94,6 +113,7 @@ const Mypage = () => {
                         className="editButton"
                         onClick={() => handeClickEditBtn(true)}
                       />
+                      <DeleteOutlined className="deleteButton" onClick={() => handleDeleteAccount()}/>
                       {/* <DeleteOutlined className="deleteButton"/> */}
                     </div>
                     <div className="midContentDownPart">
@@ -119,7 +139,8 @@ const Mypage = () => {
                         </div>
                       </div>
                       {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
-                      <div className="careerTitle">Career 🏆</div>
+                      <div className="careerTitle">Career </div>
+                      {/* <div className="iconTitle">🏆</div> */}
                       <div className="careerContent">
                         {userinfo.careers ? (
                           <div className="career">

@@ -6,8 +6,11 @@ import kakao from "../images/kakao.png";
 import google from "../images/google.png";
 import server from "../apis/server";
 import "../styles/SigninModal.css";
-import Google from "../components/Googlelogin";
+import Google from '../components/Googlelogin';
+import Naver from '../components/Naverlogin';
+
 import { CloseOutlined } from "@ant-design/icons";
+import Nav from "../components/Nav";
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
@@ -15,6 +18,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [err, setError] = useState("");
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
+  const [login, setLogin] = useState(false);
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -24,7 +28,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     }
   };
 
-  const handleClickSigninBtn = async () => {
+  const handleClickSigninBtn = async () => { 
     try {
       if (email !== "" && password !== "") {
         await server //로그인
@@ -33,17 +37,12 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             {
               email: email.email,
               password: password.password,
-            },
-            {
-              headers: {
-                "Content-Type": "application/json",
-              },
-              withCredentials: true,
             }
           )
           .then((res) => {
             if (res.status === 200) {
               localStorage.setItem("accessToken", res.data.data.accessToken);
+              console.log('로그인에 성공하였습니다.');    
               handleClickClose();
             }
           });
@@ -131,30 +130,24 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     <div className="settingBtn"> 로그인 </div>
                   </button>
                 </div>
-                <div>
+                {/* <div>
                   <Google />
-                </div>
-                <div className="loginBtnPosition">
-                  <button
-                    className="btn-login login"
-                    onClick={handleClickKakaoBtn}
-                  >
-                    <img
-                      src={kakao}
-                      alert="kakao-logo"
-                      className="kakao-logo"
-                    ></img>
-                    <div className="settingBtn"> 카카오로 로그인하기 </div>
-                  </button>
-                </div>
-                <div className="signUpbtnPosition">
-                  <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
-                  <div
-                    className="movetoSignUpBtn"
-                    onClick={() => handleClickSignup(true)}
-                  >
-                    회원가입 하러 하기
+                </div> */}
+                <div className="modalButtonPosition"> 
+                  <div className="loginBtnPosition">
                   </div>
+                  <div className="loginBtnPosition">
+                    <Google handleClickClose={handleClickClose}/>
+                  </div>
+                  <div className="loginBtnPosition">
+                    {/* <Naver handleClickClose={handleClickClose}/> */}
+                  </div>
+                    <div className="signUpbtnPosition">
+                      <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
+                      <div className="movetoSignUpBtn"  onClick={() => handleClickSignup(true)}>
+                         회원가입 하러 하기 
+                      </div>
+                    </div>
                 </div>
               </div>
             </div>

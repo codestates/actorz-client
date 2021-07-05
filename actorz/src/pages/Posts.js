@@ -17,7 +17,7 @@ const Posts = (props) => {
   const [userPost, setUserPost] = useState({});
   const user = useSelector((user) => user.userInfoReducer);
   const post = useSelector((post) => post.postInfoReducer);
-  console.log(post);
+  //console.log(post);
 
   useEffect(async () => {
     await server
@@ -87,7 +87,6 @@ const Posts = (props) => {
                   <div className="fixedSize">
                     <img src={userinfo.userInfo.mainPic} className="testPic" />
                   </div>
-
                   <div className="fixedContent">
                     <p className="name">{}</p>
                     <ul>
