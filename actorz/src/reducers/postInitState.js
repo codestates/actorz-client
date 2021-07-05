@@ -2,8 +2,8 @@ export const postInitState = {
   data: {
     posts: [
       {
-        id: null,
-        path: [
+        _id: null,
+        media: [
           {
             _id: null,
             type: null,
@@ -11,6 +11,7 @@ export const postInitState = {
           },
         ],
         content: null,
+        createdAt: null,
         updatedAt: null,
         genre: null,
         /* 'tags': [...], */
