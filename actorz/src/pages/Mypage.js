@@ -4,12 +4,12 @@ import server from "../apis/server";
 import Nav from "../components/Nav";
 import { getUserInfo } from "../actions/userAction";
 import MypageEdit from "./MypageEdit";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import FileUpload from "../components/file-upload/file-upload.component";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
 import "../styles/Mypage.css";
 import "antd/dist/antd.css";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const Mypage = () => {
   const user = useSelector((user) => user.userInfoReducer);
@@ -20,21 +20,24 @@ const Mypage = () => {
 
   useEffect(() => getUser(), []);
 
-   const handeDeleteAccount = async () => {
-    await server
+  const handleDeleteAccount = async () => {
+      await server
       .get(`/user/:user_id/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       })
       .then((res) => {
-          console.log(res);
-          //if(res.data.data.id !== null){}
+        if (res.status === 200) {
+          console.log('회원탈퇴');
+          localStorage.removeItem("accessToken"); 
+          window.location = "/mainpage";
+        }
       })
       .catch((err) => {
         throw err;
       });
-  };
+  }
 
   const getUser = async () => {
     await server
@@ -93,6 +96,7 @@ const Mypage = () => {
     <>
       {localStorage.getItem("accessToken") ? (
         <>
+          <Nav />
           {!isEdit ? (
             <>
               <div className="blockhere"> </div>
@@ -101,22 +105,15 @@ const Mypage = () => {
                 <Iconlist />
 
                 <div className="newblockPosition"> </div>
-            <div className="middleSpace">
-              <div className="midContents">
-                <div className="buttonHeader">
-                  <EditOutlined
-                    className="editButton"
-                    onClick={() => handeClickEditBtn(true)}
-                  />
-                  <DeleteOutlined className="deleteButton" onClick={() => handeDeleteAccount()}/>
-                </div>
-                <div className="midContentDownPart">
-                  <div className="displayPosition">
-                    <div className="fixedSize">
-                      <img
-                        src="https://media.vlpt.us/images/iooi75/post/167ee00c-d4ca-4ffe-b034-504673f8e1f1/image.png"
-                        className="testPic"
+
+                <div className="middleSpace">
+                  <div className="midContents">
+                    <div className="buttonHeader">
+                      <EditOutlined
+                        className="editButton"
+                        onClick={() => handeClickEditBtn(true)}
                       />
+                      <DeleteOutlined className="deleteButton" onClick={() => handleDeleteAccount()}/>
                       {/* <DeleteOutlined className="deleteButton"/> */}
                     </div>
                     <div className="midContentDownPart">
@@ -142,7 +139,8 @@ const Mypage = () => {
                         </div>
                       </div>
                       {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
-                      <div className="careerTitle">Career 🏆</div>
+                      <div className="careerTitle">Career </div>
+                      {/* <div className="iconTitle">🏆</div> */}
                       <div className="careerContent">
                         {userinfo.careers ? (
                           <div className="career">
@@ -184,7 +182,7 @@ const Mypage = () => {
         <div>
           <form onSubmit={handleSubmit}>
             <FileUpload
-              accept=".jpg,.png,.jpeg, .mp4"
+              accept=".jpg,.png,.jpeg,.mp4"
               multiple
               updateFilesCb={updateUploadedFiles}
               handleClickUpload={handleClickUpload}
