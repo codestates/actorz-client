@@ -4,12 +4,12 @@ import server from "../apis/server";
 import Nav from "../components/Nav";
 import { getUserInfo } from "../actions/userAction";
 import MypageEdit from "./MypageEdit";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import FileUpload from "../components/file-upload/file-upload.component";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
 import "../styles/Mypage.css";
 import "antd/dist/antd.css";
-import { EditOutlined } from "@ant-design/icons";
 
 const Mypage = () => {
   const user = useSelector((user) => user.userInfoReducer);
@@ -19,6 +19,22 @@ const Mypage = () => {
   const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => getUser(), []);
+
+   const handeDeleteAccount = async () => {
+    await server
+      .get(`/user/:user_id/delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+          console.log(res);
+          //if(res.data.data.id !== null){}
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
 
   const getUser = async () => {
     await server
@@ -77,7 +93,6 @@ const Mypage = () => {
     <>
       {localStorage.getItem("accessToken") ? (
         <>
-          <Nav />
           {!isEdit ? (
             <>
               <div className="blockhere"> </div>
@@ -86,13 +101,21 @@ const Mypage = () => {
                 <Iconlist />
 
                 <div className="newblockPosition"> </div>
-
-                <div className="middleSpace">
-                  <div className="midContents">
-                    <div className="buttonHeader">
-                      <EditOutlined
-                        className="editButton"
-                        onClick={() => handeClickEditBtn(true)}
+            <div className="middleSpace">
+              <div className="midContents">
+                <div className="buttonHeader">
+                  <EditOutlined
+                    className="editButton"
+                    onClick={() => handeClickEditBtn(true)}
+                  />
+                  <DeleteOutlined className="deleteButton" onClick={() => handeDeleteAccount()}/>
+                </div>
+                <div className="midContentDownPart">
+                  <div className="displayPosition">
+                    <div className="fixedSize">
+                      <img
+                        src="https://media.vlpt.us/images/iooi75/post/167ee00c-d4ca-4ffe-b034-504673f8e1f1/image.png"
+                        className="testPic"
                       />
                       {/* <DeleteOutlined className="deleteButton"/> */}
                     </div>

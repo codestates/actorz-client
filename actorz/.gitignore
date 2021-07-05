@@ -12,6 +12,8 @@ package-lock.json
 /build
 
 # misc
+*.pem
+.pem
 .env
 .DS_Store
 .env.local
@@ -25,3 +27,5 @@ yarn-error.log*
 
 
 secret.*
+
+*.pem

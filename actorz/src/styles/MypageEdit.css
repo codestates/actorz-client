@@ -48,6 +48,11 @@
 }
 */
 
+/* div{
+  overflow: hidden;
+  word-wrap: ellipsis;
+} */
+
 .highlightDisplay {
   border-bottom: 1px solid #e0e0e0;
   background-color: lightyellow;
@@ -62,8 +67,8 @@ li {
 }
 
 .career {
-  font-size: 40px;
-  margin-top: 10px;
+  font-size: 2.5rem;
+  margin-top: 0.6rem;
 }
 /*
 .career-btn {
@@ -77,18 +82,25 @@ li {
 
 }
 
+.iconTitle {
+  align-self: flex-end;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
 
 .careerButtonPosition {
   flex: 1;
-  text-align: right;
+  text-align: right; 
   align-self: flex-end;
   margin-bottom: 0.3rem;
   z-index: 1;
 }
 
+.career-box {
+}
 
 .career-box li {
-  padding: 10px;
+  padding: 0.5rem;
   /*
   font-family: "Nanum Gothic", sans-serif;
   font-size: 20px;
@@ -100,7 +112,12 @@ li {
   height: 130px;
   width: 800px;
   */
+  margin-bottom: 1rem;
   border: 1px solid lightgray;
+}
+
+.deleteButton {
+  margin-left: 0.5rem;
 }
 
 .career-delete-btn {
@@ -116,9 +133,6 @@ li {
 }
 
 .tag {
-  /*
-  margin-top: 0.3rem;
-  */
   display: flex;
   height: 1.5rem;
 }
@@ -128,7 +142,7 @@ li {
 }
 
 .career-title {
-  margin-right: 0.5rem;
+
 }
 
 .career-year {
@@ -144,7 +158,17 @@ li {
 }
 
 .career-tag {
+  
   margin-right: 0.5rem;
+}
+
+.career-tag2 {
+  margin-top: 0.3rem;
+  margin-right: 0.5rem;
+}
+
+.radioButton {
+  color: red;
 }
 
 .genre-tag {
@@ -158,4 +182,13 @@ li {
 .careerDivide {
   display: flex;
   height: 1.5rem;
+}
+
+.careerDivide2 {
+  display: flex;
+  height: 2.5rem;
+}
+
+.blockhereplz {
+  flex: 20;
 }
