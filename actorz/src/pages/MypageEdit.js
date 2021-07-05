@@ -80,6 +80,25 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     dispatch(removeUserCareer(id));
   };
 
+  const handleDeleteAccount = async () => {
+      await server
+      .get(`/user/:user_id/delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          console.log('회원탈퇴');
+          window.location = "/mainpage";
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }
+
+
   const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
     let newUserInfo = {
@@ -140,7 +159,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 className="editButton"
                 onClick={() => handleClickSaveBtn()}
               />
-              <DeleteOutlined className="deleteButton"/>
+              <DeleteOutlined className="deleteButton" onClick={() => handleDeleteAccount()} />
             </div>
             <div className="midContentDownPart">
               <div className="displayPosition">

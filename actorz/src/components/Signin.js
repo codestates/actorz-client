@@ -130,24 +130,17 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     <div className="settingBtn"> 로그인 </div>
                   </button>
                 </div>
-                <div>
+                {/* <div>
                   <Google />
-                </div>
+                </div> */}
                 <div className="modalButtonPosition"> 
                   <div className="loginBtnPosition">
-                    <button
-                      className="btn-login login"
-                      type="submit"
-                      onClick={handleClickSigninBtn}
-                    >
-                      <div className="settingBtn"> 로그인 </div>
-                    </button>
                   </div>
                   <div className="loginBtnPosition">
                     <Google handleClickClose={handleClickClose}/>
                   </div>
                   <div className="loginBtnPosition">
-                    <Naver handleClickClose={handleClickClose}/>
+                    {/* <Naver handleClickClose={handleClickClose}/> */}
                   </div>
                     <div className="signUpbtnPosition">
                       <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
@@ -155,7 +148,6 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                          회원가입 하러 하기 
                       </div>
                     </div>
-                  </div>
                 </div>
               </div>
             </div>
