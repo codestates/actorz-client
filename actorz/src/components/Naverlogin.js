@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import dotenv from "dotenv";
 import server from "../apis/server";
-import NaverLogin from "react-login-by-naver";
 import naver from "../images/kakao.png";
 import axios from "axios";
 
