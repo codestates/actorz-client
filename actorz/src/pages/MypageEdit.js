@@ -33,23 +33,23 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     { label: "드라마", value: "드라마" },
     { label: "영화", value: "영화" },
     { label: "뮤지컬", value: "뮤지컬" },
-    { label: "연극", value:  "연극" },
+    { label: "연극", value: "연극" },
     { label: "광고", value: "광고" },
     { label: "뮤직비디오", value: "뮤직비디오" },
   ];
 
   const onChangeTag = (e) => {
-    if(e.target.value==="드라마"){
+    if (e.target.value === "드라마") {
       setTag([e.target.value]);
-    } else if(e.target.value==="영화"){
+    } else if (e.target.value === "영화") {
       setTag([e.target.value]);
-    } else if(e.target.value==="뮤지컬"){
+    } else if (e.target.value === "뮤지컬") {
       setTag([e.target.value]);
-    } else if(e.target.value==="연극"){
+    } else if (e.target.value === "연극") {
       setTag([e.target.value]);
-    } else if(e.target.value==="광고"){
+    } else if (e.target.value === "광고") {
       setTag([e.target.value]);
-    } else if(e.target.value==="뮤직비디오"){
+    } else if (e.target.value === "뮤직비디오") {
       setTag([e.target.value]);
     }
   };
@@ -83,7 +83,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleDeleteAccount = async () => {
-      await server
+    await server
       .get(`/user/:user_id/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -91,15 +91,14 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log('회원탈퇴');
+          console.log("회원탈퇴");
           window.location = "/mainpage";
         }
       })
       .catch((err) => {
         throw err;
       });
-  }
-
+  };
 
   const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
@@ -116,16 +115,19 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     };
     dispatch(editUserInfo(newUserInfo));
     await server
-      .post(`/user/:user_id/update`, {
-        newUserInfo
-      }, 
-      {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      .post(
+        `/user/:user_id/update`,
+        {
+          newUserInfo,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
         }
-      })
+      )
       .then((res) => {
-        console.log('결과확인: '+ res);
+        console.log("결과확인: " + res);
       })
       .catch((err) => {
         throw err;
@@ -133,8 +135,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleClickConfirmBtn = () => {
-    document.getElementsByClassName('highlightDisplay')[3].value="";
-    document.getElementsByClassName('highlightDisplay')[4].value="";
+    document.getElementsByClassName("highlightDisplay")[3].value = "";
+    document.getElementsByClassName("highlightDisplay")[4].value = "";
     if (title.title !== undefined && year.year !== undefined) {
       dispatch(
         addUserCareer({
@@ -163,7 +165,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 className="editButton"
                 onClick={() => handleClickSaveBtn()}
               />
-              <DeleteOutlined className="deleteButton" onClick={() => handleDeleteAccount()} />
+              <DeleteOutlined
+                className="deleteButton"
+                onClick={() => handleDeleteAccount()}
+              />
             </div>
             <div className="midContentDownPart">
               <div className="displayPosition">
@@ -238,13 +243,13 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <div className="careerDivide2">
                       <div className="career-tag2">태그:</div>
                       <div>
-                      <Radio.Group 
-                        className="radioButton"
-                        options={tagOptions}
-                        optionType="button"
-                        buttonStyle="solid"
-                        onChange={onChangeTag}
-                      />
+                        <Radio.Group
+                          className="radioButton"
+                          options={tagOptions}
+                          optionType="button"
+                          buttonStyle="solid"
+                          onChange={onChangeTag}
+                        />
                       </div>
                     </div>
                   </li>
@@ -256,11 +261,15 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <>
                       <li className="career-li">
                         <div className="careerDivide">
-                          <div className="career-title">제목:{career.title}</div>
+                          <div className="career-title">
+                            제목:{career.title}
+                          </div>
                           {/* <div>{career.title}</div> */}
-                          <div className="career-year">활동연도:{career.year}</div>
+                          <div className="career-year">
+                            활동연도:{career.year}
+                          </div>
                           {/* <div>{career.year}</div> */}
-                          <div className="blockhereplz"></div> 
+                          <div className="blockhereplz"></div>
                           <CloseOutlined
                             className="career-delete-btn"
                             onClick={() => {

@@ -4,7 +4,6 @@ import Nav from "../components/Nav";
 import PostEdit from "./PostEdit";
 import server from "../apis/server";
 import { Link } from "react-router-dom";
-
 import profile from "../images/profile.png";
 import love from "../images/thumb-up.png";
 import email from "../images/email.png";
@@ -13,15 +12,17 @@ import "../styles/Post.css";
 
 const Post = (props) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [postinfo, setPostinfo] = useState({});
   const post = useSelector((post) => post.postInfoReducer);
+  const [postinfo, setPostinfo] = useState({});
   const user = useSelector((user) => user.userInfoReducer);
   //console.log(user);
   //console.log(postinfo);
+  console.log(post);
 
   let index = window.location.pathname.lastIndexOf("/");
   let url = window.location.pathname.slice(index + 1);
   //console.log(url);
+  //setPostinfo(post);
 
   useEffect(async () => {
     await server
@@ -43,10 +44,11 @@ const Post = (props) => {
       setIsEdit(true);
     } else {
       setIsEdit(false);
+      //setPostinfo(post);
     }
   };
   //console.log(postinfo); //여기에 클릭한 게시물의 정보가 담겨있음
-  console.log(user.data.userInfo);
+  //console.log(user.data.userInfo);
   return (
     <>
       <Nav />
@@ -141,7 +143,7 @@ const Post = (props) => {
         <PostEdit
           handleClickPost={props.handleClickPost}
           handleClickEditBtn={handleClickEditBtn}
-          postinfo={postinfo}
+          userPostinfo={postinfo}
         />
       )}
     </>

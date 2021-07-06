@@ -13,16 +13,9 @@ const postInfoReducer = (state = postInitState, action) => {
       });
 
     case REMOVE_POST_PHOTO:
-      //console.log(action.payload.post_id);
-      //console.log(action.payload.img_id);
-      //console.log(state.data.data.posts.posts);
-      //state.data.data.posts.posts
-      //state.data.data.posts.posts.map 해서 post_id가 같은 것을 가져온다
-      //console.log(state.data.data.posts);
       const filteredPost = state.data.data.posts.posts.filter((post) => {
         return post._id === action.payload.post_id;
       });
-      //console.log(filteredPost);
       const filteredPhoto = Object.assign({}, filteredPost[0], {
         media: filteredPost[0].media.filter((el) => {
           return el._id !== action.payload.img_id;
@@ -34,25 +27,16 @@ const postInfoReducer = (state = postInitState, action) => {
         },
       };
 
-    // const filteredPhoto = filteredPost.filter((media) => {
-    //   return media._id !== action.payload.img_id;
-    // });
-    //console.log(filteredPhoto);
-    //console.log(filteredPhoto);
-    // return Object.assign({}, state.data.data.posts, {
-    //   ...state.data.data.posts,
-    //   posts: filteredPhoto,
-    // });
-
-    // const filteredPhoto = Object.assign();
-    // //console.log(filteredPhoto);
-    // return { posts: [filteredPhoto] };
-
     case EDIT_POST_INFO:
-      const a = Object.assign({}, state, {
-        data: { posts: action.payload },
+      const editedPost = Object.assign({}, state.data.data.posts, {
+        posts: [action.payload],
       });
-      return a;
+
+      return {
+        data: {
+          data: { posts: editedPost },
+        },
+      };
 
     default:
       return state;
@@ -60,3 +44,8 @@ const postInfoReducer = (state = postInitState, action) => {
 };
 
 export default postInfoReducer;
+
+/* 
+        data: { data: { posts: { posts: action.payload } }},
+
+*/

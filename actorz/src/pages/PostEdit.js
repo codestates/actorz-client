@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { editPostInfo, removePostPhoto } from "../actions/postAction";
 import Nav from "../components/Nav";
@@ -10,53 +10,39 @@ import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/PostEdit.css";
 
-const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
-  const [desc, setDesc] = useState("");
+const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const post = useSelector((post) => post.postInfoReducer);
-  const [newfile, setNewFile] = useState(postinfo.media);
+  const [desc, setDesc] = useState("");
+  const [newfile, setNewFile] = useState(userPostinfo.media);
+  const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
-  console.log(postinfo);
-  //console.log(postinfo);
-  //console.log(postinfo.media);
-  //console.log(post);
-
-  //console.log(post);
-  //console.log(post.data.posts[0].path);
+  //console.log(post); //사진 삭제하면 post가 자동 업데이트됨
 
   const handleClickDeleteBtn = (post_id, img_id) => {
-    console.log(post_id, img_id);
     dispatch(removePostPhoto(post_id, img_id));
+    setPostinfo(post.data.data.posts.posts[0]);
+    setNewFile(post.data.data.posts.posts[0].media);
   };
-
-  /* const handleClickUpload = (boolean) => {
-    if (boolean) {
-      setClickUpload(true);
-    } else {
-      setClickUpload(false);
-    }
-  }; */
 
   const handleInputValue = (key) => (event) => {
     if (key === "desc") {
       setDesc({ [key]: event.target.value });
-      //console.log(desc);
     }
   };
 
   const handleClickSaveBtn = async () => {
-    //console.log(postinfo);
     handleClickEditBtn(false);
-    //console.log(desc.desc);
-    // dispatch(
-    //   editPostInfo({
-    //     ...postinfo,
-    //     genre: postinfo.genre,
-    //     media: newfile,
-    //     content: desc.desc,
-    //     userInfo: postinfo.userInfo,
-    //   })
-    // );
-    //console.log(newfile);
+
+    dispatch(
+      editPostInfo({
+        ...postinfo,
+        content: desc.desc,
+      })
+    );
+
+    setPostinfo(post); //수정된 정보들 postinfo에 넣기
+    setNewFile(post.data.data.posts.posts[0].media); //수정된 사진을 newfile에 넣기
+
     await server
       .post(
         `/post/${postinfo._id}/update`,
@@ -81,6 +67,11 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
   };
 
   const updateUploadedFiles = (files) => {
+    //사진 dnd(추가) 할 때마다 여기로 들어온다
+    /* 
+    서버한테 post 요청 전에 서버한테서 s3 url 요청하고 받아서 올리고 올린 url 안에
+    파일이름이 들어가있다. 그거를 서버측 경로에 적어주고 그다음에 서버요청
+    */
     var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
     if (
       fileExt === "img" ||
@@ -88,7 +79,6 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
       fileExt === "png" ||
       fileExt === "jpeg"
     ) {
-      console.log("Aa");
       setNewFile([...newfile, { path: files[0].name, type: "img" }]);
     } else if (fileExt === "mp4") {
       setNewFile([...newfile, { path: files[0].name, type: "video" }]);

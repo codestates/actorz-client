@@ -94,10 +94,13 @@ const Mainpage = () => {
                           <div className="bottom">
                             <HeartOutlined className="testIcon" />
                           </div>
-                          <Image
-                            src={post.media[0].path}
-                            className="exampleIMG"
-                          />
+                          {post.media[0] ? (
+                            <Image
+                              src={post.media[0].path}
+                              className="exampleIMG"
+                            />
+                          ) : null}{" "}
+                          {/* 사진 다 지워버리면 메이페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                         </div>
                       </div>
 
