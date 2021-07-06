@@ -15,6 +15,7 @@ const Footer = () => {
           <a href='https://velog.io/@dandelion' target='_blank' className="alinkEffect2">
             <FormOutlined className="footerIcon" />
           </a>
+          
           {/* <InstagramOutlined className="footerIcon" /> */}
         </div>
 

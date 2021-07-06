@@ -5,6 +5,7 @@ import server from "../apis/server";
 import "../styles/SigninModal.css";
 import Google from "../components/Googlelogin";
 import { CloseOutlined } from "@ant-design/icons";
+import Naver from "../components/Naverlogin"
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
