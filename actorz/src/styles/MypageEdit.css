@@ -1,0 +1,194 @@
+@import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+/*
+#post-container {
+  margin-top: 70px;
+  margin-left: 100px;
+  display: flex;
+}
+#container1 {
+  position: absolute;
+  border: 2px solid rgba(0, 0, 0, 0.246);
+  margin-top: 50px;
+  margin-left: 200px;
+  width: 1100px;
+  box-shadow: 20px -16px rgba(93, 93, 104, 0.2);
+}
+
+#post-info {
+  height: 20px;
+  margin-left: 60px;
+}
+
+#post-info ul {
+  padding-top: 40px;
+  font-size: 20px;
+}
+
+.post-edit {
+  position: absolute;
+  margin-left: 450px;
+  margin-top: 20px;
+  border: 0px;
+  border-radius: 5px;
+  font-size: 20px;
+}
+
+.name {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+*/
+/*
+.dob,
+.email,
+.company {
+  padding-bottom: 10px;
+  background-color: lightyellow;
+}
+*/
+
+/* div{
+  overflow: hidden;
+  word-wrap: ellipsis;
+} */
+
+.highlightDisplay {
+  border-bottom: 1px solid #e0e0e0;
+  background-color: lightyellow;
+}
+
+ul {
+  padding: 0px;
+}
+
+li {
+  list-style: none;
+}
+
+.career {
+  font-size: 2.5rem;
+  margin-top: 0.6rem;
+}
+/*
+.career-btn {
+  position: absolute;
+  border: 0px;
+  background-color: white;
+}
+*/
+
+.careerButton {
+
+}
+
+.iconTitle {
+  align-self: flex-end;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.careerButtonPosition {
+  flex: 1;
+  text-align: right; 
+  align-self: flex-end;
+  margin-bottom: 0.3rem;
+  z-index: 1;
+}
+
+.career-box {
+}
+
+.career-box li {
+  padding: 0.5rem;
+  /*
+  font-family: "Nanum Gothic", sans-serif;
+  font-size: 20px;
+  margin-top: 30px;
+  margin-left: 100px;
+  margin-bottom: 60px;
+  padding-top: 15px;
+  padding-left: 15px;
+  height: 130px;
+  width: 800px;
+  */
+  margin-bottom: 1rem;
+  border: 1px solid lightgray;
+}
+
+.deleteButton {
+  margin-left: 0.5rem;
+}
+
+.career-delete-btn {
+  /* position: absolute; */
+  /*margin-left: 0;*/
+  flex: 1;
+  text-align: right;
+  align-self: flex-end;
+  margin-bottom: 0.5rem;
+
+  /* border: 0px; */
+  /* background-color: white; */
+}
+
+.tag {
+  display: flex;
+  height: 1.5rem;
+}
+
+.tag .tagPosition {
+  margin-right: 0.5rem;
+}
+
+.career-title {
+
+}
+
+.career-year {
+  /*
+  border-left: 1px solid #e0e0e0;
+  */
+  margin-left: 4rem;
+  margin-right: 0.5rem;
+}
+
+.genre-tag-box {
+  margin-top: 1rem;
+}
+
+.career-tag {
+  
+  margin-right: 0.5rem;
+}
+
+.career-tag2 {
+  margin-top: 0.3rem;
+  margin-right: 0.5rem;
+}
+
+.radioButton {
+  color: red;
+}
+
+.genre-tag {
+  border: 1px solid lightgray;
+  border-radius: 10px;
+  padding: 0.2rem;
+  margin: 1rem;
+}
+
+
+.careerDivide {
+  display: flex;
+  height: 1.5rem;
+}
+
+.careerDivide2 {
+  display: flex;
+  height: 2.5rem;
+}
+
+.blockhereplz {
+  flex: 20;
+}
