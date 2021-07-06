@@ -17,6 +17,8 @@ import { Radio } from "antd";
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
+  // userinforeducer에서 판단한다.
+
   //console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
@@ -115,12 +117,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     dispatch(editUserInfo(newUserInfo));
     await server
       .post(`/user/:user_id/update`, {
-        //서버에서는 req.headers["authorization"]으로 토큰을 받고있는데 이렇게 보내고 콘솔 찍어보면 req.body.headers에 들어간다...?
+        newUserInfo
+      }, 
+      {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-        newUserInfo, //수정한 유저 정보가 들어있음.
-        
+        }
       })
       .then((res) => {
         console.log('결과확인: '+ res);
@@ -131,6 +133,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleClickConfirmBtn = () => {
+    document.getElementsByClassName('highlightDisplay')[3].value="";
+    document.getElementsByClassName('highlightDisplay')[4].value="";
     if (title.title !== undefined && year.year !== undefined) {
       dispatch(
         addUserCareer({
