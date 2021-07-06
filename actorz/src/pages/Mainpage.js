@@ -20,7 +20,7 @@ const Mainpage = () => {
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
   //console.log(user);
-  //console.log(post);
+  console.log(post);
   const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({

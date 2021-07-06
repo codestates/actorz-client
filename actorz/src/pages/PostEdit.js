@@ -58,15 +58,20 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
     // );
     //console.log(newfile);
     await server
-      .post(`/post/${postinfo._id}/update`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      .post(
+        `/post/${postinfo._id}/update`,
+        {
+          genre: postinfo.genre,
+          media: newfile,
+          content: desc.desc,
+          userInfo: postinfo.userInfo,
         },
-        genre: postinfo.genre,
-        media: newfile,
-        content: desc.desc,
-        userInfo: postinfo.userInfo,
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
       .then((res) => {
         console.log(res);
       })

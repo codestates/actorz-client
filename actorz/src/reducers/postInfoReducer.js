@@ -23,12 +23,26 @@ const postInfoReducer = (state = postInitState, action) => {
         return post._id === action.payload.post_id;
       });
       //console.log(filteredPost);
-      const filteredPhoto = filteredPost[0].media.filter((media) => {
-        return media._id !== action.payload.img_id;
+      const filteredPhoto = Object.assign({}, filteredPost[0], {
+        media: filteredPost[0].media.filter((el) => {
+          return el._id !== action.payload.img_id;
+        }),
       });
-      console.log(filteredPhoto);
-      //console.log(filteredPhoto);
-      return Object.assign({}, state, {});
+      return {
+        data: {
+          data: { posts: { posts: [filteredPhoto] } },
+        },
+      };
+
+    // const filteredPhoto = filteredPost.filter((media) => {
+    //   return media._id !== action.payload.img_id;
+    // });
+    //console.log(filteredPhoto);
+    //console.log(filteredPhoto);
+    // return Object.assign({}, state.data.data.posts, {
+    //   ...state.data.data.posts,
+    //   posts: filteredPhoto,
+    // });
 
     // const filteredPhoto = Object.assign();
     // //console.log(filteredPhoto);
