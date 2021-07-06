@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { editPostInfo, removePostPhoto } from "../actions/postAction";
 import Nav from "../components/Nav";
 import Postupload from "../components/post-upload/post-upload.component";
+import server from "../apis/server";
 import profile from "../images/profile.png";
 import love from "../images/thumb-up.png";
 import email from "../images/email.png";
@@ -13,18 +14,18 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
   const [desc, setDesc] = useState("");
   const post = useSelector((post) => post.postInfoReducer);
   const [newfile, setNewFile] = useState(postinfo.media);
-  const [clickupload, setClickUpload] = useState(false);
   const dispatch = useDispatch();
   console.log(postinfo);
-  console.log(postinfo.media);
+  //console.log(postinfo);
+  //console.log(postinfo.media);
   //console.log(post);
 
   //console.log(post);
   //console.log(post.data.posts[0].path);
 
-  const handleClickDeleteBtn = (_id) => {
-    //console.log(id);
-    dispatch(removePostPhoto(_id));
+  const handleClickDeleteBtn = (post_id, img_id) => {
+    console.log(post_id, img_id);
+    dispatch(removePostPhoto(post_id, img_id));
   };
 
   /* const handleClickUpload = (boolean) => {
@@ -42,19 +43,41 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
     }
   };
 
-  const handleClickSaveBtn = () => {
-    console.log("aaaaaaaaaaa");
-    console.log(postinfo);
+  const handleClickSaveBtn = async () => {
+    //console.log(postinfo);
     handleClickEditBtn(false);
-    console.log(desc.desc);
-    dispatch(
-      editPostInfo({
-        ...postinfo,
-        content: desc.desc,
-        media: newfile,
+    //console.log(desc.desc);
+    // dispatch(
+    //   editPostInfo({
+    //     ...postinfo,
+    //     genre: postinfo.genre,
+    //     media: newfile,
+    //     content: desc.desc,
+    //     userInfo: postinfo.userInfo,
+    //   })
+    // );
+    //console.log(newfile);
+    await server
+      .post(
+        `/post/${postinfo._id}/update`,
+        {
+          genre: postinfo.genre,
+          media: newfile,
+          content: desc.desc,
+          userInfo: postinfo.userInfo,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res);
       })
-    );
-    console.log(newfile);
+      .catch((err) => {
+        throw err;
+      });
   };
 
   const updateUploadedFiles = (files) => {
@@ -102,7 +125,7 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
         <div className="container">
           <div className="info">
             <div className="info-box">
-              <div className="post-name">Kimcoding</div>
+              <div className="post-name">{postinfo.name}</div>
               <img src={heart} className="heart-img"></img>
               <span className="genre">|{postinfo.genre}</span>
               <span className="like">{postinfo.likes.length}</span>
@@ -130,11 +153,15 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
                           className="post-image"
                           alt="이미지"
                         ></img>
-                        X
+
                         <button
                           className="photo-delete-btn"
-                          onClick={() => handleClickDeleteBtn(img._id)}
-                        ></button>
+                          onClick={() =>
+                            handleClickDeleteBtn(postinfo._id, img._id)
+                          }
+                        >
+                          X
+                        </button>
                       </>
                     );
                   } else {

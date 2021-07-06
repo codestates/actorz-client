@@ -17,11 +17,12 @@ const Mypage = () => {
   const [userinfo, setUserinfo] = useState({});
   const [clickupload, setClickUpload] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  console.log(user.data.userInfo);
 
-  useEffect(() => getUser(), []);
+  //useEffect(() => getUser(), []);
 
   const handleDeleteAccount = async () => {
-      await server
+    await server
       .get(`/user/:user_id/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -29,32 +30,32 @@ const Mypage = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log('회원탈퇴');
-          localStorage.removeItem("accessToken"); 
+          console.log("회원탈퇴");
+          localStorage.removeItem("accessToken");
           window.location = "/mainpage";
         }
       })
       .catch((err) => {
         throw err;
       });
-  }
+  };
 
   const getUser = async () => {
-    await server
-      .get(`/user/:user_id`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setUserinfo(res.data.data.userInfo);
-          dispatch(getUserInfo(res.data.data.userInfo));
-        }
-      })
-      .catch((err) => {
-        throw err;
-      });
+    // await server
+    //   .get(`/user/:user_id`, {
+    //     headers: {
+    //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     if (res.status === 200) {
+    //       setUserinfo(res.data.data.userInfo);
+    //       dispatch(getUserInfo(res.data.data.userInfo));
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     throw err;
+    //   });
   };
 
   const [newfile, setNewFile] = useState({
@@ -113,25 +114,35 @@ const Mypage = () => {
                         className="editButton"
                         onClick={() => handeClickEditBtn(true)}
                       />
-                      <DeleteOutlined className="deleteButton" onClick={() => handleDeleteAccount()}/>
+                      <DeleteOutlined
+                        className="deleteButton"
+                        onClick={() => handleDeleteAccount()}
+                      />
                       {/* <DeleteOutlined className="deleteButton"/> */}
                     </div>
                     <div className="midContentDownPart">
                       <div className="displayPosition">
                         <div className="fixedSize">
-                          <img src={userinfo.mainPic} className="testPic" />
+                          <img
+                            src={user.data.userInfo.mainPic}
+                            className="testPic"
+                          />
                         </div>
 
                         <div className="fixedContent">
-                          <p className="name">{userinfo.name}</p>
+                          <p className="name">{user.data.userInfo.name}</p>
                           <ul>
                             <strong>생년월일</strong>
-                            <li className="dob">{userinfo.dob}</li>
+                            <li className="dob">{user.data.userInfo.dob}</li>
                             <strong>이메일</strong>
-                            <li className="email">{userinfo.email}</li>
+                            <li className="email">
+                              {user.data.userInfo.email}
+                            </li>
                             <strong>소속사</strong>
-                            {userinfo.company ? (
-                              <li className="company">{userinfo.company}</li>
+                            {user.data.userInfo.company ? (
+                              <li className="company">
+                                {user.data.userInfo.company}
+                              </li>
                             ) : (
                               <li className="company"></li>
                             )}
@@ -142,9 +153,9 @@ const Mypage = () => {
                       <div className="careerTitle">Career </div>
                       {/* <div className="iconTitle">🏆</div> */}
                       <div className="careerContent">
-                        {userinfo.careers ? (
+                        {user.data.userInfo.careers ? (
                           <div className="career">
-                            {userinfo.careers.map((career) => {
+                            {user.data.userInfo.careers.map((career) => {
                               return (
                                 <li>
                                   {`${career.year}` +

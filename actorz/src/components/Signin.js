@@ -1,16 +1,10 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo } from "../actions/userAction";
-
-import kakao from "../images/kakao.png";
-import google from "../images/google.png";
 import server from "../apis/server";
 import "../styles/SigninModal.css";
-import Google from '../components/Googlelogin';
-import Naver from '../components/Naverlogin';
-
+import Google from "../components/Googlelogin";
 import { CloseOutlined } from "@ant-design/icons";
-import Nav from "../components/Nav";
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
@@ -18,7 +12,6 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [err, setError] = useState("");
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
-  const [login, setLogin] = useState(false);
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -28,21 +21,18 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     }
   };
 
-  const handleClickSigninBtn = async () => { 
+  const handleClickSigninBtn = async () => {
     try {
       if (email !== "" && password !== "") {
         await server //로그인
-          .post(
-            `/login`,
-            {
-              email: email.email,
-              password: password.password,
-            }
-          )
+          .post(`/login`, {
+            email: email.email,
+            password: password.password,
+          })
           .then((res) => {
             if (res.status === 200) {
               localStorage.setItem("accessToken", res.data.data.accessToken);
-              console.log('로그인에 성공하였습니다.');    
+              console.log("로그인에 성공하였습니다.");
               handleClickClose();
             }
           });
@@ -132,19 +122,20 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                 </div>
                 <div className="modalButtonPosition"> 
                   <div className="loginBtnPosition">
-                  </div>
-                  <div className="loginBtnPosition">
-                    <Google handleClickClose={handleClickClose}/>
+                    <Google handleClickClose={handleClickClose} />
                   </div>
                   <div className="loginBtnPosition">
                   <Naver handleClickClose={handleClickClose}/>
                   </div>
-                    <div className="signUpbtnPosition">
-                      <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
-                      <div className="movetoSignUpBtn"  onClick={() => handleClickSignup(true)}>
-                         회원가입 하러 하기 
-                      </div>
+                  <div className="signUpbtnPosition">
+                    <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
+                    <div
+                      className="movetoSignUpBtn"
+                      onClick={() => handleClickSignup(true)}
+                    >
+                      회원가입 하러 하기
                     </div>
+                  </div>
                 </div>
               </div>
             </div>

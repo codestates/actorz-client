@@ -11,11 +11,12 @@ export const getAllPostInfo = (allPostInfo) => {
   };
 };
 
-export const removePostPhoto = (id) => {
+export const removePostPhoto = (post_id, img_id) => {
   return {
     type: REMOVE_POST_PHOTO,
     payload: {
-      id,
+      post_id,
+      img_id,
     },
   };
 };

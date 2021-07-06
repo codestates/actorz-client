@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Button } from "antd";
 import server from "../apis/server";
+import { persistor } from "../store/store";
 
 const Nav = () => {
   const [search, setSearch] = useState("");
@@ -30,9 +31,10 @@ const Nav = () => {
       })
       .then((res) => {
         if (res.status === 200) {
-          if(res.data.data.id !== null){
-            console.log('logout success!');
-            localStorage.removeItem("accessToken"); 
+          if (res.data.data.id !== null) {
+            persistor.purge();
+            console.log("logout success!");
+            localStorage.removeItem("accessToken");
             window.location = "/mainpage";
           }
         }
@@ -42,9 +44,7 @@ const Nav = () => {
       });
   };
 
-
   const handleClickSignin = () => {
-
     setClickSignup(false);
     if (clickSignin) {
       setClickSignin(false);
@@ -91,16 +91,17 @@ const Nav = () => {
 
           <div className="blackNav2"> </div>
 
-
-
-          { user.isLogin ? (
+          {user.isLogin ? (
             <div className="signBtnPosition">
-             <Button variant="outlined" className="navSignInBtn2" onClick={handleClicklogout}>
-              logout
-             </Button>
+              <Button
+                variant="outlined"
+                className="navSignInBtn2"
+                onClick={handleClicklogout}
+              >
+                logout
+              </Button>
             </div>
-          )
-            : ( 
+          ) : (
             <div className="signBtnPosition">
               <Button
                 variant="outlined"
@@ -117,10 +118,8 @@ const Nav = () => {
               >
                 Sign up
               </Button>
-            </div> 
-            
-            )
-          }
+            </div>
+          )}
         </div>
 
         {clickSignin ? (

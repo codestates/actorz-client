@@ -16,7 +16,7 @@ const Post = (props) => {
   const [postinfo, setPostinfo] = useState({});
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
-  console.log(user);
+  //console.log(user);
   //console.log(postinfo);
 
   let index = window.location.pathname.lastIndexOf("/");
@@ -35,6 +35,9 @@ const Post = (props) => {
       });
   }, []);
 
+  // console.log(user.data.userInfo.id);
+  // console.log(postinfo);
+
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
       setIsEdit(true);
@@ -43,7 +46,7 @@ const Post = (props) => {
     }
   };
   //console.log(postinfo); //여기에 클릭한 게시물의 정보가 담겨있음
-
+  console.log(user.data.userInfo);
   return (
     <>
       <Nav />
@@ -82,7 +85,7 @@ const Post = (props) => {
             {postinfo.genre ? (
               <div className="info">
                 <div className="info-box">
-                  <div className="post-name">{user.data.userInfo.name}</div>
+                  <div className="post-name">{postinfo.userInfo.name}</div>
                   <img src={heart} className="heart-img"></img>
                   <span className="genre">
                     |{" "}
