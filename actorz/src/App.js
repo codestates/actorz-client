@@ -6,6 +6,7 @@ import React from "react";
 import Mypage from "./pages/Mypage";
 import Posts from "./pages/Posts";
 import Post from "./pages/Post";
+import LoginCallback from "./pages/LoginCallback";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/mypage" component={Mypage} />
           <Route path="/posts" component={Posts} />
           <Route path="/post/:id" component={Post} />
+          <Route path="/loginCb" component={LoginCallback} />
         </Switch>
       </div>
     </Router>
