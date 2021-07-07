@@ -19,8 +19,6 @@ const Mainpage = () => {
   const [clickModal, setClickModal] = useState(false);
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
-  //console.log(user);
-  console.log(post);
   const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({
@@ -57,7 +55,6 @@ const Mainpage = () => {
     try {
       await server.get(`/post`).then((res) => {
         if (res.status === 200) {
-          console.log("aaaaaa");
           dispatch(getAllPostInfo(res.data.data));
         }
       });
@@ -68,7 +65,7 @@ const Mainpage = () => {
     }
   }, []);
 
-  console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
+  //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
@@ -132,6 +129,8 @@ const Mainpage = () => {
                         </a>
                       </Card.Content>
                     </Card>
+
+                    
                   );
                 })
               : null}

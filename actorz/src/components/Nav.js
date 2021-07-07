@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import "antd/dist/antd.css";
@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Button } from "antd";
 import server from "../apis/server";
 import { persistor } from "../store/store";
+import Loading from "../components/loading";
 
 const Nav = () => {
   const [search, setSearch] = useState("");
@@ -14,6 +15,7 @@ const Nav = () => {
   const [clickSignup, setClickSignup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const user = useSelector((user) => user.userInfoReducer);
+  const [loading, setLoading] = useState(null);
   //const dispatch = useDispatch();
 
   //const isLogin = false;
@@ -23,6 +25,7 @@ const Nav = () => {
   };
 
   const handleClicklogout = async () => {
+    setLoading(true);
     await server
       .get(`/user/logout`, {
         headers: {
@@ -32,14 +35,17 @@ const Nav = () => {
       .then((res) => {
         if (res.status === 200) {
           if (res.data.data.id !== null) {
+            setLoading(false);
             persistor.purge();
             console.log("logout success!");
             localStorage.removeItem("accessToken");
             window.location = "/mainpage";
+              
           }
         }
       })
       .catch((err) => {
+        setLoading(false);
         throw err;
       });
   };
@@ -62,8 +68,15 @@ const Nav = () => {
     }
   };
 
+  // useEffect( async () => {
+  //   //console.log('새로고침');
+  //   setLoading(true);
+    
+  // })
+
   return (
     <>
+    <Loading />
       <div id="nav">
         <div className="search">
           <div>

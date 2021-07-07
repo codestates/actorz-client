@@ -17,7 +17,7 @@ const Mypage = () => {
   const [userinfo, setUserinfo] = useState({});
   const [clickupload, setClickUpload] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  console.log(user.data.userInfo);
+  //console.log('user정보: '+user.data.userInfo);
 
   //useEffect(() => getUser(), []);
 
@@ -110,6 +110,10 @@ const Mypage = () => {
                 <div className="middleSpace">
                   <div className="midContents">
                     <div className="buttonHeader">
+                      <div className="profileTitleName">
+                        {user.data.userInfo.name}'s profile
+                      </div>
+                      <div className="profileButtonAll">
                       <EditOutlined
                         className="editButton"
                         onClick={() => handeClickEditBtn(true)}
@@ -118,7 +122,7 @@ const Mypage = () => {
                         className="deleteButton"
                         onClick={() => handleDeleteAccount()}
                       />
-                      {/* <DeleteOutlined className="deleteButton"/> */}
+                      </div>
                     </div>
                     <div className="midContentDownPart">
                       <div className="displayPosition">
@@ -130,8 +134,8 @@ const Mypage = () => {
                         </div>
 
                         <div className="fixedContent">
-                          <p className="name">{user.data.userInfo.name}</p>
                           <ul>
+                            <div className="nameTitle">{user.data.userInfo.name}</div>
                             <strong>생년월일</strong>
                             <li className="dob">{user.data.userInfo.dob}</li>
                             <strong>이메일</strong>
@@ -146,6 +150,7 @@ const Mypage = () => {
                             ) : (
                               <li className="company"></li>
                             )}
+                            
                           </ul>
                         </div>
                       </div>

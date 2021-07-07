@@ -9,6 +9,7 @@ export const userInfoInitState = {
       provider: null,
       gender: null,
       dob: null,
+      password: null,
       careers: [
         {
           _id: null,
