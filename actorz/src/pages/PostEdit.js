@@ -34,7 +34,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   };
   const handleClickSaveBtn = async () => {
     handleClickEditBtn(false);
-    console.log(postinfo);
 
     dispatch(
       editPostInfo({
@@ -63,7 +62,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
         }
       )
       .then((res) => {
-        console.log(res);
         window.location = "/mainpage";
       })
       .catch((err) => {
@@ -72,7 +70,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   };
 
   const updateUploadedFiles = async (files) => {
-    //사진 dnd(추가) 할 때마다 여기로 들어온다
     // get secure url from our server
     // post the image directly to the s3 bucket
     // post request to my server to store any extra data
@@ -100,7 +97,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
         },
       })
       .then((res) => {
-        console.log(res.config.url);
         result = res.config.url.split("?")[0];
       })
       .catch((err) => {
@@ -118,7 +114,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       setNewFile([...newfile, { path: result, type: "video" }]);
     }
   };
-  console.log(postinfo);
   return (
     <>
       <Nav />

@@ -123,15 +123,14 @@ const Posts = (props) => {
                         console.log(post.media[0].path);
                         return (
                           <img
+                            key={post._id}
                             src={post.media[0].path}
                             onClick={() => handleClickPost(true, post._id)}
                           ></img>
                         );
                       })}
                     </Slider>
-                  ) : (
-                    <Slider {...settings} className="slider" />
-                  )}
+                  ) : null}
                 </div>
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>

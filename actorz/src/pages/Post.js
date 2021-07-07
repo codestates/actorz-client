@@ -15,20 +15,15 @@ const Post = (props) => {
   const post = useSelector((post) => post.postInfoReducer);
   const [postinfo, setPostinfo] = useState({});
   const user = useSelector((user) => user.userInfoReducer);
-  //console.log(user);
-  //console.log(postinfo);
   //console.log(post); //업데이트된 정보가 담겨있음
 
   let index = window.location.pathname.lastIndexOf("/");
   let url = window.location.pathname.slice(index + 1);
-  //console.log(url);
-  //setPostinfo(post);
 
   useEffect(async () => {
     await server
       .get(`/post/${url}`)
       .then((res) => {
-        //console.log(res.data.data.post);
         setPostinfo(res.data.data.post);
       })
       .catch((err) => {
@@ -36,20 +31,14 @@ const Post = (props) => {
       });
   }, []);
 
-  // console.log(user.data.userInfo.id);
-  // console.log(postinfo);
-
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
       setIsEdit(true);
     } else {
       setIsEdit(false);
       console.log(post);
-      //setPostinfo(postinfo);
     }
   };
-  //console.log(postinfo); //여기에 클릭한 게시물의 정보가 담겨있음
-  //console.log(user.data.userInfo);
   return (
     <>
       <Nav />
@@ -90,13 +79,7 @@ const Post = (props) => {
                 <div className="info-box">
                   <div className="post-name">{postinfo.userInfo.name}</div>
                   <img src={heart} className="heart-img"></img>
-                  <span className="genre">
-                    |{" "}
-                    {/* {postinfo.genre.map((genre) => {
-                      return `${genre},`;
-                    })} */}
-                    {postinfo.genre}
-                  </span>
+                  <span className="genre">|{postinfo.genre}</span>
                   <span className="like">{postinfo.likes.length}</span>
                   <button
                     className="delete-btn"
@@ -109,9 +92,6 @@ const Post = (props) => {
                 <div className="img-box">
                   <div className="div-img">
                     {postinfo.media.map((img) => {
-                      // var fileExt = img.path.substring(
-                      //   img.path.lastIndexOf(".") + 1
-                      // );
                       if (img.type === "img") {
                         return (
                           <>
