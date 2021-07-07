@@ -74,6 +74,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
     // post the image directly to the s3 bucket
     // post request to my server to store any extra data
 
+    // 77~90번째 줄이 서버한테 s3버킷 url 받아오는 거에요
     await server
       .get(`upload`, {
         headers: {
@@ -88,6 +89,8 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
+
+    // 93~104번째 줄이 우리가 서버에 보낼 filepath(파일경로)를 받는 과정!
     let fileData = files[0];
 
     await axios
@@ -102,6 +105,8 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
+
+
     var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
     if (
       fileExt === "img" ||

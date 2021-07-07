@@ -25,13 +25,14 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [dob, setDob] = useState(user.data.userInfo.dob);
   const [email, setEmail] = useState(user.data.userInfo.email);
   const [company, setCompany] = useState(user.data.userInfo.company);
-  const [password, setPassword] = useState(user.data.userInfo.password);
+  const [password, setPassword] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [category, setCategory] = useState("");
   let backup = user.data.userInfo;
-  console.log('백업 비번: '+ JSON.stringify(user));
+  console.log('백업 비번: '+ password);
+
   const tagOptions = [
     { label: "드라마", value: "드라마" },
     { label: "영화", value: "영화" },
@@ -55,16 +56,16 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
     if(pwdLength < 9 || pwdLength > 20) {
         alert('비밀번호는 9자 이상 20자 이하여야합니다!');
-        pwd1 = '';
-        pwd2 = '';
+        pwd1 = "";
+        pwd2 = "";
     } else {
       checkCount ++;
     }
 
     if(pwd1 !== pwd2) {
       alert('비밀번호가 일치하지 않습니다!');
-      pwd1 = '';
-      pwd2 = '';
+      pwd1 = "";
+      pwd2 = "";
     } else {
       checkCount ++;
     }
@@ -72,17 +73,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     if(checkCount >= 2) {
         checkCount=0;
         setIsModalVisible(false);
-        pwd1 = '';
-        pwd2 = '';
+        pwd1 = "";
+        pwd2 = "";
         let newUserInfo = {
           id: user.data.userInfo.id,
           mainPic: user.data.userInfo.mainPic,
           email: email,
           name: user.data.userInfo.name,
-          //company: company,
+          company: company,
           provider: user.data.userInfo.provider,
           gender: user.data.userInfo.gender,
-          //dob: dob,
+          dob: dob,
           careers: user.data.userInfo.careers,
           password: user.data.userInfo.password,
         }
@@ -126,8 +127,11 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleInputpasswordValue = (key) => (event) => {
-
+    if (key === "password") {
+      setPassword({ [key]: event.target.value });
+    } 
   }
+
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
       setDob(event.target.value);
@@ -186,41 +190,142 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
     if(password === ""){
-      newUserInfo.password = backup;
-    }
-    let newUserInfo = {
-      id: user.data.userInfo.id,
-      mainPic: user.data.userInfo.mainPic,
-      email: email,
-      name: user.data.userInfo.name,
-      company: company,
-      provider: user.data.userInfo.provider,
-      gender: user.data.userInfo.gender,
-      dob: dob,
-      careers: user.data.userInfo.careers,
-      password: password.password,
-    };
-
-    // console.log('기존 비밀번호: ' +user.data.userInfo.password);
-    // console.log('인포에 빈값 들어갔는가 ? : ' + newUserInfo);
+      let newUserInfo = {
+        id: user.data.userInfo.id,
+        mainPic: user.data.userInfo.mainPic,
+        email: email,
+        name: user.data.userInfo.name,
+        company: company,
+        provider: user.data.userInfo.provider,
+        gender: user.data.userInfo.gender,
+        dob: dob,
+        careers: user.data.userInfo.careers,
+      };
     // alert(JSON.stringify(newUserInfo));
 
-    dispatch(editUserInfo(newUserInfo));
+      dispatch(editUserInfo(newUserInfo));
+      await server
+        .post(`/user/:user_id/update`, newUserInfo, 
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          }
+        })
+        .then((res) => {  
+          alert('회원 정보가 변경되었습니다');
+          //alert(JSON.stringify(res));
+        })
+        .catch((err) => {
+          throw err;
+        });
+    } else {
+      let newUserInfo = {
+        id: user.data.userInfo.id,
+        mainPic: user.data.userInfo.mainPic,
+        email: email,
+        name: user.data.userInfo.name,
+        company: company,
+        provider: user.data.userInfo.provider,
+        gender: user.data.userInfo.gender,
+        dob: dob,
+        careers: user.data.userInfo.careers,
+        password: password.password,
+      };
+
+      console.log('인포에 빈값 들어갔는가 ? : ' + newUserInfo);
+    // alert(JSON.stringify(newUserInfo));
+
+      dispatch(editUserInfo(newUserInfo));
+      await server
+        .post(`/user/:user_id/update`, newUserInfo, 
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          }
+        })
+        .then((res) => {  
+          alert('회원 정보가 변경되었습니다');
+          //alert(JSON.stringify(res));
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }
+    // console.log('기존 비밀번호: ' +user.data.userInfo.password);
+    //console.log('인포에 빈값 들어갔는가 ? : ' + newUserInfo);
+    // alert(JSON.stringify(newUserInfo));
+
+    // dispatch(editUserInfo(newUserInfo));
+    // await server
+    //   .post(`/user/:user_id/update`, newUserInfo, 
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    //     }
+    //   })
+    //   .then((res) => {  
+    //     alert('회원 정보가 변경되었습니다');
+    //     //alert(JSON.stringify(res));
+    //   })
+    //   .catch((err) => {
+    //     throw err;
+    //   });
+  };
+
+  //! 지원님이 죽이기 전에 해결해야한다... 
+  /*
+  const updateUploadedFiles = async (files) => {
+    // get secure url from our server
+    // post the image directly to the s3 bucket
+    // post request to my server to store any extra data
+
+    // 77~90번째 줄이 서버한테 s3버킷 url 받아오는 거에요
     await server
-      .post(`/user/:user_id/update`, newUserInfo, 
-      {
+      .get(`upload`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        }
+        },
       })
-      .then((res) => {  
-        alert('회원 정보가 변경되었습니다');
-        //alert(JSON.stringify(res));
+      .then((res) => {
+        if (res.status === 201) {
+          s3Url = res.data.data;
+        }
       })
       .catch((err) => {
         throw err;
       });
+
+    // 93~104번째 줄이 우리가 서버에 보낼 filepath(파일경로)를 받는 과정!
+    let fileData = files[0];
+
+    await axios
+      .put(s3Url, fileData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        result = res.config.url.split("?")[0];
+      })
+      .catch((err) => {
+        throw err;
+      });
+
+
+    var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+    if (
+      fileExt === "img" ||
+      fileExt === "jpg" ||
+      fileExt === "png" ||
+      fileExt === "jpeg"
+    ) {
+      setNewFile([...newfile, { path: result, type: "img" }]);
+    } else if (fileExt === "mp4") {
+      setNewFile([...newfile, { path: result, type: "video" }]);
+    }
   };
+  
+  */
 
   const handleClickConfirmBtn = () => {
     document.getElementsByClassName('highlightDisplay')[1].value="";
