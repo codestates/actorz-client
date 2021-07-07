@@ -1,10 +1,5 @@
-import React, { useEffect } from "react";
-import dotenv from "dotenv";
-import server from "../apis/server";
-import naver from "../images/kakao.png";
-import axios from "axios";
+import React from "react";
 
-const client_secret = process.env.REACT_APP_NAVER_CLIENT_SECRET;
 const client_id = process.env.REACT_APP_NAVER_CLIENT_ID;
 const redirectURI = encodeURI(process.env.REACT_APP_NAVER_REDIRECT_URI);
 const state = "codeStates123";

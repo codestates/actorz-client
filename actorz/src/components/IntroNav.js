@@ -36,6 +36,7 @@ const IntroNav = () => {
               <img
                 src="https://media.vlpt.us/images/iooi75/post/4f4baec2-cb29-4b8b-b2ea-892cef41febc/Screen%20Shot%202021-06-22%20at%209.56.14%20PM.png"
                 className="headerLogo"
+                alt="headerLogo"
               />
             </Link>
           </div>
