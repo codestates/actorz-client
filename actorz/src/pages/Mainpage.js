@@ -53,7 +53,7 @@ const Mainpage = () => {
     }
   };
 
-  useEffect(async () => {
+  const getPostLists = async () => {
     try {
       await server.get(`/post`).then((res) => {
         if (res.status === 200) {
@@ -66,7 +66,8 @@ const Mainpage = () => {
         "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다 \n 잠시 후 다시 이용해주세요"
       );
     }
-  }, []);
+  }
+  useEffect(() => {getPostLists();}, []);
 
   console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 

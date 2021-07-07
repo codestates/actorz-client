@@ -64,14 +64,6 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     }
   };
 
-  const handleClickGoogleBtn = () => {
-    console.log("google login");
-  };
-
-  const handleClickKakaoBtn = () => {
-    console.log("kakao login");
-  };
-
   const handleClickClose = () => {
     handleClickSignin(false);
   };
@@ -126,7 +118,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     <Google handleClickClose={handleClickClose} />
                   </div>
                   <div className="loginBtnPosition">
-                  <Naver handleClickClose={handleClickClose}/>
+                    <Naver handleClickClose={handleClickClose}/>
                   </div>
                   <div className="signUpbtnPosition">
                     <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
