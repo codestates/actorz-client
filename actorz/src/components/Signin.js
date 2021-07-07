@@ -5,7 +5,8 @@ import server from "../apis/server";
 import "../styles/SigninModal.css";
 import Google from "../components/Googlelogin";
 import { CloseOutlined } from "@ant-design/icons";
-import Naver from "../components/Naverlogin"
+import Naver from "../components/Naverlogin";
+import Loading from "../components/loading";
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
@@ -13,6 +14,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [err, setError] = useState("");
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(null);
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -23,6 +25,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
   };
 
   const handleClickSigninBtn = async () => {
+    setLoading(true);
     try {
       if (email !== "" && password !== "") {
         await server //로그인
@@ -33,7 +36,8 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           .then((res) => {
             if (res.status === 200) {
               localStorage.setItem("accessToken", res.data.data.accessToken);
-              console.log("로그인에 성공하였습니다.");
+              console.log("로그인에 성공하였습니다!");
+              setLoading(false);
               handleClickClose();
             }
           });
@@ -50,12 +54,15 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             }
           })
           .catch((err) => {
+            setLoading(false);
             throw err;
           });
       } else {
+        setLoading(false);
         setError("모든 항목은 필수입니다");
       }
     } catch (err) {
+      setLoading(false);
       if (err.message === "Request failed with status code 401") {
         alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
       } else {
@@ -110,7 +117,12 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     type="submit"
                     onClick={handleClickSigninBtn}
                   >
-                    <div className="settingBtn"> 로그인 </div>
+                    <div className="settingBtn"> 
+                      로그인 
+                      <div className="loading"> 
+                        {loading ? <Loading /> : ""} 
+                      </div>
+                    </div>
                   </button>
                 </div>
                 <div className="modalButtonPosition"> 
