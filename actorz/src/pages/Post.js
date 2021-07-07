@@ -39,6 +39,23 @@ const Post = (props) => {
       console.log(post);
     }
   };
+
+  const handleClickDeleteBtn = async () => {
+    await server
+      .post(`/post/${url}/delete`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 200) {
+          window.location = "/mainpage";
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
   return (
     <>
       <Nav />
@@ -70,6 +87,17 @@ const Post = (props) => {
                   onClick={() => handleClickEditBtn(true)}
                 ></img>
                 <div className="float-email-title">수정하기</div>
+              </div>
+            ) : null}
+            {postinfo.userInfo &&
+            user.data.userInfo.id === postinfo.userInfo.user_id ? (
+              <div className="float-btn">
+                <img
+                  src={email}
+                  className="float-edit-btn"
+                  onClick={handleClickDeleteBtn}
+                ></img>
+                <div className="float-email-title">삭제하기</div>
               </div>
             ) : null}
           </div>

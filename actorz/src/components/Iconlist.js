@@ -14,7 +14,7 @@ import {
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
 import FileUpload from "../components/file-upload/file-upload.component";
-import server from "../apis/server"
+import server from "../apis/server";
 import axios from "axios";
 
 const Iconlist = () => {
@@ -35,45 +35,43 @@ const Iconlist = () => {
   const updateUploadedFiles = (files) =>
     setNewFile({ ...newfile, profileImages: files });
 
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      // 여기에 이미지 올리는 로직 작성해야 함
-      console.log(newfile.profileImages)
-      console.log(newfile.profileImages.length)
-      const media = []
-  
-      for(let el of newfile.profileImages){
-        const ext = el.name.split(".")[1];
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // 여기에 이미지 올리는 로직 작성해야 함
+    console.log(newfile.profileImages);
+    console.log(newfile.profileImages.length);
+    const media = [];
 
-        const url = await server.get("/upload")
-        .then((res) => res.data.data);
-        console.log(url);
-        const path = url.split("?")[0];
-        const config = {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
+    for (let el of newfile.profileImages) {
+      const ext = el.name.split(".")[1];
+
+      const url = await server.get("/upload").then((res) => res.data.data);
+      console.log(url);
+      const path = url.split("?")[0];
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      };
+      await axios.put(url, el, config).catch((err) => console.log(err));
+
+      let obj;
+      if (ext === "mp4") {
+        obj = {
+          type: "video",
+          path,
         };
-        await axios.put(url, el, config)
-        .catch((err) => console.log(err));
-  
-        let obj;
-        if(ext === "mp4"){
-          obj = {
-            type: "video",
-            path
-          };
-        }else{
-          obj = {
-            type: "img",
-            path
-          };
-        }
-        media.push(obj)
-      } 
-  
-      console.log(media)
-    };
+      } else {
+        obj = {
+          type: "img",
+          path,
+        };
+      }
+      media.push(obj);
+    }
+
+    console.log(media);
+  };
 
   return (
     <>
