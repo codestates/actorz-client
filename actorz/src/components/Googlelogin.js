@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 const Google = ({ handleClickClose }) => {
   const dispatch = useDispatch();
-  
+
   const responseGoogle = async (googleData) => {
     await server.post("/login/google", {
       token: googleData.tokenId
@@ -17,6 +17,7 @@ const Google = ({ handleClickClose }) => {
         handleClickClose();
       } else {
         alert("구글 로그인 중 오류가 발생했습니다.");
+        return;
       }
     });
     await server //로그인한 유저의 정보를 state에 저장
@@ -38,6 +39,7 @@ const Google = ({ handleClickClose }) => {
     console.log("email: "+ googleData.profileObj.email);
     // console.log("accessToken: " + googleData.accessToken);
     console.log('---------------------')
+    window.location.href = process.env.REACT_APP_GOOGLE_REDIRECT_URI;
   }
 
   return (

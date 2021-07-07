@@ -18,7 +18,8 @@ const LoginCallback = () => {
         if (res.status === 200 || res.status === 201) {
           localStorage.setItem("accessToken", res.data.data.accessToken);
         } else {
-          alert("구글 로그인 중 오류가 발생했습니다.");
+          alert("네이버 로그인 중 오류가 발생했습니다.");
+          return;
         }
       });
 
@@ -37,7 +38,7 @@ const LoginCallback = () => {
             throw err;
           });
 
-      window.location.href = "https://localhost:3000/mainpage"
+      window.location.href = process.env.REACT_APP_GOOGLE_REDIRECT_URI
     }catch(err){
       console.log(err);
     }
