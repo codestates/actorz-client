@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { editPostInfo, removePostPhoto } from "../actions/postAction";
 import Nav from "../components/Nav";
@@ -11,11 +12,14 @@ import heart from "../images/heart.png";
 import "../styles/PostEdit.css";
 
 const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
+  let s3Url = null;
+  let result = null;
   const post = useSelector((post) => post.postInfoReducer);
   const [desc, setDesc] = useState("");
   const [newfile, setNewFile] = useState(userPostinfo.media);
   const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
+
   //console.log(post); //사진 삭제하면 post가 자동 업데이트됨
 
   const handleClickDeleteBtn = (post_id, img_id) => {
@@ -66,22 +70,55 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       });
   };
 
-  const updateUploadedFiles = (files) => {
+  const updateUploadedFiles = async (files) => {
     //사진 dnd(추가) 할 때마다 여기로 들어온다
-    /* 
-    서버한테 post 요청 전에 서버한테서 s3 url 요청하고 받아서 올리고 올린 url 안에
-    파일이름이 들어가있다. 그거를 서버측 경로에 적어주고 그다음에 서버요청
-    */
-    var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+    // get secure url from our server
+    // post the image directly to the s3 bucket
+    // post request to my server to store any extra data
+    var fileExt = null;
+
+    await server
+      .get(`upload`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          s3Url = res.data.data;
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+    let fileData = files[0];
+
+    await axios
+      .put(s3Url, fileData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        console.log(res);
+        result = res.config.url.split("?")[0];
+        fileExt = res.config.data.name.substring(
+          res.config.data.name.lastIndexOf(".") + 1
+        );
+      })
+      .catch((err) => {
+        throw err;
+      });
+
     if (
       fileExt === "img" ||
       fileExt === "jpg" ||
       fileExt === "png" ||
       fileExt === "jpeg"
     ) {
-      setNewFile([...newfile, { path: files[0].name, type: "img" }]);
+      setNewFile([...newfile, { path: result, type: "img" }]);
     } else if (fileExt === "mp4") {
-      setNewFile([...newfile, { path: files[0].name, type: "video" }]);
+      setNewFile([...newfile, { path: result, type: "video" }]);
     }
   };
 
