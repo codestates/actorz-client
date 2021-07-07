@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { editPostInfo, removePostPhoto } from "../actions/postAction";
 import Nav from "../components/Nav";
@@ -10,53 +11,41 @@ import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/PostEdit.css";
 
-const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
-  const [desc, setDesc] = useState("");
+const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const post = useSelector((post) => post.postInfoReducer);
-  const [newfile, setNewFile] = useState(postinfo.media);
+  const [desc, setDesc] = useState("");
+  const [newfile, setNewFile] = useState(userPostinfo.media);
+  const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
-  console.log(postinfo);
-  //console.log(postinfo);
-  //console.log(postinfo.media);
-  //console.log(post);
-
-  //console.log(post);
-  //console.log(post.data.posts[0].path);
+  let s3Url = null;
+  let result = null;
+  //console.log(post); //사진 삭제하면 post가 자동 업데이트됨
 
   const handleClickDeleteBtn = (post_id, img_id) => {
-    console.log(post_id, img_id);
     dispatch(removePostPhoto(post_id, img_id));
+    setPostinfo(post.data.data.posts.posts[0]);
+    setNewFile(post.data.data.posts.posts[0].media);
   };
-
-  /* const handleClickUpload = (boolean) => {
-    if (boolean) {
-      setClickUpload(true);
-    } else {
-      setClickUpload(false);
-    }
-  }; */
 
   const handleInputValue = (key) => (event) => {
     if (key === "desc") {
       setDesc({ [key]: event.target.value });
-      //console.log(desc);
     }
   };
-
   const handleClickSaveBtn = async () => {
-    //console.log(postinfo);
     handleClickEditBtn(false);
-    //console.log(desc.desc);
-    // dispatch(
-    //   editPostInfo({
-    //     ...postinfo,
-    //     genre: postinfo.genre,
-    //     media: newfile,
-    //     content: desc.desc,
-    //     userInfo: postinfo.userInfo,
-    //   })
-    // );
-    //console.log(newfile);
+
+    dispatch(
+      editPostInfo({
+        ...postinfo,
+        content: desc.desc,
+        media: newfile,
+      })
+    );
+
+    setPostinfo(post); //수정된 정보들 postinfo에 넣기
+    setNewFile(post.data.data.posts.posts[0].media); //수정된 사진을 newfile에 넣기
+
     await server
       .post(
         `/post/${postinfo._id}/update`,
@@ -73,14 +62,46 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
         }
       )
       .then((res) => {
-        console.log(res);
+        window.location = "/mainpage";
       })
       .catch((err) => {
         throw err;
       });
   };
 
-  const updateUploadedFiles = (files) => {
+  const updateUploadedFiles = async (files) => {
+    // get secure url from our server
+    // post the image directly to the s3 bucket
+    // post request to my server to store any extra data
+
+    await server
+      .get(`upload`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          s3Url = res.data.data;
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+    let fileData = files[0];
+
+    await axios
+      .put(s3Url, fileData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((res) => {
+        result = res.config.url.split("?")[0];
+      })
+      .catch((err) => {
+        throw err;
+      });
     var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
     if (
       fileExt === "img" ||
@@ -88,13 +109,11 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
       fileExt === "png" ||
       fileExt === "jpeg"
     ) {
-      console.log("Aa");
-      setNewFile([...newfile, { path: files[0].name, type: "img" }]);
+      setNewFile([...newfile, { path: result, type: "img" }]);
     } else if (fileExt === "mp4") {
-      setNewFile([...newfile, { path: files[0].name, type: "video" }]);
+      setNewFile([...newfile, { path: result, type: "video" }]);
     }
   };
-
   return (
     <>
       <Nav />
@@ -125,7 +144,7 @@ const PostEdit = ({ postinfo, handleClickPost, handleClickEditBtn }) => {
         <div className="container">
           <div className="info">
             <div className="info-box">
-              <div className="post-name">{postinfo.name}</div>
+              <div className="post-name">{postinfo.userInfo.name}</div>
               <img src={heart} className="heart-img"></img>
               <span className="genre">|{postinfo.genre}</span>
               <span className="like">{postinfo.likes.length}</span>

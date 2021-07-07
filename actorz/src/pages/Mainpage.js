@@ -19,8 +19,6 @@ const Mainpage = () => {
   const [clickModal, setClickModal] = useState(false);
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
-  //console.log(user);
-  console.log(post);
   const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({
@@ -57,7 +55,6 @@ const Mainpage = () => {
     try {
       await server.get(`/post`).then((res) => {
         if (res.status === 200) {
-          console.log("aaaaaa");
           dispatch(getAllPostInfo(res.data.data));
         }
       });
@@ -95,10 +92,13 @@ const Mainpage = () => {
                           <div className="bottom">
                             <HeartOutlined className="testIcon" />
                           </div>
-                          <Image
-                            src={post.media[0].path}
-                            className="exampleIMG"
-                          />
+                          {post.media[0] ? (
+                            <Image
+                              src={post.media[0].path}
+                              className="exampleIMG"
+                            />
+                          ) : null}{" "}
+                          {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                         </div>
                       </div>
 
@@ -138,42 +138,6 @@ const Mainpage = () => {
               : null}
             {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
           </div>
-
-          {/* <div className="midContents">
-            <div className="midContentUpPart">
-              <div>
-                <Link to="/posts">
-                  <Avatar className="exampleProfile" src="/broken-image.jpg" />
-                </Link>
-              </div>
-
-              <div className="postNamePart">
-                <Link to="/posts" >
-                  <div className="user">goyounjung</div>
-                </Link>
-              </div>
-
-            </div>
-
-            <div className="midContentDownPart">
-              <div className="effecTest">
-                <a href="/mainpage">
-                  <div className="screen">
-                    <div className="top"> 고윤정 테스트
-                    </div>
-                    <div className="bottom">
-                      <HeartOutlined className="testIcon" />
-                    </div>
-                    <img
-                      src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
-                      alt=""
-                      className="exampleIMG"
-                    />
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div> */}
         </div>
         <div className="newblockPosition2"> </div>
 

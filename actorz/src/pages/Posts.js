@@ -23,6 +23,7 @@ const Posts = (props) => {
     await server
       .get(`/post/user/${props.history.location.state.id}`)
       .then((res) => {
+        console.log(res);
         setUserPost(res.data.data);
       })
       .catch((err) => {
@@ -43,8 +44,8 @@ const Posts = (props) => {
       });
   }, []);
 
-  console.log(userinfo.userInfo); //여기에 해당 게시물 작성자 정보가 담겨있음.
-
+  //console.log(userinfo.userInfo); //여기에 해당 게시물 작성자 정보가 담겨있음.
+  console.log(userPost);
   const settings = {
     dots: true,
     infinite: true,
@@ -105,7 +106,7 @@ const Posts = (props) => {
                   <div className="career">
                     {userinfo.userInfo.careers.map((career) => {
                       return (
-                        <li>
+                        <li key={career._id}>
                           {`${career.year}` +
                             ` ${career.title}` +
                             ` / ` +
@@ -122,15 +123,14 @@ const Posts = (props) => {
                         console.log(post.media[0].path);
                         return (
                           <img
+                            key={post._id}
                             src={post.media[0].path}
                             onClick={() => handleClickPost(true, post._id)}
                           ></img>
                         );
                       })}
                     </Slider>
-                  ) : (
-                    <Slider {...settings} className="slider" />
-                  )}
+                  ) : null}
                 </div>
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>

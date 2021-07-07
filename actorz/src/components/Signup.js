@@ -31,6 +31,14 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
     }
   };
 
+  const setrole = (role) => {
+    if (role === "배우") {
+      return "actor";
+    } else if (role === "리크루터") {
+      return "recruiter";
+    }
+  };
+
   const handleClickActorSignupBtn = async () => {
     const { email, password, name, dob, company, gender } = actorSignup;
     try {
@@ -53,6 +61,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               //provider: "local",
               gender: setGender(gender),
               dob: dob,
+              role: setrole(role),
             })
             .then((res) => {
               if (res.status === 201) {
