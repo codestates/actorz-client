@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { editPostInfo, removePostPhoto } from "../actions/postAction";
@@ -12,14 +12,13 @@ import heart from "../images/heart.png";
 import "../styles/PostEdit.css";
 
 const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
-  let s3Url = null;
-  let result = null;
   const post = useSelector((post) => post.postInfoReducer);
   const [desc, setDesc] = useState("");
   const [newfile, setNewFile] = useState(userPostinfo.media);
   const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
-
+  let s3Url = null;
+  let result = null;
   //console.log(post); //사진 삭제하면 post가 자동 업데이트됨
 
   const handleClickDeleteBtn = (post_id, img_id) => {
@@ -33,14 +32,15 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       setDesc({ [key]: event.target.value });
     }
   };
-
   const handleClickSaveBtn = async () => {
     handleClickEditBtn(false);
+    console.log(postinfo);
 
     dispatch(
       editPostInfo({
         ...postinfo,
         content: desc.desc,
+        media: newfile,
       })
     );
 
@@ -64,6 +64,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       )
       .then((res) => {
         console.log(res);
+        window.location = "/mainpage";
       })
       .catch((err) => {
         throw err;
@@ -75,7 +76,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
     // get secure url from our server
     // post the image directly to the s3 bucket
     // post request to my server to store any extra data
-    var fileExt = null;
 
     await server
       .get(`upload`, {
@@ -100,16 +100,13 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
         },
       })
       .then((res) => {
-        console.log(res);
+        console.log(res.config.url);
         result = res.config.url.split("?")[0];
-        fileExt = res.config.data.name.substring(
-          res.config.data.name.lastIndexOf(".") + 1
-        );
       })
       .catch((err) => {
         throw err;
       });
-
+    var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
     if (
       fileExt === "img" ||
       fileExt === "jpg" ||
@@ -121,7 +118,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       setNewFile([...newfile, { path: result, type: "video" }]);
     }
   };
-
+  console.log(postinfo);
   return (
     <>
       <Nav />
@@ -152,7 +149,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
         <div className="container">
           <div className="info">
             <div className="info-box">
-              <div className="post-name">{postinfo.name}</div>
+              <div className="post-name">{postinfo.userInfo.name}</div>
               <img src={heart} className="heart-img"></img>
               <span className="genre">|{postinfo.genre}</span>
               <span className="like">{postinfo.likes.length}</span>

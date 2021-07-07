@@ -17,7 +17,7 @@ const Post = (props) => {
   const user = useSelector((user) => user.userInfoReducer);
   //console.log(user);
   //console.log(postinfo);
-  console.log(post);
+  //console.log(post); //업데이트된 정보가 담겨있음
 
   let index = window.location.pathname.lastIndexOf("/");
   let url = window.location.pathname.slice(index + 1);
@@ -44,7 +44,8 @@ const Post = (props) => {
       setIsEdit(true);
     } else {
       setIsEdit(false);
-      //setPostinfo(post);
+      console.log(post);
+      //setPostinfo(postinfo);
     }
   };
   //console.log(postinfo); //여기에 클릭한 게시물의 정보가 담겨있음
