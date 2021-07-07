@@ -36,7 +36,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     { label: "드라마", value: "드라마" },
     { label: "영화", value: "영화" },
     { label: "뮤지컬", value: "뮤지컬" },
-    { label: "연극", value: "연극" },
+    { label: "연극", value:  "연극" },
     { label: "광고", value: "광고" },
     { label: "뮤직비디오", value: "뮤직비디오" },
   ];
@@ -110,21 +110,24 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const onChangeTag = (e) => {
-    if (e.target.value === "드라마") {
+    if(e.target.value==="드라마"){
       setTag([e.target.value]);
-    } else if (e.target.value === "영화") {
+    } else if(e.target.value==="영화"){
       setTag([e.target.value]);
-    } else if (e.target.value === "뮤지컬") {
+    } else if(e.target.value==="뮤지컬"){
       setTag([e.target.value]);
-    } else if (e.target.value === "연극") {
+    } else if(e.target.value==="연극"){
       setTag([e.target.value]);
-    } else if (e.target.value === "광고") {
+    } else if(e.target.value==="광고"){
       setTag([e.target.value]);
-    } else if (e.target.value === "뮤직비디오") {
+    } else if(e.target.value==="뮤직비디오"){
       setTag([e.target.value]);
     }
   };
 
+  const handleInputpasswordValue = (key) => (event) => {
+
+  }
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
       setDob(event.target.value);
@@ -162,7 +165,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleDeleteAccount = async () => {
-    await server
+      await server
       .get(`/user/:user_id/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -170,14 +173,15 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log("회원탈퇴");
+          console.log('회원탈퇴');
           window.location = "/mainpage";
         }
       })
       .catch((err) => {
         throw err;
       });
-  };
+  }
+
 
   const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
@@ -197,9 +201,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       password: password.password,
     };
 
-    console.log('기존 비밀번호: ' +user.data.userInfo.password);
-    console.log('인포에 빈값 들어갔는가 ? : ' + newUserInfo);
-    alert(JSON.stringify(newUserInfo));
+    // console.log('기존 비밀번호: ' +user.data.userInfo.password);
+    // console.log('인포에 빈값 들어갔는가 ? : ' + newUserInfo);
+    // alert(JSON.stringify(newUserInfo));
 
     dispatch(editUserInfo(newUserInfo));
     await server
@@ -245,17 +249,15 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         <div className="middleSpace">
           <div className="midContents">
             <div className="buttonHeader">
-              <div className="profileTitleName"> 회원정보 수정
+              <div className="profileTitleName"> 회원정보 수정 
               </div>
               <div>
               <SaveOutlined
                 className="editButton"
                 onClick={() => handleClickSaveBtn()}
               />
-              <DeleteOutlined
-                className="deleteButton"
-                onClick={() => handleDeleteAccount()}
-              />
+              <DeleteOutlined className="deleteButton" onClick={() => handleDeleteAccount()} />
+              </div>
             </div>
             <div className="midContentDownPart">
               <div className="displayPosition">
@@ -375,27 +377,19 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         />
                       </div>
                       <div>
-                      <div className="career-year">활동연도:
-                        <input
-                          type="text"
-                          className="highlightDisplay"
-                          placeholder="1990-01-01"
-                          onChange={handleInputValue("year")}
-                        />
-                      </div>
                       </div>
                     </div>
                     <br></br>
                     <div className="careerDivide2">
                       <div className="career-tag2">태그:</div>
                       <div>
-                        <Radio.Group
-                          className="radioButton"
-                          options={tagOptions}
-                          optionType="button"
-                          buttonStyle="solid"
-                          onChange={onChangeTag}
-                        />
+                      <Radio.Group 
+                        className="radioButton"
+                        options={tagOptions}
+                        optionType="button"
+                        buttonStyle="solid"
+                        onChange={onChangeTag}
+                      />
                       </div>
                     </div>
                   </li>
@@ -407,15 +401,11 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <>
                       <li className="career-li">
                         <div className="careerDivide">
-                          <div className="career-title">
-                            제목:{career.title}
-                          </div>
+                          <div className="career-title">제목:{career.title}</div>
                           {/* <div>{career.title}</div> */}
-                          <div className="career-year">
-                            활동연도:{career.year}
-                          </div>
+                          <div className="career-year">활동연도:{career.year}</div>
                           {/* <div>{career.year}</div> */}
-                          <div className="blockhereplz"></div>
+                          <div className="blockhereplz"></div> 
                           <CloseOutlined
                             className="career-delete-btn"
                             onClick={() => {
