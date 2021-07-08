@@ -24,19 +24,14 @@ const Nav = () => {
   const handleClicklogout = async () => {
     setLoading(true);
     await server
-      .get(`/user/logout`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .get("/logout")
       .then((res) => {
-        if (res.status === 200) {
-          if (res.data.data.id !== null) {
-            persistor.purge();
-            console.log("logout success!");
-            localStorage.removeItem("accessToken");
-            window.location = "/mainpage";
-          }
+        if (res.status === 205) {
+          setLoading(false);
+          persistor.purge();
+          console.log("logout success!");
+          localStorage.removeItem("accessToken");
+          window.location = "/mainpage";
         }
       })
       .catch((err) => {
@@ -81,7 +76,6 @@ const Nav = () => {
                 />
               </Link>
             </div>
-
             <div className="blackNav"> </div>
 
             <div className="searchTotalNav">
