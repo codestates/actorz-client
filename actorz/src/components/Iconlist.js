@@ -14,7 +14,7 @@ import {
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
 import FileUpload from "../components/file-upload/file-upload.component";
-import server from "../apis/server"
+import server from "../apis/server";
 import axios from "axios";
 
 const Iconlist = () => {
@@ -41,7 +41,6 @@ const Iconlist = () => {
       content: desc,
       genre
     });
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();

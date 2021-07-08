@@ -21,6 +21,7 @@ const postInfoReducer = (state = postInitState, action) => {
           return el._id !== action.payload.img_id;
         }),
       });
+
       return {
         data: {
           data: { posts: { posts: [filteredPhoto] } },
@@ -44,8 +45,3 @@ const postInfoReducer = (state = postInitState, action) => {
 };
 
 export default postInfoReducer;
-
-/* 
-        data: { data: { posts: { posts: action.payload } }},
-
-*/
