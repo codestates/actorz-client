@@ -21,6 +21,10 @@ const Iconlist = () => {
   const [newfile, setNewFile] = useState({
     profileImages: [],
   });
+  const [content, setContent] = useState({
+    content: '',
+    genre: []
+  })
 
   const [clickupload, setClickUpload] = useState(false);
 
@@ -32,48 +36,63 @@ const Iconlist = () => {
     }
   };
 
-  const updateUploadedFiles = (files) =>
-    setNewFile({ ...newfile, profileImages: files });
+  const updateUploadedFiles = (files) => setNewFile({ ...newfile, profileImages: files });
+  const updateUploadedContents = (genre, desc) => setContent({
+      content: desc,
+      genre
+    });
 
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      // 여기에 이미지 올리는 로직 작성해야 함
-      console.log(newfile.profileImages)
-      console.log(newfile.profileImages.length)
-      const media = []
-  
-      for(let el of newfile.profileImages){
-        const ext = el.name.split(".")[1];
 
-        const url = await server.get("/upload")
-        .then((res) => res.data.data);
-        console.log(url);
-        const path = url.split("?")[0];
-        const config = {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        };
-        await axios.put(url, el, config)
-        .catch((err) => console.log(err));
-  
-        let obj;
-        if(ext === "mp4"){
-          obj = {
-            type: "video",
-            path
-          };
-        }else{
-          obj = {
-            type: "img",
-            path
-          };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // 여기에 이미지 올리는 로직 작성해야 함
+    const media = []
+
+    for(let el of newfile.profileImages){
+      const ext = el.name.split(".")[1];
+
+      const url = await server.get("/upload")
+      .then((res) => res.data.data);
+      const path = url.split("?")[0];
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
         }
-        media.push(obj)
-      } 
-  
-      console.log(media)
+      };
+      await axios.put(url, el, config)
+      .catch((err) => console.log(err));
+
+      let obj;
+      if(ext === "mp4"){
+        obj = {
+          type: "video",
+          path
+        };
+      }else{
+        obj = {
+          type: "img",
+          path
+        };
+      }
+      media.push(obj)
+    } 
+    handlePost(media);
+  };
+
+  const handlePost = async (media) => {
+    const accessToken = window.localStorage.getItem("accessToken")
+    const bodyData = {
+      media,
+      ...content
     };
+    const headers = {
+      authorization: `Bearer ${accessToken}`
+    };
+    await server.post("/post/create", bodyData, { headers })
+    .then(() => handleClickUpload(false))
+    .catch((err) => console.log(err));
+
+  }
 
   return (
     <>
@@ -145,6 +164,7 @@ const Iconlist = () => {
                 accept=".jpg,.png,.jpeg, .mp4"
                 multiple
                 updateFilesCb={updateUploadedFiles}
+                updateContentCb={updateUploadedContents}
                 handleClickUpload={handleClickUpload}
               />
             </form>
