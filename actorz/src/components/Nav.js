@@ -27,11 +27,7 @@ const Nav = () => {
   const handleClicklogout = async () => {
     setLoading(true);
     await server
-      .get(`/logout`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .get("/logout")
       .then((res) => {
         if (res.status === 205) {
           setLoading(false);
