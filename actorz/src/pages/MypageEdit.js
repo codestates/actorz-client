@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
+import axios from "axios";
 import {
   editUserInfo,
   addUserCareer,
@@ -21,17 +22,18 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   //console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
-  const [tag, setTag] = useState([]);
+  const [tag, setTag] = useState("");
   const [dob, setDob] = useState(user.data.userInfo.dob);
   const [email, setEmail] = useState(user.data.userInfo.email);
   const [company, setCompany] = useState(user.data.userInfo.company);
-  const [password, setPassword] = useState(user.data.userInfo.password);
+  const [password, setPassword] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
-  const [category, setCategory] = useState("");
-  let backup = user.data.userInfo;
-  console.log("백업 비번: " + JSON.stringify(user));
+
+  let s3Url = null;
+  let result = null;
+  
   const tagOptions = [
     { label: "드라마", value: "드라마" },
     { label: "영화", value: "영화" },
@@ -54,53 +56,27 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
     //console.log('비밀번호 글자수: ' + pwdLength);
 
-    if (pwdLength < 9 || pwdLength > 20) {
-      alert("비밀번호는 9자 이상 20자 이하여야합니다!");
+    if(pwdLength < 9 || pwdLength > 20) {
+        alert('비밀번호는 9자 이상 20자 이하여야합니다!');
+        pwd1 = "";
+        pwd2 = "";
+    } else {
+      checkCount++;
+    }
+    if(pwd1 !== pwd2) {
+      alert('비밀번호가 일치하지 않습니다!');
       pwd1 = "";
       pwd2 = "";
     } else {
       checkCount++;
     }
 
-    if (pwd1 !== pwd2) {
-      alert("비밀번호가 일치하지 않습니다!");
-      pwd1 = "";
-      pwd2 = "";
-    } else {
-      checkCount++;
-    }
-
-    if (checkCount >= 2) {
-      checkCount = 0;
-      setIsModalVisible(false);
-      pwd1 = "";
-      pwd2 = "";
-      let newUserInfo = {
-        id: user.data.userInfo.id,
-        mainPic: user.data.userInfo.mainPic,
-        email: email,
-        name: user.data.userInfo.name,
-        //company: company,
-        provider: user.data.userInfo.provider,
-        gender: user.data.userInfo.gender,
-        //dob: dob,
-        careers: user.data.userInfo.careers,
-        password: user.data.userInfo.password,
-      };
-      dispatch(editUserInfo(newUserInfo));
-      await server
-        .post(`/user/:user_id/update`, newUserInfo, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        })
-        .then((res) => {
-          //alert(JSON.stringify(res));
-          //window.location = "/mypage";
-        })
-        .catch((err) => {
-          throw err;
-        });
+    if(checkCount >= 2) {
+        checkCount=0;
+        setIsModalVisible(false);
+        setPassword(pwd1);
+        pwd1 = "";
+        pwd2 = "";    
     }
   };
 
@@ -110,22 +86,26 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const onChangeTag = (e) => {
-    if (e.target.value === "드라마") {
-      setTag([e.target.value]);
-    } else if (e.target.value === "영화") {
-      setTag([e.target.value]);
-    } else if (e.target.value === "뮤지컬") {
-      setTag([e.target.value]);
-    } else if (e.target.value === "연극") {
-      setTag([e.target.value]);
-    } else if (e.target.value === "광고") {
-      setTag([e.target.value]);
-    } else if (e.target.value === "뮤직비디오") {
-      setTag([e.target.value]);
+    if(e.target.value==="드라마"){
+      setTag(e.target.value);
+    } else if(e.target.value==="영화"){
+      setTag(e.target.value);
+    } else if(e.target.value==="뮤지컬"){
+      setTag(e.target.value);
+    } else if(e.target.value==="연극"){
+      setTag(e.target.value);
+    } else if(e.target.value==="광고"){
+      setTag(e.target.value);
+    } else if(e.target.value==="뮤직비디오"){
+      setTag(e.target.value);
     }
   };
 
-  const handleInputpasswordValue = (key) => (event) => {};
+  const handleInputpasswordValue = (key) => (event) => {
+    if (key === "password") {
+      setPassword({ [key]: event.target.value });
+    } 
+  }
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
       setDob(event.target.value);
@@ -180,41 +160,127 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
-    if (password === "") {
-      newUserInfo.password = backup;
+
+    if(password === ""){
+      let newUserInfo = {
+        id: user.data.userInfo.id,
+        mainPic: user.data.userInfo.mainPic,
+        email: email,
+        name: user.data.userInfo.name,
+        company: company,
+        provider: user.data.userInfo.provider,
+        gender: user.data.userInfo.gender,
+        dob: dob,
+        careers: user.data.userInfo.careers,
+      };
+
+      dispatch(editUserInfo(newUserInfo));
+      await server
+        .post(`/user/:user_id/update`, newUserInfo, 
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          }
+        })
+        .then((res) => {  
+          alert('회원 정보가 변경되었습니다');
+        })
+        .catch((err) => {
+          throw err;
+        });
+    } else {
+      let newUserInfo = {
+        id: user.data.userInfo.id,
+        mainPic: user.data.userInfo.mainPic,
+        email: email,
+        name: user.data.userInfo.name,
+        company: company,
+        provider: user.data.userInfo.provider,
+        gender: user.data.userInfo.gender,
+        dob: dob,
+        careers: user.data.userInfo.careers,
+        password: password.password,
+      };
+      dispatch(editUserInfo(newUserInfo));
+      await server
+        .post(`/user/:user_id/update`, newUserInfo, 
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          }
+        })
+        .then((res) => {  
+          alert('회원 정보가 변경되었습니다');
+        })
+        .catch((err) => {
+          throw err;
+        });
     }
-    let newUserInfo = {
-      id: user.data.userInfo.id,
-      mainPic: user.data.userInfo.mainPic,
-      email: email,
-      name: user.data.userInfo.name,
-      company: company,
-      provider: user.data.userInfo.provider,
-      gender: user.data.userInfo.gender,
-      dob: dob,
-      careers: user.data.userInfo.careers,
-      password: password.password,
-    };
+  };
 
-    // console.log('기존 비밀번호: ' +user.data.userInfo.password);
-    // console.log('인포에 빈값 들어갔는가 ? : ' + newUserInfo);
-    // alert(JSON.stringify(newUserInfo));
-
-    dispatch(editUserInfo(newUserInfo));
+  const handleprofileButton = async (files) => {
+     // 서버한테 s3버킷 url 받아오는 거에요
     await server
-      .post(`/user/:user_id/update`, newUserInfo, {
+    .get(`upload`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+    })
+    .then((res) => {
+      if (res.status === 201) {
+        s3Url = res.data.data;
+        console.log("s3Url: "+s3Url); //s3 url 가져옴
+        }
+    })
+    .catch((err) => {
+      throw err;
+    });
+
+    // 우리가 서버에 보낼 filepath(파일경로)를 받는 과정!
+    let fileData = files[0];
+    await axios
+      .put(s3Url, fileData, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "Content-Type": "multipart/form-data",
         },
       })
       .then((res) => {
-        alert("회원 정보가 변경되었습니다");
-        //alert(JSON.stringify(res));
+        result = res.config.url.split("?")[0];
+        console.log("result: "+result)
       })
       .catch((err) => {
         throw err;
       });
-  };
+
+    // var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+    // console.log("fileExt: "+fileExt);
+    // if (
+    //   fileExt === "img" ||
+    //   fileExt === "jpg" ||
+    //   fileExt === "png" ||
+    //   fileExt === "jpeg"
+    // ) {
+    //   setNewFile([...newfile, { path: result, type: "img" }]);
+    // } else if (fileExt === "mp4") {
+    //   setNewFile([...newfile, { path: result, type: "video" }]);
+    // }
+
+  }
+
+
+
+  //   var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+  //   if (
+  //     fileExt === "img" ||
+  //     fileExt === "jpg" ||
+  //     fileExt === "png" ||
+  //     fileExt === "jpeg"
+  //   ) {
+  //     setNewFile([...newfile, { path: result, type: "img" }]);
+  //   } else if (fileExt === "mp4") {
+  //     setNewFile([...newfile, { path: result, type: "video" }]);
+  //   }
+  // };
 
   const handleClickConfirmBtn = () => {
     document.getElementsByClassName("highlightDisplay")[1].value = "";
@@ -261,13 +327,20 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                   <img src={user.data.userInfo.mainPic} className="testPic" />
 
                   <div className="profileButton">
-                    <Button
-                      variant="outlined"
-                      className="profileBtn"
-                      onClick={handleClickConfirmBtn}
-                    >
-                      프로필 사진 변경
-                    </Button>
+                  {/* <input
+                    type="file"
+                    name="file"
+                    accept="image/jpeg, image/jpg"
+                    onChange={handleprofileButton} 
+                    required
+                  /> */}
+                  <Button
+                    variant="outlined"
+                    className="profileBtn"
+                    onClick={handleprofileButton}
+                  >
+                    프로필 사진 변경
+                  </Button>
                   </div>
 
                   <div className="passwordModifyButton">

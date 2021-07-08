@@ -85,7 +85,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
-
     let fileData = files[0];
 
     await axios
@@ -100,7 +99,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
-
     var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
 
     // if (
