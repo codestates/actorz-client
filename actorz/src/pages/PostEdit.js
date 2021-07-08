@@ -19,12 +19,15 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const dispatch = useDispatch();
   let s3Url = null;
   let result = null;
-  //console.log(post); //사진 삭제하면 post가 자동 업데이트됨
+  console.log(post); //사진 삭제하면 post가 자동 업데이트됨
+
+  useEffect(() => {
+    setPostinfo(post.data.data.posts.posts[0]);
+    setNewFile(post.data.data.posts.posts[0].media);
+  }, [post]);
 
   const handleClickDeleteBtn = (post_id, img_id) => {
     dispatch(removePostPhoto(post_id, img_id));
-    setPostinfo(post.data.data.posts.posts[0]);
-    setNewFile(post.data.data.posts.posts[0].media);
   };
 
   const handleInputValue = (key) => (event) => {
@@ -42,7 +45,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
         media: newfile,
       })
     );
-
     setPostinfo(post); //수정된 정보들 postinfo에 넣기
     setNewFile(post.data.data.posts.posts[0].media); //수정된 사진을 newfile에 넣기
 
@@ -191,8 +193,12 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
                         </video>
                         <button
                           className="photo-delete-btn"
-                          onClick={() => handleClickDeleteBtn(img.id)}
-                        ></button>
+                          onClick={() =>
+                            handleClickDeleteBtn(postinfo._id, img._id)
+                          }
+                        >
+                          X
+                        </button>
                       </>
                     );
                   }

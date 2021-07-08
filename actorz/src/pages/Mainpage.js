@@ -19,6 +19,7 @@ const Mainpage = () => {
   const [clickModal, setClickModal] = useState(false);
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
+  const [isloading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({
@@ -36,10 +37,10 @@ const Mainpage = () => {
   const updateUploadedFiles = (files) =>
     setNewFile({ ...newfile, profileImages: files });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // 여기에 이미지 올리는 로직 작성해야 함
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // 여기에 이미지 올리는 로직 작성해야 함
+  // };
 
   const handleClickPost = (boolean, id) => {
     if (boolean) {
@@ -68,13 +69,18 @@ const Mainpage = () => {
     getPostLists();
   }, []);
 
+  const loading = (boolean) => {
+    setIsLoading(!boolean);
+  };
+
   //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
       <div className="blockhere"> </div>
+
       <div className="mainPage">
-        <Nav />
+        <Nav loading={loading} />
         <Iconlist />
 
         <div className="newblockPosition"> </div>
@@ -149,7 +155,7 @@ const Mainpage = () => {
       </div>
       <Footer />
 
-      <div>
+      {/* <div>
         {clickupload ? (
           <div>
             <form onSubmit={handleSubmit}>
@@ -162,7 +168,7 @@ const Mainpage = () => {
             </form>
           </div>
         ) : null}
-      </div>
+      </div> */}
     </>
   );
 };
