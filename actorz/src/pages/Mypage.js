@@ -25,7 +25,7 @@ const Mypage = () => {
 
   const handleDeleteAccount = async () => {
     await server
-      .get(`/user/:user_id/delete`, {
+      .get(`/user/${localStorage.getItem("id")}/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -114,6 +114,7 @@ const Mypage = () => {
                           <div className="displayPosition">
                             <div className="fixedSize">
                               <img
+                                alt="testPic"
                                 src={user.data.userInfo.mainPic}
                                 className="testPic"
                               />

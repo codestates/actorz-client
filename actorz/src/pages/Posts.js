@@ -20,29 +20,28 @@ const Posts = (props) => {
   const post = useSelector((post) => post.postInfoReducer);
   //console.log(post);
 
-  useEffect(async () => {
-    await server // 유저의 포스트를 가져옴
-      .get(`/post/user/${props.history.location.state.id}`)
-      .then((res) => {
-        console.log(res);
-        setUserPost(res.data.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
-
-    await server //유저의 정보를 가져옴
-      .get(`/user/${props.history.location.state.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        setUserInfo(res.data.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
+  useEffect(() => {
+    const p = async () => {
+      await server // 유저의 포스트를 가져옴
+        .get(`/post/user/${props.history.location.state.id}`)
+        .then((res) => {
+          console.log(res);
+          setUserPost(res.data.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+  
+      await server //유저의 정보를 가져옴
+        .get(`/user/${props.history.location.state.id}`)
+        .then((res) => {
+          setUserInfo(res.data.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+    p();
   }, []);
 
   //console.log(userinfo.userInfo); //여기에 해당 게시물 작성자 정보가 담겨있음.
@@ -87,7 +86,7 @@ const Posts = (props) => {
               <div className="midContentDownPart">
                 <div className="displayPosition">
                   <div className="fixedSize">
-                    <img src={userinfo.userInfo.mainPic} className="testPic" />
+                    <img src={userinfo.userInfo.mainPic} className="testPic" alt=""/>
                   </div>
                   <div className="fixedContent">
                     <p className="name">{}</p>
