@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import server from "../apis/server";
 import "../styles/SignupModal.css";
-import { CloseOutlined } from "@ant-design/icons";
 
-const Signup = ({ handleClickSignup, handleClickSignin }) => {
+const SocialSignup = ({ email, provider }) => {
+  console.log(email)
   const [actorSignup, setActorSignup] = useState({});
   const [recruitorSignup, setRecruitorSignup] = useState({});
   const [err, setError] = useState("");
   const [role, setRole] = useState("배우");
-
-  const handleClickClose = () => {
-    handleClickSignup(false);
-  };
 
   const handleInputActorValue = (key) => (event) => {
     setActorSignup({ ...actorSignup, [key]: event.target.value });
@@ -40,11 +36,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   };
 
   const handleClickActorSignupBtn = async () => {
-    const { email, password, name, dob, company, gender } = actorSignup;
+    const { name, dob, company, gender } = actorSignup;
     try {
       if (
-        email !== undefined &&
-        password !== undefined &&
         name !== undefined &&
         dob !== undefined
       ) {
@@ -53,10 +47,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         } else {
           setError("");
           await server
-            .post(`signup`, {
-              provider: "local",
-              email: email,
-              password: password,
+            .post(`/signup`, {
+              provider,
+              email,
               name: name,
               company: company,
               gender: setGender(gender),
@@ -66,6 +59,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
             .then((res) => {
               if (res.status === 201) {
                 console.log("회원가입 성공");
+                window.location.href = "https://localhost:3000";
               }
             });
         }
@@ -83,8 +77,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
 
   const handleClickRecruitorSignupBtn = async () => {
     const {
-      email,
-      password,
       name,
       dob,
       gender,
@@ -99,8 +91,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
 
     try {
       if (
-        email !== undefined &&
-        password !== undefined &&
         name !== undefined &&
         dob !== undefined &&
         bName !== undefined &&
@@ -112,11 +102,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
           setError("생년월일 형식을 지켜서 작성해주세요");
         } else {
           setError("");
-          await server.post(`signup`, {
-            email: email,
-            password: password,
+          await server.post(`/signup`, {
             name: name,
-            provider: "local",
+            email,
+            provider,
             gender: setGender(gender),
             dob: dob,
             recruitor: {
@@ -130,6 +119,11 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               phoneNum: phoneNum,
               jobTitle: jobTitle,
             },
+          }).then((res) => {
+            if (res.status === 201) {
+              console.log("회원가입 성공");
+              window.location.href = "https://localhost:3000";
+            }
           });
         }
       } else {
@@ -159,10 +153,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                 <div className="modal-title">
                   <div className="title">
                     <div>Sign Up </div>
-                    <CloseOutlined
-                      className="closeBtn"
-                      onClick={handleClickClose}
-                    />
                   </div>
                 </div>
                 <div className="modal-welcome-message">Welcome to Actorz</div>
@@ -186,26 +176,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
 
                 {role === "배우" ? (
                   <>
-                    <div className="modal-group-signup">
-                      <div className="importEffect">*</div>
-                      <div>
-                        <input
-                          type="email"
-                          placeholder="이메일"
-                          onChange={handleInputActorValue("email")}
-                        />
-                      </div>
-                    </div>
-                    <div className="modal-group-signup">
-                      <div className="importEffect">*</div>
-                      <div>
-                        <input
-                          type="password"
-                          placeholder="비밀번호"
-                          onChange={handleInputActorValue("password")}
-                        />
-                      </div>
-                    </div>
                     <div className="modal-group-signup">
                       <div className="importEffect">*</div>
                       <div>
@@ -260,41 +230,17 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       회원가입
                     </button>
                     <div className="signUpbtnPosition2">
-                      <div className="movetoSignUp">
-                        {" "}
-                        아직 계정이 없으십니까?
-                      </div>
                       <div
                         className="movetoSignUpBtn"
-                        onClick={() => handleClickSignin(true)}
+                        onClick={() => {window.location.href = "https://localhost:3000"}}
                       >
-                        로그인 하러 하기
+                        홈페이지로 돌아가기
                       </div>
                     </div>
                   </>
                 ) : (
                   <>
                     <div className="moreInfo">
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                            type="email"
-                            placeholder="이메일"
-                            onChange={handleInputRecruitorValue("email")}
-                          />
-                        </div>
-                      </div>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                            type="password"
-                            placeholder="비밀번호"
-                            onChange={handleInputRecruitorValue("password")}
-                          />
-                        </div>
-                      </div>
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
                         <div>
@@ -415,15 +361,11 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                     </div>
 
                     <div className="signUpbtnPosition3">
-                      <div className="movetoSignUp">
-                        {" "}
-                        이미 계정이 있으십니까?
-                      </div>
                       <div
                         className="movetoSignUpBtn"
-                        onClick={() => handleClickSignin(true)}
+                        onClick={() => {window.location.href = "https://localhost:3000"}}
                       >
-                        로그인 하러 하기
+                        홈페이지로 돌아가기
                       </div>
                     </div>
                   </>
@@ -436,4 +378,4 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
     </>
   );
 };
-export default Signup;
+export default SocialSignup;

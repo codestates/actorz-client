@@ -27,21 +27,18 @@ const Nav = () => {
   const handleClicklogout = async () => {
     setLoading(true);
     await server
-      .get(`/user/logout`, {
+      .get(`/logout`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       })
       .then((res) => {
-        if (res.status === 200) {
-          if (res.data.data.id !== null) {
-            setLoading(false);
-            persistor.purge();
-            console.log("logout success!");
-            localStorage.removeItem("accessToken");
-            window.location = "/mainpage";
-              
-          }
+        if (res.status === 205) {
+          setLoading(false);
+          persistor.purge();
+          console.log("logout success!");
+          localStorage.removeItem("accessToken");
+          window.location = "/mainpage";
         }
       })
       .catch((err) => {
@@ -82,6 +79,7 @@ const Nav = () => {
           <div>
             <Link to="/">
               <img
+                alt="headerLogo"
                 src="https://media.vlpt.us/images/iooi75/post/f8c2abf6-7870-4347-b971-2a4b5a5ecdc5/Screen%20Shot%202021-06-28%20at%203.13.02%20PM.png"
                 className="headerLogo"
               />

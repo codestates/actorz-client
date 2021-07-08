@@ -66,7 +66,7 @@ const Mainpage = () => {
   }
   useEffect(() => {getPostLists();}, []);
 
-  //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
+  console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
@@ -127,7 +127,7 @@ const Mainpage = () => {
                         <Card.Description>{post.content}</Card.Description>
                       </Card.Content>
                       <Card.Content extra>
-                        <a>
+                        <a href="/#">
                           <Icon name="like" />
                           {post.likes.length}
                         </a>
