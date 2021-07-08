@@ -10,8 +10,9 @@ import love from "../images/thumb-up.png";
 import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/Post.css";
+import * as Mainpage from "./Mainpage";
 
-const Post = ({ handleClickPost }) => {
+const Post = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [postinfo, setPostinfo] = useState({});
@@ -38,7 +39,6 @@ const Post = ({ handleClickPost }) => {
       setIsEdit(true);
     } else {
       setIsEdit(false);
-      console.log(post);
     }
   };
 
@@ -122,7 +122,7 @@ const Post = ({ handleClickPost }) => {
                       <span className="like">{postinfo.likes.length}</span>
                       <button
                         className="delete-btn"
-                        onClick={() => handleClickPost(false)}
+                        onClick={() => Mainpage.handleClickPost(false)}
                       >
                         X
                       </button>

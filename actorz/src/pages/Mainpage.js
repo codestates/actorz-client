@@ -23,20 +23,20 @@ const Mainpage = () => {
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
 
-  const [newfile, setNewFile] = useState({
-    profileImages: [],
-  });
+  // const [newfile, setNewFile] = useState({
+  //   profileImages: [],
+  // });
 
-  const handleClickUpload = (boolean) => {
-    if (boolean) {
-      setClickUpload(true);
-    } else {
-      setClickUpload(false);
-    }
-  };
+  // const handleClickUpload = (boolean) => {
+  //   if (boolean) {
+  //     setClickUpload(true);
+  //   } else {
+  //     setClickUpload(false);
+  //   }
+  // };
 
-  const updateUploadedFiles = (files) =>
-    setNewFile({ ...newfile, profileImages: files });
+  // const updateUploadedFiles = (files) =>
+  //   setNewFile({ ...newfile, profileImages: files });
 
   // const handleSubmit = (event) => {
   //   event.preventDefault();
@@ -146,7 +146,7 @@ const Mainpage = () => {
                   );
                 })
               : null}
-            {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+            {clickModal ? <Post /> : null}
           </div>
         </div>
         <div className="newblockPosition2"> </div>
