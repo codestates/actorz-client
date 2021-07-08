@@ -17,9 +17,10 @@ import { Card, Icon, Image } from "semantic-ui-react";
 const Mainpage = () => {
   const [clickupload, setClickUpload] = useState(false);
   const [clickModal, setClickModal] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
+
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
-  const [isloading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   const [newfile, setNewFile] = useState({
@@ -65,6 +66,7 @@ const Mainpage = () => {
       );
     }
   };
+
   useEffect(() => {
     getPostLists();
   }, []);

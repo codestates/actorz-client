@@ -17,11 +17,12 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const [newfile, setNewFile] = useState(userPostinfo.media);
   const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
+
   let s3Url = null;
   let result = null;
-  console.log(post); //사진 삭제하면 post가 자동 업데이트됨
 
   useEffect(() => {
+    //post의 상태가 업데이트 될 때마다 새로 넣어준다
     setPostinfo(post.data.data.posts.posts[0]);
     setNewFile(post.data.data.posts.posts[0].media);
   }, [post]);
@@ -45,8 +46,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
         media: newfile,
       })
     );
-    setPostinfo(post); //수정된 정보들 postinfo에 넣기
-    setNewFile(post.data.data.posts.posts[0].media); //수정된 사진을 newfile에 넣기
 
     await server
       .post(
@@ -72,10 +71,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   };
 
   const updateUploadedFiles = async (files) => {
-    // get secure url from our server
-    // post the image directly to the s3 bucket
-    // post request to my server to store any extra data
-
     await server
       .get(`upload`, {
         headers: {
@@ -90,6 +85,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
+
     let fileData = files[0];
 
     await axios
@@ -104,16 +100,24 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
+
     var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
-    if (
-      fileExt === "img" ||
-      fileExt === "jpg" ||
-      fileExt === "png" ||
-      fileExt === "jpeg"
-    ) {
-      setNewFile([...newfile, { path: result, type: "img" }]);
-    } else if (fileExt === "mp4") {
+
+    // if (
+    //   fileExt === "img" ||
+    //   fileExt === "jpg" ||
+    //   fileExt === "png" ||
+    //   fileExt === "jpeg"
+    // ) {
+    //   setNewFile([...newfile, { path: result, type: "img" }]);
+    // } else if (fileExt === "mp4") {
+    //   setNewFile([...newfile, { path: result, type: "video" }]);
+    // }
+
+    if (fileExt === "mp4") {
       setNewFile([...newfile, { path: result, type: "video" }]);
+    } else {
+      setNewFile([...newfile, { path: result, type: "img" }]);
     }
   };
   return (
@@ -170,6 +174,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
                     return (
                       <>
                         <img
+                          key={img._id}
                           src={img.path}
                           className="post-image"
                           alt="이미지"
@@ -188,7 +193,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
                   } else {
                     return (
                       <>
-                        <video controls className="video">
+                        <video controls className="video" key={img._id}>
                           <source src={img.path}></source>
                         </video>
                         <button

@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from "react";
+import server from "../apis/server";
 import { useSelector } from "react-redux";
 import Nav from "../components/Nav";
 import PostEdit from "./PostEdit";
-import server from "../apis/server";
+import Loading from "../components/loading";
 import { Link } from "react-router-dom";
 import profile from "../images/profile.png";
 import love from "../images/thumb-up.png";
 import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/Post.css";
-import Loading from "../components/loading";
 
-const Post = (props) => {
+const Post = ({ handleClickPost }) => {
   const [isEdit, setIsEdit] = useState(false);
-  const post = useSelector((post) => post.postInfoReducer);
-  const [postinfo, setPostinfo] = useState({});
-  const user = useSelector((user) => user.userInfoReducer);
   const [isloading, setIsLoading] = useState(false);
-  //console.log(post); //업데이트된 정보가 담겨있음
+  const [postinfo, setPostinfo] = useState({});
+  const post = useSelector((post) => post.postInfoReducer);
+  const user = useSelector((user) => user.userInfoReducer);
 
   let index = window.location.pathname.lastIndexOf("/");
   let url = window.location.pathname.slice(index + 1);
@@ -65,7 +64,10 @@ const Post = (props) => {
       {isloading ? (
         <>
           {!isEdit ? (
-            <div id="post-modal-background">
+            <div
+              id="post-modal-background"
+              onClick={() => handleClickPost(false)}
+            >
               <div className="float-btn-box">
                 <Link to="/posts">
                   <div className="float-btn">
@@ -107,7 +109,10 @@ const Post = (props) => {
                 ) : null}
               </div>
 
-              <div className="container">
+              <div
+                className="container"
+                onClick={(event) => event.stopPropagation()}
+              >
                 {postinfo.genre ? (
                   <div className="info">
                     <div className="info-box">
@@ -117,7 +122,7 @@ const Post = (props) => {
                       <span className="like">{postinfo.likes.length}</span>
                       <button
                         className="delete-btn"
-                        onClick={() => props.handleClickPost(false)}
+                        onClick={() => handleClickPost(false)}
                       >
                         X
                       </button>
@@ -128,21 +133,18 @@ const Post = (props) => {
                         {postinfo.media.map((img) => {
                           if (img.type === "img") {
                             return (
-                              <>
-                                <img
-                                  src={img.path}
-                                  className="post-image"
-                                  alt="이미지"
-                                ></img>
-                              </>
+                              <img
+                                key={img._id}
+                                src={img.path}
+                                className="post-image"
+                                alt="이미지"
+                              ></img>
                             );
                           } else {
                             return (
-                              <>
-                                <video controls className="video">
-                                  <source src={img.path}></source>
-                                </video>
-                              </>
+                              <video controls className="video" key={img._id}>
+                                <source src={img.path}></source>
+                              </video>
                             );
                           }
                         })}
@@ -156,7 +158,7 @@ const Post = (props) => {
             </div>
           ) : (
             <PostEdit
-              handleClickPost={props.handleClickPost}
+              handleClickPost={handleClickPost}
               handleClickEditBtn={handleClickEditBtn}
               userPostinfo={postinfo}
             />
