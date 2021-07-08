@@ -30,14 +30,15 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
+
   let s3Url = null;
   let result = null;
-
+  
   const tagOptions = [
     { label: "드라마", value: "드라마" },
     { label: "영화", value: "영화" },
     { label: "뮤지컬", value: "뮤지컬" },
-    { label: "연극", value:  "연극" },
+    { label: "연극", value: "연극" },
     { label: "광고", value: "광고" },
     { label: "뮤직비디오", value: "뮤직비디오" },
   ];
@@ -47,9 +48,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleOk = async () => {
-    let pwd1 = document.getElementsByClassName('passwordDef')[0].value;
-    let pwd2 = document.getElementsByClassName('passwordDef')[1].value;
-    let pwdLength = document.getElementsByClassName('passwordDef')[0].value.length;
+    let pwd1 = document.getElementsByClassName("passwordDef")[0].value;
+    let pwd2 = document.getElementsByClassName("passwordDef")[1].value;
+    let pwdLength =
+      document.getElementsByClassName("passwordDef")[0].value.length;
     let checkCount = 0;
 
     //console.log('비밀번호 글자수: ' + pwdLength);
@@ -59,15 +61,14 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         pwd1 = "";
         pwd2 = "";
     } else {
-      checkCount ++;
+      checkCount++;
     }
-
     if(pwd1 !== pwd2) {
       alert('비밀번호가 일치하지 않습니다!');
       pwd1 = "";
       pwd2 = "";
     } else {
-      checkCount ++;
+      checkCount++;
     }
 
     if(checkCount >= 2) {
@@ -105,7 +106,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       setPassword({ [key]: event.target.value });
     } 
   }
-
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
       setDob(event.target.value);
@@ -119,11 +119,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       setYear({ [key]: event.target.value });
     } else if (key === "password") {
       setPassword({ [key]: event.target.value });
-    } 
+    }
     // else if (key === "passwordCheck") {
     //   setYear({ [key]: event.target.value });
-    // } 
-    
+    // }
   };
 
   /* const handleClickAddBtn = () => {
@@ -139,11 +138,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const handleDeleteBtn = (id) => {
     dispatch(removeUserCareer(id));
     // id = > career.title
-
   };
 
   const handleDeleteAccount = async () => {
-      await server
+    await server
       .get(`/user/:user_id/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -151,18 +149,18 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log('회원탈퇴');
+          console.log("회원탈퇴");
           window.location = "/mainpage";
         }
       })
       .catch((err) => {
         throw err;
       });
-  }
-
+  };
 
   const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
+
     if(password === ""){
       let newUserInfo = {
         id: user.data.userInfo.id,
@@ -285,8 +283,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   // };
 
   const handleClickConfirmBtn = () => {
-    document.getElementsByClassName('highlightDisplay')[1].value="";
-    document.getElementsByClassName('highlightDisplay')[2].value="";
+    document.getElementsByClassName("highlightDisplay")[1].value = "";
+    document.getElementsByClassName("highlightDisplay")[2].value = "";
     if (title.title !== undefined && year.year !== undefined) {
       dispatch(
         addUserCareer({
@@ -311,14 +309,16 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         <div className="middleSpace">
           <div className="midContents">
             <div className="buttonHeader">
-              <div className="profileTitleName"> 회원정보 수정 
-              </div>
+              <div className="profileTitleName"> 회원정보 수정</div>
               <div>
-              <SaveOutlined
-                className="editButton"
-                onClick={() => handleClickSaveBtn()}
-              />
-              <DeleteOutlined className="deleteButton" onClick={() => handleDeleteAccount()} />
+                <SaveOutlined
+                  className="editButton"
+                  onClick={() => handleClickSaveBtn()}
+                />
+                <DeleteOutlined
+                  className="deleteButton"
+                  onClick={() => handleDeleteAccount()}
+                />
               </div>
             </div>
             <div className="midContentDownPart">
@@ -344,47 +344,52 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                   </div>
 
                   <div className="passwordModifyButton">
-                  <Button
-                    variant="outlined"
-                    className="passwordModifyBtn"
-                    onClick={showModal}
-                  >
-                    비밀번호 변경
-                  </Button>
-                  <Modal title="비밀번호 변경" visible={isModalVisible} 
-                    onOk={handleOk} onCancel={handleCancel} width={330}
-                    okText="변경" cancelText="취소">
-                    <p>변경하실 비밀번호를 입력하여주세요. </p>
-                    <br/>
-                    <div>비밀번호
-                    &nbsp; &nbsp; &nbsp; &nbsp;  &nbsp;
-                    <input
-                        type="password"
-                        className="passwordDef"
-                        onChange={handleInputValue("password")}
-                      ></input>
-                    </div>
-                    <br/>
-                    <div>비밀번호 확인
-                    <input
-                        type="password"
-                        defaultValue=""
-                        className="passwordDef"
-                      ></input> 
-                    </div>
-                  </Modal>
+                    <Button
+                      variant="outlined"
+                      className="passwordModifyBtn"
+                      onClick={showModal}
+                    >
+                      비밀번호 변경
+                    </Button>
+                    <Modal
+                      title="비밀번호 변경"
+                      visible={isModalVisible}
+                      onOk={handleOk}
+                      onCancel={handleCancel}
+                      width={330}
+                      okText="변경"
+                      cancelText="취소"
+                    >
+                      <p>변경하실 비밀번호를 입력하여주세요. </p>
+                      <br />
+                      <div>
+                        비밀번호 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                        <input
+                          type="password"
+                          className="passwordDef"
+                          onChange={handleInputValue("password")}
+                        ></input>
+                      </div>
+                      <br />
+                      <div>
+                        비밀번호 확인
+                        <input
+                          type="password"
+                          defaultValue=""
+                          className="passwordDef"
+                        ></input>
+                      </div>
+                    </Modal>
                   </div>
                 </div>
-                
+
                 <div className="fixedContent">
                   <div className="nameTitle">{user.data.userInfo.name}</div>
                   <ul>
                     <strong>생년월일</strong>
                     <li className="dob">{user.data.userInfo.dob}</li>
                     <strong>이메일</strong>
-                    <li className="email">
-                      {user.data.userInfo.email}
-                    </li>
+                    <li className="email">{user.data.userInfo.email}</li>
                     <strong>소속사</strong>
                     <li className="company">
                       <input
@@ -430,14 +435,16 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 <div className="career-box">
                   <li className="career-li">
                     <div className="careerDivide">
-                      <div className="career-title">제목:
+                      <div className="career-title">
+                        제목:
                         <input
                           type="text"
                           className="highlightDisplay"
                           onChange={handleInputValue("title")}
                         />
                       </div>
-                      <div className="career-year">활동연도:
+                      <div className="career-year">
+                        활동연도:
                         <input
                           type="text"
                           className="highlightDisplay"
@@ -445,20 +452,19 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           onChange={handleInputValue("year")}
                         />
                       </div>
-                      <div>
-                      </div>
+                      <div></div>
                     </div>
                     <br></br>
                     <div className="careerDivide2">
                       <div className="career-tag2">태그:</div>
                       <div>
-                      <Radio.Group 
-                        className="radioButton"
-                        options={tagOptions}
-                        optionType="button"
-                        buttonStyle="solid"
-                        onChange={onChangeTag}
-                      />
+                        <Radio.Group
+                          className="radioButton"
+                          options={tagOptions}
+                          optionType="button"
+                          buttonStyle="solid"
+                          onChange={onChangeTag}
+                        />
                       </div>
                     </div>
                   </li>
@@ -470,11 +476,15 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <>
                       <li className="career-li">
                         <div className="careerDivide">
-                          <div className="career-title">제목:{career.title}</div>
+                          <div className="career-title">
+                            제목:{career.title}
+                          </div>
                           {/* <div>{career.title}</div> */}
-                          <div className="career-year">활동연도:{career.year}</div>
+                          <div className="career-year">
+                            활동연도:{career.year}
+                          </div>
                           {/* <div>{career.year}</div> */}
-                          <div className="blockhereplz"></div> 
+                          <div className="blockhereplz"></div>
                           <CloseOutlined
                             className="career-delete-btn"
                             onClick={() => {

@@ -17,29 +17,31 @@ import { Card, Icon, Image } from "semantic-ui-react";
 const Mainpage = () => {
   const [clickupload, setClickUpload] = useState(false);
   const [clickModal, setClickModal] = useState(false);
+  const [isloading, setIsLoading] = useState(false);
+
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
 
-  const [newfile, setNewFile] = useState({
-    profileImages: [],
-  });
+  // const [newfile, setNewFile] = useState({
+  //   profileImages: [],
+  // });
 
-  const handleClickUpload = (boolean) => {
-    if (boolean) {
-      setClickUpload(true);
-    } else {
-      setClickUpload(false);
-    }
-  };
+  // const handleClickUpload = (boolean) => {
+  //   if (boolean) {
+  //     setClickUpload(true);
+  //   } else {
+  //     setClickUpload(false);
+  //   }
+  // };
 
-  const updateUploadedFiles = (files) =>
-    setNewFile({ ...newfile, profileImages: files });
+  // const updateUploadedFiles = (files) =>
+  //   setNewFile({ ...newfile, profileImages: files });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // 여기에 이미지 올리는 로직 작성해야 함
-  };
+  // const handleSubmit = (event) => {
+  //   event.preventDefault();
+  //   // 여기에 이미지 올리는 로직 작성해야 함
+  // };
 
   const handleClickPost = (boolean, id) => {
     if (boolean) {
@@ -63,16 +65,24 @@ const Mainpage = () => {
         "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다 \n 잠시 후 다시 이용해주세요"
       );
     }
-  }
-  useEffect(() => {getPostLists();}, []);
+  };
 
-  //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
+  useEffect(() => {
+    getPostLists();
+  }, []);
+
+  const loading = (boolean) => {
+    setIsLoading(!boolean);
+  };
+
+  console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
       <div className="blockhere"> </div>
+
       <div className="mainPage">
-        <Nav />
+        <Nav loading={loading} />
         <Iconlist />
 
         <div className="newblockPosition"> </div>
@@ -127,18 +137,16 @@ const Mainpage = () => {
                         <Card.Description>{post.content}</Card.Description>
                       </Card.Content>
                       <Card.Content extra>
-                        <a>
+                        <a href="/#">
                           <Icon name="like" />
                           {post.likes.length}
                         </a>
                       </Card.Content>
                     </Card>
-
-                    
                   );
                 })
               : null}
-            {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+            {clickModal ? <Post /> : null}
           </div>
         </div>
         <div className="newblockPosition2"> </div>
@@ -149,7 +157,7 @@ const Mainpage = () => {
       </div>
       <Footer />
 
-      <div>
+      {/* <div>
         {clickupload ? (
           <div>
             <form onSubmit={handleSubmit}>
@@ -162,7 +170,7 @@ const Mainpage = () => {
             </form>
           </div>
         ) : null}
-      </div>
+      </div> */}
     </>
   );
 };

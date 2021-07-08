@@ -14,7 +14,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [err, setError] = useState("");
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -79,8 +79,11 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     <>
       <center>
         <form onSubmit={(e) => e.preventDefault()}>
-          <div id="modal-background">
-            <div id="modal-container">
+          <div id="modal-background" onClick={() => handleClickClose()}>
+            <div
+              id="modal-container"
+              onClick={(event) => event.stopPropagation()}
+            >
               <div className="buttonHeader"></div>
 
               <div className="modalCancleBtn"></div>
@@ -117,20 +120,20 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     type="submit"
                     onClick={handleClickSigninBtn}
                   >
-                    <div className="settingBtn"> 
-                      로그인 
-                      <div className="loading"> 
-                        {loading ? <Loading /> : ""} 
+                    <div className="settingBtn">
+                      로그인
+                      <div className="loading">
+                        {loading ? <Loading /> : ""}
                       </div>
                     </div>
                   </button>
                 </div>
-                <div className="modalButtonPosition"> 
+                <div className="modalButtonPosition">
                   <div className="loginBtnPosition">
                     <Google handleClickClose={handleClickClose} />
                   </div>
                   <div className="loginBtnPosition">
-                    <Naver handleClickClose={handleClickClose}/>
+                    <Naver handleClickClose={handleClickClose} />
                   </div>
                   <div className="signUpbtnPosition">
                     <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>

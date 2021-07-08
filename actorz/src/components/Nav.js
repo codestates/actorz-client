@@ -15,10 +15,7 @@ const Nav = () => {
   const [clickSignup, setClickSignup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const user = useSelector((user) => user.userInfoReducer);
-  const [loading, setLoading] = useState(null);
-  //const dispatch = useDispatch();
-
-  //const isLogin = false;
+  const [loading, setLoading] = useState(false);
 
   const inputHandler = (event) => {
     setSearch(event.target.value);
@@ -27,25 +24,17 @@ const Nav = () => {
   const handleClicklogout = async () => {
     setLoading(true);
     await server
-      .get(`/user/logout`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .get("/logout")
       .then((res) => {
-        if (res.status === 200) {
-          if (res.data.data.id !== null) {
-            setLoading(false);
-            persistor.purge();
-            console.log("logout success!");
-            localStorage.removeItem("accessToken");
-            window.location = "/mainpage";
-              
-          }
+        if (res.status === 205) {
+          setLoading(false);
+          persistor.purge();
+          console.log("logout success!");
+          localStorage.removeItem("accessToken");
+          window.location = "/mainpage";
         }
       })
       .catch((err) => {
-        setLoading(false);
         throw err;
       });
   };
@@ -71,87 +60,85 @@ const Nav = () => {
   // useEffect( async () => {
   //   //console.log('새로고침');
   //   setLoading(true);
-    
+
   // })
 
   return (
     <>
-    <Loading />
-      <div id="nav">
-        <div className="search">
-          <div>
-            <Link to="/">
-              <img
-                src="https://media.vlpt.us/images/iooi75/post/f8c2abf6-7870-4347-b971-2a4b5a5ecdc5/Screen%20Shot%202021-06-28%20at%203.13.02%20PM.png"
-                className="headerLogo"
-              />
-            </Link>
-          </div>
+      {!loading ? (
+        <div id="nav">
+          <div className="search">
+            <div>
+              <Link to="/">
+                <img
+                  src="https://media.vlpt.us/images/iooi75/post/f8c2abf6-7870-4347-b971-2a4b5a5ecdc5/Screen%20Shot%202021-06-28%20at%203.13.02%20PM.png"
+                  className="headerLogo"
+                />
+              </Link>
+            </div>
+            <div className="blackNav"> </div>
 
-          <div className="blackNav"> </div>
-
-          <div className="searchTotalNav">
-            <input
-              className="product-search"
-              value={search}
-              placeholder="  search..."
-              onChange={(e) => inputHandler(e)}
-            ></input>
-            <Button variant="outlined" className="product-search-btn">
-              검색
-            </Button>
-          </div>
-
-          <div className="blackNav2"> </div>
-
-          {user.isLogin ? (
-            <div className="signBtnPosition">
-              <Button
-                variant="outlined"
-                className="navSignInBtn2"
-                onClick={handleClicklogout}
-              >
-                logout
+            <div className="searchTotalNav">
+              <input
+                className="product-search"
+                value={search}
+                placeholder="  search..."
+                onChange={(e) => inputHandler(e)}
+              ></input>
+              <Button variant="outlined" className="product-search-btn">
+                검색
               </Button>
             </div>
-          ) : (
-            <div className="signBtnPosition">
-              <Button
-                variant="outlined"
-                className="navSignInBtn"
-                onClick={handleClickSignin}
-              >
-                Sign in
-              </Button>
-              &nbsp;
-              <Button
-                variant="outlined"
-                className="navSignInBtn"
-                onClick={handleClickSignup}
-              >
-                Sign up
-              </Button>
-            </div>
-          )}
+
+            <div className="blackNav2"> </div>
+
+            {user.isLogin ? (
+              <div className="signBtnPosition">
+                <Button
+                  variant="outlined"
+                  className="navSignInBtn2"
+                  onClick={handleClicklogout}
+                >
+                  logout
+                </Button>
+              </div>
+            ) : (
+              <div className="signBtnPosition">
+                <Button
+                  variant="outlined"
+                  className="navSignInBtn"
+                  onClick={handleClickSignin}
+                >
+                  Sign in
+                </Button>
+                &nbsp;
+                <Button
+                  variant="outlined"
+                  className="navSignInBtn"
+                  onClick={handleClickSignup}
+                >
+                  Sign up
+                </Button>
+              </div>
+            )}
+          </div>
+
+          {clickSignin ? (
+            <Signin
+              handleClickSignin={handleClickSignin}
+              handleClickSignup={handleClickSignup}
+            />
+          ) : null}
+          {clickSignup ? (
+            <Signup
+              handleClickSignin={handleClickSignin}
+              handleClickSignup={handleClickSignup}
+            />
+          ) : null}
         </div>
-
-        {clickSignin ? (
-          <Signin
-            handleClickSignin={handleClickSignin}
-            handleClickSignup={handleClickSignup}
-          />
-        ) : (
-          <></>
-        )}
-        {clickSignup ? (
-          <Signup
-            handleClickSignin={handleClickSignin}
-            handleClickSignup={handleClickSignup}
-          />
-        ) : (
-          <></>
-        )}
-      </div>
+      ) : (
+        <Loading />
+      )}
     </>
   );
 };
