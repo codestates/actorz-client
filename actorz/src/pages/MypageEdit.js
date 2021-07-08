@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
+import axios from "axios";
 import {
   editUserInfo,
   addUserCareer,
@@ -21,7 +22,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   //console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
-  const [tag, setTag] = useState([]);
+  const [tag, setTag] = useState("");
   const [dob, setDob] = useState(user.data.userInfo.dob);
   const [email, setEmail] = useState(user.data.userInfo.email);
   const [company, setCompany] = useState(user.data.userInfo.company);
@@ -29,9 +30,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
-  const [category, setCategory] = useState("");
-  let backup = user.data.userInfo;
-  console.log('백업 비번: '+ password);
+  let s3Url = null;
+  let result = null;
 
   const tagOptions = [
     { label: "드라마", value: "드라마" },
@@ -73,35 +73,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     if(checkCount >= 2) {
         checkCount=0;
         setIsModalVisible(false);
+        setPassword(pwd1);
         pwd1 = "";
-        pwd2 = "";
-        let newUserInfo = {
-          id: user.data.userInfo.id,
-          mainPic: user.data.userInfo.mainPic,
-          email: email,
-          name: user.data.userInfo.name,
-          company: company,
-          provider: user.data.userInfo.provider,
-          gender: user.data.userInfo.gender,
-          dob: dob,
-          careers: user.data.userInfo.careers,
-          password: user.data.userInfo.password,
-        }
-        dispatch(editUserInfo(newUserInfo));
-        await server
-        .post(`/user/:user_id/update`, newUserInfo, 
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          }
-        })
-        .then((res) => { 
-          //alert(JSON.stringify(res));
-          //window.location = "/mypage";
-        })
-        .catch((err) => {
-          throw err;
-        });
+        pwd2 = "";    
     }
   };
 
@@ -112,17 +86,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   const onChangeTag = (e) => {
     if(e.target.value==="드라마"){
-      setTag([e.target.value]);
+      setTag(e.target.value);
     } else if(e.target.value==="영화"){
-      setTag([e.target.value]);
+      setTag(e.target.value);
     } else if(e.target.value==="뮤지컬"){
-      setTag([e.target.value]);
+      setTag(e.target.value);
     } else if(e.target.value==="연극"){
-      setTag([e.target.value]);
+      setTag(e.target.value);
     } else if(e.target.value==="광고"){
-      setTag([e.target.value]);
+      setTag(e.target.value);
     } else if(e.target.value==="뮤직비디오"){
-      setTag([e.target.value]);
+      setTag(e.target.value);
     }
   };
 
@@ -201,7 +175,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         dob: dob,
         careers: user.data.userInfo.careers,
       };
-    // alert(JSON.stringify(newUserInfo));
 
       dispatch(editUserInfo(newUserInfo));
       await server
@@ -213,7 +186,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         })
         .then((res) => {  
           alert('회원 정보가 변경되었습니다');
-          //alert(JSON.stringify(res));
         })
         .catch((err) => {
           throw err;
@@ -231,10 +203,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         careers: user.data.userInfo.careers,
         password: password.password,
       };
-
-      console.log('인포에 빈값 들어갔는가 ? : ' + newUserInfo);
-    // alert(JSON.stringify(newUserInfo));
-
       dispatch(editUserInfo(newUserInfo));
       await server
         .post(`/user/:user_id/update`, newUserInfo, 
@@ -245,59 +213,33 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         })
         .then((res) => {  
           alert('회원 정보가 변경되었습니다');
-          //alert(JSON.stringify(res));
         })
         .catch((err) => {
           throw err;
         });
     }
-    // console.log('기존 비밀번호: ' +user.data.userInfo.password);
-    //console.log('인포에 빈값 들어갔는가 ? : ' + newUserInfo);
-    // alert(JSON.stringify(newUserInfo));
-
-    // dispatch(editUserInfo(newUserInfo));
-    // await server
-    //   .post(`/user/:user_id/update`, newUserInfo, 
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-    //     }
-    //   })
-    //   .then((res) => {  
-    //     alert('회원 정보가 변경되었습니다');
-    //     //alert(JSON.stringify(res));
-    //   })
-    //   .catch((err) => {
-    //     throw err;
-    //   });
   };
 
-  //! 지원님이 죽이기 전에 해결해야한다... 
-  /*
-  const updateUploadedFiles = async (files) => {
-    // get secure url from our server
-    // post the image directly to the s3 bucket
-    // post request to my server to store any extra data
-
-    // 77~90번째 줄이 서버한테 s3버킷 url 받아오는 거에요
+  const handleprofileButton = async (files) => {
+     // 서버한테 s3버킷 url 받아오는 거에요
     await server
-      .get(`upload`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+    .get(`upload`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-      })
-      .then((res) => {
-        if (res.status === 201) {
-          s3Url = res.data.data;
+    })
+    .then((res) => {
+      if (res.status === 201) {
+        s3Url = res.data.data;
+        console.log("s3Url: "+s3Url); //s3 url 가져옴
         }
-      })
-      .catch((err) => {
-        throw err;
-      });
+    })
+    .catch((err) => {
+      throw err;
+    });
 
-    // 93~104번째 줄이 우리가 서버에 보낼 filepath(파일경로)를 받는 과정!
+    // 우리가 서버에 보낼 filepath(파일경로)를 받는 과정!
     let fileData = files[0];
-
     await axios
       .put(s3Url, fileData, {
         headers: {
@@ -306,26 +248,41 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       })
       .then((res) => {
         result = res.config.url.split("?")[0];
+        console.log("result: "+result)
       })
       .catch((err) => {
         throw err;
       });
 
+    // var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+    // console.log("fileExt: "+fileExt);
+    // if (
+    //   fileExt === "img" ||
+    //   fileExt === "jpg" ||
+    //   fileExt === "png" ||
+    //   fileExt === "jpeg"
+    // ) {
+    //   setNewFile([...newfile, { path: result, type: "img" }]);
+    // } else if (fileExt === "mp4") {
+    //   setNewFile([...newfile, { path: result, type: "video" }]);
+    // }
 
-    var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
-    if (
-      fileExt === "img" ||
-      fileExt === "jpg" ||
-      fileExt === "png" ||
-      fileExt === "jpeg"
-    ) {
-      setNewFile([...newfile, { path: result, type: "img" }]);
-    } else if (fileExt === "mp4") {
-      setNewFile([...newfile, { path: result, type: "video" }]);
-    }
-  };
-  
-  */
+  }
+
+
+
+  //   var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+  //   if (
+  //     fileExt === "img" ||
+  //     fileExt === "jpg" ||
+  //     fileExt === "png" ||
+  //     fileExt === "jpeg"
+  //   ) {
+  //     setNewFile([...newfile, { path: result, type: "img" }]);
+  //   } else if (fileExt === "mp4") {
+  //     setNewFile([...newfile, { path: result, type: "video" }]);
+  //   }
+  // };
 
   const handleClickConfirmBtn = () => {
     document.getElementsByClassName('highlightDisplay')[1].value="";
@@ -370,10 +327,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                   <img src={user.data.userInfo.mainPic} className="testPic" />
 
                   <div className="profileButton">
+                  {/* <input
+                    type="file"
+                    name="file"
+                    accept="image/jpeg, image/jpg"
+                    onChange={handleprofileButton} 
+                    required
+                  /> */}
                   <Button
                     variant="outlined"
                     className="profileBtn"
-                    onClick={handleClickConfirmBtn}
+                    onClick={handleprofileButton}
                   >
                     프로필 사진 변경
                   </Button>
