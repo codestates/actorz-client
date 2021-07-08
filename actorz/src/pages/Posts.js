@@ -10,6 +10,7 @@ import "../styles/Posts.css";
 import Iconlist from "../components/Iconlist";
 import { DeleteOutlined } from "@ant-design/icons";
 import Footer from "../components/Footer";
+import Loading from "../components/loading";
 
 const Posts = (props) => {
   const [clickModal, setClickModal] = useState(false);
@@ -20,7 +21,7 @@ const Posts = (props) => {
   //console.log(post);
 
   useEffect(async () => {
-    await server
+    await server // 유저의 포스트를 가져옴
       .get(`/post/user/${props.history.location.state.id}`)
       .then((res) => {
         console.log(res);
@@ -30,7 +31,7 @@ const Posts = (props) => {
         throw err;
       });
 
-    await server
+    await server //유저의 정보를 가져옴
       .get(`/user/${props.history.location.state.id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -53,7 +54,7 @@ const Posts = (props) => {
     pauseOnHover: true,
     autoplay: true,
     draggable: false,
-    slidesToShow: 4,
+    slidesToShow: 1,
     slidesToScroll: 2,
     arrows: true,
   };
@@ -117,24 +118,23 @@ const Posts = (props) => {
                   </div>
                 </div>
                 <div className="slider-img-box">
-                  {userPost.posts ? (
-                    <Slider {...settings} className="slider">
-                      {userPost.posts.map((post) => {
-                        console.log(post.media[0].path);
-                        return (
-                          <img
-                            key={post._id}
-                            src={post.media[0].path}
-                            onClick={() => handleClickPost(true, post._id)}
-                          ></img>
-                        );
-                      })}
-                    </Slider>
-                  ) : null}
+                  <Slider {...settings} className="slider">
+                    {userPost.posts.map((post) => {
+                      return (
+                        <img
+                          key={post._id}
+                          src={post.media[0].path}
+                          onClick={() => handleClickPost(true, post._id)}
+                        ></img>
+                      );
+                    })}
+                  </Slider>
                 </div>
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
-            ) : null}
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
         <div className="newblockPosition2"> </div>

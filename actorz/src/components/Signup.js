@@ -152,8 +152,11 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
     <>
       <center>
         <form onSubmit={(e) => e.preventDefault()}>
-          <div id="modal-background">
-            <div id="modal-container">
+          <div id="modal-background" onClick={() => handleClickClose()}>
+            <div
+              id="modal-container"
+              onClick={(event) => event.stopPropagation()}
+            >
               <div id="modal-header"></div>
               <div id="modal-section">
                 <div className="modal-title">
