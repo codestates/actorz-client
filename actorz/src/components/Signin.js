@@ -36,6 +36,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           .then((res) => {
             if (res.status === 200) {
               localStorage.setItem("accessToken", res.data.data.accessToken);
+              localStorage.setItem("id", res.data.data.id);
               console.log("로그인에 성공하였습니다!");
               setLoading(false);
               handleClickClose();
@@ -43,7 +44,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           });
 
         await server //로그인한 유저의 정보를 state에 저장
-          .get(`/user/:user_id`, {
+          .get(`/user/${localStorage.getItem("id")}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
             },

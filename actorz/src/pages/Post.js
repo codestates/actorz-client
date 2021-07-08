@@ -22,16 +22,19 @@ const Post = () => {
   let index = window.location.pathname.lastIndexOf("/");
   let url = window.location.pathname.slice(index + 1);
 
-  useEffect(async () => {
-    await server
-      .get(`/post/${url}`)
-      .then((res) => {
-        setPostinfo(res.data.data.post);
-        setIsLoading(true);
-      })
-      .catch((err) => {
-        throw err;
-      });
+  useEffect(() => {
+    const p = async () => {
+      await server
+        .get(`/post/${url}`)
+        .then((res) => {
+          setPostinfo(res.data.data.post);
+          setIsLoading(true);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    }
+    p();
   }, []);
 
   const handleClickEditBtn = (boolean) => {
@@ -71,17 +74,17 @@ const Post = () => {
               <div className="float-btn-box">
                 <Link to="/posts">
                   <div className="float-btn">
-                    <img src={profile} className="float-profile-btn"></img>
+                    <img src={profile} className="float-profile-btn" alt=""></img>
                     <div className="float-profile-title">프로필</div>
                   </div>
                 </Link>
                 <div className="float-btn">
-                  <img src={love} className="float-love-btn"></img>
+                  <img src={love} className="float-love-btn" alt=""></img>
                   <div className="float-love-title">좋아요</div>
                 </div>
                 {user.data.userInfo.role === "recruiter" ? (
                   <div className="float-btn">
-                    <img src={email} className="float-email-btn"></img>
+                    <img src={email} className="float-email-btn" alt=""></img>
                     <div className="float-email-title">연락하기</div>
                   </div>
                 ) : null}
@@ -89,6 +92,7 @@ const Post = () => {
                 user.data.userInfo.id === postinfo.userInfo.user_id ? (
                   <div className="float-btn">
                     <img
+                      alt=""
                       src={email}
                       className="float-edit-btn"
                       onClick={() => handleClickEditBtn(true)}
@@ -100,6 +104,7 @@ const Post = () => {
                 user.data.userInfo.id === postinfo.userInfo.user_id ? (
                   <div className="float-btn">
                     <img
+                      alt=""
                       src={email}
                       className="float-edit-btn"
                       onClick={handleClickDeleteBtn}
@@ -117,7 +122,7 @@ const Post = () => {
                   <div className="info">
                     <div className="info-box">
                       <div className="post-name">{postinfo.userInfo.name}</div>
-                      <img src={heart} className="heart-img"></img>
+                      <img src={heart} className="heart-img" alt=""></img>
                       <span className="genre">|{postinfo.genre}</span>
                       <span className="like">{postinfo.likes.length}</span>
                       <button

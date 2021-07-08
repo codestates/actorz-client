@@ -31,12 +31,10 @@ const LoginCallback = () => {
       await server.post("/login/naver", { code }).then( async res => {
         if (res.status === 200) { //로그인 성공
           localStorage.setItem("accessToken", res.data.data.accessToken);
+          localStorage.setItem("id", res.data.data.id);
+          console.log(res.data.data.accessToken);
           await server //로그인한 유저의 정보를 state에 저장
-          .get(`/user/:user_id`, {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-            },
-          })
+          .get(`/user/${localStorage.getItem("id")}`)
           .then((res) => {
             if (res.status === 200) {
               dispatch(getUserInfo(res.data.data.userInfo));
