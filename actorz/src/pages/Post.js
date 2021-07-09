@@ -10,9 +10,8 @@ import love from "../images/thumb-up.png";
 import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/Post.css";
-import handleClickPost from "./Mainpage";
 
-const Post = () => {
+const Post = ({ handleClickPost }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [postinfo, setPostinfo] = useState({});
@@ -27,13 +26,14 @@ const Post = () => {
       await server
         .get(`/post/${url}`)
         .then((res) => {
+          console.log(res);
           setPostinfo(res.data.data.post);
           setIsLoading(true);
         })
         .catch((err) => {
           throw err;
         });
-    }
+    };
     p();
   }, []);
 
@@ -54,6 +54,7 @@ const Post = () => {
       })
       .then((res) => {
         if (res.status === 200) {
+          console.log("aaa");
           window.location = "/mainpage";
         }
       })
@@ -71,10 +72,17 @@ const Post = () => {
               id="post-modal-background"
               onClick={() => handleClickPost(false)}
             >
-              <div className="float-btn-box">
+              <div
+                className="float-btn-box"
+                onClick={(event) => event.stopPropagation()}
+              >
                 <Link to="/posts">
                   <div className="float-btn">
-                    <img src={profile} className="float-profile-btn" alt=""></img>
+                    <img
+                      src={profile}
+                      className="float-profile-btn"
+                      alt=""
+                    ></img>
                     <div className="float-profile-title">프로필</div>
                   </div>
                 </Link>
