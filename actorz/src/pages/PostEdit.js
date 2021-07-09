@@ -17,6 +17,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const [newfile, setNewFile] = useState(userPostinfo.media);
   const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
+  console.log(postinfo);
 
   let s3Url = null;
   let result = null;
@@ -121,9 +122,12 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   return (
     <>
       <Nav />
-      <div id="post-modal-background">
+      <div id="post-modal-background" onClick={() => handleClickPost(false)}>
         <div className="float-btn-box">
-          <div className="float-btn">
+          <div
+            className="float-btn"
+            onClick={(event) => event.stopPropagation()}
+          >
             <img src={profile} className="float-profile-btn"></img>
             <div className="float-profile-title">프로필</div>
           </div>
@@ -145,7 +149,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
             <div className="float-email-title">저장하기</div>
           </div>
         </div>
-        <div className="container">
+        <div className="container" onClick={(event) => event.stopPropagation()}>
           <div className="info">
             <div className="info-box">
               <div className="post-name">{postinfo.userInfo.name}</div>

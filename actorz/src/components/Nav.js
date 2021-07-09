@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+
 import { Button } from "antd";
 import server from "../apis/server";
 import { persistor } from "../store/store";
 import Loading from "../components/loading";
+import Search from "antd/lib/transfer/search";
 
-const Nav = () => {
+const Nav = ({ handleClickFiltering }) => {
   const [search, setSearch] = useState("");
   const [clickSignin, setClickSignin] = useState(false);
   const [clickSignup, setClickSignup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
-  const user = useSelector((user) => user.userInfoReducer);
   const [loading, setLoading] = useState(false);
+
+  const user = useSelector((user) => user.userInfoReducer);
 
   const inputHandler = (event) => {
     setSearch(event.target.value);
@@ -88,6 +91,13 @@ const Nav = () => {
               ></input>
               <Button variant="outlined" className="product-search-btn">
                 검색
+              </Button>
+              <Button
+                variant="outlined"
+                className="product-search-btn"
+                onClick={handleClickFiltering}
+              >
+                조건검색
               </Button>
             </div>
 

@@ -22,10 +22,9 @@ const Iconlist = () => {
     profileImages: [],
   });
   const [content, setContent] = useState({
-    content: '',
-    genre: []
+    content: "",
+    genre: ""
   })
-
   const [clickupload, setClickUpload] = useState(false);
 
   const handleClickUpload = (boolean) => {
@@ -37,15 +36,23 @@ const Iconlist = () => {
   };
 
   const updateUploadedFiles = (files) => setNewFile({ ...newfile, profileImages: files });
-  const updateUploadedContents = (genre, desc) => setContent({
-      content: desc,
-      genre
+  const updateUploadedContents = (value, key) => {
+    const state = {
+      [key]: value
+    };
+    setContent((content) => {
+      return {
+        ...content,
+        ...state
+      }
     });
+
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     // 여기에 이미지 올리는 로직 작성해야 함
-    const media = []
+    const media = [];
 
     for(let el of newfile.profileImages){
       const ext = el.name.split(".")[1];
@@ -72,10 +79,12 @@ const Iconlist = () => {
           type: "img",
           path
         };
-      }
-      media.push(obj)
-    } 
+      };
+      media.push(obj);
+    };
+
     handlePost(media);
+
   };
 
   const handlePost = async (media) => {
@@ -88,10 +97,13 @@ const Iconlist = () => {
       authorization: `Bearer ${accessToken}`
     };
     await server.post("/post/create", bodyData, { headers })
-    .then(() => handleClickUpload(false))
+    .then(() => {
+      alert("포스트가 등록되었습니다");
+      handleClickUpload(false);
+    })
     .catch((err) => console.log(err));
 
-  }
+  };
 
   return (
     <>

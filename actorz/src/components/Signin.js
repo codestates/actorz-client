@@ -2,19 +2,20 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getUserInfo } from "../actions/userAction";
 import server from "../apis/server";
-import "../styles/SigninModal.css";
 import Google from "../components/Googlelogin";
 import { CloseOutlined } from "@ant-design/icons";
 import Naver from "../components/Naverlogin";
 import Loading from "../components/loading";
+import "../styles/SigninModal.css";
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
