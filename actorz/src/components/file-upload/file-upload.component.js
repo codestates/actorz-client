@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import {
   FileUploadContainer,
   FormField,
@@ -6,6 +6,7 @@ import {
   UploadFileBtn,
   FilePreviewContainer,
   ImagePreview,
+  VideoPreview,
   PreviewContainer,
   PreviewList,
   FileMetaData,
@@ -15,7 +16,7 @@ import {
 import "../../styles/Postupload.css";
 
 const KILO_BYTES_PER_BYTE = 1000;
-const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
+const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 10000000;
 
 const convertNestedObjectToArray = (nestedObj) =>
   Object.keys(nestedObj).map((key) => nestedObj[key]);
@@ -25,13 +26,13 @@ const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 const FileUpload = ({
   label,
   updateFilesCb,
+  updateContentCb,
   maxFileSizeInBytes = DEFAULT_MAX_FILE_SIZE_IN_BYTES,
   ...otherProps
 }) => {
   const fileInputField = useRef(null);
   const [files, setFiles] = useState({});
-
-  const [genre, setGenre] = useState([]);
+  const [genre, setGenre] = useState("");
   const [desc, setDesc] = useState("");
 
   const handleUploadBtnClick = () => {
@@ -51,7 +52,7 @@ const FileUpload = ({
   };
   const callUpdateFilesCb = (files) => {
     const filesAsArray = convertNestedObjectToArray(files);
-    updateFilesCb(filesAsArray);
+    updateFilesCb(filesAsArray, genre, desc);
   };
 
   const handleNewFileUpload = (e) => {
@@ -72,19 +73,23 @@ const FileUpload = ({
   const handleInputValue = (key) => (event) => {
     if (key === "desc") {
       setDesc(event.target.value);
-      console.log(desc);
-      console.log(genre);
     } else if (key === "genre") {
-      if (event.target.checked) {
-        setGenre([...genre, event.target.value]);
-      } else {
-        const filteredGenre = genre.filter((el) => {
-          return el !== event.target.value;
-        });
-        setGenre(filteredGenre);
-      }
+      setGenre(event.target.value);
     }
   };
+
+  const handleOverFiles = () => {
+    alert("5이상 선택 할 수 없습니다");
+    setFiles({});
+  };
+
+  useEffect(() => {
+    updateContentCb(desc, "content")
+  }, [desc]);
+
+  useEffect(() => {
+    updateContentCb(genre, "genre")
+  }, [genre]);
 
   return (
     <>
@@ -110,19 +115,27 @@ const FileUpload = ({
             <FilePreviewContainer>
               {/* <span>To Upload</span> */}
               <PreviewList>
-                {Object.keys(files).map((fileName, index) => {
+                {Object.keys(files).length > 5
+                ? handleOverFiles()
+                : Object.keys(files).map((fileName, index) => {
                   let file = files[fileName];
+                  let isMediaFile = file.type.split("/")[0] === "image" || "video";
                   let isImageFile = file.type.split("/")[0] === "image";
                   return (
                     <PreviewContainer key={fileName}>
                       <div>
-                        {isImageFile && (
+                        {isMediaFile && (isImageFile ?
                           <ImagePreview
                             src={URL.createObjectURL(file)}
                             alt={`file preview ${index}`}
                           />
-                        )}
-                        <FileMetaData isImageFile={isImageFile}>
+                          :
+                          <VideoPreview 
+                          src={URL.createObjectURL(file)}
+                          alt={`file preview ${index}`}
+                          />
+                          )}
+                        <FileMetaData isMediaFile={isMediaFile}>
                           <span>{file.name}</span>
                           <aside>
                             <span>{convertBytesToKB(file.size)} kb</span>
@@ -149,42 +162,42 @@ const FileUpload = ({
 
             <div className="genre">
               <input
-                type="checkbox"
+                type="radio"
                 name="genre"
                 value="액션"
                 onChange={handleInputValue("genre")}
               />
               액션
               <input
-                type="checkbox"
+                type="radio"
                 name="genre"
                 value="공포"
                 onChange={handleInputValue("genre")}
               />
               공포
               <input
-                type="checkbox"
+                type="radio"
                 name="genre"
                 value="코미디"
                 onChange={handleInputValue("genre")}
               />
               코미디
               <input
-                type="checkbox"
+                type="radio"
                 name="genre"
-                value="로맨스"
+                value="드라마"
                 onChange={handleInputValue("genre")}
               />
-              로맨스
+              드라마
               <input
-                type="checkbox"
+                type="radio"
                 name="genre"
                 value="판타지"
                 onChange={handleInputValue("genre")}
               />
               판타지
               <input
-                type="checkbox"
+                type="radio"
                 name="genre"
                 value="기타"
                 onChange={handleInputValue("genre")}

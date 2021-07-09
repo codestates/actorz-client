@@ -10,6 +10,7 @@ import "../styles/Posts.css";
 import Iconlist from "../components/Iconlist";
 import { DeleteOutlined } from "@ant-design/icons";
 import Footer from "../components/Footer";
+import Loading from "../components/loading";
 
 const Posts = (props) => {
   const [clickModal, setClickModal] = useState(false);
@@ -19,29 +20,28 @@ const Posts = (props) => {
   const post = useSelector((post) => post.postInfoReducer);
   //console.log(post);
 
-  useEffect(async () => {
-    await server
-      .get(`/post/user/${props.history.location.state.id}`)
-      .then((res) => {
-        console.log(res);
-        setUserPost(res.data.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
-
-    await server
-      .get(`/user/${props.history.location.state.id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        setUserInfo(res.data.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
+  useEffect(() => {
+    const p = async () => {
+      await server // 유저의 포스트를 가져옴
+        .get(`/post/user/${props.history.location.state.id}`)
+        .then((res) => {
+          console.log(res);
+          setUserPost(res.data.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+  
+      await server //유저의 정보를 가져옴
+        .get(`/user/${props.history.location.state.id}`)
+        .then((res) => {
+          setUserInfo(res.data.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+    p();
   }, []);
 
   //console.log(userinfo.userInfo); //여기에 해당 게시물 작성자 정보가 담겨있음.
@@ -53,7 +53,7 @@ const Posts = (props) => {
     pauseOnHover: true,
     autoplay: true,
     draggable: false,
-    slidesToShow: 4,
+    slidesToShow: 1,
     slidesToScroll: 2,
     arrows: true,
   };
@@ -86,7 +86,7 @@ const Posts = (props) => {
               <div className="midContentDownPart">
                 <div className="displayPosition">
                   <div className="fixedSize">
-                    <img src={userinfo.userInfo.mainPic} className="testPic" />
+                    <img src={userinfo.userInfo.mainPic} className="testPic" alt=""/>
                   </div>
                   <div className="fixedContent">
                     <p className="name">{}</p>
@@ -117,24 +117,23 @@ const Posts = (props) => {
                   </div>
                 </div>
                 <div className="slider-img-box">
-                  {userPost.posts ? (
-                    <Slider {...settings} className="slider">
-                      {userPost.posts.map((post) => {
-                        console.log(post.media[0].path);
-                        return (
-                          <img
-                            key={post._id}
-                            src={post.media[0].path}
-                            onClick={() => handleClickPost(true, post._id)}
-                          ></img>
-                        );
-                      })}
-                    </Slider>
-                  ) : null}
+                  <Slider {...settings} className="slider">
+                    {userPost.posts.map((post) => {
+                      return (
+                        <img
+                          key={post._id}
+                          src={post.media[0].path}
+                          onClick={() => handleClickPost(true, post._id)}
+                        ></img>
+                      );
+                    })}
+                  </Slider>
                 </div>
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
-            ) : null}
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
         <div className="newblockPosition2"> </div>

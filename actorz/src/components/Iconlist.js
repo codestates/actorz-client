@@ -14,14 +14,17 @@ import {
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
 import FileUpload from "../components/file-upload/file-upload.component";
-import server from "../apis/server"
+import server from "../apis/server";
 import axios from "axios";
 
 const Iconlist = () => {
   const [newfile, setNewFile] = useState({
     profileImages: [],
   });
-
+  const [content, setContent] = useState({
+    content: "",
+    genre: ""
+  })
   const [clickupload, setClickUpload] = useState(false);
 
   const handleClickUpload = (boolean) => {
@@ -32,48 +35,75 @@ const Iconlist = () => {
     }
   };
 
-  const updateUploadedFiles = (files) =>
-    setNewFile({ ...newfile, profileImages: files });
-
-    const handleSubmit = async (event) => {
-      event.preventDefault();
-      // 여기에 이미지 올리는 로직 작성해야 함
-      console.log(newfile.profileImages)
-      console.log(newfile.profileImages.length)
-      const media = []
-  
-      for(let el of newfile.profileImages){
-        const ext = el.name.split(".")[1];
-
-        const url = await server.get("/upload")
-        .then((res) => res.data.data);
-        console.log(url);
-        const path = url.split("?")[0];
-        const config = {
-          headers: {
-            "Content-Type": "multipart/form-data"
-          }
-        };
-        await axios.put(url, el, config)
-        .catch((err) => console.log(err));
-  
-        let obj;
-        if(ext === "mp4"){
-          obj = {
-            type: "video",
-            path
-          };
-        }else{
-          obj = {
-            type: "img",
-            path
-          };
-        }
-        media.push(obj)
-      } 
-  
-      console.log(media)
+  const updateUploadedFiles = (files) => setNewFile({ ...newfile, profileImages: files });
+  const updateUploadedContents = (value, key) => {
+    const state = {
+      [key]: value
     };
+    setContent((content) => {
+      return {
+        ...content,
+        ...state
+      }
+    });
+
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // 여기에 이미지 올리는 로직 작성해야 함
+    const media = [];
+
+    for(let el of newfile.profileImages){
+      const ext = el.name.split(".")[1];
+
+      const url = await server.get("/upload")
+      .then((res) => res.data.data);
+      const path = url.split("?")[0];
+      const config = {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      };
+      await axios.put(url, el, config)
+      .catch((err) => console.log(err));
+
+      let obj;
+      if(ext === "mp4"){
+        obj = {
+          type: "video",
+          path
+        };
+      }else{
+        obj = {
+          type: "img",
+          path
+        };
+      };
+      media.push(obj);
+    };
+
+    handlePost(media);
+
+  };
+
+  const handlePost = async (media) => {
+    const accessToken = window.localStorage.getItem("accessToken")
+    const bodyData = {
+      media,
+      ...content
+    };
+    const headers = {
+      authorization: `Bearer ${accessToken}`
+    };
+    await server.post("/post/create", bodyData, { headers })
+    .then(() => {
+      alert("포스트가 등록되었습니다");
+      handleClickUpload(false);
+    })
+    .catch((err) => console.log(err));
+
+  };
 
   return (
     <>
@@ -145,6 +175,7 @@ const Iconlist = () => {
                 accept=".jpg,.png,.jpeg, .mp4"
                 multiple
                 updateFilesCb={updateUploadedFiles}
+                updateContentCb={updateUploadedContents}
                 handleClickUpload={handleClickUpload}
               />
             </form>

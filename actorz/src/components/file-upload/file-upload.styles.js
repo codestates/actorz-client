@@ -216,3 +216,9 @@ export const ImagePreview = styled.img`
   width: 100%;
   height: 100%;
 `;
+
+export const VideoPreview = styled.video`
+  border-radius: 6px;
+  width: 100%;
+  height: 100%;
+`;

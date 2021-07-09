@@ -17,14 +17,18 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const [newfile, setNewFile] = useState(userPostinfo.media);
   const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
+
   let s3Url = null;
   let result = null;
-  //console.log(post); //사진 삭제하면 post가 자동 업데이트됨
+
+  useEffect(() => {
+    //post의 상태가 업데이트 될 때마다 새로 넣어준다
+    setPostinfo(post.data.data.posts.posts[0]);
+    setNewFile(post.data.data.posts.posts[0].media);
+  }, [post]);
 
   const handleClickDeleteBtn = (post_id, img_id) => {
     dispatch(removePostPhoto(post_id, img_id));
-    setPostinfo(post.data.data.posts.posts[0]);
-    setNewFile(post.data.data.posts.posts[0].media);
   };
 
   const handleInputValue = (key) => (event) => {
@@ -42,9 +46,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
         media: newfile,
       })
     );
-
-    setPostinfo(post); //수정된 정보들 postinfo에 넣기
-    setNewFile(post.data.data.posts.posts[0].media); //수정된 사진을 newfile에 넣기
 
     await server
       .post(
@@ -70,11 +71,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   };
 
   const updateUploadedFiles = async (files) => {
-    // get secure url from our server
-    // post the image directly to the s3 bucket
-    // post request to my server to store any extra data
-
-    // 77~90번째 줄이 서버한테 s3버킷 url 받아오는 거에요
     await server
       .get(`upload`, {
         headers: {
@@ -89,8 +85,6 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
-
-    // 93~104번째 줄이 우리가 서버에 보낼 filepath(파일경로)를 받는 과정!
     let fileData = files[0];
 
     await axios
@@ -105,26 +99,34 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
-
-
     var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
-    if (
-      fileExt === "img" ||
-      fileExt === "jpg" ||
-      fileExt === "png" ||
-      fileExt === "jpeg"
-    ) {
-      setNewFile([...newfile, { path: result, type: "img" }]);
-    } else if (fileExt === "mp4") {
+
+    // if (
+    //   fileExt === "img" ||
+    //   fileExt === "jpg" ||
+    //   fileExt === "png" ||
+    //   fileExt === "jpeg"
+    // ) {
+    //   setNewFile([...newfile, { path: result, type: "img" }]);
+    // } else if (fileExt === "mp4") {
+    //   setNewFile([...newfile, { path: result, type: "video" }]);
+    // }
+
+    if (fileExt === "mp4") {
       setNewFile([...newfile, { path: result, type: "video" }]);
+    } else {
+      setNewFile([...newfile, { path: result, type: "img" }]);
     }
   };
   return (
     <>
       <Nav />
-      <div id="post-modal-background">
+      <div id="post-modal-background" onClick={() => handleClickPost(false)}>
         <div className="float-btn-box">
-          <div className="float-btn">
+          <div
+            className="float-btn"
+            onClick={(event) => event.stopPropagation()}
+          >
             <img src={profile} className="float-profile-btn"></img>
             <div className="float-profile-title">프로필</div>
           </div>
@@ -146,7 +148,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
             <div className="float-email-title">저장하기</div>
           </div>
         </div>
-        <div className="container">
+        <div className="container" onClick={(event) => event.stopPropagation()}>
           <div className="info">
             <div className="info-box">
               <div className="post-name">{postinfo.userInfo.name}</div>
@@ -173,6 +175,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
                     return (
                       <>
                         <img
+                          key={img._id}
                           src={img.path}
                           className="post-image"
                           alt="이미지"
@@ -191,13 +194,17 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
                   } else {
                     return (
                       <>
-                        <video controls className="video">
+                        <video controls className="video" key={img._id}>
                           <source src={img.path}></source>
                         </video>
                         <button
                           className="photo-delete-btn"
-                          onClick={() => handleClickDeleteBtn(img.id)}
-                        ></button>
+                          onClick={() =>
+                            handleClickDeleteBtn(postinfo._id, img._id)
+                          }
+                        >
+                          X
+                        </button>
                       </>
                     );
                   }
