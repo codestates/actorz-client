@@ -51,6 +51,9 @@ const Mainpage = () => {
   //   event.preventDefault();
   //   // 여기에 이미지 올리는 로직 작성해야 함
   // };
+  const loading = (boolean) => {
+    setIsLoading(!boolean);
+  };
 
   const handleClickPost = (boolean, id) => {
     if (boolean) {
