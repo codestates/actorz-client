@@ -1,40 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Post from "../pages/Post";
 import Nav from "../components/Nav";
-import img from "../images/actor.jpeg";
 import Slider from "react-slick";
+import server from "../apis/server";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/Posts.css";
 import Iconlist from "../components/Iconlist";
-import {
-  CloseOutlined,
-  SaveOutlined,
-  EditOutlined,
-  DeleteOutlined,
-  UserOutlined,
-  IdcardOutlined,
-  HeartOutlined,
-  FileAddOutlined,
-  HomeOutlined,
-  GithubOutlined,
-  ToolOutlined,
-  InstagramOutlined,
-  FormOutlined,
-  FacebookOutlined,
-  YoutubeOutlined,
-  VerticalAlignBottomOutlined,
-  ArrowDownOutlined,
-} from "@ant-design/icons";
+import { DeleteOutlined } from "@ant-design/icons";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom";
+import Loading from "../components/loading";
 
-const Posts = () => {
+const Posts = (props) => {
   const [clickModal, setClickModal] = useState(false);
+  const [userinfo, setUserInfo] = useState({});
+  const [userPost, setUserPost] = useState({});
   const user = useSelector((user) => user.userInfoReducer);
   const post = useSelector((post) => post.postInfoReducer);
+  //console.log(post);
 
+  useEffect(() => {
+    const p = async () => {
+      await server // 유저의 포스트를 가져옴
+        .get(`/post/user/${props.history.location.state.id}`)
+        .then((res) => {
+          console.log(res);
+          setUserPost(res.data.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+  
+      await server //유저의 정보를 가져옴
+        .get(`/user/${props.history.location.state.id}`)
+        .then((res) => {
+          setUserInfo(res.data.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+    p();
+  }, []);
+
+  //console.log(userinfo.userInfo); //여기에 해당 게시물 작성자 정보가 담겨있음.
+  console.log(userPost);
   const settings = {
     dots: true,
     infinite: true,
@@ -42,7 +53,7 @@ const Posts = () => {
     pauseOnHover: true,
     autoplay: true,
     draggable: false,
-    slidesToShow: 4,
+    slidesToShow: 1,
     slidesToScroll: 2,
     arrows: true,
   };
@@ -71,60 +82,58 @@ const Posts = () => {
             <div className="buttonHeader">
               <DeleteOutlined className="deleteButton" />
             </div>
-            <div className="midContentDownPart">
-              <div className="displayPosition">
-                <div className="fixedSize">
-                  <img
-                    src="https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png"
-                    className="testPic"
-                  />
+            {userinfo.userInfo ? (
+              <div className="midContentDownPart">
+                <div className="displayPosition">
+                  <div className="fixedSize">
+                    <img src={userinfo.userInfo.mainPic} className="testPic" alt=""/>
+                  </div>
+                  <div className="fixedContent">
+                    <p className="name">{}</p>
+                    <ul>
+                      <strong>생년월일</strong>
+                      <li className="dob">{userinfo.userInfo.dob}</li>
+                      <strong>이메일</strong>
+                      <li className="email">{userinfo.userInfo.email}</li>
+                      <strong>소속사</strong>
+                      <li className="company">{userinfo.userInfo.company}</li>
+                    </ul>
+                  </div>
                 </div>
-
-                <div className="fixedContent">
-                  <p className="name">{user.data.userInfo.name}</p>
-                  <ul>
-                    <strong>생년월일</strong>
-                    <li className="dob">{user.data.userInfo.dob}</li>
-                    <strong>이메일</strong>
-                    <li className="email">{user.data.userInfo.email}</li>
-                    <strong>소속사</strong>
-                    <li className="company">{user.data.userInfo.company}</li>
-                  </ul>
+                {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
+                <div className="careerTitle">Career 🏆</div>
+                <div className="careerContent">
+                  <div className="career">
+                    {userinfo.userInfo.careers.map((career) => {
+                      return (
+                        <li key={career._id}>
+                          {`${career.year}` +
+                            ` ${career.title}` +
+                            ` / ` +
+                            `${career.type}`}
+                        </li>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-              {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
-              <div className="careerTitle">Career 🏆</div>
-              <div className="careerContent">
-                <div className="career">
-                  {user.data.userInfo.careers.map((career) => {
-                    return (
-                      <li>
-                        {`${career.year}` +
-                          ` ${career.title}` +
-                          ` / ` +
-                          `${career.type.map((type) => {
-                            return type;
-                          })}`}
-                      </li>
-                    );
-                  })}
+                <div className="slider-img-box">
+                  <Slider {...settings} className="slider">
+                    {userPost.posts.map((post) => {
+                      return (
+                        <img
+                          key={post._id}
+                          src={post.media[0].path}
+                          onClick={() => handleClickPost(true, post._id)}
+                        ></img>
+                      );
+                    })}
+                  </Slider>
                 </div>
+                {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
-              <div className="slider-img-box">
-                <Slider {...settings} className="slider">
-                  {post.data.posts.map((post) => {
-                    return (
-                      <img
-                        src={post.path}
-                        onClick={() => handleClickPost(true, post.id)}
-                      ></img>
-                    );
-                  })}
-                </Slider>
-              </div>
-
-              {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
-            </div>
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
         <div className="newblockPosition2"> </div>

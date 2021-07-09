@@ -8,8 +8,10 @@ import { getUserInfo } from "../actions/userAction";
 
 import "../styles/SignupModal.css";
 
-
-const Signup = ({ handleClickSignup, handleClickSignin }) => {
+const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
+  
+  console.log(oauthSignup)
+  const [provider, email] = oauthSignup.split("=");
   const [actorSignup, setActorSignup] = useState({});
   const [recruitorSignup, setRecruitorSignup] = useState({});
   const [err, setError] = useState("");
@@ -17,9 +19,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  const handleClickClose = () => {
-    handleClickSignup(false);
-  };
 
   const handleInputActorValue = (key) => (event) => {
     setActorSignup({ ...actorSignup, [key]: event.target.value });
@@ -49,11 +48,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
 
   const handleClickActorSignupBtn = async () => {
     setLoading(true);
-    const { email, password, name, dob, company, gender } = actorSignup;
+    const { name, dob, company, gender } = actorSignup;
     try {
       if (
-        email !== undefined &&
-        password !== undefined &&
         name !== undefined &&
         dob !== undefined
       ) {
@@ -64,107 +61,12 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
           setError("");
           await server
           .post(`/signup`, {
-            provider: "local",
-            email: email,
-            password: password,
+            email,
+            provider,
             name: name,
             company: company,
             gender: setGender(gender),
             dob: dob,
-            role: setrole(role),
-          })
-          .then(async res => {
-            if(res.status === 201){
-              localStorage.setItem("accessToken", res.data.data.accessToken);
-              localStorage.setItem("id", res.data.data.id);
-              console.log("로그인에 성공하였습니다!");
-
-              await server //로그인한 유저의 정보를 state에 저장
-              .get(`/user/${localStorage.getItem("id")}`, {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-                },
-              })
-              .then((res) => {
-                if (res.status === 200) {
-                  dispatch(getUserInfo(res.data.data.userInfo));
-                  alert("회원가입에 성공하였습니다!");
-                }
-              })
-              .catch((err) => {
-                setLoading(false);
-                throw err;
-              });
-              setLoading(false);
-              handleClickClose();
-            }
-          });
-        }
-      } else {
-        setLoading(false);
-        setError("필수 항목을 모두 적어주세요");
-      }
-    } catch (err) {
-      setLoading(false);
-      if (err.message === "Request failed with status code 409") {
-        alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
-      } else {
-        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
-      }
-    }
-  };
-
-  const handleClickRecruitorSignupBtn = async () => {
-    setLoading(true);
-    const {
-      email,
-      password,
-      name,
-      dob,
-      gender,
-      bName,
-      bAddress_city,
-      bAddress_street,
-      bAddress_zipcode,
-      bEmail,
-      phoneNum,
-      jobTitle,
-    } = recruitorSignup;
-
-    try {
-      if (
-        email !== undefined &&
-        password !== undefined &&
-        name !== undefined &&
-        dob !== undefined &&
-        bName !== undefined &&
-        bAddress_city !== undefined &&
-        bAddress_street !== undefined &&
-        bAddress_zipcode !== undefined
-      ) {
-        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
-          setLoading(false);
-          setError("생년월일 형식을 지켜서 작성해주세요");
-        } else {
-          setError("");
-          await server.post(`/signup`, {
-            email: email,
-            password: password,
-            name: name,
-            provider: "local",
-            gender: setGender(gender),
-            dob: dob,
-            recruitor: {
-              bName: bName,
-              bAddress: {
-                city: bAddress_city,
-                street: bAddress_street,
-                zipcode: bAddress_zipcode,
-              },
-              bEmail: bEmail,
-              phoneNum: phoneNum,
-              jobTitle: jobTitle,
-            },
             role: setrole(role),
           }).then(async res => {
             if(res.status === 201){
@@ -188,11 +90,97 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                 setLoading(false);
                 throw err;
               });
-              
               setLoading(false);
-              handleClickClose();
+              modalSocialClose();
             }
-          })
+          });
+        }
+      } else {
+        setLoading(false);
+        setError("필수 항목을 모두 적어주세요");
+      }
+    } catch (err) {
+      setLoading(false);
+      if (err.message === "Request failed with status code 409") {
+        alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
+      } else {
+        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+      }
+    }
+  };
+
+  const handleClickRecruitorSignupBtn = async () => {
+    setLoading(true);
+    const {
+      name,
+      dob,
+      gender,
+      bName,
+      bAddress_city,
+      bAddress_street,
+      bAddress_zipcode,
+      bEmail,
+      phoneNum,
+      jobTitle,
+    } = recruitorSignup;
+
+    try {
+      if (
+        name !== undefined &&
+        dob !== undefined &&
+        bName !== undefined &&
+        bAddress_city !== undefined &&
+        bAddress_street !== undefined &&
+        bAddress_zipcode !== undefined
+      ) {
+        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
+          setLoading(false);
+          setError("생년월일 형식을 지켜서 작성해주세요");
+        } else {
+          setError("");
+          await server.post(`/signup`, {
+            name: name,
+            email,
+            provider,
+            gender: setGender(gender),
+            dob: dob,
+            recruitor: {
+              bName: bName,
+              bAddress: {
+                city: bAddress_city,
+                street: bAddress_street,
+                zipcode: bAddress_zipcode,
+              },
+              bEmail: bEmail,
+              phoneNum: phoneNum,
+              jobTitle: jobTitle,
+            },
+          }).then(async res => {
+            if(res.status === 201){
+              localStorage.setItem("accessToken", res.data.data.accessToken);
+              localStorage.setItem("id", res.data.data.id);
+              console.log("로그인에 성공하였습니다!");
+
+              await server //로그인한 유저의 정보를 state에 저장
+              .get(`/user/${localStorage.getItem("id")}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  dispatch(getUserInfo(res.data.data.userInfo));
+                  alert("회원가입에 성공하였습니다!");
+                }
+              })
+              .catch((err) => {
+                setLoading(false);
+                throw err;
+              });
+              setLoading(false);
+              modalSocialClose();
+            }
+          });
         }
       } else {
         setLoading(false);
@@ -215,12 +203,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   return (
     <>
       <center>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div id="modal-background" onClick={() => handleClickClose()}>
-            <div
-              id="modal-container"
-              onClick={(event) => event.stopPropagation()}
-            >
+      <div id="modal-background" onClick={modalSocialClose}>
+      </div>
+      <form onSubmit={(e) => e.preventDefault()}>
+            <div id="modal-container">
               <div id="modal-header"></div>
               <div id="modal-section">
                 <div className="modal-title">
@@ -228,7 +214,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                     <div>Sign Up </div>
                     <CloseOutlined
                       className="closeBtn"
-                      onClick={handleClickClose}
+                      onClick={modalSocialClose}
                     />
                   </div>
                 </div>
@@ -253,26 +239,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
 
                 {role === "배우" ? (
                   <>
-                    <div className="modal-group-signup">
-                      <div className="importEffect">*</div>
-                      <div>
-                        <input
-                          type="email"
-                          placeholder="이메일"
-                          onChange={handleInputActorValue("email")}
-                        />
-                      </div>
-                    </div>
-                    <div className="modal-group-signup">
-                      <div className="importEffect">*</div>
-                      <div>
-                        <input
-                          type="password"
-                          placeholder="비밀번호"
-                          onChange={handleInputActorValue("password")}
-                        />
-                      </div>
-                    </div>
                     <div className="modal-group-signup">
                       <div className="importEffect">*</div>
                       <div>
@@ -331,42 +297,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         </div>
                       </div>
                     </button>
-                    <div className="signUpbtnPosition2">
-                      <div className="movetoSignUp">
-                        {" "}
-                        아직 계정이 없으십니까?
-                      </div>
-                      <div
-                        className="movetoSignUpBtn"
-                        onClick={() => handleClickSignin(true)}
-                      >
-                        로그인 하러 하기
-                      </div>
-                    </div>
                   </>
                 ) : (
                   <>
                     <div className="moreInfo">
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                            type="email"
-                            placeholder="이메일"
-                            onChange={handleInputRecruitorValue("email")}
-                          />
-                        </div>
-                      </div>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                            type="password"
-                            placeholder="비밀번호"
-                            onChange={handleInputRecruitorValue("password")}
-                          />
-                        </div>
-                      </div>
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
                         <div>
@@ -393,7 +327,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                             type="text"
                             placeholder="회사명"
-                            onChange={handleInputRecruitorValue("bName")}
+                            onChange={handleInputRecruitorValue("name")}
                           />
                         </div>
                       </div>
@@ -406,7 +340,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                               type="text"
                               placeholder="시/도"
                               onChange={handleInputRecruitorValue(
-                                "bAddress_city"
+                                "address-city"
                               )}
                             />
                           </div>
@@ -437,7 +371,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                             type="email"
                             placeholder="회사 이메일"
-                            onChange={handleInputRecruitorValue("bEmail")}
+                            onChange={handleInputRecruitorValue("email")}
                           />
                         </div>
                       </div>
@@ -446,9 +380,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         <div className="importEffect">&nbsp;&nbsp;</div>
                         <div>
                           <input
-                            type="tel"
+                            type="email"
                             placeholder="회사 전화번호"
-                            onChange={handleInputRecruitorValue("phoneNum")}
+                            onChange={handleInputRecruitorValue("phoneNumber")}
                           />
                         </div>
                       </div>
@@ -457,7 +391,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         <div className="importEffect">&nbsp;&nbsp;</div>
                         <div>
                           <input
-                            type="text"
+                            type="email"
                             placeholder="직책"
                             onChange={handleInputRecruitorValue("jobTitle")}
                           />
@@ -490,27 +424,13 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         </div>
                       </button>
                     </div>
-
-                    <div className="signUpbtnPosition3">
-                      <div className="movetoSignUp">
-                        {" "}
-                        이미 계정이 있으십니까?
-                      </div>
-                      <div
-                        className="movetoSignUpBtn"
-                        onClick={() => handleClickSignin(true)}
-                      >
-                        로그인 하러 하기
-                      </div>
-                    </div>
                   </>
                 )}
               </div>
             </div>
-          </div>
         </form>
       </center>
     </>
   );
 };
-export default Signup;
+export default SocialSignup;

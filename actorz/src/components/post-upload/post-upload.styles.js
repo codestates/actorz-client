@@ -9,7 +9,7 @@ export const FileUploadContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 300px;
+  height: auto;
   background-color: white;
 `;
 
@@ -139,6 +139,7 @@ export const FilePreviewContainer = styled.article`
 export const PreviewList = styled.section`
   width: 550px;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-top: 30px;
   margin-left: 100px;
@@ -212,12 +213,6 @@ export const PreviewContainer = styled.section`
 `;
 
 export const ImagePreview = styled.img`
-  border-radius: 6px;
-  width: 100%;
-  height: 100%;
-`;
-
-export const VideoPreview = styled.video`
   border-radius: 6px;
   width: 100%;
   height: 100%;

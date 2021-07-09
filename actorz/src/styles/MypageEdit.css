@@ -48,6 +48,12 @@
 }
 */
 
+/* div{
+  overflow: hidden;
+  word-wrap: ellipsis;
+} */
+
+
 .highlightDisplay {
   border-bottom: 1px solid #e0e0e0;
   background-color: lightyellow;
@@ -62,8 +68,8 @@ li {
 }
 
 .career {
-  font-size: 40px;
-  margin-top: 10px;
+  font-size: 2.5rem;
+  margin-top: 0.6rem;
 }
 /*
 .career-btn {
@@ -73,21 +79,55 @@ li {
 }
 */
 
-.careerButton {
+.profileTitleName {
+  /* flex: left; */
+  font-size: 1.3rem;
+  margin-top: 0.5rem;
+  font-family: Lato;
+  margin-left: 1rem;
+}
+
+.profileButtonAll{
+  /* float: right; 
+  display:inline-block; */
+}
+
+.careerTitle2 {
+  font-family: Lato;
+  margin-left: 1rem;
+  font-size: 1.3rem;
+}
+
+.displayPosition {
+  margin-bottom: 3rem;
+}
+
+.profileButton {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.5rem;
 
 }
 
+.iconTitle {
+  align-self: flex-end;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
 
 .careerButtonPosition {
   flex: 1;
-  text-align: right;
+  text-align: right; 
   align-self: flex-end;
-  margin-bottom: 0.3rem
+  margin-bottom: 0.3rem;
+  z-index: 1;
 }
 
+.career-box {
+}
 
 .career-box li {
-  padding: 10px;
+  padding: 0.5rem;
   /*
   font-family: "Nanum Gothic", sans-serif;
   font-size: 20px;
@@ -99,7 +139,16 @@ li {
   height: 130px;
   width: 800px;
   */
+  margin-bottom: 1rem;
   border: 1px solid lightgray;
+}
+
+.deleteButton {
+  margin-left: 0.5rem;
+}
+
+.passwordModifyBtn {
+  width: 7.78rem;
 }
 
 .career-delete-btn {
@@ -109,14 +158,12 @@ li {
   text-align: right;
   align-self: flex-end;
   margin-bottom: 0.5rem;
+
   /* border: 0px; */
   /* background-color: white; */
 }
 
 .tag {
-  /*
-  margin-top: 0.3rem;
-  */
   display: flex;
   height: 1.5rem;
 }
@@ -126,7 +173,7 @@ li {
 }
 
 .career-title {
-  margin-right: 0.5rem;
+
 }
 
 .career-year {
@@ -142,7 +189,17 @@ li {
 }
 
 .career-tag {
+  
   margin-right: 0.5rem;
+}
+
+.career-tag2 {
+  margin-top: 0.3rem;
+  margin-right: 0.5rem;
+}
+
+.radioButton {
+  color: red;
 }
 
 .genre-tag {
@@ -155,5 +212,60 @@ li {
 
 .careerDivide {
   display: flex;
+  justify-content: space-between;
   height: 1.5rem;
 }
+
+.careerDivide2 {
+  display: flex;
+  height: 2.5rem;
+}
+
+.blockhereplz {
+  flex: 20;
+}
+
+.nameTitle {
+  font-size: 2rem;  
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.password {
+  margin-bottom: 0.5rem;
+}
+
+.passwordCheck {
+  margin-bottom: 0.5rem;
+}
+
+/* input password */
+
+/*
+@font-face {
+  font-family: 'pass';
+  font-style: normal;
+  font-weight: 400;
+  src: url(data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAAATsAA8AAAAAB2QAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAABWAAAABwAAAAcg9+z70dERUYAAAF0AAAAHAAAAB4AJwANT1MvMgAAAZAAAAA/AAAAYH7AkBhjbWFwAAAB0AAAAFkAAAFqZowMx2N2dCAAAAIsAAAABAAAAAQAIgKIZ2FzcAAAAjAAAAAIAAAACAAAABBnbHlmAAACOAAAALkAAAE0MwNYJ2hlYWQAAAL0AAAAMAAAADYPA2KgaGhlYQAAAyQAAAAeAAAAJAU+ATJobXR4AAADRAAAABwAAAAcCPoA6mxvY2EAAANgAAAAEAAAABAA5gFMbWF4cAAAA3AAAAAaAAAAIAAKAE9uYW1lAAADjAAAARYAAAIgB4hZ03Bvc3QAAASkAAAAPgAAAE5Ojr8ld2ViZgAABOQAAAAGAAAABuK7WtIAAAABAAAAANXulPUAAAAA1viLwQAAAADW+JM4eNpjYGRgYOABYjEgZmJgBEI2IGYB8xgAA+AANXjaY2BifMg4gYGVgYVBAwOeYEAFjMgcp8yiFAYHBl7VP8wx/94wpDDHMIoo2DP8B8kx2TLHACkFBkYA8/IL3QB42mNgYGBmgGAZBkYGEEgB8hjBfBYGDyDNx8DBwMTABmTxMigoKKmeV/3z/z9YJTKf8f/X/4/vP7pldosLag4SYATqhgkyMgEJJnQFECcMOGChndEAfOwRuAAAAAAiAogAAQAB//8AD3jaY2BiUGJgYDRiWsXAzMDOoLeRkUHfZhM7C8Nbo41srHdsNjEzAZkMG5lBwqwg4U3sbIx/bDYxgsSNBRUF1Y0FlZUYBd6dOcO06m+YElMa0DiGJIZUxjuM9xjkGRhU2djZlJXU1UDQ1MTcDASNjcTFQFBUBGjYEkkVMJCU4gcCKRTeHCk+fn4+KSllsJiUJEhMUgrMUQbZk8bgz/iA8SRR9qzAY087FjEYD2QPDDAzMFgyAwC39TCRAAAAeNpjYGRgYADid/fqneL5bb4yyLMwgMC1H90HIfRkCxDN+IBpFZDiYGAC8QBbSwuceNpjYGRgYI7594aBgcmOAQgYHzAwMqACdgBbWQN0AAABdgAiAAAAAAAAAAABFAAAAj4AYgI+AGYB9AAAAAAAKgAqACoAKgBeAJIAmnjaY2BkYGBgZ1BgYGIAAUYGBNADEQAFQQBaAAB42o2PwUrDQBCGvzVV9GAQDx485exBY1CU3PQgVgIFI9prlVqDwcZNC/oSPoKP4HNUfQLfxYN/NytCe5GwO9/88+/MBAh5I8C0VoAtnYYNa8oaXpAn9RxIP/XcIqLreZENnjwvyfPieVVdXj2H7DHxPJH/2/M7sVn3/MGyOfb8SWjOGv4K2DRdctpkmtqhos+D6ISh4kiUUXDj1Fr3Bc/Oc0vPqec6A8aUyu1cdTaPZvyXyqz6Fm5axC7bxHOv/r/dnbSRXCk7+mpVrOqVtFqdp3NKxaHUgeod9cm40rtrzfrt2OyQa8fppCO9tk7d1x0rpiQcuDuRkjjtkHt16ctbuf/radZY52/PnEcphXpZOcofiEZNcQAAeNpjYGIAg///GBgZsAF2BgZGJkZmBmaGdkYWRla29JzKggxD9tK8TAMDAxc2D0MLU2NjENfI1M0ZACUXCrsAAAABWtLiugAA) format('woff');
+}
+
+.input.password {
+  font-family: 'pass', 'Roboto', Helvetica, Arial, sans-serif ;
+  font-size: 18px;
+
+  &::-webkit-input-placeholder {
+    transform: scale(0.77);
+    transform-origin: 0 50%;
+  }
+
+  &::-moz-placeholder {
+    font-size: 14px;
+    opacity: 1;
+  }
+
+  &:-ms-input-placeholder {
+  font-size: 14px;
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+}
+
+*/

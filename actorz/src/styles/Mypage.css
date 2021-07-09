@@ -9,8 +9,8 @@ html {
 
 .name {
   /*font: italic 1.2em "Fira Sans", serif;*/
-  font-size: 25px;
-  margin-bottom: 10px;
+  font-size: 1.5rem;
+  margin-bottom: 0.6rem;
 }
 
 ul {
@@ -36,7 +36,7 @@ li {
 }
 
 .careerContent {
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   /*text-align: left;*/
   /*background-color: yellow;*/  /* TEST  */
 }
@@ -53,12 +53,15 @@ li {
   width: 15rem;
   height: 20rem;*/
   /*background-color: yellow;*/
+  margin-top: 2rem;
 }
 
 .testPic {
   width: 15rem;
-  height: 20rem;
+  height: 15rem;
   /* flex: 1; */
+  border-radius: 70%;
+  margin-bottom: 0.5rem;
   object-fit: cover;
 }
 
@@ -67,7 +70,10 @@ li {
 }
 
 .fixedContent {
-  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 2rem;
   /*max-width:100%;*/
   flex: 1;
   height: 20rem;
@@ -77,9 +83,15 @@ li {
 .displayPosition {
   display: flex;
   /*flex-direction: column;*/
-  /*text-align: center;*/
+  text-align: center;
   flex-wrap: wrap;
   align-content: flex-start;
+}
+
+.career-li {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 /*
@@ -95,15 +107,17 @@ li {
 
 /* * Button */
 .buttonHeader {
-  color: gray;
+  display: flex;
+  justify-content: space-between;
+
   font-size: 2rem;
-  text-align: right;
-  margin-top: 0.2rem;
-  margin-right: 1rem;
+  /* padding: 0.5rem; */
+  border-bottom: 1px solid lightgray;
 }
 
 .editButton {
-  padding:3px;
+  color: gray;
+  padding: 0.18rem;
   border: 1px solid lightgray;
 }
 
@@ -113,11 +127,16 @@ li {
 }
 
 .deleteButton {
-  padding:3px;
+  color: gray;
+  padding: 0.18rem;
   border: 1px solid lightgray;
 }
 
 .deleteButton:hover {
   color: red;
   border: 1px solid red;
+}
+
+.nothing2 {
+  width: 3rem;
 }
