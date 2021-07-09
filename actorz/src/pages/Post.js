@@ -26,6 +26,7 @@ const Post = ({ handleClickPost }) => {
       await server
         .get(`/post/${url}`)
         .then((res) => {
+          console.log(res);
           setPostinfo(res.data.data.post);
           setIsLoading(true);
         })
@@ -53,6 +54,7 @@ const Post = ({ handleClickPost }) => {
       })
       .then((res) => {
         if (res.status === 200) {
+          console.log("aaa");
           window.location = "/mainpage";
         }
       })

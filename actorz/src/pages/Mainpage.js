@@ -8,6 +8,7 @@ import { getAllPostInfo } from "../actions/postAction";
 import server from "../apis/server";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
+import Search from "../components/Search";
 import "antd/dist/antd.css";
 import "../mainpage.css";
 import { HeartOutlined } from "@ant-design/icons";
@@ -18,6 +19,7 @@ const Mainpage = () => {
   const [clickupload, setClickUpload] = useState(false);
   const [clickModal, setClickModal] = useState(false);
   const [isloading, setIsLoading] = useState(false);
+  const [isFilter, setIsFilter] = useState(false);
 
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
@@ -75,14 +77,18 @@ const Mainpage = () => {
     setIsLoading(!boolean);
   };
 
-  console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
+  const handleClickFiltering = () => {
+    setIsFilter(!isFilter);
+  };
+
+  //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
       <div className="blockhere"> </div>
 
       <div className="mainPage">
-        <Nav loading={loading} />
+        <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
         <Iconlist />
 
         <div className="newblockPosition"> </div>
@@ -152,7 +158,7 @@ const Mainpage = () => {
         <div className="newblockPosition2"> </div>
 
         <div className="rightSpace">
-          <div className="iconList2"> </div>
+          <div className="iconList2">{isFilter ? <Search /> : null}</div>
         </div>
       </div>
       <Footer />
