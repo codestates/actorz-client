@@ -146,7 +146,7 @@ const Mainpage = () => {
                   );
                 })
               : null}
-            {clickModal ? <Post /> : null}
+            {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
           </div>
         </div>
         <div className="newblockPosition2"> </div>
