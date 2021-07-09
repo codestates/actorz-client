@@ -1,13 +1,24 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { CloseOutlined } from "@ant-design/icons";
+
 import server from "../apis/server";
+import Loading from "../components/loading";
+import { getUserInfo } from "../actions/userAction";
+
 import "../styles/SignupModal.css";
 
-const SocialSignup = ({ email, provider }) => {
-  console.log(email)
+const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
+  
+  console.log(oauthSignup)
+  const [provider, email] = oauthSignup.split("=");
   const [actorSignup, setActorSignup] = useState({});
   const [recruitorSignup, setRecruitorSignup] = useState({});
   const [err, setError] = useState("");
   const [role, setRole] = useState("배우");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
 
   const handleInputActorValue = (key) => (event) => {
     setActorSignup({ ...actorSignup, [key]: event.target.value });
@@ -36,6 +47,7 @@ const SocialSignup = ({ email, provider }) => {
   };
 
   const handleClickActorSignupBtn = async () => {
+    setLoading(true);
     const { name, dob, company, gender } = actorSignup;
     try {
       if (
@@ -43,30 +55,52 @@ const SocialSignup = ({ email, provider }) => {
         dob !== undefined
       ) {
         if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
+          setLoading(false);
           setError("생년월일 형식을 지켜서 작성해주세요");
         } else {
           setError("");
           await server
-            .post(`/signup`, {
-              provider,
-              email,
-              name: name,
-              company: company,
-              gender: setGender(gender),
-              dob: dob,
-              role: setrole(role),
-            })
-            .then((res) => {
-              if (res.status === 201) {
-                console.log("회원가입 성공");
-                window.location.href = "https://localhost:3000";
-              }
-            });
+          .post(`/signup`, {
+            email,
+            provider,
+            name: name,
+            company: company,
+            gender: setGender(gender),
+            dob: dob,
+            role: setrole(role),
+          }).then(async res => {
+            if(res.status === 201){
+              localStorage.setItem("accessToken", res.data.data.accessToken);
+              localStorage.setItem("id", res.data.data.id);
+              console.log("로그인에 성공하였습니다!");
+
+              await server //로그인한 유저의 정보를 state에 저장
+              .get(`/user/${localStorage.getItem("id")}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  dispatch(getUserInfo(res.data.data.userInfo));
+                  alert("회원가입에 성공하였습니다!");
+                }
+              })
+              .catch((err) => {
+                setLoading(false);
+                throw err;
+              });
+              setLoading(false);
+              modalSocialClose();
+            }
+          });
         }
       } else {
+        setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch (err) {
+      setLoading(false);
       if (err.message === "Request failed with status code 409") {
         alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
       } else {
@@ -76,6 +110,7 @@ const SocialSignup = ({ email, provider }) => {
   };
 
   const handleClickRecruitorSignupBtn = async () => {
+    setLoading(true);
     const {
       name,
       dob,
@@ -99,6 +134,7 @@ const SocialSignup = ({ email, provider }) => {
         bAddress_zipcode !== undefined
       ) {
         if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
+          setLoading(false);
           setError("생년월일 형식을 지켜서 작성해주세요");
         } else {
           setError("");
@@ -119,17 +155,39 @@ const SocialSignup = ({ email, provider }) => {
               phoneNum: phoneNum,
               jobTitle: jobTitle,
             },
-          }).then((res) => {
-            if (res.status === 201) {
-              console.log("회원가입 성공");
-              window.location.href = "https://localhost:3000";
+          }).then(async res => {
+            if(res.status === 201){
+              localStorage.setItem("accessToken", res.data.data.accessToken);
+              localStorage.setItem("id", res.data.data.id);
+              console.log("로그인에 성공하였습니다!");
+
+              await server //로그인한 유저의 정보를 state에 저장
+              .get(`/user/${localStorage.getItem("id")}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  dispatch(getUserInfo(res.data.data.userInfo));
+                  alert("회원가입에 성공하였습니다!");
+                }
+              })
+              .catch((err) => {
+                setLoading(false);
+                throw err;
+              });
+              setLoading(false);
+              modalSocialClose();
             }
           });
         }
       } else {
+        setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch {
+      setLoading(false);
       alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
   };
@@ -145,14 +203,19 @@ const SocialSignup = ({ email, provider }) => {
   return (
     <>
       <center>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div id="modal-background">
+      <div id="modal-background" onClick={modalSocialClose}>
+      </div>
+      <form onSubmit={(e) => e.preventDefault()}>
             <div id="modal-container">
               <div id="modal-header"></div>
               <div id="modal-section">
                 <div className="modal-title">
                   <div className="title">
                     <div>Sign Up </div>
+                    <CloseOutlined
+                      className="closeBtn"
+                      onClick={modalSocialClose}
+                    />
                   </div>
                 </div>
                 <div className="modal-welcome-message">Welcome to Actorz</div>
@@ -227,16 +290,13 @@ const SocialSignup = ({ email, provider }) => {
                       type="submit"
                       onClick={handleClickActorSignupBtn}
                     >
-                      회원가입
-                    </button>
-                    <div className="signUpbtnPosition2">
-                      <div
-                        className="movetoSignUpBtn"
-                        onClick={() => {window.location.href = "https://localhost:3000"}}
-                      >
-                        홈페이지로 돌아가기
+                      <div className="settingBtn">
+                        회원가입
+                        <div className="loading">
+                          {loading ? <Loading /> : ""}
+                        </div>
                       </div>
-                    </div>
+                    </button>
                   </>
                 ) : (
                   <>
@@ -356,23 +416,18 @@ const SocialSignup = ({ email, provider }) => {
                         type="submit"
                         onClick={handleClickRecruitorSignupBtn}
                       >
-                        회원가입
+                        <div className="settingBtn">
+                          회원가입
+                          <div className="loading">
+                            {loading ? <Loading /> : ""}
+                          </div>
+                        </div>
                       </button>
-                    </div>
-
-                    <div className="signUpbtnPosition3">
-                      <div
-                        className="movetoSignUpBtn"
-                        onClick={() => {window.location.href = "https://localhost:3000"}}
-                      >
-                        홈페이지로 돌아가기
-                      </div>
                     </div>
                   </>
                 )}
               </div>
             </div>
-          </div>
         </form>
       </center>
     </>

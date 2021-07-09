@@ -1,13 +1,21 @@
 import React, { useState } from "react";
-import server from "../apis/server";
-import "../styles/SignupModal.css";
+import { useDispatch } from "react-redux";
 import { CloseOutlined } from "@ant-design/icons";
+
+import server from "../apis/server";
+import Loading from "../components/loading";
+import { getUserInfo } from "../actions/userAction";
+
+import "../styles/SignupModal.css";
+
 
 const Signup = ({ handleClickSignup, handleClickSignin }) => {
   const [actorSignup, setActorSignup] = useState({});
   const [recruitorSignup, setRecruitorSignup] = useState({});
   const [err, setError] = useState("");
   const [role, setRole] = useState("배우");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const handleClickClose = () => {
     handleClickSignup(false);
@@ -40,6 +48,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   };
 
   const handleClickActorSignupBtn = async () => {
+    setLoading(true);
     const { email, password, name, dob, company, gender } = actorSignup;
     try {
       if (
@@ -49,30 +58,54 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         dob !== undefined
       ) {
         if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
+          setLoading(false);
           setError("생년월일 형식을 지켜서 작성해주세요");
         } else {
           setError("");
           await server
-            .post(`signup`, {
-              provider: "local",
-              email: email,
-              password: password,
-              name: name,
-              company: company,
-              gender: setGender(gender),
-              dob: dob,
-              role: setrole(role),
-            })
-            .then((res) => {
-              if (res.status === 201) {
-                console.log("회원가입 성공");
-              }
-            });
+          .post(`/signup`, {
+            provider: "local",
+            email: email,
+            password: password,
+            name: name,
+            company: company,
+            gender: setGender(gender),
+            dob: dob,
+            role: setrole(role),
+          })
+          .then(async res => {
+            if(res.status === 201){
+              localStorage.setItem("accessToken", res.data.data.accessToken);
+              localStorage.setItem("id", res.data.data.id);
+              console.log("로그인에 성공하였습니다!");
+
+              await server //로그인한 유저의 정보를 state에 저장
+              .get(`/user/${localStorage.getItem("id")}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  dispatch(getUserInfo(res.data.data.userInfo));
+                  alert("회원가입에 성공하였습니다!");
+                }
+              })
+              .catch((err) => {
+                setLoading(false);
+                throw err;
+              });
+              setLoading(false);
+              handleClickClose();
+            }
+          });
         }
       } else {
+        setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch (err) {
+      setLoading(false);
       if (err.message === "Request failed with status code 409") {
         alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
       } else {
@@ -82,6 +115,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   };
 
   const handleClickRecruitorSignupBtn = async () => {
+    setLoading(true);
     const {
       email,
       password,
@@ -109,10 +143,11 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         bAddress_zipcode !== undefined
       ) {
         if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
+          setLoading(false);
           setError("생년월일 형식을 지켜서 작성해주세요");
         } else {
           setError("");
-          await server.post(`signup`, {
+          await server.post(`/signup`, {
             email: email,
             password: password,
             name: name,
@@ -130,12 +165,41 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               phoneNum: phoneNum,
               jobTitle: jobTitle,
             },
-          });
+            role: setrole(role),
+          }).then(async res => {
+            if(res.status === 201){
+              localStorage.setItem("accessToken", res.data.data.accessToken);
+              localStorage.setItem("id", res.data.data.id);
+              console.log("로그인에 성공하였습니다!");
+
+              await server //로그인한 유저의 정보를 state에 저장
+              .get(`/user/${localStorage.getItem("id")}`, {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                },
+              })
+              .then((res) => {
+                if (res.status === 200) {
+                  dispatch(getUserInfo(res.data.data.userInfo));
+                  alert("회원가입에 성공하였습니다!");
+                }
+              })
+              .catch((err) => {
+                setLoading(false);
+                throw err;
+              });
+              
+              setLoading(false);
+              handleClickClose();
+            }
+          })
         }
       } else {
+        setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch {
+      setLoading(false);
       alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
   };
@@ -260,7 +324,12 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       type="submit"
                       onClick={handleClickActorSignupBtn}
                     >
-                      회원가입
+                      <div className="settingBtn">
+                        회원가입
+                        <div className="loading">
+                          {loading ? <Loading /> : ""}
+                        </div>
+                      </div>
                     </button>
                     <div className="signUpbtnPosition2">
                       <div className="movetoSignUp">
@@ -324,7 +393,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                             type="text"
                             placeholder="회사명"
-                            onChange={handleInputRecruitorValue("name")}
+                            onChange={handleInputRecruitorValue("bName")}
                           />
                         </div>
                       </div>
@@ -337,7 +406,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                               type="text"
                               placeholder="시/도"
                               onChange={handleInputRecruitorValue(
-                                "address-city"
+                                "bAddress_city"
                               )}
                             />
                           </div>
@@ -368,7 +437,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           <input
                             type="email"
                             placeholder="회사 이메일"
-                            onChange={handleInputRecruitorValue("email")}
+                            onChange={handleInputRecruitorValue("bEmail")}
                           />
                         </div>
                       </div>
@@ -377,9 +446,9 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         <div className="importEffect">&nbsp;&nbsp;</div>
                         <div>
                           <input
-                            type="email"
+                            type="tel"
                             placeholder="회사 전화번호"
-                            onChange={handleInputRecruitorValue("phoneNumber")}
+                            onChange={handleInputRecruitorValue("phoneNum")}
                           />
                         </div>
                       </div>
@@ -388,7 +457,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         <div className="importEffect">&nbsp;&nbsp;</div>
                         <div>
                           <input
-                            type="email"
+                            type="text"
                             placeholder="직책"
                             onChange={handleInputRecruitorValue("jobTitle")}
                           />
@@ -413,7 +482,12 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         type="submit"
                         onClick={handleClickRecruitorSignupBtn}
                       >
-                        회원가입
+                        <div className="settingBtn">
+                          회원가입
+                          <div className="loading">
+                            {loading ? <Loading /> : ""}
+                          </div>
+                        </div>
                       </button>
                     </div>
 

@@ -105,7 +105,7 @@ button.btn-login.login {
   margin-bottom: 0.5rem; */
 }
 
-.kakao-logo {
+.oauth-logo {
   width: 1rem;
   height: 1rem;
   float: left;
@@ -180,7 +180,7 @@ input {
 }
 
 .settingBtn {
- 
+  
 }
 
 .loginBtnPosition {

@@ -9,10 +9,10 @@ const Footer = () => {
         <div className="footerUser1">
           <ToolOutlined className="footerIcon" />
           <span className="footerName">김선들</span>
-          <a href='https://github.com/SundeulDonaKim' target='_blank' className="alinkEffect2">
+          <a href="https://github.com/SundeulDonaKim" rel="noreferrer" target="_blank" className="alinkEffect2">
             <GithubOutlined className="footerIcon" />
           </a>
-          <a href='https://velog.io/@dandelion' target='_blank' className="alinkEffect2">
+          <a href="https://velog.io/@dandelion" rel="noreferrer" target="_blank" className="alinkEffect2">
             <FormOutlined className="footerIcon" />
           </a>
           
@@ -21,20 +21,20 @@ const Footer = () => {
 
         <div className="footerUser2">
           <span className="footerName">이한빈</span>
-          <a href='https://github.com/lhb7021' target='_blank' className="alinkEffect2">
+          <a href="https://github.com/lhb7021" rel="noreferrer" target="_blank" className="alinkEffect2">
             <GithubOutlined className="footerIcon" />
           </a>
-          <a href='https://velog.io/@lhb7021' target='_blank' className="alinkEffect2">
+          <a href="https://velog.io/@lhb7021" rel="noreferrer" target="_blank" className="alinkEffect2">
             <FormOutlined className="footerIcon" />
           </a>
         </div>
 
         <div className="footerUser3">
           <span className="footerName">유지원</span>
-          <a href='https://github.com/jiweon21' target='_blank' className="alinkEffect2">
+          <a href="https://github.com/jiweon21" rel="noreferrer" target="_blank" className="alinkEffect2">
             <GithubOutlined className="footerIcon" />
           </a>
-          <a href='https://velog.io/@jiwon22' target='_blank' className="alinkEffect2">
+          <a href="https://velog.io/@jiwon22" rel="noreferrer" target="_blank" className="alinkEffect2">
             <FormOutlined className="footerIcon" />
           </a>
           {/* <YoutubeOutlined className="footerIcon" /> */}
@@ -42,10 +42,10 @@ const Footer = () => {
 
         <div className="footerUser4">
           <span className="footerName">임현택</span>
-          <a href='https://github.com/Captainjack-kor' target='_blank' className="alinkEffect2">
+          <a href="https://github.com/Captainjack-kor" rel="noreferrer" target="_blank" className="alinkEffect2">
             <GithubOutlined className="footerIcon" />
           </a>
-          <a href='https://velog.io/@iooi75' target='_blank' className="alinkEffect2">
+          <a href="https://velog.io/@iooi75" rel="noreferrer" target="_blank" className="alinkEffect2">
             <FormOutlined className="footerIcon" />
           </a>
         </div>

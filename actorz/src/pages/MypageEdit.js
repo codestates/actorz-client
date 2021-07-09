@@ -143,7 +143,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   const handleDeleteAccount = async () => {
     await server
-      .get(`/user/:user_id/delete`, {
+      .get(`/user/${localStorage.get("id")}/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },

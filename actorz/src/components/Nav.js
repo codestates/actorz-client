@@ -4,6 +4,7 @@ import Signin from "./Signin";
 import Signup from "./Signup";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
+
 import { Button } from "antd";
 import server from "../apis/server";
 import { persistor } from "../store/store";
@@ -73,6 +74,7 @@ const Nav = ({ handleClickFiltering }) => {
             <div>
               <Link to="/">
                 <img
+                  alt=""
                   src="https://media.vlpt.us/images/iooi75/post/f8c2abf6-7870-4347-b971-2a4b5a5ecdc5/Screen%20Shot%202021-06-28%20at%203.13.02%20PM.png"
                   className="headerLogo"
                 />
@@ -131,7 +133,6 @@ const Nav = ({ handleClickFiltering }) => {
               </div>
             )}
           </div>
-
           {clickSignin ? (
             <Signin
               handleClickSignin={handleClickSignin}
