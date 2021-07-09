@@ -27,6 +27,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [email, setEmail] = useState(user.data.userInfo.email);
   const [company, setCompany] = useState(user.data.userInfo.company);
   const [password, setPassword] = useState("");
+  //const [password, setPassword] = useState(user.data.userInfo.password);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
@@ -74,14 +75,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     if(checkCount >= 2) {
         checkCount=0;
         setIsModalVisible(false);
-        setPassword(pwd1);
+        //setPassword(password.password);
+        console.log('진짜 범인 검거: ' +password);
+        console.log(JSON.stringify(password));
+
         pwd1 = "";
         pwd2 = "";    
     }
   };
 
   const handleCancel = () => {
-    setPassword(user.data.userInfo.password);
+    //setPassword(password.password);
     setIsModalVisible(false);
   };
 
@@ -101,11 +105,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     }
   };
 
-  const handleInputpasswordValue = (key) => (event) => {
-    if (key === "password") {
-      setPassword({ [key]: event.target.value });
-    } 
-  }
+
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
       setDob(event.target.value);
@@ -119,11 +119,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       setYear({ [key]: event.target.value });
     } else if (key === "password") {
       setPassword({ [key]: event.target.value });
-    }
-    // else if (key === "passwordCheck") {
-    //   setYear({ [key]: event.target.value });
-    // }
+    } 
   };
+
+
+
+  
 
   /* const handleClickAddBtn = () => {
     setClickCareer([...clickCareer, "career"]);
@@ -160,62 +161,33 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
-
-    if(password === ""){
-      let newUserInfo = {
-        id: user.data.userInfo.id,
-        mainPic: user.data.userInfo.mainPic,
-        email: email,
-        name: user.data.userInfo.name,
-        company: company,
-        provider: user.data.userInfo.provider,
-        gender: user.data.userInfo.gender,
-        dob: dob,
-        careers: user.data.userInfo.careers,
-      };
-
-      dispatch(editUserInfo(newUserInfo));
-      await server
-        .post(`/user/:user_id/update`, newUserInfo, 
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          }
-        })
-        .then((res) => {  
-          alert('회원 정보가 변경되었습니다');
-        })
-        .catch((err) => {
-          throw err;
-        });
-    } else {
-      let newUserInfo = {
-        id: user.data.userInfo.id,
-        mainPic: user.data.userInfo.mainPic,
-        email: email,
-        name: user.data.userInfo.name,
-        company: company,
-        provider: user.data.userInfo.provider,
-        gender: user.data.userInfo.gender,
-        dob: dob,
-        careers: user.data.userInfo.careers,
-        password: password.password,
-      };
-      dispatch(editUserInfo(newUserInfo));
-      await server
-        .post(`/user/:user_id/update`, newUserInfo, 
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          }
-        })
-        .then((res) => {  
-          alert('회원 정보가 변경되었습니다');
-        })
-        .catch((err) => {
-          throw err;
-        });
-    }
+    let newUserInfo = {
+      id: user.data.userInfo.id,
+      mainPic: user.data.userInfo.mainPic,
+      email: email,
+      name: user.data.userInfo.name,
+      company: company,
+      provider: user.data.userInfo.provider,
+      gender: user.data.userInfo.gender,
+      dob: dob,
+      careers: user.data.userInfo.careers,
+      password: password.password,
+    };
+    dispatch(editUserInfo(newUserInfo));
+    await server
+      .post(`/user/:user_id/update`, newUserInfo, 
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        }
+      })
+      .then((res) => {  
+        console.log('비밀번호까지 변경이요.')
+        alert('회원 정보가 변경되었습니다');
+      })
+      .catch((err) => {
+        throw err;
+      });
   };
 
   const handleprofileButton = async (files) => {
@@ -266,21 +238,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     // }
 
   }
-
-
-
-  //   var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
-  //   if (
-  //     fileExt === "img" ||
-  //     fileExt === "jpg" ||
-  //     fileExt === "png" ||
-  //     fileExt === "jpeg"
-  //   ) {
-  //     setNewFile([...newfile, { path: result, type: "img" }]);
-  //   } else if (fileExt === "mp4") {
-  //     setNewFile([...newfile, { path: result, type: "video" }]);
-  //   }
-  // };
 
   const handleClickConfirmBtn = () => {
     document.getElementsByClassName("highlightDisplay")[1].value = "";
@@ -516,4 +473,5 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     </>
   );
 };
+
 export default MypageEdit;
