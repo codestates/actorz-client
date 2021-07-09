@@ -13,11 +13,18 @@ import "../mainpage.css";
 import { HeartOutlined } from "@ant-design/icons";
 import "semantic-ui-css/semantic.min.css";
 import { Card, Icon, Image } from "semantic-ui-react";
+import { redirectUri } from "../config";
+import SocialSignup from "../components/SocialSignup";
+import { getUserInfo } from "../actions/userAction";
+import Loading from "../components/loading";
+
 
 const Mainpage = () => {
   const [clickupload, setClickUpload] = useState(false);
   const [clickModal, setClickModal] = useState(false);
   const [isloading, setIsLoading] = useState(false);
+  const [oauthSignup, setOauthSignup] = useState("");
+  const [modalSocialSignup, setModalSocialSignup] = useState(false);
 
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
@@ -53,36 +60,108 @@ const Mainpage = () => {
     }
   };
 
-  const getPostLists = async () => {
-    try {
-      await server.get(`/post`).then((res) => {
-        if (res.status === 200) {
-          dispatch(getAllPostInfo(res.data.data));
-        }
-      });
-    } catch (err) {
-      alert(
-        "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다 \n 잠시 후 다시 이용해주세요"
-      );
-    }
-  };
+  useEffect(() => {
+    setIsLoading(true);
+    const getPostLists = async () => {
+      try {
+        await server.get(`/post`).then((res) => {
+          if (res.status === 200) {
+            dispatch(getAllPostInfo(res.data.data));
+            setIsLoading(false);
+          }
+        });
+      } catch (err) {
+        setIsLoading(false);
+        alert(
+          "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다 \n 잠시 후 다시 이용해주세요"
+        );
+      }
+    };
+    getPostLists();
+  }, [dispatch]);
 
   useEffect(() => {
-    getPostLists();
-  }, []);
+    setIsLoading(true);
+    const oauthLogin = async () => {
+      try{
+        const [ provider, code ] = oauthSignup.split("=");
+        if(!code.includes("@")){
+          await server.post(`/login/${provider}`, { code }).then( async res => {
+            if (res.status === 200) { //로그인 성공
+              localStorage.setItem("accessToken", res.data.data.accessToken);
+              localStorage.setItem("id", res.data.data.id);
+              console.log(res.data.data.accessToken);
+              await server //로그인한 유저의 정보를 state에 저장
+              .get(`/user/${localStorage.getItem("id")}`)
+              .then((res) => {
+                if (res.status === 200) {
+                  setModalSocialSignup(false);
+                  setIsLoading(false);
+                  dispatch(getUserInfo(res.data.data.userInfo));
+                }
+              })
+              .catch((err) => {
+                setIsLoading(false);
+                throw err;
+              });
+            } else if(res.status === 201) { //새로운 유저
+              setIsLoading(false);
+              setModalSocialSignup(true);
+              setOauthSignup(`${provider}=${res.data.data.email}`)
+            } else {
+              setIsLoading(false);
+              alert("소셜 로그인 중 오류가 발생했습니다.");
+              return;
+            }
+          });
+          setIsLoading(false);
+        }
+      }catch(err){
+        setIsLoading(false);
+        console.log(err);
+      }
+    }
 
-  const loading = (boolean) => {
-    setIsLoading(!boolean);
-  };
+    const parseQueryString = function() {
+      const str = window.location.search;
+      let objURL = {};
+  
+      str.replace(
+          new RegExp( "([^?=&]+)(=([^&]*))?", "g" ),
+          function( $0, $1, $2, $3 ){
+              objURL[ $1 ] = $3;
+          }
+      );
+      return objURL;
+    };
+
+    const getQuery = () => {
+      const query = parseQueryString();
+      if(query.code && !oauthSignup){
+        if(query.state){
+          query.provider = "naver";
+        }else if(query.scope){
+          query.provider = "google";
+        }
+        setOauthSignup(`${query.provider}=${query.code}`);
+      }else{
+        setIsLoading(false);
+      }
+    };
+    getQuery();
+    if(oauthSignup){
+      oauthLogin();
+    }
+  },[oauthSignup, dispatch])
 
   console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
       <div className="blockhere"> </div>
-
       <div className="mainPage">
-        <Nav loading={loading} />
+        
+        <Nav />
         <Iconlist />
 
         <div className="newblockPosition"> </div>
@@ -156,6 +235,11 @@ const Mainpage = () => {
         </div>
       </div>
       <Footer />
+      {
+        modalSocialSignup ? (
+          <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
+        ) : null
+      }
 
       {/* <div>
         {clickupload ? (

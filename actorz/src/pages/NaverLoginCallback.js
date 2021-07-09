@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from 'antd';
 import { ArrowDownOutlined} from '@ant-design/icons';
+import ScrollTrigger from '@terwanerik/scrolltrigger';
 
 import '../App.css'
 import 'antd/dist/antd.css';
@@ -11,8 +12,8 @@ import 'antd/dist/antd.css';
 import server from "../apis/server";
 import IntroNav from "../components/IntroNav";
 import SocialSignup from "../components/SocialSignup";
-import IntroFooter from "../components/IntroFooter"
-import ScrollTrigger from '@terwanerik/scrolltrigger';
+import IntroFooter from "../components/IntroFooter";
+import { redirectUri } from "../config";
 
 const trigger = new ScrollTrigger();
 
@@ -44,7 +45,7 @@ const LoginCallback = () => {
             throw err;
           });
 
-          window.location.href = process.env.REACT_APP_GOOGLE_REDIRECT_URI
+          window.location.href = redirectUri
         } else if(res.status === 201) { //새로운 유저
           setNewUser(true);
           setEmail(res.data.data.email);

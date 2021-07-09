@@ -142,7 +142,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   const handleDeleteAccount = async () => {
     await server
-      .get(`/user/:user_id/delete`, {
+      .get(`/user/${localStorage.get("id")}/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -176,7 +176,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
       dispatch(editUserInfo(newUserInfo));
       await server
-        .post(`/user/:user_id/update`, newUserInfo, 
+        .post(`/user/${localStorage.get("id")}/update`, newUserInfo, 
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -203,7 +203,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       };
       dispatch(editUserInfo(newUserInfo));
       await server
-        .post(`/user/:user_id/update`, newUserInfo, 
+        .post(`/user/${localStorage.get("id")}/update`, newUserInfo, 
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
