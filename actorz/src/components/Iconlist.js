@@ -105,6 +105,11 @@ const Iconlist = () => {
 
   };
 
+  const redirectPage = () => {
+    alert("로그인 후 이용 가능합니다.");
+    window.location = "/mainpage";
+  };
+
   return (
     <>
       <div className="leftSpace">
@@ -169,17 +174,21 @@ const Iconlist = () => {
       </div>
       <div>
         {clickupload ? (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <FileUpload
-                accept=".jpg,.png,.jpeg, .mp4"
-                multiple
-                updateFilesCb={updateUploadedFiles}
-                updateContentCb={updateUploadedContents}
-                handleClickUpload={handleClickUpload}
-              />
-            </form>
-          </div>
+          localStorage.getItem("accessToken") ? (
+            <div>
+              <form onSubmit={handleSubmit}>
+                <FileUpload
+                  accept=".jpg,.png,.jpeg, .mp4"
+                  multiple
+                  updateFilesCb={updateUploadedFiles}
+                  updateContentCb={updateUploadedContents}
+                  handleClickUpload={handleClickUpload}
+                />
+              </form>
+            </div> 
+          ) : (
+            redirectPage()
+          )
         ) : null}
       </div>
     </>

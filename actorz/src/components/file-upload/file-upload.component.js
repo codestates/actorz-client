@@ -93,8 +93,10 @@ const FileUpload = ({
 
   return (
     <>
-      <div id="upload-modal-background">
-        <div id="upload-modal-container">
+      <div id="upload-modal-background"
+        onClick={() => otherProps.handleClickUpload(false)} >
+        <div id="upload-modal-container"
+        onClick={(event) => event.stopPropagation()}>
           <FileUploadContainer>
             <InputLabel>
               포트폴리오에 올릴 사진 또는 동영상을 선택해주세요
