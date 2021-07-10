@@ -26,6 +26,7 @@ const Iconlist = () => {
     genre: ""
   })
   const [clickupload, setClickUpload] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClickUpload = (boolean) => {
     if (boolean) {
@@ -53,9 +54,15 @@ const Iconlist = () => {
     event.preventDefault();
     // login유무 확인
     if(!localStorage.getItem("accessToken")){
+      alert("로그인 후 이용 가능합니다");
       return redirectPage();
     }
-
+    if(!content.genre){
+      return alert("장르를 선택해 주세요");
+    }
+    
+    // loading 중...
+    setIsLoading(true);
     // {type, path}들을 담을 변수, media 선언
     const media = [];
     for(let el of newfile.profileImages){
@@ -109,8 +116,9 @@ const Iconlist = () => {
     await server.post("/post/create", bodyData, { headers })
     .then(() => {
       // 완료 후 등록완료 메세지 알림과 페이지 리디렉션
+      setIsLoading(false);
       alert("포스트가 등록되었습니다");
-      window.location = "/mainpage";
+      redirectPage();
     })
     .catch((err) => console.log(err));
 
@@ -118,7 +126,6 @@ const Iconlist = () => {
 
   // 미 로그인 이라면, 메인페이지로 이동
   const redirectPage = () => {
-    alert("로그인 후 이용 가능합니다.");
     window.location = "/mainpage";
   };
 
@@ -194,6 +201,7 @@ const Iconlist = () => {
                 updateFilesCb={updateUploadedFiles}
                 updateContentCb={updateUploadedContents}
                 handleClickUpload={handleClickUpload}
+                isLoading={isLoading}
               />
             </form>
           </div> 

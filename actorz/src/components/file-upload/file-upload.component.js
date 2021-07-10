@@ -14,9 +14,10 @@ import {
   InputLabel,
 } from "./file-upload.styles";
 import "../../styles/Postupload.css";
+import Loading from "../loading";
 
 const KILO_BYTES_PER_BYTE = 1000;
-const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 10000000;
+const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 50000000;
 
 const convertNestedObjectToArray = (nestedObj) =>
   Object.keys(nestedObj).map((key) => nestedObj[key]);
@@ -46,6 +47,8 @@ const FileUpload = ({
           return { file };
         }
         files[file.name] = file;
+      }else{
+        alert(`파일 하나당 ${maxFileSizeInBytes / 1000 / 1000}MB을 초과 할 수 없습니다`);
       }
     }
     return { ...files };
@@ -79,7 +82,7 @@ const FileUpload = ({
   };
 
   const handleOverFiles = () => {
-    alert("5이상 선택 할 수 없습니다");
+    alert("파일이 5개를 초과 할 수 없습니다");
     setFiles({});
   };
 
@@ -123,6 +126,7 @@ const FileUpload = ({
                   let file = files[fileName];
                   let isMediaFile = file.type.split("/")[0] === "image" || "video";
                   let isImageFile = file.type.split("/")[0] === "image";
+                  console.log(file)
                   return (
                     <PreviewContainer key={fileName}>
                       <div>
@@ -217,6 +221,7 @@ const FileUpload = ({
           <button type="submit" className="upload-btn">
             upload
           </button>
+          {otherProps.isLoading ? (<Loading />) : null}
         </div>
       </div>
     </>
