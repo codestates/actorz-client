@@ -88,10 +88,12 @@ const FileUpload = ({
 
   useEffect(() => {
     updateContentCb(desc, "content")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [desc]);
 
   useEffect(() => {
     updateContentCb(genre, "genre")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genre]);
 
   return (
@@ -126,7 +128,6 @@ const FileUpload = ({
                   let file = files[fileName];
                   let isMediaFile = file.type.split("/")[0] === "image" || "video";
                   let isImageFile = file.type.split("/")[0] === "image";
-                  console.log(file)
                   return (
                     <PreviewContainer key={fileName}>
                       <div>
