@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowDownOutlined, UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, YoutubeOutlined} from '@ant-design/icons';
+import { GithubOutlined, ToolOutlined, FormOutlined } from '@ant-design/icons';
 
 const IntroFooter = () => {
   return (

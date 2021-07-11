@@ -11,7 +11,7 @@ import "../styles/MypageEdit.css";
 import Iconlist from "../components/Iconlist";
 import Nav from "../components/Nav";
 import { CloseOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
-import Footer from "../components/Footer";
+//import Footer from "../components/Footer";
 import "antd/dist/antd.css";
 import { Button, Radio, Modal } from "antd";
 
@@ -31,7 +31,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
-  const [upload, setUpload] = useState({});
+  //const [upload, setUpload] = useState({});
 
   let s3Url = null;
   let result = null;
@@ -277,6 +277,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   return (
+    
     <>
       <div className="blockhere"> </div>
       <div className="mainPage">
@@ -494,7 +495,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           <div className="iconList2"> </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

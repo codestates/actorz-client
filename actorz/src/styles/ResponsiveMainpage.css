@@ -1,0 +1,9 @@
+.mainPageResponsive {
+  display: flex;
+  /* flex-direction: column; */
+  background-color: #fafafa;
+}
+
+.responsiveNewblockPosition {
+  width: 8%;
+}

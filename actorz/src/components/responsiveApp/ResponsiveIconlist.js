@@ -7,11 +7,12 @@ import {
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
-import FileUpload from "../components/file-upload/file-upload.component";
-import server from "../apis/server";
+import FileUpload from "../../components/file-upload/file-upload.component";
+import server from "../../apis/server";
 import axios from "axios";
+import "../../styles/ResponsiveIconlist.css";
 
-const Iconlist = () => {
+const ResponsiveIconlist = () => {
   const [newfile, setNewFile] = useState({
     profileImages: [],
   });
@@ -101,22 +102,19 @@ const Iconlist = () => {
 
   return (
     <>
-      <div className="leftSpace">
-        <div className="iconList">
+      <div className="responsiveLeftSpace">
+        <div className="responsiveIconList">
           <div className="spaceDirection">
-            <div className="homeButton">
-              <div className="homeButtonIcon">
+            <div className="responsiveHomeButton">
+              <div className="responsiveHomeButtonIcon">
                 <Link to="/mainpage" className="noEffect">
                   <HomeOutlined className="realIcon" />
                 </Link>
               </div>
-              <Link className="noEffect" to="/mainpage">
-                <div className="homeButtonText">Home</div>
-              </Link>
             </div>
 
-            <div className="homeButton">
-              <div className="homeButtonIcon">
+            <div className="responsiveHomeButton">
+              <div className="responsiveHomeButtonIcon">
                 <Link
                   className="noEffect"
                   onClick={() => handleClickUpload(true)}
@@ -125,37 +123,22 @@ const Iconlist = () => {
                   <FileAddOutlined className="realIcon" />
                 </Link>
               </div>
-              <Link className="noEffect">
-                <div
-                  className="homeButtonText"
-                  onClick={() => handleClickUpload(true)}
-                  to="/"
-                >
-                  Post
-                </div>
-              </Link>
             </div>
 
-            <div className="homeButton">
-              <div className="homeButtonIcon">
+            <div className="responsiveHomeButton">
+              <div className="responsiveHomeButtonIcon">
                 <Link className="noEffect" to="/mypage">
                   <UserOutlined className="realIcon" />
                 </Link>
               </div>
-              <Link className="noEffect" to="/mypage">
-                <div className="homeButtonText">Mypage</div>
-              </Link>
             </div>
 
-            <div className="homeButton">
-              <div className="homeButtonIcon">
+            <div className="responsiveHomeButton">
+              <div className="responsiveHomeButtonIcon">
                 <Link className="noEffect" to="/mainpage">
                   <HeartOutlined className="realIcon" />
                 </Link>
               </div>
-              <Link className="noEffect" to="/mainpage">
-                <div className="homeButtonText">Like</div>
-              </Link>
             </div>
             <div className="likeButton"></div>
           </div>
@@ -180,4 +163,4 @@ const Iconlist = () => {
   );
 };
 
-export default Iconlist;
+export default ResponsiveIconlist;
