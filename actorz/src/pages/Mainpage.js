@@ -95,14 +95,15 @@ const Mainpage = () => {
             if (res.status === 200) { //로그인 성공
               localStorage.setItem("accessToken", res.data.data.accessToken);
               localStorage.setItem("id", res.data.data.id);
-              console.log(res.data.data.accessToken);
+              // console.log(res.data.data.accessToken);
               await server //로그인한 유저의 정보를 state에 저장
               .get(`/user/${localStorage.getItem("id")}`)
               .then((res) => {
                 if (res.status === 200) {
                   setModalSocialSignup(false);
-                  setIsLoading(false);
+                  // setIsLoading(false);
                   dispatch(getUserInfo(res.data.data.userInfo));
+                  window.location.href = redirectUri;
                 }
               })
               .catch((err) => {
@@ -145,7 +146,7 @@ const Mainpage = () => {
       if(query.code && !oauthSignup){
         if(query.state){
           query.provider = "naver";
-        }else if(query.scope){
+        }else if(query.token){
           query.provider = "google";
         }
         setOauthSignup(`${query.provider}=${query.code}`);

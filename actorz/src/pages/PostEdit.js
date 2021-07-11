@@ -128,19 +128,20 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
             className="float-btn"
             onClick={(event) => event.stopPropagation()}
           >
-            <img src={profile} className="float-profile-btn"></img>
+            <img alt="" src={profile} className="float-profile-btn"></img>
             <div className="float-profile-title">프로필</div>
           </div>
           <div className="float-btn">
-            <img src={love} className="float-love-btn"></img>
+            <img alt="" src={love} className="float-love-btn"></img>
             <div className="float-love-title">좋아요</div>
           </div>
           <div className="float-btn">
-            <img src={email} className="float-email-btn"></img>
+            <img alt="" src={email} className="float-email-btn"></img>
             <div className="float-email-title">연락하기</div>
           </div>
           <div className="float-btn">
             <img
+              alt=""
               src={email}
               className="float-edit-btn"
               onClick={() => handleClickEditBtn(false)}
@@ -153,7 +154,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
           <div className="info">
             <div className="info-box">
               <div className="post-name">{postinfo.userInfo.name}</div>
-              <img src={heart} className="heart-img"></img>
+              <img alt="" src={heart} className="heart-img"></img>
               <span className="genre">|{postinfo.genre}</span>
               <span className="like">{postinfo.likes.length}</span>
               <button

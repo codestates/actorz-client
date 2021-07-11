@@ -5,12 +5,13 @@ import { CloseOutlined } from "@ant-design/icons";
 import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
+import { redirectUri } from "../config";
 
 import "../styles/SignupModal.css";
 
 const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
   
-  console.log(oauthSignup)
+  // console.log(oauthSignup)
   const [provider, email] = oauthSignup.split("=");
   const [actorSignup, setActorSignup] = useState({});
   const [recruitorSignup, setRecruitorSignup] = useState({});
@@ -84,6 +85,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                 if (res.status === 200) {
                   dispatch(getUserInfo(res.data.data.userInfo));
                   alert("회원가입에 성공하였습니다!");
+                  window.location.href = redirectUri;
                 }
               })
               .catch((err) => {
@@ -155,6 +157,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               phoneNum: phoneNum,
               jobTitle: jobTitle,
             },
+            role: setrole(role),
           }).then(async res => {
             if(res.status === 201){
               localStorage.setItem("accessToken", res.data.data.accessToken);
@@ -204,8 +207,10 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     <>
       <center>
       <div id="modal-background" onClick={modalSocialClose}>
-      </div>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form 
+      onSubmit={(e) => e.preventDefault()}
+      onClick={e => e.stopPropagation()}
+      >
             <div id="modal-container">
               <div id="modal-header"></div>
               <div id="modal-section">
@@ -327,7 +332,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="회사명"
-                            onChange={handleInputRecruitorValue("name")}
+                            onChange={handleInputRecruitorValue("bName")}
                           />
                         </div>
                       </div>
@@ -340,7 +345,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                               type="text"
                               placeholder="시/도"
                               onChange={handleInputRecruitorValue(
-                                "address-city"
+                                "bAddress_city"
                               )}
                             />
                           </div>
@@ -356,7 +361,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                         </div>
                         <div className="modal-group-signup3">
                           <input
-                            type="text"
+                            type="number"
                             placeholder="우편번호"
                             onChange={handleInputRecruitorValue(
                               "bAddress_zipcode"
@@ -371,7 +376,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="email"
                             placeholder="회사 이메일"
-                            onChange={handleInputRecruitorValue("email")}
+                            onChange={handleInputRecruitorValue("bEmail")}
                           />
                         </div>
                       </div>
@@ -380,7 +385,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                         <div className="importEffect">&nbsp;&nbsp;</div>
                         <div>
                           <input
-                            type="email"
+                            type="text"
                             placeholder="회사 전화번호"
                             onChange={handleInputRecruitorValue("phoneNumber")}
                           />
@@ -391,7 +396,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                         <div className="importEffect">&nbsp;&nbsp;</div>
                         <div>
                           <input
-                            type="email"
+                            type="text"
                             placeholder="직책"
                             onChange={handleInputRecruitorValue("jobTitle")}
                           />
@@ -429,6 +434,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               </div>
             </div>
         </form>
+      </div>
       </center>
     </>
   );
