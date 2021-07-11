@@ -291,9 +291,9 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       {err ? <div className="err-message">{err}</div> : null}
                     </div>
                     <button
-                      className="btn-login2"
+                      className="btn-login"
                       type="submit"
-                      onClick={handleClickActorSignupBtn}
+                      onClick={handleClickRecruitorSignupBtn}
                     >
                       <div className="settingBtn">
                         회원가입
