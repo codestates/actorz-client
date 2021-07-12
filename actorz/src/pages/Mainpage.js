@@ -5,31 +5,21 @@ import Nav from "../components/Nav";
 import Post from "./Post";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getAllPostInfo } from "../actions/postAction";
 import server from "../apis/server";
 import Iconlist from "../components/Iconlist";
 
-import { useSelector, useDispatch } from "react-redux";
 import { getAllPostInfo, editPostInfo } from "../actions/postAction";
 import { getUserInfo } from "../actions/userAction";
-import { Link } from "react-router-dom";
-import Nav from "../components/Nav";
-import Post from "./Post";
 import SocialSignup from "../components/SocialSignup";
-import server from "../apis/server";
 import Footer from "../components/Footer";
 
 import Search from "../components/Search";
-import Iconlist from "../components/Iconlist";
 import { HeartOutlined } from "@ant-design/icons";
 import { Card, Icon, Image } from "semantic-ui-react";
 import "antd/dist/antd.css";
 import "../mainpage.css";
 import "semantic-ui-css/semantic.min.css";
 
-import { Card, Icon, Image } from "semantic-ui-react";
-import SocialSignup from "../components/SocialSignup";
-import { getUserInfo } from "../actions/userAction";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlist from "../components/responsiveApp/ResponsiveIconlist";
@@ -269,15 +259,49 @@ const Mainpage = () => {
                           <Card.Description>{post.content}</Card.Description>
                         </Card.Content>
                         <Card.Content extra>
-                          <a href="/#">
-                            <Icon name="like" />
-                            {post.likes.length}
-                          </a>
-                        </Card.Content>
-                      </Card>
-                    );
-                  })
-                : null}
+                          {
+                            post.likes.length !== 0 &&
+                            localStorage.getItem("accessToken") ? (
+                            <>
+                              {
+                                post.likes.findIndex(
+                                  (i) => i.user_id === user.data.userInfo.id
+                                ) !== -1 ? (
+                                  <Icon
+                                    name="like"
+                                    className="mylike"
+                                    onClick={() =>
+                                      handleClickLikeBtn("like", post._id)
+                                    }
+                                  />
+                                ) : (
+                                  <Icon
+                                    name="like"
+                                    className="unlike"
+                                    onClick={() =>
+                                      handleClickLikeBtn("unlike", post._id)
+                                    }
+                                  />
+                                )
+                              }
+                            </>
+                            ) : (
+                              <Icon
+                                name="like"
+                                className="unlike"
+                                onClick={() =>
+                                  handleClickLikeBtn("unlike", post._id)
+                                }
+                              />
+                            )}
+                          {post.likes.length}
+                          </Card.Content>
+                        </Card>
+                      );
+                    }
+                  )
+                : null
+              }
               {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
             </div>
 
