@@ -175,7 +175,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       });
   };
 
-  const handleprofileButton = async (files) => {
+  const handleprofileButton = async (event) => {
     // 서버한테 s3버킷 url 받아오는 거에요
 
     await server
