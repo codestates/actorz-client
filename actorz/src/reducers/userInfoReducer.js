@@ -17,6 +17,7 @@ const userInfoReducer = (state = userInfoInitState, action) => {
     case EDIT_USER_INFO:
       return Object.assign({}, state, {
         data: action.payload,
+        isLogin: true,
       });
 
     case ADD_USER_CAREER:
@@ -25,15 +26,21 @@ const userInfoReducer = (state = userInfoInitState, action) => {
         careers: [...state.data.userInfo.careers, action.payload.item],
       });
       updatedUser.careers[newId - 1].id = newId;
-      return { data: { userInfo: updatedUser } };
+      return { 
+        data: { userInfo: updatedUser },
+        isLogin: true,
+    };
 
     case REMOVE_USER_CAREER:
       const filteredCareer = Object.assign({}, state.data.userInfo, {
         careers: state.data.userInfo.careers.filter(
-          (el) => el.id !== action.payload.itemId
+          (el) => el._id !== action.payload.itemId
         ),
       });
-      return { data: { userInfo: filteredCareer } };
+      return { 
+        data: { userInfo: filteredCareer },
+        isLogin: true,
+    };
 
     default:
       return state;

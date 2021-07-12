@@ -19,7 +19,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
   // userinforeducer에서 판단한다.
 
-  //console.log(user);
+  console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
   const [tag, setTag] = useState("");
@@ -31,6 +31,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
+  const [upload, setUpload] = useState({});
 
   let s3Url = null;
   let result = null;
@@ -122,20 +123,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     } 
   };
 
-
-
-  
-
-  /* const handleClickAddBtn = () => {
-    setClickCareer([...clickCareer, "career"]);
-  }; */
-
-  // const handleTagBtn = (event) => {
-  //   if (event.key === "Enter") {
-  //     setTag([...tag, event.target.value]);
-  //   }
-  // };
-
   const handleDeleteBtn = (id) => {
     dispatch(removeUserCareer(id));
     // id = > career.title
@@ -190,8 +177,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       });
   };
 
-  const handleprofileButton = async (files) => {
+  const handleprofileButton = async (event) => {
      // 서버한테 s3버킷 url 받아오는 거에요
+     //console.log(event.target.files[0]);
+     
     await server
     .get(`upload`, {
       headers: {
@@ -209,7 +198,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     });
 
     // 우리가 서버에 보낼 filepath(파일경로)를 받는 과정!
-    let fileData = files[0];
+    let fileData = event.target.files[0];
     await axios
       .put(s3Url, fileData, {
         headers: {
@@ -223,25 +212,57 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
-
-    // var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+      
+    // var fileExt = fileData.name.substring(fileData.name.lastIndexOf(".") + 1);
     // console.log("fileExt: "+fileExt);
-    // if (
-    //   fileExt === "img" ||
-    //   fileExt === "jpg" ||
-    //   fileExt === "png" ||
-    //   fileExt === "jpeg"
-    // ) {
-    //   setNewFile([...newfile, { path: result, type: "img" }]);
-    // } else if (fileExt === "mp4") {
-    //   setNewFile([...newfile, { path: result, type: "video" }]);
-    // }
+    
+    
+    //서버기준으로 정해놓음
+    // s3 버킷에 올림
+    let profile = {
+      mainPic: result 
+    }
+
+    //dispatch(editUserInfo(profile));
+    
+    let newUserInfo = {
+      id: user.data.userInfo.id,
+      mainPic: result,
+      email: user.data.userInfo.email,
+      name: user.data.userInfo.name,
+      company: user.data.userInfo.company,
+      provider: user.data.userInfo.provider,
+      gender: user.data.userInfo.gender,
+      dob: user.data.userInfo.dob,
+      careers: user.data.userInfo.careers,
+    };
+    dispatch(editUserInfo(newUserInfo));
+    
+
+    await server
+    .post(`/user/:user_id/update`, newUserInfo , 
+    {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      }
+    })
+    .then((res) => {  
+      console.log('프로필 사진 변경 완료')
+    })
+    .catch((err) => {
+      throw err;
+    });
+
+    // 경로를 서버에 보내줘야한다.
+
+    
+    //그래서 그걸 받아서 다시 사진을 투척
 
   }
-
+  console.log(user.isLogin);
   const handleClickConfirmBtn = () => {
-    document.getElementsByClassName("highlightDisplay")[1].value = "";
-    document.getElementsByClassName("highlightDisplay")[2].value = "";
+    //document.getElementsByClassName("highlightDisplay")[1].value = "";
+    //document.getElementsByClassName("highlightDisplay")[2].value = "";
     if (title.title !== undefined && year.year !== undefined) {
       dispatch(
         addUserCareer({
@@ -251,6 +272,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           type: tag,
         })
       );
+      
     }
   };
 
@@ -283,14 +305,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 <div className="fixedSize">
                   <img src={user.data.userInfo.mainPic} className="testPic" />
 
-                  <div className="profileButton">
-                  {/* <input
-                    type="file"
-                    name="file"
-                    accept="image/jpeg, image/jpg"
-                    onChange={handleprofileButton} 
-                    required
-                  /> */}
+                  {/* <div className="profileButton">
                   <Button
                     variant="outlined"
                     className="profileBtn"
@@ -298,7 +313,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                   >
                     프로필 사진 변경
                   </Button>
+                  </div> */}
+
+                  <div className="filebox"> 
+                    <label className="fileboxCSS" for="ex_file">프로필 사진 변경</label> 
+                    <input type="file" 
+                      id="ex_file" 
+                      accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG" 
+                      onChange={handleprofileButton}
+                    /> 
                   </div>
+
 
                   <div className="passwordModifyButton">
                     <Button
@@ -445,7 +470,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           <CloseOutlined
                             className="career-delete-btn"
                             onClick={() => {
-                              handleDeleteBtn(career.id);
+                              handleDeleteBtn(career._id);
                             }}
                           />
                         </div>
