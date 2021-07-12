@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import { useMediaQuery } from "react-responsive"
 import Nav from "../components/Nav";
 import Post from "./Post";
@@ -7,11 +8,25 @@ import { useSelector, useDispatch } from "react-redux";
 import { getAllPostInfo } from "../actions/postAction";
 import server from "../apis/server";
 import Iconlist from "../components/Iconlist";
+
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPostInfo, editPostInfo } from "../actions/postAction";
+import { getUserInfo } from "../actions/userAction";
+import { Link } from "react-router-dom";
+import Nav from "../components/Nav";
+import Post from "./Post";
+import SocialSignup from "../components/SocialSignup";
+import server from "../apis/server";
+import Footer from "../components/Footer";
+
 import Search from "../components/Search";
+import Iconlist from "../components/Iconlist";
+import { HeartOutlined } from "@ant-design/icons";
+import { Card, Icon, Image } from "semantic-ui-react";
 import "antd/dist/antd.css";
 import "../mainpage.css";
-import { HeartOutlined } from "@ant-design/icons";
 import "semantic-ui-css/semantic.min.css";
+
 import { Card, Icon, Image } from "semantic-ui-react";
 import SocialSignup from "../components/SocialSignup";
 import { getUserInfo } from "../actions/userAction";
@@ -20,6 +35,9 @@ import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlist from "../components/responsiveApp/ResponsiveIconlist";
 import "../styles/ResponsiveMainpage.css";
 
+import Loading from "../components/loading";
+import FileUpload from "../components/file-upload/file-upload.component";
+import { redirectUri } from "../config";
 
 const Mainpage = () => {
   const [clickupload, setClickUpload] = useState(false);
@@ -28,6 +46,7 @@ const Mainpage = () => {
   const [oauthSignup, setOauthSignup] = useState("");
   const [modalSocialSignup, setModalSocialSignup] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [clickLike, setClickLike] = useState(false);
 
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
@@ -65,7 +84,7 @@ const Mainpage = () => {
       }
     };
     getPostLists();
-  }, [dispatch]);
+  }, [dispatch, clickLike]);
 
   const isPc = useMediaQuery({
     query : "(min-width:1024px)"
@@ -89,72 +108,102 @@ const Mainpage = () => {
             if (res.status === 200) { //로그인 성공
               localStorage.setItem("accessToken", res.data.data.accessToken);
               localStorage.setItem("id", res.data.data.id);
-              console.log(res.data.data.accessToken);
+              // console.log(res.data.data.accessToken);
               await server //로그인한 유저의 정보를 state에 저장
               .get(`/user/${localStorage.getItem("id")}`)
               .then((res) => {
                 if (res.status === 200) {
                   setModalSocialSignup(false);
-                  setIsLoading(false);
+                  // setIsLoading(false);
                   dispatch(getUserInfo(res.data.data.userInfo));
+                  window.location.href = redirectUri;
                 }
               })
               .catch((err) => {
+                    setIsLoading(false);
+                    throw err;
+                  });
+              } else if (res.status === 201) {
+                //새로운 유저
                 setIsLoading(false);
-                throw err;
-              });
-            } else if(res.status === 201) { //새로운 유저
-              setIsLoading(false);
-              setModalSocialSignup(true);
-              setOauthSignup(`${provider}=${res.data.data.email}`)
-            } else {
-              setIsLoading(false);
-              alert("소셜 로그인 중 오류가 발생했습니다.");
-              return;
-            }
-          });
+                setModalSocialSignup(true);
+                setOauthSignup(`${provider}=${res.data.data.email}`);
+              } else {
+                setIsLoading(false);
+                alert("소셜 로그인 중 오류가 발생했습니다.");
+                return;
+              }
+            });
           setIsLoading(false);
         }
-      }catch(err){
+      } catch (err) {
         setIsLoading(false);
         console.log(err);
       }
-    }
+    };
 
-    const parseQueryString = function() {
+    const parseQueryString = function () {
       const str = window.location.search;
       let objURL = {};
-  
+
       str.replace(
-          new RegExp( "([^?=&]+)(=([^&]*))?", "g" ),
-          function( $0, $1, $2, $3 ){
-              objURL[ $1 ] = $3;
-          }
+        new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+        function ($0, $1, $2, $3) {
+          objURL[$1] = $3;
+        }
       );
       return objURL;
     };
 
     const getQuery = () => {
       const query = parseQueryString();
-      if(query.code && !oauthSignup){
-        if(query.state){
+      if (query.code && !oauthSignup) {
+        if (query.state) {
           query.provider = "naver";
-        }else if(query.scope){
+        }else if(query.token){
           query.provider = "google";
         }
         setOauthSignup(`${query.provider}=${query.code}`);
-      }else{
+      } else {
         setIsLoading(false);
       }
     };
     getQuery();
-    if(oauthSignup){
+    if (oauthSignup) {
       oauthLogin();
     }
-  },[oauthSignup, dispatch])
+  }, [oauthSignup, dispatch]);
 
   const handleClickFiltering = () => {
     setIsFilter(!isFilter);
+  };
+
+  const handleClickLikeBtn = async (state, post_id) => {
+    let path = null;
+
+    if (state === "unlike") {
+      path = `/post/${post_id}/like`;
+    } else if (state === "like") {
+      path = `/post/${post_id}/unlike`;
+    }
+
+    await server
+      .post(
+        path,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        setClickLike(!clickLike);
+        console.log(post);
+      })
+      .catch((err) => {
+        throw err;
+      });
   };
 
   //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
@@ -231,6 +280,7 @@ const Mainpage = () => {
                 : null}
               {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
             </div>
+
           </div>
           <div className="newblockPosition2"> </div>
 
@@ -253,7 +303,6 @@ const Mainpage = () => {
             <div className="mainPageResponsive">
              
               <ResponsiveIconlist />
-              
 
               <div className="middleSpaceResponsive" >
                 <div className="midContentsResponsive">

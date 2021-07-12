@@ -25,13 +25,13 @@ const Posts = (props) => {
       await server // 유저의 포스트를 가져옴
         .get(`/post/user/${props.history.location.state.id}`)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           setUserPost(res.data.data);
         })
         .catch((err) => {
           throw err;
         });
-  
+
       await server //유저의 정보를 가져옴
         .get(`/user/${props.history.location.state.id}`)
         .then((res) => {
@@ -49,7 +49,7 @@ const Posts = (props) => {
   const settings = {
     dots: true,
     infinite: true,
-    speed: 500,
+    speed: 1000,
     pauseOnHover: true,
     autoplay: true,
     draggable: false,
@@ -86,7 +86,11 @@ const Posts = (props) => {
               <div className="midContentDownPart">
                 <div className="displayPosition">
                   <div className="fixedSize">
-                    <img src={userinfo.userInfo.mainPic} className="testPic" alt=""/>
+                    <img
+                      src={userinfo.userInfo.mainPic}
+                      className="testPic"
+                      alt=""
+                    />
                   </div>
                   <div className="fixedContent">
                     <p className="name">{}</p>

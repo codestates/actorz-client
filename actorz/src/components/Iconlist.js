@@ -17,9 +17,10 @@ const Iconlist = () => {
   });
   const [content, setContent] = useState({
     content: "",
-    genre: ""
-  })
+    genre: "",
+  });
   const [clickupload, setClickUpload] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClickUpload = (boolean) => {
     if (boolean) {
@@ -29,74 +30,100 @@ const Iconlist = () => {
     }
   };
 
-  const updateUploadedFiles = (files) => setNewFile({ ...newfile, profileImages: files });
+  const updateUploadedFiles = (files) =>
+    setNewFile({ ...newfile, profileImages: files });
   const updateUploadedContents = (value, key) => {
     const state = {
-      [key]: value
+      [key]: value,
     };
     setContent((content) => {
       return {
         ...content,
-        ...state
-      }
+        ...state,
+      };
     });
-
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // 여기에 이미지 올리는 로직 작성해야 함
+    // login유무 확인
+    if(!localStorage.getItem("accessToken")){
+      alert("로그인 후 이용 가능합니다");
+      return redirectPage();
+    }
+    if(!content.genre){
+      return alert("장르를 선택해 주세요");
+    }
+    
+    // loading 중...
+    setIsLoading(true);
+    // {type, path}들을 담을 변수, media 선언
     const media = [];
 
     for(let el of newfile.profileImages){
+      // 파일의 확장자 추출
       const ext = el.name.split(".")[1];
-
+      // 파일을 저장할 url 생성
       const url = await server.get("/upload")
       .then((res) => res.data.data);
+      // 저장될 파일 경로 추출
       const path = url.split("?")[0];
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       };
+
+      // S3 bucket에 파일을 저장
       await axios.put(url, el, config)
       .catch((err) => console.log(err));
 
+      // DB에 저장할 파일 경로 가공
       let obj;
-      if(ext === "mp4"){
+      if (ext === "mp4") {
         obj = {
           type: "video",
-          path
+          path,
         };
-      }else{
+      } else {
         obj = {
           type: "img",
-          path
+          path,
         };
+
       };
+      // 파일 경로들을 array에 저장
       media.push(obj);
-    };
+    }
 
     handlePost(media);
-
   };
 
+  // 가공된 bodyData를 서버에 보내는 함수
   const handlePost = async (media) => {
-    const accessToken = window.localStorage.getItem("accessToken")
+    const accessToken = window.localStorage.getItem("accessToken");
     const bodyData = {
       media,
-      ...content
+      ...content,
     };
     const headers = {
-      authorization: `Bearer ${accessToken}`
+      authorization: `Bearer ${accessToken}`,
     };
+
     await server.post("/post/create", bodyData, { headers })
     .then(() => {
+      // 완료 후 등록완료 메세지 알림과 페이지 리디렉션
+      setIsLoading(false);
       alert("포스트가 등록되었습니다");
-      handleClickUpload(false);
+      redirectPage();
     })
     .catch((err) => console.log(err));
 
+  };
+
+  // 미 로그인 이라면, 메인페이지로 이동
+  const redirectPage = () => {
+    window.location = "/mainpage";
   };
 
   return (
@@ -153,7 +180,7 @@ const Iconlist = () => {
                   <HeartOutlined className="realIcon" />
                 </Link>
               </div>
-              <Link className="noEffect" to="/mainpage">
+              <Link className="noEffect" to="/like">
                 <div className="homeButtonText">Like</div>
               </Link>
             </div>
@@ -171,9 +198,10 @@ const Iconlist = () => {
                 updateFilesCb={updateUploadedFiles}
                 updateContentCb={updateUploadedContents}
                 handleClickUpload={handleClickUpload}
+                isLoading={isLoading}
               />
             </form>
-          </div>
+          </div> 
         ) : null}
       </div>
     </>

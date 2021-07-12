@@ -32,6 +32,7 @@ const Mypage = () => {
         if (res.status === 200) {
           console.log("회원탈퇴");
           localStorage.removeItem("accessToken");
+          localStorage.removeItem("id");
           window.location = "/mainpage";
         }
       })
