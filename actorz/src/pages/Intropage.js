@@ -111,8 +111,8 @@ const Intropage = () => {
             <div className="scrollEffect">
               스크롤을 내려주세요!
             </div>
-            {/* <ArrowDownOutlined className="scrollIcon"/> */}
-            <ArrowDownOutlined />
+            <ArrowDownOutlined className="scrollIcon"/>
+            
           </div>
         </div>
         <div className="blockPosition2">
