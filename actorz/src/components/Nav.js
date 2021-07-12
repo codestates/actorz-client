@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import "antd/dist/antd.css";
@@ -9,7 +9,6 @@ import { Button } from "antd";
 import server from "../apis/server";
 import { persistor } from "../store/store";
 import Loading from "../components/loading";
-import Search from "antd/lib/transfer/search";
 
 const Nav = ({ handleClickFiltering }) => {
   const [search, setSearch] = useState("");

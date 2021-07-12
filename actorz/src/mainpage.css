@@ -1,10 +1,14 @@
 body {
   margin: 0px;
+  /* -ms-overflow-style: none; */
   /*width: 100vw;*/
 }
 
-h1,
-p {
+/* ::-webkit-scrollbar { 
+  display: none; 
+} */
+
+h1, p {
   font-family: Lato;
 }
 
@@ -67,7 +71,7 @@ font {
 
 .mainPage {
   display: flex;
-  flex-direction: row;
+  /* flex-direction: row; */
 }
 
 .blockhere {
@@ -76,13 +80,14 @@ font {
   height: 3rem;
 }
 
+ 
 .leftSpace {
-  text-align: center;
-  width: 20%;
-  height: 100vh;
-  /* width: 20%; */
+	text-align: center;
+	width: 30%;
+	height: 100vh;
   background-color: #fafafa;
-}
+} 
+
 
 .iconList {
   /*margin-top:100%;*/
@@ -93,14 +98,23 @@ font {
   height: 17rem;
   display: inline-block;
   margin-top: 2rem;
+  margin-left: -1rem;
+  position: fixed;
+  
 }
 
 .middleSpace {
   width: 45%;
   height: 100vh;
   background-color: #fafafa;
-  /*margin-bottom: 5rem;*/
-  overflow: auto;
+	/*margin-bottom: 5rem;*/
+	/* overflow: auto; */
+  -ms-overflow-style: none;
+
+}
+
+.middleSpace::-webkit-scrollbar{ 
+  display:none; 
 }
 
 .midContents {
@@ -139,11 +153,11 @@ font {
 	margin-top: 2rem;
 }
 */
-
+/* 
 .newblockPosition {
   width: 10%;
   background-color: #fafafa;
-}
+} */
 
 .newblockPosition2 {
   width: 10%;

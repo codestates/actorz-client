@@ -1,0 +1,38 @@
+html {
+
+  position: relative;
+
+  min-height: 100vh;
+
+  margin: 0;
+
+}
+
+body {
+
+  min-height: 100vh;
+
+}
+
+.ResponsiveFooter {
+  position: fixed;
+  display: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0;
+  text-align: center;
+  color: white;
+  background: blue;
+
+}
+
+.headerLogoResponsive {
+  font-family: Lato;
+  font: italic small-caps bold 16px/2 cursive;
+  color: black;
+  font-size: 1rem;
+  margin-top: 0rem;
+  margin-left: 0.25rem;
+}
+

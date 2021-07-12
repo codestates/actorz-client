@@ -1,4 +1,14 @@
 import React, { useEffect, useState } from "react";
+
+import { useMediaQuery } from "react-responsive"
+import Nav from "../components/Nav";
+import Post from "./Post";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPostInfo } from "../actions/postAction";
+import server from "../apis/server";
+import Iconlist from "../components/Iconlist";
+
 import { useSelector, useDispatch } from "react-redux";
 import { getAllPostInfo, editPostInfo } from "../actions/postAction";
 import { getUserInfo } from "../actions/userAction";
@@ -8,6 +18,7 @@ import Post from "./Post";
 import SocialSignup from "../components/SocialSignup";
 import server from "../apis/server";
 import Footer from "../components/Footer";
+
 import Search from "../components/Search";
 import Iconlist from "../components/Iconlist";
 import { HeartOutlined } from "@ant-design/icons";
@@ -15,6 +26,15 @@ import { Card, Icon, Image } from "semantic-ui-react";
 import "antd/dist/antd.css";
 import "../mainpage.css";
 import "semantic-ui-css/semantic.min.css";
+
+import { Card, Icon, Image } from "semantic-ui-react";
+import SocialSignup from "../components/SocialSignup";
+import { getUserInfo } from "../actions/userAction";
+import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
+import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
+import ResponsiveIconlist from "../components/responsiveApp/ResponsiveIconlist";
+import "../styles/ResponsiveMainpage.css";
+
 import Loading from "../components/loading";
 import FileUpload from "../components/file-upload/file-upload.component";
 import { redirectUri } from "../config";
@@ -65,6 +85,18 @@ const Mainpage = () => {
     };
     getPostLists();
   }, [dispatch, clickLike]);
+
+  const isPc = useMediaQuery({
+    query : "(min-width:1024px)"
+  });
+
+  const isTablet = useMediaQuery({
+    query : "(min-width:768px) and (max-width:1023px)"
+  });
+
+  const isMobile = useMediaQuery({
+    query : "(max-width:767px)"
+  });
 
   useEffect(() => {
     setIsLoading(true);
@@ -178,136 +210,263 @@ const Mainpage = () => {
 
   return (
     <>
-      <div className="blockhere"> </div>
-      <div className="mainPage">
-        <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
-        <Iconlist />
+      {isPc && 
+        <>
+        <div className="blockhere"> </div>
+        <div className="mainPage">
 
-        <div className="newblockPosition"> </div>
+          <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
+          <Iconlist />
 
-        <div className="middleSpace">
-          <div className="midContents">
-            {post.data.data
-              ? post.data.data.posts.posts.map((post) => {
-                  return (
-                    <Card centered={true} fluid={true} key={post._id}>
-                      <div className="effecTest">
-                        <div
-                          className="screen"
-                          onClick={() => handleClickPost(true, post._id)}
-                        >
-                          {/* <div className="top"> 이기능쓰긴함?</div> */}
-                          <div className="bottom">
-                            <HeartOutlined className="testIcon" />
+          <div className="newblockPosition"> </div>
+          <div className="middleSpace" >
+            <div className="midContents">
+              {post.data.data
+                ? post.data.data.posts.posts.map((post) => {
+                    return (
+                      <Card centered={true} fluid={true} key={post._id}>
+                        <div className="effecTest">
+                          <div
+                            className="screen"
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
+                            {/* <div className="top"> 이기능쓰긴함?</div> */}
+                            <div className="bottom">
+                              <HeartOutlined className="testIcon" />
+                            </div>
+                            {post.media[0] ? (
+                              <Image
+                                src={post.media[0].path}
+                                className="exampleIMG"
+                              />
+                            ) : null}{" "}
+                            {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                           </div>
-                          {post.media[0] ? (
-                            <Image
-                              src={post.media[0].path}
-                              className="exampleIMG"
-                            />
-                          ) : null}{" "}
-                          {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                         </div>
-                      </div>
 
-                      <Card.Content>
-                        <Card.Header>
-                          <div className="nothing2">
-                            <Link
-                              to={{
-                                pathname: `/posts`,
-                                state: {
-                                  id: post.userInfo.user_id,
-                                },
-                              }}
-                            >
-                              <div className="nothing">
-                                {post.userInfo.name}
+                        <Card.Content>
+                          <Card.Header>
+                            <div className="nothing2">
+                              <Link
+                                to={{
+                                  pathname: `/posts`,
+                                  state: {
+                                    id: post.userInfo.user_id,
+                                  },
+                                }}
+                              >
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
+                              </Link>
+                            </div>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className="date">
+                              Updated at {post.updatedAt}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{post.content}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          <a href="/#">
+                            <Icon name="like" />
+                            {post.likes.length}
+                          </a>
+                        </Card.Content>
+                      </Card>
+                    );
+                  })
+                : null}
+              {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+            </div>
+
+          </div>
+          <div className="newblockPosition2"> </div>
+
+          <div className="rightSpace">
+            <div className="iconList2">{isFilter ? <Search /> : null}</div>
+          </div>
+        </div>
+        {/* <Footer /> */}
+        {
+          modalSocialSignup ? (
+            <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
+          ) : null
+        }
+      </>}
+
+      {isTablet && 
+        <>   
+          <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
+           <div className="blockhere"> </div>
+            <div className="mainPageResponsive">
+             
+              <ResponsiveIconlist />
+
+              <div className="middleSpaceResponsive" >
+                <div className="midContentsResponsive">
+                  {post.data.data
+                    ? post.data.data.posts.posts.map((post) => {
+                        return (
+                          <Card centered={true} fluid={true} key={post._id}>
+                            <div className="effecTest">
+                              <div
+                                className="screen"
+                                onClick={() => handleClickPost(true, post._id)}
+                              >
+                                {/* <div className="top"> 이기능쓰긴함?</div> */}
+                                <div className="bottom">
+                                  <HeartOutlined className="testIcon" />
+                                </div>
+                                {post.media[0] ? (
+                                  <Image
+                                    src={post.media[0].path}
+                                    className="exampleIMG"
+                                  />
+                                ) : null}{" "}
+                                {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                               </div>
-                            </Link>
+                            </div>
+
+                            <Card.Content>
+                              <Card.Header>
+                                <div className="nothing2">
+                                  <Link
+                                    to={{
+                                      pathname: `/posts`,
+                                      state: {
+                                        id: post.userInfo.user_id,
+                                      },
+                                    }}
+                                  >
+                                    <div className="nothing">
+                                      {post.userInfo.name}
+                                    </div>
+                                  </Link>
+                                </div>
+                              </Card.Header>
+                              <Card.Meta>
+                                <span className="date">
+                                  Updated at {post.updatedAt}
+                                </span>
+                              </Card.Meta>
+                              <Card.Description>{post.content}</Card.Description>
+                            </Card.Content>
+                            <Card.Content extra>
+                              <a href="/#">
+                                <Icon name="like" />
+                                {post.likes.length}
+                              </a>
+                            </Card.Content>
+                          </Card>
+                        );
+                      })
+                    : null}
+                  {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                </div>
+              </div>
+              <div className="responsiveNewblockPosition"> </div>
+            </div>
+            {/* <ResponsiveFooter />  */}
+            
+            {
+              modalSocialSignup ? (
+                <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
+              ) : null
+            }
+         </>}
+          
+
+      
+      {isMobile && 
+        <>
+        <div className="blockhere"> </div>
+        <div className="mainPageResponsive2">
+
+          {/* <Nav loading={loading} handleClickFiltering={handleClickFiltering} /> */}
+          <ResponsiveNav />
+          {/* <Iconlist /> */}
+
+
+          <div className="middleSpaceResponsive2" >
+            <div className="midContentsResponsive2">
+              {post.data.data
+                ? post.data.data.posts.posts.map((post) => {
+                    return (
+                      <Card centered={true} fluid={true} key={post._id}>
+                        <div className="effecTest">
+                          <div
+                            className="screen"
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
+                            {/* <div className="top"> 이기능쓰긴함?</div> */}
+                            <div className="bottom">
+                              <HeartOutlined className="testIcon" />
+                            </div>
+                            {post.media[0] ? (
+                              <Image
+                                src={post.media[0].path}
+                                className="exampleIMG"
+                              />
+                            ) : null}{" "}
+                            {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                           </div>
-                        </Card.Header>
-                        <Card.Meta>
-                          <span className="date">
-                            Updated at {post.updatedAt}
-                          </span>
-                        </Card.Meta>
-                        <Card.Description>{post.content}</Card.Description>
-                      </Card.Content>
-                      <Card.Content extra>
-                        {post.likes.length !== 0 &&
-                        localStorage.getItem("accessToken") ? (
-                          <>
-                            {post.likes.findIndex(
-                              (i) => i.user_id === user.data.userInfo.id
-                            ) !== -1 ? (
-                              <Icon
-                                name="like"
-                                className="mylike"
-                                onClick={() =>
-                                  handleClickLikeBtn("like", post._id)
-                                }
-                              />
-                            ) : (
-                              <Icon
-                                name="like"
-                                className="unlike"
-                                onClick={() =>
-                                  handleClickLikeBtn("unlike", post._id)
-                                }
-                              />
-                            )}
-                          </>
-                        ) : (
-                          <Icon
-                            name="like"
-                            className="unlike"
-                            onClick={() =>
-                              handleClickLikeBtn("unlike", post._id)
-                            }
-                          />
-                        )}
+                        </div>
 
-                        {post.likes.length}
-                      </Card.Content>
-                    </Card>
-                  );
-                })
-              : null}
-            {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                        <Card.Content>
+                          <Card.Header>
+                            <div className="nothing2">
+                              <Link
+                                to={{
+                                  pathname: `/posts`,
+                                  state: {
+                                    id: post.userInfo.user_id,
+                                  },
+                                }}
+                              >
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
+                              </Link>
+                            </div>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className="date">
+                              Updated at {post.updatedAt}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{post.content}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          <a href="/#">
+                            <Icon name="like" />
+                            {post.likes.length}
+                          </a>
+                        </Card.Content>
+                      </Card>
+                    );
+                  })
+                : null}
+              {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+            </div>
           </div>
-        </div>
-        <div className="newblockPosition2"> </div>
+          {/* <div className="newblockPosition2"> </div>
 
-        <div className="rightSpace">
-          <div className="iconList2">{isFilter ? <Search /> : null}</div>
+          <div className="rightSpace">
+            <div className="iconList2">{isFilter ? <Search /> : null}</div>
+          </div> */}
         </div>
-      </div>
-      <Footer />
-      {modalSocialSignup ? (
-        <SocialSignup
-          oauthSignup={oauthSignup}
-          modalSocialClose={() => {
-            setModalSocialSignup(false);
-          }}
-        ></SocialSignup>
-      ) : null}
-
-      {/* <div>
-        {clickupload ? (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <FileUpload
-                accept=".jpg,.png,.jpeg, .mp4"
-                multiple
-                updateFilesCb={updateUploadedFiles}
-                handleClickUpload={handleClickUpload}
-              />
-            </form>
-          </div>
-        ) : null}
-      </div> */}
+        <ResponsiveFooter /> 
+        
+        {
+          modalSocialSignup ? (
+            <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
+          ) : null
+        }
+      </>}
     </>
+    
   );
 };
 

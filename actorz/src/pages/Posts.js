@@ -16,8 +16,8 @@ const Posts = (props) => {
   const [clickModal, setClickModal] = useState(false);
   const [userinfo, setUserInfo] = useState({});
   const [userPost, setUserPost] = useState({});
-  const user = useSelector((user) => user.userInfoReducer);
-  const post = useSelector((post) => post.postInfoReducer);
+  //const user = useSelector((user) => user.userInfoReducer);
+  //const post = useSelector((post) => post.postInfoReducer);
   //console.log(post);
 
   useEffect(() => {

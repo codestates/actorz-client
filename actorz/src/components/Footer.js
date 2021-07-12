@@ -1,5 +1,5 @@
 import React from "react";
-import { UserOutlined, IdcardOutlined, HeartOutlined, FileAddOutlined, HomeOutlined, GithubOutlined, ToolOutlined, InstagramOutlined, FormOutlined, FacebookOutlined, YoutubeOutlined, VerticalAlignBottomOutlined, ArrowDownOutlined} from '@ant-design/icons';
+import { GithubOutlined, ToolOutlined, FormOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
 const Footer = () => {

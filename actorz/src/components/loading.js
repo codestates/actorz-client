@@ -1,4 +1,3 @@
-import Loader from "react-loader-spinner";
 
 const Loading = () => {
   return(
