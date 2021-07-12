@@ -4,7 +4,6 @@
 html {
   font-size: 100%;
   background-color: #fafafa;
-
 }
 
 .name {
@@ -38,7 +37,7 @@ li {
 .careerContent {
   margin-bottom: 0.5rem;
   /*text-align: left;*/
-  /*background-color: yellow;*/  /* TEST  */
+  /*background-color: yellow;*/ /* TEST  */
 }
 
 .career li {
@@ -46,7 +45,6 @@ li {
   font-size: 1rem;
   text-align: left;
 }
-
 
 .fixedSize {
   /*
@@ -103,8 +101,6 @@ li {
 }
 */
 
-
-
 /* * Button */
 .buttonHeader {
   display: flex;
@@ -140,3 +136,7 @@ li {
 .nothing2 {
   width: 3rem;
 }
+
+/* i.like.icon::before {
+  color: red;
+} */

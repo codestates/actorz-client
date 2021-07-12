@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { editLike } from "../actions/postAction";
+import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
-import { useSelector } from "react-redux";
 import Nav from "../components/Nav";
 import PostEdit from "./PostEdit";
 import Loading from "../components/loading";
@@ -10,6 +11,7 @@ import love from "../images/thumb-up.png";
 import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/Post.css";
+import { ServerStyleSheet } from "styled-components";
 
 const Post = ({ handleClickPost }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -17,21 +19,55 @@ const Post = ({ handleClickPost }) => {
   const [postinfo, setPostinfo] = useState({});
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
+  const [like, setIsLike] = useState(false);
+  const [whoIsLike, setWhoIsLike] = useState([]);
+
+  const dispatch = useDispatch();
+
+  //console.log(post.data.data.posts.posts[0]._id);
+  //console.log(post.data.data.posts.posts[0].likes);
 
   let index = window.location.pathname.lastIndexOf("/");
   let url = window.location.pathname.slice(index + 1);
+
+  // useEffect(async () => {
+  //   await post.data.data.posts.posts[0].likes.map((like) => {
+  //     //console.log(like);
+  //     setWhoIsLike(whoIsLike, like.user_id);
+  //   });
+  // }, []);
+  // console.log(whoIsLike);
 
   useEffect(() => {
     const p = async () => {
       await server
         .get(`/post/${url}`)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           setPostinfo(res.data.data.post);
           setIsLoading(true);
         })
         .catch((err) => {
           throw err;
+        });
+
+      await server
+        .post(
+          `post/${url}/islike`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "like") {
+            setIsLike(true);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
         });
     };
     p();
@@ -47,14 +83,17 @@ const Post = ({ handleClickPost }) => {
 
   const handleClickDeleteBtn = async () => {
     await server
-      .post(`/post/${url}/delete`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .post(
+        `/post/${url}/delete`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
-          console.log("aaa");
           window.location = "/mainpage";
         }
       })
@@ -62,6 +101,43 @@ const Post = ({ handleClickPost }) => {
         throw err;
       });
   };
+
+  const handleClickLikeBtn = async (state, post_id) => {
+    let path = null;
+    if (state === "unlike") {
+      path = `/post/${post_id}/like`;
+      setWhoIsLike({
+        ...whoIsLike,
+        user_id: postinfo.userInfo.user_id,
+      });
+    } else if (state === "like") {
+      path = `/post/${post_id}/unlike`;
+      let like = whoIsLike.filter((el) => el !== postinfo.userInfo.user_id);
+      setWhoIsLike(like);
+    }
+    console.log(whoIsLike);
+
+    await server
+      .post(
+        path,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(editLike(url, whoIsLike));
+        //console.log(url);
+        //console.log(whoIsLike);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+  console.log(whoIsLike);
+
   return (
     <>
       <Nav />
@@ -76,7 +152,14 @@ const Post = ({ handleClickPost }) => {
                 className="float-btn-box"
                 onClick={(event) => event.stopPropagation()}
               >
-                <Link to="/posts">
+                <Link
+                  to={{
+                    pathname: `/posts`,
+                    state: {
+                      id: postinfo.userInfo.user_id,
+                    },
+                  }}
+                >
                   <div className="float-btn">
                     <img
                       src={profile}
@@ -87,8 +170,29 @@ const Post = ({ handleClickPost }) => {
                   </div>
                 </Link>
                 <div className="float-btn">
-                  <img src={love} className="float-love-btn" alt=""></img>
-                  <div className="float-love-title">좋아요</div>
+                  {!like ? (
+                    <>
+                      <img
+                        src={love}
+                        className="float-love-btn"
+                        alt=""
+                        onClick={() =>
+                          handleClickLikeBtn("unlike", postinfo._id)
+                        }
+                      ></img>
+                      <div className="float-love-title">좋아요</div>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={love}
+                        className="float-love-btn"
+                        alt=""
+                        onClick={() => handleClickLikeBtn("like", postinfo._id)}
+                      ></img>
+                      <div className="float-love-title">좋아요 취소</div>
+                    </>
+                  )}
                 </div>
                 {user.data.userInfo.role === "recruiter" ? (
                   <div className="float-btn">

@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPostInfo, editPostInfo } from "../actions/postAction";
+import { getUserInfo } from "../actions/userAction";
+import { Link } from "react-router-dom";
 import Nav from "../components/Nav";
 import Post from "./Post";
-import FileUpload from "../components/file-upload/file-upload.component";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { getAllPostInfo } from "../actions/postAction";
+import SocialSignup from "../components/SocialSignup";
 import server from "../apis/server";
-import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
 import Search from "../components/Search";
+import Iconlist from "../components/Iconlist";
+import { HeartOutlined } from "@ant-design/icons";
+import { Card, Icon, Image } from "semantic-ui-react";
 import "antd/dist/antd.css";
 import "../mainpage.css";
-import { HeartOutlined } from "@ant-design/icons";
 import "semantic-ui-css/semantic.min.css";
-import { Card, Icon, Image } from "semantic-ui-react";
-import { redirectUri } from "../config";
-import SocialSignup from "../components/SocialSignup";
-import { getUserInfo } from "../actions/userAction";
 import Loading from "../components/loading";
-
+import FileUpload from "../components/file-upload/file-upload.component";
+import { redirectUri } from "../config";
 
 const Mainpage = () => {
   const [clickupload, setClickUpload] = useState(false);
@@ -27,30 +26,12 @@ const Mainpage = () => {
   const [oauthSignup, setOauthSignup] = useState("");
   const [modalSocialSignup, setModalSocialSignup] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
+  const [clickLike, setClickLike] = useState(false);
 
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
 
-  // const [newfile, setNewFile] = useState({
-  //   profileImages: [],
-  // });
-
-  // const handleClickUpload = (boolean) => {
-  //   if (boolean) {
-  //     setClickUpload(true);
-  //   } else {
-  //     setClickUpload(false);
-  //   }
-  // };
-
-  // const updateUploadedFiles = (files) =>
-  //   setNewFile({ ...newfile, profileImages: files });
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   // 여기에 이미지 올리는 로직 작성해야 함
-  // };
   const loading = (boolean) => {
     setIsLoading(!boolean);
   };
@@ -83,7 +64,7 @@ const Mainpage = () => {
       }
     };
     getPostLists();
-  }, [dispatch]);
+  }, [dispatch, clickLike]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -107,61 +88,90 @@ const Mainpage = () => {
                 }
               })
               .catch((err) => {
+                    setIsLoading(false);
+                    throw err;
+                  });
+              } else if (res.status === 201) {
+                //새로운 유저
                 setIsLoading(false);
-                throw err;
-              });
-            } else if(res.status === 201) { //새로운 유저
-              setIsLoading(false);
-              setModalSocialSignup(true);
-              setOauthSignup(`${provider}=${res.data.data.email}`)
-            } else {
-              setIsLoading(false);
-              alert("소셜 로그인 중 오류가 발생했습니다.");
-              return;
-            }
-          });
+                setModalSocialSignup(true);
+                setOauthSignup(`${provider}=${res.data.data.email}`);
+              } else {
+                setIsLoading(false);
+                alert("소셜 로그인 중 오류가 발생했습니다.");
+                return;
+              }
+            });
           setIsLoading(false);
         }
-      }catch(err){
+      } catch (err) {
         setIsLoading(false);
         console.log(err);
       }
-    }
+    };
 
-    const parseQueryString = function() {
+    const parseQueryString = function () {
       const str = window.location.search;
       let objURL = {};
-  
+
       str.replace(
-          new RegExp( "([^?=&]+)(=([^&]*))?", "g" ),
-          function( $0, $1, $2, $3 ){
-              objURL[ $1 ] = $3;
-          }
+        new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+        function ($0, $1, $2, $3) {
+          objURL[$1] = $3;
+        }
       );
       return objURL;
     };
 
     const getQuery = () => {
       const query = parseQueryString();
-      if(query.code && !oauthSignup){
-        if(query.state){
+      if (query.code && !oauthSignup) {
+        if (query.state) {
           query.provider = "naver";
         }else if(query.token){
           query.provider = "google";
         }
         setOauthSignup(`${query.provider}=${query.code}`);
-      }else{
+      } else {
         setIsLoading(false);
       }
     };
     getQuery();
-    if(oauthSignup){
+    if (oauthSignup) {
       oauthLogin();
     }
-  },[oauthSignup, dispatch])
+  }, [oauthSignup, dispatch]);
 
   const handleClickFiltering = () => {
     setIsFilter(!isFilter);
+  };
+
+  const handleClickLikeBtn = async (state, post_id) => {
+    let path = null;
+
+    if (state === "unlike") {
+      path = `/post/${post_id}/like`;
+    } else if (state === "like") {
+      path = `/post/${post_id}/unlike`;
+    }
+
+    await server
+      .post(
+        path,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        setClickLike(!clickLike);
+        console.log(post);
+      })
+      .catch((err) => {
+        throw err;
+      });
   };
 
   //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
@@ -170,7 +180,6 @@ const Mainpage = () => {
     <>
       <div className="blockhere"> </div>
       <div className="mainPage">
-
         <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
         <Iconlist />
 
@@ -226,10 +235,40 @@ const Mainpage = () => {
                         <Card.Description>{post.content}</Card.Description>
                       </Card.Content>
                       <Card.Content extra>
-                        <a href="/#">
-                          <Icon name="like" />
-                          {post.likes.length}
-                        </a>
+                        {post.likes.length !== 0 &&
+                        localStorage.getItem("accessToken") ? (
+                          <>
+                            {post.likes.findIndex(
+                              (i) => i.user_id === user.data.userInfo.id
+                            ) !== -1 ? (
+                              <Icon
+                                name="like"
+                                className="mylike"
+                                onClick={() =>
+                                  handleClickLikeBtn("like", post._id)
+                                }
+                              />
+                            ) : (
+                              <Icon
+                                name="like"
+                                className="unlike"
+                                onClick={() =>
+                                  handleClickLikeBtn("unlike", post._id)
+                                }
+                              />
+                            )}
+                          </>
+                        ) : (
+                          <Icon
+                            name="like"
+                            className="unlike"
+                            onClick={() =>
+                              handleClickLikeBtn("unlike", post._id)
+                            }
+                          />
+                        )}
+
+                        {post.likes.length}
                       </Card.Content>
                     </Card>
                   );
@@ -245,11 +284,14 @@ const Mainpage = () => {
         </div>
       </div>
       <Footer />
-      {
-        modalSocialSignup ? (
-          <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
-        ) : null
-      }
+      {modalSocialSignup ? (
+        <SocialSignup
+          oauthSignup={oauthSignup}
+          modalSocialClose={() => {
+            setModalSocialSignup(false);
+          }}
+        ></SocialSignup>
+      ) : null}
 
       {/* <div>
         {clickupload ? (
