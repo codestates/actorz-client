@@ -23,8 +23,8 @@ const Iconlist = () => {
   });
   const [content, setContent] = useState({
     content: "",
-    genre: ""
-  })
+    genre: "",
+  });
   const [clickupload, setClickUpload] = useState(false);
 
   const handleClickUpload = (boolean) => {
@@ -35,18 +35,18 @@ const Iconlist = () => {
     }
   };
 
-  const updateUploadedFiles = (files) => setNewFile({ ...newfile, profileImages: files });
+  const updateUploadedFiles = (files) =>
+    setNewFile({ ...newfile, profileImages: files });
   const updateUploadedContents = (value, key) => {
     const state = {
-      [key]: value
+      [key]: value,
     };
     setContent((content) => {
       return {
         ...content,
-        ...state
-      }
+        ...state,
+      };
     });
-
   };
 
   const handleSubmit = async (event) => {
@@ -54,55 +54,52 @@ const Iconlist = () => {
     // 여기에 이미지 올리는 로직 작성해야 함
     const media = [];
 
-    for(let el of newfile.profileImages){
+    for (let el of newfile.profileImages) {
       const ext = el.name.split(".")[1];
 
-      const url = await server.get("/upload")
-      .then((res) => res.data.data);
+      const url = await server.get("/upload").then((res) => res.data.data);
       const path = url.split("?")[0];
       const config = {
         headers: {
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       };
-      await axios.put(url, el, config)
-      .catch((err) => console.log(err));
+      await axios.put(url, el, config).catch((err) => console.log(err));
 
       let obj;
-      if(ext === "mp4"){
+      if (ext === "mp4") {
         obj = {
           type: "video",
-          path
+          path,
         };
-      }else{
+      } else {
         obj = {
           type: "img",
-          path
+          path,
         };
-      };
+      }
       media.push(obj);
-    };
+    }
 
     handlePost(media);
-
   };
 
   const handlePost = async (media) => {
-    const accessToken = window.localStorage.getItem("accessToken")
+    const accessToken = window.localStorage.getItem("accessToken");
     const bodyData = {
       media,
-      ...content
+      ...content,
     };
     const headers = {
-      authorization: `Bearer ${accessToken}`
+      authorization: `Bearer ${accessToken}`,
     };
-    await server.post("/post/create", bodyData, { headers })
-    .then(() => {
-      alert("포스트가 등록되었습니다");
-      handleClickUpload(false);
-    })
-    .catch((err) => console.log(err));
-
+    await server
+      .post("/post/create", bodyData, { headers })
+      .then(() => {
+        alert("포스트가 등록되었습니다");
+        handleClickUpload(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -159,7 +156,7 @@ const Iconlist = () => {
                   <HeartOutlined className="realIcon" />
                 </Link>
               </div>
-              <Link className="noEffect" to="/mainpage">
+              <Link className="noEffect" to="/like">
                 <div className="homeButtonText">Like</div>
               </Link>
             </div>
