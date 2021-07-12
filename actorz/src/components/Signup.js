@@ -181,8 +181,8 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               .then((res) => {
                 if (res.status === 200) {
                   dispatch(getUserInfo(res.data.data.userInfo));
-                  alert("회원가입에 성공하였습니다!");
                 }
+                alert("회원가입에 성공하였습니다!");
               })
               .catch((err) => {
                 setLoading(false);
@@ -320,16 +320,16 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       {err ? <div className="err-message">{err}</div> : null}
                     </div>
                     <button
-                      className="btn-login2"
+                      className="btn-login"
                       type="submit"
                       onClick={handleClickActorSignupBtn}
                     >
                       <div className="settingBtn">
-                        회원가입
-                        <div className="loading">
-                          {loading ? <Loading /> : ""}
-                        </div>
+                      회원가입
+                      <div className="loading">
+                        {loading ? <Loading /> : ""}
                       </div>
+                    </div>
                     </button>
                     <div className="signUpbtnPosition2">
                       <div className="movetoSignUp">
