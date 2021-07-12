@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useMediaQuery } from "react-responsive"
 import Nav from "../components/Nav";
 import Post from "./Post";
@@ -7,19 +6,16 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
 import Iconlist from "../components/Iconlist";
-
 import { getAllPostInfo, editPostInfo } from "../actions/postAction";
 import { getUserInfo } from "../actions/userAction";
 import SocialSignup from "../components/SocialSignup";
 import Footer from "../components/Footer";
-
 import Search from "../components/Search";
 import { HeartOutlined } from "@ant-design/icons";
 import { Card, Icon, Image } from "semantic-ui-react";
 import "antd/dist/antd.css";
 import "../mainpage.css";
 import "semantic-ui-css/semantic.min.css";
-
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlist from "../components/responsiveApp/ResponsiveIconlist";
@@ -210,7 +206,7 @@ const Mainpage = () => {
 
           <div className="newblockPosition"> </div>
           <div className="middleSpace" >
-            <div className="midContents">
+            <div className="midContents2">
               {post.data.data
                 ? post.data.data.posts.posts.map((post) => {
                     return (
@@ -312,7 +308,8 @@ const Mainpage = () => {
             <div className="iconList2">{isFilter ? <Search /> : null}</div>
           </div>
         </div>
-        {/* <Footer /> */}
+
+        <Footer />
         {
           modalSocialSignup ? (
             <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>

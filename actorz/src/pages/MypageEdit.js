@@ -10,16 +10,30 @@ import {
 import "../styles/MypageEdit.css";
 import Iconlist from "../components/Iconlist";
 import Nav from "../components/Nav";
-import { CloseOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
+import { 
+  CloseOutlined, 
+  SaveOutlined, 
+  DeleteOutlined, } from "@ant-design/icons";
 //import Footer from "../components/Footer";
 import "antd/dist/antd.css";
 import { Button, Radio, Modal } from "antd";
+import { Tabs } from 'antd';
+import { StickyContainer, Sticky } from 'react-sticky';
+import Footer from "../components/Footer";
+
+const { TabPane } = Tabs;
+
+const renderTabBar = (props, DefaultTabBar) => (
+  <Sticky bottomOffset={80}>
+    {({ style }) => (
+      <DefaultTabBar {...props} className="site-custom-tab-bar" style={{ ...style }} />
+    )}
+  </Sticky>
+);
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
   // userinforeducer에서 판단한다.
-
-  console.log(user);
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
   const [tag, setTag] = useState("");
@@ -257,7 +271,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     //그래서 그걸 받아서 다시 사진을 투척
 
   }
-  console.log(user.isLogin);
+
   const handleClickConfirmBtn = () => {
     //document.getElementsByClassName("highlightDisplay")[1].value = "";
     //document.getElementsByClassName("highlightDisplay")[2].value = "";
@@ -302,30 +316,60 @@ const MypageEdit = ({ handeClickEditBtn }) => {
             <div className="midContentDownPart">
               <div className="displayPosition">
                 <div className="fixedSize">
-                  <img src={user.data.userInfo.mainPic} className="testPic" />
+                  
 
+                  <div className="filebox">
+                    <label className="fileboxCSS" for="ex_file">
 
-                  {/* <div className="profileButton">
-                  <Button
-                    variant="outlined"
-                    className="profileBtn"
-                    onClick={handleprofileButton}
-                  >
-                    프로필 사진 변경
-                  </Button>
-                  </div> */}
-
-                  <div className="filebox"> 
-                    <label className="fileboxCSS" for="ex_file">프로필 사진 변경</label> 
-                    <input type="file" 
-                      id="ex_file" 
-                      accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG" 
+                      <img
+                        src={user.data.userInfo.mainPic}
+                        className="testPic"
+                      />
+                    </label>
+                    <input
+                      type="file"
+                      id="ex_file"
+                      accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
                       onChange={handleprofileButton}
-                    /> 
+                    />
                   </div>
+                </div>
 
+                <div className="fixedContent">
+                  <div className="nameTitle">{user.data.userInfo.name}</div>
+                  <ul>
+                    <strong>생년월일</strong>
+                    <li className="dob">{user.data.userInfo.dob}</li>
+                    <strong>이메일</strong>
+                    <li className="email">{user.data.userInfo.email}</li>
+                    <strong>소속사</strong>
+                    <li className="company">{user.data.userInfo.company}</li>
+                  </ul>
+                </div>
+              </div>
 
-                  <div className="passwordModifyButton">
+              <div className="stickyContainerPosition">
+                <StickyContainer>
+                  <Tabs defaultActiveKey="1" renderTabBar={renderTabBar} centered="true">
+                  <TabPane tab="INFO" key="1">
+                    <div className="fixedContent2">
+                      <div className="nameTitle">{user.data.userInfo.name}</div>
+                      <ul>
+                        <strong>생년월일</strong>
+                        <li className="dob">{user.data.userInfo.dob}</li>
+                        <strong>이메일</strong>
+                        <li className="email">{user.data.userInfo.email}</li>
+                        <strong>소속사</strong>
+                        <li className="company">
+                          <input
+                            type="text"
+                            className="highlightDisplay"
+                            defaultValue={user.data.userInfo.company}
+                            onChange={handleInputValue("company")}
+                          ></input>
+                        </li>
+                      </ul>
+                      <div className="passwordModifyButton">
                     <Button
                       variant="outlined"
                       className="passwordModifyBtn"
@@ -363,128 +407,127 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                       </div>
                     </Modal>
                   </div>
-                </div>
-
-                <div className="fixedContent">
-                  <div className="nameTitle">{user.data.userInfo.name}</div>
-                  <ul>
-                    <strong>생년월일</strong>
-                    <li className="dob">{user.data.userInfo.dob}</li>
-                    <strong>이메일</strong>
-                    <li className="email">{user.data.userInfo.email}</li>
-                    <strong>소속사</strong>
-                    <li className="company">
-                      <input
-                        type="text"
-                        className="highlightDisplay"
-                        defaultValue={user.data.userInfo.company}
-                        onChange={handleInputValue("company")}
-                      ></input>
-                    </li>
-                    {/* <strong>비밀번호</strong>
-                    <li className="password">
-                      <input
-                        type="password"
-                        className="highlightDisplay"
-                        onChange={handleInputValue("password")}
-                      ></input>
-                    </li>
-                    <strong>비밀번호 확인</strong>
-                    <li className="passwordCheck">
-                      <input
-                        type="password"
-                        className="highlightDisplay"
-                      ></input> 
-                    </li> */}
-                  </ul>
-                </div>
-              </div>
-              <div className="careerTitleDivide">
-                <div className="careerTitle2">경력 수정하기 </div>
-                <div className="iconTitle">🏆</div>
-                <div className="careerButtonPosition">
-                  <Button
-                    variant="outlined"
-                    className="careerButton"
-                    onClick={handleClickConfirmBtn}
-                  >
-                    추가하기
-                  </Button>
-                </div>
-              </div>
-
-              <div className="careerContent">
-                <div className="career-box">
-                  <li className="career-li">
-                    <div className="careerDivide">
-                      <div className="career-title">
-                        제목:
-                        <input
-                          type="text"
-                          className="highlightDisplay"
-                          onChange={handleInputValue("title")}
-                        />
-                      </div>
-                      <div className="career-year">
-                        활동연도:
-                        <input
-                          type="text"
-                          className="highlightDisplay"
-                          placeholder="1990-01-01"
-                          onChange={handleInputValue("year")}
-                        />
-                      </div>
-                      <div></div>
                     </div>
-                    <br></br>
-                    <div className="careerDivide2">
-                      <div className="career-tag2">태그:</div>
+                    
+                  </TabPane>
+                  <TabPane tab="POSTS" key="2" >
                       <div>
-                        <Radio.Group
-                          className="radioButton"
-                          options={tagOptions}
-                          optionType="button"
-                          buttonStyle="solid"
-                          onChange={onChangeTag}
-                        />
+                        <div className="postsGallery">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+
+                        <div className="postsGallery">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+
+                        <div className="postsGallery">
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
                       </div>
-                    </div>
-                  </li>
-                </div>
+                  </TabPane>
+                    <TabPane tab="CAREER" key="3">
+                      <div className="careerTitleDivide">
+                        <div className="careerTitle2">경력 수정하기 &nbsp;</div>
+                        <div className="iconTitle">🏆</div>
+                         <div className="careerButtonPosition">
+                        <Button
+                          variant="outlined"
+                          className="careerButton"
+                          onClick={handleClickConfirmBtn}
+                        >
+                          추가하기
+                        </Button>
+                          </div>
+                        </div>
+
+                          <div className="careerContent">
+                            <div className="career-box">
+                              <li className="career-li">
+                                <div className="careerDivide">
+                                  <div className="career-title">
+                                    제목:
+                                    <input
+                                      type="text"
+                                      className="highlightDisplay2"
+                                      onChange={handleInputValue("title")}
+                                    />
+                                  </div>
+                                  <div className="career-year">
+                                    활동연도:
+                                    <input
+                                      type="text"
+                                      className="highlightDisplay2"
+                                      placeholder="1990-01-01"
+                                      onChange={handleInputValue("year")}
+                                    />
+                                  </div>
+                                  <div></div>
+                                </div>
+                                <br></br>
+                                <div className="careerDivide2">
+                                  <div className="career-tag2">태그:</div>
+                                  <div>
+                                    <Radio.Group
+                                      className="radioButton"
+                                      options={tagOptions}
+                                      optionType="button"
+                                      buttonStyle="solid"
+                                      onChange={onChangeTag}
+                                    />
+                                  </div>
+                                </div>
+                              </li>
+                            </div>
+                          </div>
+                        <span className="career-box">
+                          {user.data.userInfo.careers.map((career) => {
+                            return (
+                              <>
+                                <li className="career-li">
+                                  <div className="careerDivide">
+                                    <div className="career-title">
+                                      제목:{career.title}
+                                    </div>
+                                    {/* <div>{career.title}</div> */}
+                                    <div className="career-year">
+                                      활동연도:{career.year}
+                                    </div>
+                                    {/* <div>{career.year}</div> */}
+                                    <div className="blockhereplz"></div>
+                                    <CloseOutlined
+                                      className="career-delete-btn"
+                                      onClick={() => {
+                                        handleDeleteBtn(career._id);
+                                      }}
+                                    />
+                                  </div>
+                                  <div className="careerDivide">
+                                    <div className="tag">
+                                      <div className="tagPosition">태그:</div>
+                                      <div>{career.type}</div>
+                                    </div>
+                                  </div>
+                                </li>
+                              </>
+                            );
+                          })}
+                        </span>
+                      </TabPane>
+                    <TabPane tab="LIKES" key="4">
+                      좋아요 했던 게시물들 모아보는 공간
+                    </TabPane>
+                    <TabPane tab="TAGGED" key="5">
+                      컨텐츠 준비 중입니다.
+                    </TabPane>
+                  </Tabs>
+                </StickyContainer>
               </div>
-              <span className="career-box">
-                {user.data.userInfo.careers.map((career) => {
-                  return (
-                    <>
-                      <li className="career-li">
-                        <div className="careerDivide">
-                          <div className="career-title">
-                            제목:{career.title}
-                          </div>
-                          {/* <div>{career.title}</div> */}
-                          <div className="career-year">
-                            활동연도:{career.year}
-                          </div>
-                          {/* <div>{career.year}</div> */}
-                          <div className="blockhereplz"></div>
-                          <CloseOutlined
-                            className="career-delete-btn"
-                            onClick={() => {
-                              handleDeleteBtn(career._id);
-                            }}
-                          />
-                        </div>
-                        <div className="careerDivide">
-                          <div className="tag">
-                            <div className="tagPosition">태그:</div>
-                            <div>{career.type}</div>
-                          </div>
-                        </div>
-                      </li>
-                    </>
-                  );
-                })}
-              </span>
             </div>
           </div>
         </div>
@@ -494,7 +537,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           <div className="iconList2"> </div>
         </div>
       </div>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 };

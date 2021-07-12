@@ -78,6 +78,18 @@ li {
   background-color: #fafafa;
 }
 
+.fixedContent2 {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 2rem;
+  /*max-width:100%;*/
+  flex: 1;
+  height: 20rem;
+  background-color: #fafafa;
+}
+
+
 .displayPosition {
   display: flex;
   /*flex-direction: column;*/

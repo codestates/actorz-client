@@ -33,12 +33,12 @@ font {
 
 .search {
   display: flex;
-  padding: 6px;
+  padding: 0.375rem;
   position: fixed;
   left: 0;
   top: 0;
   width: 100vw;
-  height: 45px;
+  height: 2.8rem;
   background-color: white;
   border-bottom: 1px solid #e0e0e0;
 }
@@ -98,18 +98,22 @@ font {
   height: 17rem;
   display: inline-block;
   margin-top: 2rem;
-  margin-left: -1rem;
+  margin-left: -2rem;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem; 
   position: fixed;
   
 }
 
 .middleSpace {
   width: 45%;
-  height: 100vh;
+  /* height: 100vh; */
   background-color: #fafafa;
-	/*margin-bottom: 5rem;*/
+	/* margin-bottom: 5rem; */
 	/* overflow: auto; */
   -ms-overflow-style: none;
+  overflow:hidden;
+	height:auto;
 
 }
 
@@ -129,12 +133,26 @@ font {
   background-color: #fafafa;
 }
 
+.midContents2 {
+  /*
+	display: flex;
+	flex-direction: column;
+	*/
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  border: solid 1px #fafafa;
+  /* text-align: center; */
+  background-color: #fafafa;
+}
+
+
 .midContentDownPart {
   display: flex;
   flex-direction: column;
   /*flex-wrap: wrap;*/
   /*height: 100vh;*/
-  padding: 10px;
+  padding: 0.625rem;
+  /* margin-bottom: 5rem; */
 }
 
 .rightSpace {
@@ -153,11 +171,11 @@ font {
 	margin-top: 2rem;
 }
 */
-/* 
+
 .newblockPosition {
-  width: 10%;
+  width: 1%;
   background-color: #fafafa;
-} */
+} 
 
 .newblockPosition2 {
   width: 10%;
@@ -248,18 +266,18 @@ font {
 /* -----TEST ----- */
 
 .effecTest {
-  max-width: 1000px;
-  width: 100%;
+  /* max-width: 1000px;
+  width: 100%; */
   margin: 0 auto;
 }
 
-.effecTest a {
+.effecTest .screen {
   display: block;
   width: auto;
   text-decoration: none;
 }
 
-.effecTest a:hover .top {
+.effecTest .screen:hover .top {
   bottom: 70%;
 }
 .effecTest a:hover .bottom {
@@ -287,11 +305,13 @@ font {
   z-index: 1;
   opacity: 0;
   transition: all 0.35s;
+  border-radius: 70%;
+  height: -3rem;
 }
 
 .screen .top {
   position: absolute;
-  bottom: 150%;
+  bottom: 100%;
   margin-left: 5em;
   z-index: 2;
   color: #fff;
@@ -310,9 +330,9 @@ font {
   transition: all 0.35s;
 }
 
-.screen img {
+/* .screen img {
   width: 100%;
-}
+} */
 
 i.like.icon.mylike::before {
   color: red;

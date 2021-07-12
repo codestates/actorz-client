@@ -30,7 +30,7 @@ body {
 
 .search {
   display: flex;
-  padding: 6px;
+  padding: 0.4rem;
   position: fixed;
   left: 0;
   top: 0;
@@ -39,6 +39,7 @@ body {
   background-color: black;
   z-index: 4;
 }
+
 
 .headerLogo{
   width: 3.125rem;
