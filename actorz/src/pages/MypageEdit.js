@@ -35,7 +35,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   let s3Url = null;
   let result = null;
-  
+
   const tagOptions = [
     { label: "드라마", value: "드라마" },
     { label: "영화", value: "영화" },
@@ -58,30 +58,30 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
     //console.log('비밀번호 글자수: ' + pwdLength);
 
-    if(pwdLength < 9 || pwdLength > 20) {
-        alert('비밀번호는 9자 이상 20자 이하여야합니다!');
-        pwd1 = "";
-        pwd2 = "";
+    if (pwdLength < 9 || pwdLength > 20) {
+      alert("비밀번호는 9자 이상 20자 이하여야합니다!");
+      pwd1 = "";
+      pwd2 = "";
     } else {
       checkCount++;
     }
-    if(pwd1 !== pwd2) {
-      alert('비밀번호가 일치하지 않습니다!');
+    if (pwd1 !== pwd2) {
+      alert("비밀번호가 일치하지 않습니다!");
       pwd1 = "";
       pwd2 = "";
     } else {
       checkCount++;
     }
 
-    if(checkCount >= 2) {
-        checkCount=0;
-        setIsModalVisible(false);
-        //setPassword(password.password);
-        console.log('진짜 범인 검거: ' +password);
-        console.log(JSON.stringify(password));
+    if (checkCount >= 2) {
+      checkCount = 0;
+      setIsModalVisible(false);
+      //setPassword(password.password);
+      console.log("진짜 범인 검거: " + password);
+      console.log(JSON.stringify(password));
 
-        pwd1 = "";
-        pwd2 = "";    
+      pwd1 = "";
+      pwd2 = "";
     }
   };
 
@@ -91,21 +91,20 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const onChangeTag = (e) => {
-    if(e.target.value==="드라마"){
+    if (e.target.value === "드라마") {
       setTag(e.target.value);
-    } else if(e.target.value==="영화"){
+    } else if (e.target.value === "영화") {
       setTag(e.target.value);
-    } else if(e.target.value==="뮤지컬"){
+    } else if (e.target.value === "뮤지컬") {
       setTag(e.target.value);
-    } else if(e.target.value==="연극"){
+    } else if (e.target.value === "연극") {
       setTag(e.target.value);
-    } else if(e.target.value==="광고"){
+    } else if (e.target.value === "광고") {
       setTag(e.target.value);
-    } else if(e.target.value==="뮤직비디오"){
+    } else if (e.target.value === "뮤직비디오") {
       setTag(e.target.value);
     }
   };
-
 
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
@@ -120,7 +119,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       setYear({ [key]: event.target.value });
     } else if (key === "password") {
       setPassword({ [key]: event.target.value });
-    } 
+    }
   };
 
   const handleDeleteBtn = (id) => {
@@ -162,40 +161,38 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     };
     dispatch(editUserInfo(newUserInfo));
     await server
-      .post(`/user/:user_id/update`, newUserInfo, 
-      {
+      .post(`/user/:user_id/update`, newUserInfo, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        }
+        },
       })
-      .then((res) => {  
-        console.log('비밀번호까지 변경이요.')
-        alert('회원 정보가 변경되었습니다');
+      .then((res) => {
+        console.log("비밀번호까지 변경이요.");
+        alert("회원 정보가 변경되었습니다");
       })
       .catch((err) => {
         throw err;
       });
   };
 
-  const handleprofileButton = async (event) => {
-     // 서버한테 s3버킷 url 받아오는 거에요
-     //console.log(event.target.files[0]);
-     
+  const handleprofileButton = async (files) => {
+    // 서버한테 s3버킷 url 받아오는 거에요
+
     await server
-    .get(`upload`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      .get(`upload`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-    })
-    .then((res) => {
-      if (res.status === 201) {
-        s3Url = res.data.data;
-        console.log("s3Url: "+s3Url); //s3 url 가져옴
+      })
+      .then((res) => {
+        if (res.status === 201) {
+          s3Url = res.data.data;
+          console.log("s3Url: " + s3Url); //s3 url 가져옴
         }
-    })
-    .catch((err) => {
-      throw err;
-    });
+      })
+      .catch((err) => {
+        throw err;
+      });
 
     // 우리가 서버에 보낼 filepath(파일경로)를 받는 과정!
     let fileData = event.target.files[0];
@@ -207,7 +204,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       })
       .then((res) => {
         result = res.config.url.split("?")[0];
-        console.log("result: "+result)
+        console.log("result: " + result);
       })
       .catch((err) => {
         throw err;
@@ -215,6 +212,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       
     // var fileExt = fileData.name.substring(fileData.name.lastIndexOf(".") + 1);
     // console.log("fileExt: "+fileExt);
+
     
     
     //서버기준으로 정해놓음
@@ -237,7 +235,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       careers: user.data.userInfo.careers,
     };
     dispatch(editUserInfo(newUserInfo));
-    
+   
 
     await server
     .post(`/user/:user_id/update`, newUserInfo , 
@@ -304,6 +302,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
               <div className="displayPosition">
                 <div className="fixedSize">
                   <img src={user.data.userInfo.mainPic} className="testPic" />
+
 
                   {/* <div className="profileButton">
                   <Button

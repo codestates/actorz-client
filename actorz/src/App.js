@@ -6,6 +6,7 @@ import React from "react";
 import Mypage from "./pages/Mypage";
 import Posts from "./pages/Posts";
 import Post from "./pages/Post";
+import Like from "./pages/Like";
 import NaverLoginCallback from "./pages/NaverLoginCallback";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <Route path="/posts" component={Posts} />
           <Route path="/post/:id" component={Post} />
           <Route path="/loginCb" component={NaverLoginCallback} />
+          <Route path="/like" component={Like} />
         </Switch>
       </div>
     </Router>

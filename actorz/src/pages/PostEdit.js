@@ -17,15 +17,20 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const [newfile, setNewFile] = useState(userPostinfo.media);
   const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
-  console.log(postinfo);
+  //console.log(postinfo);
 
   let s3Url = null;
   let result = null;
-
+  //console.log(post.data.data.posts.posts);
+  var index = post.data.data.posts.posts.findIndex(
+    (post) => post._id === postinfo._id
+  );
+  console.log(index);
+  //console.log(index);
   useEffect(() => {
     //post의 상태가 업데이트 될 때마다 새로 넣어준다
-    setPostinfo(post.data.data.posts.posts[0]);
-    setNewFile(post.data.data.posts.posts[0].media);
+    setPostinfo(post.data.data.posts.posts[index]);
+    setNewFile(post.data.data.posts.posts[index].media);
   }, [post]);
 
   const handleClickDeleteBtn = (post_id, img_id) => {
@@ -131,14 +136,14 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
             <img src={profile} className="float-profile-btn"></img>
             <div className="float-profile-title">프로필</div>
           </div>
-          <div className="float-btn">
+          {/* <div className="float-btn">
             <img src={love} className="float-love-btn"></img>
             <div className="float-love-title">좋아요</div>
           </div>
           <div className="float-btn">
             <img src={email} className="float-email-btn"></img>
             <div className="float-email-title">연락하기</div>
-          </div>
+          </div> */}
           <div className="float-btn">
             <img
               src={email}

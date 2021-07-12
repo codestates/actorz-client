@@ -19,7 +19,7 @@ import Loading from "../components/loading";
 import FileUpload from "../components/file-upload/file-upload.component";
 import { redirectUri } from "../config";
 
-const Mainpage = () => {
+const Like = () => {
   const [clickupload, setClickUpload] = useState(false);
   const [clickModal, setClickModal] = useState(false);
   const [isloading, setIsLoading] = useState(false);
@@ -27,10 +27,12 @@ const Mainpage = () => {
   const [modalSocialSignup, setModalSocialSignup] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [clickLike, setClickLike] = useState(false);
+  const [likePost, setLikePost] = useState([]);
 
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
+  //console.log(user.data.userInfo.id);
 
   const loading = (boolean) => {
     setIsLoading(!boolean);
@@ -45,26 +47,16 @@ const Mainpage = () => {
       window.history.pushState(null, "", `/mainpage`);
     }
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-    const getPostLists = async () => {
-      try {
-        await server.get(`/post`).then((res) => {
-          if (res.status === 200) {
-            dispatch(getAllPostInfo(res.data.data));
-            setIsLoading(false);
-          }
-        });
-      } catch (err) {
-        setIsLoading(false);
-        alert(
-          "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다 \n 잠시 후 다시 이용해주세요"
-        );
-      }
-    };
-    getPostLists();
-  }, [dispatch, clickLike]);
+  useEffect(async () => {
+    await server
+      .get(`like/${user.data.userInfo.id}`)
+      .then((res) => {
+        setLikePost(res.data.data.posts);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  }, [clickLike]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -176,80 +168,92 @@ const Mainpage = () => {
       });
   };
 
+  const redirectPage = () => {
+    alert("로그인 후 이용 가능합니다.");
+    window.location = "/mainpage";
+  };
+
   //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
-      <div className="blockhere"> </div>
-      <div className="mainPage">
-        <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
-        <Iconlist />
+      {localStorage.getItem("accessToken") ? (
+        <>
+          <div className="blockhere"> </div>
+          <div className="mainPage">
+            <Nav
+              loading={loading}
+              handleClickFiltering={handleClickFiltering}
+            />
+            <Iconlist />
 
-        <div className="newblockPosition"> </div>
+            <div className="newblockPosition"> </div>
 
-        <div className="middleSpace">
-          <div className="midContents">
-            {post.data.data
-              ? post.data.data.posts.posts.map((post) => {
-                  return (
-                    <Card centered={true} fluid={true} key={post._id}>
-                      <div className="effecTest">
-                        <div
-                          className="screen"
-                          onClick={() => handleClickPost(true, post._id)}
-                        >
-                          {/* <div className="top"> 이기능쓰긴함?</div> */}
-                          <div className="bottom">
-                            <HeartOutlined className="testIcon" />
-                          </div>
-                          {post.media[0] ? (
-                            <Image
-                              src={post.media[0].path}
-                              className="exampleIMG"
-                            />
-                          ) : null}{" "}
-                          {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
-                        </div>
-                      </div>
-
-                      <Card.Content>
-                        <Card.Header>
-                          <div className="nothing2">
-                            <Link
-                              to={{
-                                pathname: `/posts`,
-                                state: {
-                                  id: post.userInfo.user_id,
-                                },
-                              }}
+            <div className="middleSpace">
+              <div className="midContents">
+                {post.data.data
+                  ? likePost.map((post) => {
+                      return (
+                        <Card centered={true} fluid={true} key={post._id}>
+                          <div className="effecTest">
+                            <div
+                              className="screen"
+                              onClick={() => handleClickPost(true, post._id)}
                             >
-                              <div className="nothing">
-                                {post.userInfo.name}
+                              {/* <div className="top"> 이기능쓰긴함?</div> */}
+                              <div className="bottom">
+                                <HeartOutlined className="testIcon" />
                               </div>
-                            </Link>
+                              {post.media[0] ? (
+                                <Image
+                                  src={post.media[0].path}
+                                  className="exampleIMG"
+                                />
+                              ) : null}{" "}
+                              {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
+                            </div>
                           </div>
-                        </Card.Header>
-                        <Card.Meta>
-                          <span className="date">
-                            Updated at {post.updatedAt}
-                          </span>
-                        </Card.Meta>
-                        <Card.Description>{post.content}</Card.Description>
-                      </Card.Content>
-                      <Card.Content extra>
-                        {post.likes.length !== 0 &&
-                        localStorage.getItem("accessToken") ? (
-                          <>
-                            {post.likes.findIndex(
-                              (i) => i.user_id === user.data.userInfo.id
-                            ) !== -1 ? (
-                              <Icon
-                                name="like"
-                                className="mylike"
-                                onClick={() =>
-                                  handleClickLikeBtn("like", post._id)
-                                }
-                              />
+
+                          <Card.Content>
+                            <Card.Header>
+                              <div className="nothing2">
+                                <Link
+                                  to={{
+                                    pathname: `/posts`,
+                                    state: {
+                                      id: post.userInfo.user_id,
+                                    },
+                                  }}
+                                >
+                                  <div className="nothing">
+                                    {post.userInfo.name}
+                                  </div>
+                                </Link>
+                              </div>
+                            </Card.Header>
+                            <Card.Meta>
+                              <span className="date">
+                                Updated at {post.updatedAt}
+                              </span>
+                            </Card.Meta>
+                            <Card.Description>{post.content}</Card.Description>
+                          </Card.Content>
+                          <Card.Content extra>
+                            {post.likes.length !== 0 ? (
+                              <>
+                                {post.likes.map((like) => {
+                                  return like.user_id ===
+                                    user.data.userInfo.id ? (
+                                    <Icon
+                                      name="like"
+                                      className="mylike"
+                                      onClick={() =>
+                                        handleClickLikeBtn("like", post._id)
+                                      }
+                                    />
+                                  ) : null;
+                                })}
+                              </>
                             ) : (
                               <Icon
                                 name="like"
@@ -259,58 +263,37 @@ const Mainpage = () => {
                                 }
                               />
                             )}
-                          </>
-                        ) : (
-                          <Icon
-                            name="like"
-                            className="unlike"
-                            onClick={() =>
-                              handleClickLikeBtn("unlike", post._id)
-                            }
-                          />
-                        )}
 
-                        {post.likes.length}
-                      </Card.Content>
-                    </Card>
-                  );
-                })
-              : null}
-            {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                            {post.likes.length}
+                          </Card.Content>
+                        </Card>
+                      );
+                    })
+                  : null}
+                {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+              </div>
+            </div>
+            <div className="newblockPosition2"> </div>
+
+            <div className="rightSpace">
+              <div className="iconList2">{isFilter ? <Search /> : null}</div>
+            </div>
           </div>
-        </div>
-        <div className="newblockPosition2"> </div>
-
-        <div className="rightSpace">
-          <div className="iconList2">{isFilter ? <Search /> : null}</div>
-        </div>
-      </div>
-      <Footer />
-      {modalSocialSignup ? (
-        <SocialSignup
-          oauthSignup={oauthSignup}
-          modalSocialClose={() => {
-            setModalSocialSignup(false);
-          }}
-        ></SocialSignup>
-      ) : null}
-
-      {/* <div>
-        {clickupload ? (
-          <div>
-            <form onSubmit={handleSubmit}>
-              <FileUpload
-                accept=".jpg,.png,.jpeg, .mp4"
-                multiple
-                updateFilesCb={updateUploadedFiles}
-                handleClickUpload={handleClickUpload}
-              />
-            </form>
-          </div>
-        ) : null}
-      </div> */}
+          <Footer />
+          {modalSocialSignup ? (
+            <SocialSignup
+              oauthSignup={oauthSignup}
+              modalSocialClose={() => {
+                setModalSocialSignup(false);
+              }}
+            ></SocialSignup>
+          ) : null}
+        </>
+      ) : (
+        redirectPage()
+      )}
     </>
   );
 };
 
-export default Mainpage;
+export default Like;
