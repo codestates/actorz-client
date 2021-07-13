@@ -11,6 +11,7 @@ import FileUpload from "../../components/file-upload/file-upload.component";
 import server from "../../apis/server";
 import axios from "axios";
 import "../../styles/ResponsiveIconlist.css";
+import { Modal } from 'antd';
 
 const ResponsiveIconlist = () => {
   const [newfile, setNewFile] = useState({
@@ -93,7 +94,10 @@ const ResponsiveIconlist = () => {
     };
     await server.post("/post/create", bodyData, { headers })
     .then(() => {
-      alert("포스트가 등록되었습니다");
+      Modal.success({
+        content: '포스트가 등록되었습니다',
+      });
+      // alert("포스트가 등록되었습니다");
       handleClickUpload(false);
     })
     .catch((err) => console.log(err));

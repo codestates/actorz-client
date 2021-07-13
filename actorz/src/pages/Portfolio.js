@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
 import axios from "axios";
-
+import { Modal } from 'antd';
 import Nav from "../components/Nav";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
@@ -63,8 +63,12 @@ const Portfolio = () => {
   };
 
   const redirectPage = () => {
-    alert("로그인 후 이용 가능합니다.");
-    window.location = "/mainpage";
+    Modal.warning({
+      title: '접근 실패',
+      content: '로그인 후 이용 가능합니다.',
+      onOk(){window.location = "/mainpage";}
+    });
+    
   };
 
   return (

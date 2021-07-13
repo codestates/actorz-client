@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import FileUpload from "../components/file-upload/file-upload.component";
 import server from "../apis/server";
 import axios from "axios";
+import { Modal } from 'antd';
 
 const Iconlist = () => {
   const [newfile, setNewFile] = useState({
@@ -49,11 +50,19 @@ const Iconlist = () => {
     event.preventDefault();
     // login유무 확인
     if(!localStorage.getItem("accessToken")){
-      alert("로그인 후 이용 가능합니다");
+      Modal.error({
+        content: '로그인 후 이용 가능합니다',
+      });
+      //alert("로그인 후 이용 가능합니다");
       return redirectPage();
     }
     if(!content.genre){
-      return alert("장르를 선택해 주세요");
+      return (
+        Modal.warning({
+          content: '장르를 선택해 주세요',
+        })
+      );
+      //return alert("장르를 선택해 주세요");
     }
     
     // loading 중...
@@ -115,7 +124,10 @@ const Iconlist = () => {
     .then(() => {
       // 완료 후 등록완료 메세지 알림과 페이지 리디렉션
       setIsLoading(false);
-      alert("포스트가 등록되었습니다");
+      Modal.success({
+        content: '포스트가 등록되었습니다',
+      });
+      // alert("포스트가 등록되었습니다");
       redirectPage();
     })
     .catch((err) => console.log(err));
