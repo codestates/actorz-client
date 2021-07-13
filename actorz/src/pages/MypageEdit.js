@@ -422,7 +422,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
                       <strong>생년월일</strong>
-                      <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+                      <li className="dob">{user.data.userInfo.dob}</li>
                       <strong>이메일</strong>
                       <li className="email">{user.data.userInfo.email}</li>
                       <strong>소속사</strong>
@@ -706,7 +706,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
                       <strong>생년월일</strong>
-                      <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+                      <li className="dob">{user.data.userInfo.dob}</li>
                       <strong>이메일</strong>
                       <li className="email">{user.data.userInfo.email}</li>
                       <strong>소속사</strong>
@@ -723,7 +723,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <div className="nameTitle">{user.data.userInfo.name}</div>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+                          <li className="dob">{user.data.userInfo.dob}</li>
                           <strong>이메일</strong>
                           <li className="email">{user.data.userInfo.email}</li>
                           <strong>소속사</strong>
@@ -981,7 +981,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
                       <strong>생년월일</strong>
-                      <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+                      <li className="dob">{user.data.userInfo.dob}</li>
                       <strong>이메일</strong>
                       <li className="email">{user.data.userInfo.email}</li>
                       <strong>소속사</strong>
@@ -998,7 +998,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <div className="nameTitle">{user.data.userInfo.name}</div>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+                          <li className="dob">{user.data.userInfo.dob}</li>
                           <strong>이메일</strong>
                           <li className="email">{user.data.userInfo.email}</li>
                           <strong>소속사</strong>
