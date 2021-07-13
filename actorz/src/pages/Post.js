@@ -12,6 +12,7 @@ import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/Post.css";
 import { ServerStyleSheet } from "styled-components";
+import SendEmail from "../components/SendEmail";
 
 const Post = ({ handleClickPost }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -21,6 +22,7 @@ const Post = ({ handleClickPost }) => {
   const user = useSelector((user) => user.userInfoReducer);
   const [like, setIsLike] = useState(false);
   const [whoIsLike, setWhoIsLike] = useState([]);
+  const [emailClick, setEmailClick] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -71,7 +73,7 @@ const Post = ({ handleClickPost }) => {
         });
     };
     p();
-  }, []);
+  }, [url]);
 
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
@@ -195,7 +197,10 @@ const Post = ({ handleClickPost }) => {
                   )}
                 </div>
                 {user.data.userInfo.role === "recruiter" ? (
-                  <div className="float-btn">
+                  <div 
+                  className="float-btn"
+                  onClick={() => setEmailClick(true)}
+                  >
                     <img src={email} className="float-email-btn" alt=""></img>
                     <div className="float-email-title">연락하기</div>
                   </div>
@@ -225,7 +230,6 @@ const Post = ({ handleClickPost }) => {
                   </div>
                 ) : null}
               </div>
-
               <div
                 className="container"
                 onClick={(event) => event.stopPropagation()}
@@ -284,6 +288,16 @@ const Post = ({ handleClickPost }) => {
       ) : (
         <Loading />
       )}
+      {
+        emailClick ? (
+          <SendEmail 
+            handleClickPost={handleClickPost}
+            setEmailClick={setEmailClick}
+            postData={postinfo}
+            userInfo={user.data.userInfo}
+          ></SendEmail>
+        ) : null
+      }
     </>
   );
 };

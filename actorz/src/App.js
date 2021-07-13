@@ -8,7 +8,7 @@ import Posts from "./pages/Posts";
 import Post from "./pages/Post";
 
 import Like from "./pages/Like";
-
+// import { useSelector, useDispatch } from "react-redux";
 
 function App() {
   return (

@@ -14,7 +14,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
   // console.log(oauthSignup)
   const [provider, email] = oauthSignup.split("=");
   const [actorSignup, setActorSignup] = useState({});
-  const [recruitorSignup, setRecruitorSignup] = useState({});
+  const [recruiterSignup, setrecruiterSignup] = useState({});
   const [err, setError] = useState("");
   const [role, setRole] = useState("배우");
   const [loading, setLoading] = useState(false);
@@ -25,8 +25,8 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     setActorSignup({ ...actorSignup, [key]: event.target.value });
   };
 
-  const handleInputRecruitorValue = (key) => (event) => {
-    setRecruitorSignup({ ...recruitorSignup, [key]: event.target.value });
+  const handleInputrecruiterValue = (key) => (event) => {
+    setrecruiterSignup({ ...recruiterSignup, [key]: event.target.value });
   };
 
   const setGender = (gender) => {
@@ -111,7 +111,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     }
   };
 
-  const handleClickRecruitorSignupBtn = async () => {
+  const handleClickrecruiterSignupBtn = async () => {
     setLoading(true);
     const {
       name,
@@ -124,7 +124,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
       bEmail,
       phoneNum,
       jobTitle,
-    } = recruitorSignup;
+    } = recruiterSignup;
 
     try {
       if (
@@ -146,7 +146,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
             provider,
             gender: setGender(gender),
             dob: dob,
-            recruitor: {
+            recruiter: {
               bName: bName,
               bAddress: {
                 city: bAddress_city,
@@ -293,7 +293,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                     <button
                       className="btn-login"
                       type="submit"
-                      onClick={handleClickRecruitorSignupBtn}
+                      onClick={handleClickrecruiterSignupBtn}
                     >
                       <div className="settingBtn">
                         회원가입
@@ -312,7 +312,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="이름"
-                            onChange={handleInputRecruitorValue("name")}
+                            onChange={handleInputrecruiterValue("name")}
                           />
                         </div>
                       </div>
@@ -322,7 +322,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="생년월일 (1990,01,02)"
-                            onChange={handleInputRecruitorValue("dob")}
+                            onChange={handleInputrecruiterValue("dob")}
                           />
                         </div>
                       </div>
@@ -332,7 +332,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="회사명"
-                            onChange={handleInputRecruitorValue("bName")}
+                            onChange={handleInputrecruiterValue("bName")}
                           />
                         </div>
                       </div>
@@ -344,7 +344,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                             <input
                               type="text"
                               placeholder="시/도"
-                              onChange={handleInputRecruitorValue(
+                              onChange={handleInputrecruiterValue(
                                 "bAddress_city"
                               )}
                             />
@@ -354,7 +354,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="시/군/구"
-                            onChange={handleInputRecruitorValue(
+                            onChange={handleInputrecruiterValue(
                               "bAddress_street"
                             )}
                           />
@@ -363,7 +363,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="number"
                             placeholder="우편번호"
-                            onChange={handleInputRecruitorValue(
+                            onChange={handleInputrecruiterValue(
                               "bAddress_zipcode"
                             )}
                           />
@@ -376,7 +376,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="email"
                             placeholder="회사 이메일"
-                            onChange={handleInputRecruitorValue("bEmail")}
+                            onChange={handleInputrecruiterValue("bEmail")}
                           />
                         </div>
                       </div>
@@ -387,7 +387,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="회사 전화번호"
-                            onChange={handleInputRecruitorValue("phoneNumber")}
+                            onChange={handleInputrecruiterValue("phoneNumber")}
                           />
                         </div>
                       </div>
@@ -398,7 +398,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="직책"
-                            onChange={handleInputRecruitorValue("jobTitle")}
+                            onChange={handleInputrecruiterValue("jobTitle")}
                           />
                         </div>
                       </div>
@@ -409,7 +409,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           name="gender"
                           defaultChecked
                           value="남"
-                          onChange={handleInputRecruitorValue("gender")}
+                          onChange={handleInputrecruiterValue("gender")}
                         />
                         &nbsp;남
                         <input type="radio" name="gender" value="여" />
@@ -419,7 +419,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       <button
                         className="btn-login"
                         type="submit"
-                        onClick={handleClickRecruitorSignupBtn}
+                        onClick={handleClickrecruiterSignupBtn}
                       >
                         <div className="settingBtn">
                           회원가입
