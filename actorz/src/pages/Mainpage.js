@@ -342,92 +342,96 @@ const Mainpage = () => {
 
             <div className="middleSpaceResponsive">
               <div className="midContentsResponsive">
-                {post.data.data
-                  ? post.data.data.posts.posts.map((post) => {
-                      return (
-                        <Card centered={true} fluid={true} key={post._id}>
-                          <div className="effecTest">
-                            <div
-                              className="screen"
-                              onClick={() => handleClickPost(true, post._id)}
-                            >
-                              {/* <div className="top"> 이기능쓰긴함?</div> */}
-                              <div className="bottom">
-                                <HeartOutlined className="testIcon" />
-                              </div>
-                              {post.media[0] ? (
-                                <Image
-                                  src={post.media[0].path}
-                                  className="exampleIMG"
-                                />
-                              ) : null}{" "}
-                              {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
+                {post.data.data && post.data.data.posts.posts.length !== 0 ? (
+                  post.data.data.posts.posts.map((post) => {
+                    return (
+                      <Card centered={true} fluid={true} key={post._id}>
+                        <div className="effecTest">
+                          <div
+                            className="screen"
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
+                            {/* <div className="top"> 이기능쓰긴함?</div> */}
+                            <div className="bottom">
+                              <HeartOutlined className="testIcon" />
                             </div>
-                          </div>
-
-                          <Card.Content>
-                            <Card.Header>
-                              <div className="nothing2">
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: post.userInfo.user_id,
-                                    },
-                                  }}
-                                >
-                                  <div className="nothing">
-                                    {post.userInfo.name}
-                                  </div>
-                                </Link>
-                              </div>
-                            </Card.Header>
-                            <Card.Meta>
-                              <span className="date">
-                                Updated at {post.updatedAt}
-                              </span>
-                            </Card.Meta>
-                            <Card.Description>{post.content}</Card.Description>
-                          </Card.Content>
-                          <Card.Content extra>
-                            {post.likes.length !== 0 &&
-                            localStorage.getItem("accessToken") ? (
-                              <>
-                                {post.likes.findIndex(
-                                  (i) => i.user_id === user.data.userInfo.id
-                                ) !== -1 ? (
-                                  <Icon
-                                    name="like"
-                                    className="mylike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("like", post._id)
-                                    }
-                                  />
-                                ) : (
-                                  <Icon
-                                    name="like"
-                                    className="unlike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("unlike", post._id)
-                                    }
-                                  />
-                                )}
-                              </>
-                            ) : (
-                              <Icon
-                                name="like"
-                                className="unlike"
-                                onClick={() =>
-                                  handleClickLikeBtn("unlike", post._id)
-                                }
+                            {post.media[0] ? (
+                              <Image
+                                src={post.media[0].path}
+                                className="exampleIMG"
                               />
-                            )}
-                            {post.likes.length}
-                          </Card.Content>
-                        </Card>
-                      );
-                    })
-                  : null}
+                            ) : null}{" "}
+                            {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
+                          </div>
+                        </div>
+
+                        <Card.Content>
+                          <Card.Header>
+                            <div className="nothing2">
+                              <Link
+                                to={{
+                                  pathname: `/posts`,
+                                  state: {
+                                    id: post.userInfo.user_id,
+                                  },
+                                }}
+                              >
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
+                              </Link>
+                            </div>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className="date">
+                              Updated at {post.updatedAt}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{post.content}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          {post.likes.length !== 0 &&
+                          localStorage.getItem("accessToken") ? (
+                            <>
+                              {post.likes.findIndex(
+                                (i) => i.user_id === user.data.userInfo.id
+                              ) !== -1 ? (
+                                <Icon
+                                  name="like"
+                                  className="mylike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("like", post._id)
+                                  }
+                                />
+                              ) : (
+                                <Icon
+                                  name="like"
+                                  className="unlike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("unlike", post._id)
+                                  }
+                                />
+                              )}
+                            </>
+                          ) : (
+                            <Icon
+                              name="like"
+                              className="unlike"
+                              onClick={() =>
+                                handleClickLikeBtn("unlike", post._id)
+                              }
+                            />
+                          )}
+                          {post.likes.length}
+                        </Card.Content>
+                      </Card>
+                    );
+                  })
+                ) : (
+                  <center>
+                    <div className="alert">게시물이 없어요</div>
+                  </center>
+                )}
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
             </div>
@@ -456,92 +460,96 @@ const Mainpage = () => {
 
             <div className="middleSpaceResponsive2">
               <div className="midContentsResponsive2">
-                {post.data.data
-                  ? post.data.data.posts.posts.map((post) => {
-                      return (
-                        <Card centered={true} fluid={true} key={post._id}>
-                          <div className="effecTest">
-                            <div
-                              className="screen"
-                              onClick={() => handleClickPost(true, post._id)}
-                            >
-                              {/* <div className="top"> 이기능쓰긴함?</div> */}
-                              <div className="bottom">
-                                <HeartOutlined className="testIcon" />
-                              </div>
-                              {post.media[0] ? (
-                                <Image
-                                  src={post.media[0].path}
-                                  className="exampleIMG"
-                                />
-                              ) : null}{" "}
-                              {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
+                {post.data.data && post.data.data.posts.posts.length !== 0 ? (
+                  post.data.data.posts.posts.map((post) => {
+                    return (
+                      <Card centered={true} fluid={true} key={post._id}>
+                        <div className="effecTest">
+                          <div
+                            className="screen"
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
+                            {/* <div className="top"> 이기능쓰긴함?</div> */}
+                            <div className="bottom">
+                              <HeartOutlined className="testIcon" />
                             </div>
-                          </div>
-
-                          <Card.Content>
-                            <Card.Header>
-                              <div className="nothing2">
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: post.userInfo.user_id,
-                                    },
-                                  }}
-                                >
-                                  <div className="nothing">
-                                    {post.userInfo.name}
-                                  </div>
-                                </Link>
-                              </div>
-                            </Card.Header>
-                            <Card.Meta>
-                              <span className="date">
-                                Updated at {post.updatedAt}
-                              </span>
-                            </Card.Meta>
-                            <Card.Description>{post.content}</Card.Description>
-                          </Card.Content>
-                          <Card.Content extra>
-                            {post.likes.length !== 0 &&
-                            localStorage.getItem("accessToken") ? (
-                              <>
-                                {post.likes.findIndex(
-                                  (i) => i.user_id === user.data.userInfo.id
-                                ) !== -1 ? (
-                                  <Icon
-                                    name="like"
-                                    className="mylike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("like", post._id)
-                                    }
-                                  />
-                                ) : (
-                                  <Icon
-                                    name="like"
-                                    className="unlike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("unlike", post._id)
-                                    }
-                                  />
-                                )}
-                              </>
-                            ) : (
-                              <Icon
-                                name="like"
-                                className="unlike"
-                                onClick={() =>
-                                  handleClickLikeBtn("unlike", post._id)
-                                }
+                            {post.media[0] ? (
+                              <Image
+                                src={post.media[0].path}
+                                className="exampleIMG"
                               />
-                            )}
-                            {post.likes.length}
-                          </Card.Content>
-                        </Card>
-                      );
-                    })
-                  : null}
+                            ) : null}{" "}
+                            {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
+                          </div>
+                        </div>
+
+                        <Card.Content>
+                          <Card.Header>
+                            <div className="nothing2">
+                              <Link
+                                to={{
+                                  pathname: `/posts`,
+                                  state: {
+                                    id: post.userInfo.user_id,
+                                  },
+                                }}
+                              >
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
+                              </Link>
+                            </div>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className="date">
+                              Updated at {post.updatedAt}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{post.content}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          {post.likes.length !== 0 &&
+                          localStorage.getItem("accessToken") ? (
+                            <>
+                              {post.likes.findIndex(
+                                (i) => i.user_id === user.data.userInfo.id
+                              ) !== -1 ? (
+                                <Icon
+                                  name="like"
+                                  className="mylike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("like", post._id)
+                                  }
+                                />
+                              ) : (
+                                <Icon
+                                  name="like"
+                                  className="unlike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("unlike", post._id)
+                                  }
+                                />
+                              )}
+                            </>
+                          ) : (
+                            <Icon
+                              name="like"
+                              className="unlike"
+                              onClick={() =>
+                                handleClickLikeBtn("unlike", post._id)
+                              }
+                            />
+                          )}
+                          {post.likes.length}
+                        </Card.Content>
+                      </Card>
+                    );
+                  })
+                ) : (
+                  <center>
+                    <div className="alert">게시물이 없어요</div>
+                  </center>
+                )}
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
             </div>
