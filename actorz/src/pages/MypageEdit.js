@@ -209,20 +209,18 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
-      
+
     // var fileExt = fileData.name.substring(fileData.name.lastIndexOf(".") + 1);
     // console.log("fileExt: "+fileExt);
 
-    
-    
     //서버기준으로 정해놓음
     // s3 버킷에 올림
     let profile = {
-      mainPic: result 
-    }
+      mainPic: result,
+    };
 
     //dispatch(editUserInfo(profile));
-    
+
     let newUserInfo = {
       id: user.data.userInfo.id,
       mainPic: result,
@@ -235,28 +233,24 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       careers: user.data.userInfo.careers,
     };
     dispatch(editUserInfo(newUserInfo));
-   
 
     await server
-    .post(`/user/:user_id/update`, newUserInfo , 
-    {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-      }
-    })
-    .then((res) => {  
-      console.log('프로필 사진 변경 완료')
-    })
-    .catch((err) => {
-      throw err;
-    });
+      .post(`/user/:user_id/update`, newUserInfo, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+        },
+      })
+      .then((res) => {
+        console.log("프로필 사진 변경 완료");
+      })
+      .catch((err) => {
+        throw err;
+      });
 
     // 경로를 서버에 보내줘야한다.
 
-    
     //그래서 그걸 받아서 다시 사진을 투척
-
-  }
+  };
   console.log(user.isLogin);
   const handleClickConfirmBtn = () => {
     //document.getElementsByClassName("highlightDisplay")[1].value = "";
@@ -270,12 +264,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           type: tag,
         })
       );
-      
     }
   };
 
   return (
-    
     <>
       <div className="blockhere"> </div>
       <div className="mainPage">
@@ -304,7 +296,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 <div className="fixedSize">
                   <img src={user.data.userInfo.mainPic} className="testPic" />
 
-
                   {/* <div className="profileButton">
                   <Button
                     variant="outlined"
@@ -315,15 +306,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                   </Button>
                   </div> */}
 
-                  <div className="filebox"> 
-                    <label className="fileboxCSS" for="ex_file">프로필 사진 변경</label> 
-                    <input type="file" 
-                      id="ex_file" 
-                      accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG" 
+                  <div className="filebox">
+                    <label className="fileboxCSS" for="ex_file">
+                      프로필 사진 변경
+                    </label>
+                    <input
+                      type="file"
+                      id="ex_file"
+                      accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
                       onChange={handleprofileButton}
-                    /> 
+                    />
                   </div>
-
 
                   <div className="passwordModifyButton">
                     <Button
