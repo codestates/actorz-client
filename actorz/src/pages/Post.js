@@ -25,6 +25,7 @@ const Post = ({ handleClickPost }) => {
   const [emailClick, setEmailClick] = useState(false);
 
   const dispatch = useDispatch();
+  console.log(post.data.data);
 
   var idx = post.data.data.posts.posts.findIndex(
     (post) => post._id === postinfo._id
@@ -66,7 +67,6 @@ const Post = ({ handleClickPost }) => {
     };
     p();
   }, [dispatch]);
-
 
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
@@ -182,9 +182,9 @@ const Post = ({ handleClickPost }) => {
                   )}
                 </div>
                 {user.data.userInfo.role === "recruiter" ? (
-                  <div 
-                  className="float-btn"
-                  onClick={() => setEmailClick(true)}
+                  <div
+                    className="float-btn"
+                    onClick={() => setEmailClick(true)}
                   >
                     <img src={email} className="float-email-btn" alt=""></img>
                     <div className="float-email-title">연락하기</div>
@@ -275,16 +275,14 @@ const Post = ({ handleClickPost }) => {
       ) : (
         <Loading />
       )}
-      {
-        emailClick ? (
-          <SendEmail 
-            handleClickPost={handleClickPost}
-            setEmailClick={setEmailClick}
-            postData={postinfo}
-            userInfo={user.data.userInfo}
-          ></SendEmail>
-        ) : null
-      }
+      {emailClick ? (
+        <SendEmail
+          handleClickPost={handleClickPost}
+          setEmailClick={setEmailClick}
+          postData={postinfo}
+          userInfo={user.data.userInfo}
+        ></SendEmail>
+      ) : null}
     </>
   );
 };

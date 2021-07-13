@@ -13,7 +13,6 @@ body {
   margin-right: 0.5rem;
 }
 
-
 .ResponsiveFooter {
   position: fixed;
   display: fixed;
@@ -36,10 +35,9 @@ body {
 }
 
 .ResponsiveNavHeader {
-  width:100%;
+  width: 100%;
   max-width: 100%;
 }
-
 
 .search2 {
   display: flex;
@@ -53,4 +51,38 @@ body {
   background-color: white;
   border-bottom: 1px solid #e0e0e0;
   z-index: 5;
+}
+
+/* .nav-btn {
+  border: 0rem;
+  border-radius: 0.3rem;
+  width: 7rem;
+  height: 2rem;
+  display: flex;
+  padding: 0.5rem 0rem 0rem 2rem;
+  margin-bottom: 0.3rem;
+  background-color: rgb(233, 239, 240);
+} */
+
+.nav-btn-login {
+  border: 0rem;
+  border-radius: 0.3rem;
+  width: 7rem;
+  height: 2rem;
+  display: flex;
+  padding: 0.5rem 0rem 0rem 2.3rem;
+  margin-bottom: 0.3rem;
+  background-color: rgb(233, 239, 240);
+}
+
+.nav-btn-signup,
+.nav-btn-logout {
+  border: 0rem;
+  border-radius: 0.3rem;
+  width: 7rem;
+  height: 2rem;
+  display: flex;
+  padding: 0.5rem 0rem 0rem 2rem;
+  margin-bottom: 0.3rem;
+  background-color: rgb(233, 239, 240);
 }
