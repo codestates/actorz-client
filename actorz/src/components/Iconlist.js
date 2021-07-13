@@ -4,6 +4,7 @@ import {
   HeartOutlined,
   FileAddOutlined,
   HomeOutlined,
+  SnippetsOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
@@ -133,7 +134,7 @@ const Iconlist = () => {
           <div className="spaceDirection">
             <div className="homeButton">
               <div className="homeButtonIcon">
-                <Link to="/mainpage" className="noEffect">
+                <Link className="noEffect" to="/mainpage">
                   <HomeOutlined className="realIcon" />
                 </Link>
               </div>
@@ -142,24 +143,14 @@ const Iconlist = () => {
               </Link>
             </div>
 
-            <div className="homeButton">
+            <div className="homeButton" onClick={() => handleClickUpload(true)}>
               <div className="homeButtonIcon">
-                <Link
-                  className="noEffect"
-                  onClick={() => handleClickUpload(true)}
-                  to="/"
-                >
+                <Link className="noEffect">
                   <FileAddOutlined className="realIcon" />
                 </Link>
               </div>
               <Link className="noEffect">
-                <div
-                  className="homeButtonText"
-                  onClick={() => handleClickUpload(true)}
-                  to="/"
-                >
-                  Post
-                </div>
+                <div className="homeButtonText">Post</div>
               </Link>
             </div>
 
@@ -176,7 +167,7 @@ const Iconlist = () => {
 
             <div className="homeButton">
               <div className="homeButtonIcon">
-                <Link className="noEffect" to="/mainpage">
+                <Link className="noEffect" to="/like">
                   <HeartOutlined className="realIcon" />
                 </Link>
               </div>
@@ -184,7 +175,17 @@ const Iconlist = () => {
                 <div className="homeButtonText">Like</div>
               </Link>
             </div>
-            <div className="likeButton"></div>
+            
+            <div className="homeButton">
+              <div className="homeButtonIcon">
+                <Link className="noEffect" to="/portfolio">
+                  <SnippetsOutlined className="realIcon" />
+                </Link>
+              </div>
+              <Link className="noEffect" to="/portfolio">
+                <div className="homeButtonText">Portfolio</div>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
