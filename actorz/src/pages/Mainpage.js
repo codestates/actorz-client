@@ -13,6 +13,7 @@ import SocialSignup from "../components/SocialSignup";
 import Footer from "../components/Footer";
 import Search from "../components/Search";
 import { HeartOutlined } from "@ant-design/icons";
+import { Modal } from 'antd';
 import { Card, Icon, Image } from "semantic-ui-react";
 import "antd/dist/antd.css";
 import "../mainpage.css";
@@ -20,6 +21,7 @@ import "semantic-ui-css/semantic.min.css";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlist from "../components/responsiveApp/ResponsiveIconlist";
+import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
 import "../styles/ResponsiveMainpage.css";
 import Loading from "../components/loading";
 import FileUpload from "../components/file-upload/file-upload.component";
@@ -64,9 +66,11 @@ const Mainpage = () => {
         });
       } catch (err) {
         setIsLoading(false);
-        alert(
-          "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다 \n 잠시 후 다시 이용해주세요"
-        );
+        Modal.error({
+          title: '실패',
+          content: '게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다  \n 잠시 후 다시 이용해주세요',
+        });
+
       }
     };
     getPostLists();
@@ -119,7 +123,10 @@ const Mainpage = () => {
                 setOauthSignup(`${provider}=${res.data.data.email}`);
               } else {
                 setIsLoading(false);
-                alert("소셜 로그인 중 오류가 발생했습니다.");
+                Modal.error({
+                  title: '로그인 실패',
+                  content: '소셜 로그인 중 오류가 발생했습니다.',
+                });
                 return;
               }
             });
@@ -193,7 +200,12 @@ const Mainpage = () => {
           throw err;
         });
     } else {
-      alert("로그인 후 이용 가능합니다.");
+      return (
+        Modal.warning({
+          title: 'Login first',
+          content: '로그인 후 이용 가능합니다.',
+        })
+      )
     }
   };
 
@@ -337,9 +349,11 @@ const Mainpage = () => {
           <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
           <div className="blockhere"> </div>
           <div className="mainPageResponsive">
-            <ResponsiveIconlist />
+            <ResponsiveIconlistTablet />
 
-            <div className="middleSpaceResponsive">
+            <div className="middleSpace2">
+
+            {/* <div className="middleSpaceResponsive2"> */}
               <div className="midContentsResponsive midContentsReverse">
                 {post.data.data && post.data.data.posts.posts.length !== 0 ? (
                   post.data.data.posts.posts.map((post) => {

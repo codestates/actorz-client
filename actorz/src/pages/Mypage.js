@@ -11,9 +11,10 @@ import "../styles/Mypage.css";
 import "antd/dist/antd.css";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Loading from "../components/loading";
-import { Tabs } from "antd";
-import { StickyContainer, Sticky } from "react-sticky";
-import Slider from "react-slick";
+
+import { Modal, Tabs } from 'antd';
+import { StickyContainer, Sticky } from 'react-sticky';
+
 import { useMediaQuery } from "react-responsive";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
@@ -131,9 +132,18 @@ const Mypage = () => {
   //   // 여기에 이미지 올리는 로직 작성해야 함
   // };
 
+  const windowLocation = () => {
+    return window.location = "/mainpage";
+  }
+
   const redirectPage = () => {
-    alert("로그인 후 이용 가능합니다.");
-    window.location = "/mainpage";
+    Modal.warning({
+      title: '접근 실패',
+      content: '로그인 후 이용 가능합니다.',
+      onOk(){windowLocation()}
+    });
+    //alert("로그인 후 이용 가능합니다.");
+    //window.location = "/mainpage";
   };
   //console.log(user); //여기에 서버에서 가져온 유저 정보가 담겨있음.
   //console.log(userinfo);
@@ -162,6 +172,29 @@ const Mypage = () => {
                               <div className="profileTitleName">
                                 {user.data.userInfo.name}'s profile
                               </div>
+  
+                              <div className="fixedContent">
+                                <ul>
+                                  <div className="nameTitle">
+                                    {user.data.userInfo.name}
+                                  </div>
+                                  <strong>생년월일</strong>
+                                  <li className="dob">
+                                    {user.data.userInfo.dob.split("T")[0]}
+                                  </li>
+                                  <strong>이메일</strong>
+                                  <li className="email">
+                                    {user.data.userInfo.email}
+                                  </li>
+                                  <strong>소속사</strong>
+                                  {user.data.userInfo.company ? (
+                                    <li className="company">
+                                      {user.data.userInfo.company}
+                                    </li>
+                                  ) : (
+                                    <li className="company"></li>
+                                  )}
+                                </ul>
                               <div className="profileButtonAll">
                                 <EditOutlined
                                   className="editButton"
@@ -189,9 +222,9 @@ const Mypage = () => {
                                       {user.data.userInfo.name}
                                     </div>
                                     <strong>생년월일</strong>
-                                    <li className="dob">
-                                      {user.data.userInfo.dob}
-                                    </li>
+
+                                    <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+
                                     <strong>이메일</strong>
                                     <li className="email">
                                       {user.data.userInfo.email}
@@ -206,8 +239,8 @@ const Mypage = () => {
                                     )}
                                   </ul>
                                 </div>
+
                               </div>
-                              {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
                               <div className="stickyContainerPosition">
                                 <StickyContainer>
                                   <Tabs
@@ -321,7 +354,7 @@ const Mypage = () => {
                                               (career) => {
                                                 return (
                                                   <li>
-                                                    {`${career.year}` +
+                                                    {`${career.year.split("T")[0]}` +
                                                       ` ${career.title}` +
                                                       ` / ` +
                                                       `${career.type}`}
@@ -391,6 +424,29 @@ const Mypage = () => {
                               <div className="profileTitleName">
                                 {user.data.userInfo.name}'s profile
                               </div>
+  
+                              <div className="fixedContent">
+                                <ul>
+                                  <div className="nameTitle">
+                                    {user.data.userInfo.name}
+                                  </div>
+                                  <strong>생년월일</strong>
+                                  <li className="dob">
+                                    {user.data.userInfo.dob.split("T")[0]}
+                                  </li>
+                                  <strong>이메일</strong>
+                                  <li className="email">
+                                    {user.data.userInfo.email}
+                                  </li>
+                                  <strong>소속사</strong>
+                                  {user.data.userInfo.company ? (
+                                    <li className="company">
+                                      {user.data.userInfo.company}
+                                    </li>
+                                  ) : (
+                                    <li className="company"></li>
+                                  )}
+                                </ul>
                               <div className="profileButtonAll">
                                 <EditOutlined
                                   className="editButton"
@@ -418,9 +474,8 @@ const Mypage = () => {
                                       {user.data.userInfo.name}
                                     </div>
                                     <strong>생년월일</strong>
-                                    <li className="dob">
-                                      {user.data.userInfo.dob}
-                                    </li>
+                                    <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+
                                     <strong>이메일</strong>
                                     <li className="email">
                                       {user.data.userInfo.email}
@@ -517,7 +572,7 @@ const Mypage = () => {
                                               (career) => {
                                                 return (
                                                   <li>
-                                                    {`${career.year}` +
+                                                    {`${career.year.split("T")[0]}` +
                                                       ` ${career.title}` +
                                                       ` / ` +
                                                       `${career.type}`}
@@ -584,6 +639,29 @@ const Mypage = () => {
                               <div className="profileTitleName">
                                 {user.data.userInfo.name}'s profile
                               </div>
+
+                              <div className="fixedContent">
+                                <ul>
+                                  <div className="nameTitle">
+                                    {user.data.userInfo.name}
+                                  </div>
+                                  <strong>생년월일</strong>
+                                  <li className="dob">
+                                   {user.data.userInfo.dob.split("T")[0]}
+                                  </li>
+                                  <strong>이메일</strong>
+                                  <li className="email">
+                                    {user.data.userInfo.email}
+                                  </li>
+                                  <strong>소속사</strong>
+                                  {user.data.userInfo.company ? (
+                                    <li className="company">
+                                      {user.data.userInfo.company}
+                                    </li>
+                                  ) : (
+                                    <li className="company"></li>
+                                  )}
+                                </ul>
                               <div className="profileButtonAll">
                                 <EditOutlined
                                   className="editButton"
@@ -611,9 +689,9 @@ const Mypage = () => {
                                       {user.data.userInfo.name}
                                     </div>
                                     <strong>생년월일</strong>
-                                    <li className="dob">
-                                      {user.data.userInfo.dob}
-                                    </li>
+
+                                    <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+
                                     <strong>이메일</strong>
                                     <li className="email">
                                       {user.data.userInfo.email}
@@ -710,7 +788,7 @@ const Mypage = () => {
                                               (career) => {
                                                 return (
                                                   <li>
-                                                    {`${career.year}` +
+                                                    {`${career.year.split("T")[0]}` +
                                                       ` ${career.title}` +
                                                       ` / ` +
                                                       `${career.type}`}
