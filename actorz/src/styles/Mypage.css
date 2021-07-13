@@ -46,9 +46,8 @@ li {
   background-color: #fafafa;
   margin-top: -1.5rem;
   margin-left: 1rem;
-  margin-bottom: 3rem; 
+  margin-bottom: 3rem;
 }
-
 
 .careerTitle {
   font: italic small-caps bold 16px/2 cursive;
@@ -121,7 +120,6 @@ li {
   background-color: #fafafa;
 }
 
-
 .displayPosition {
   display: flex;
   /*flex-direction: column;*/
@@ -143,13 +141,11 @@ li {
   height: 10rem;
 }
 
-
 .midContentDownPart2 {
   display: flex;
   flex-direction: column;
   padding: 0.625rem;
 }
-
 
 /* * Button */
 .buttonHeader {
