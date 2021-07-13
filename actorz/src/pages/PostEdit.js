@@ -31,7 +31,7 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
     //post의 상태가 업데이트 될 때마다 새로 넣어준다
     setPostinfo(post.data.data.posts.posts[index]);
     setNewFile(post.data.data.posts.posts[index].media);
-  }, [post]);
+  }, [post, index]);
 
   const handleClickDeleteBtn = (post_id, img_id) => {
     dispatch(removePostPhoto(post_id, img_id));
