@@ -1,0 +1,26 @@
+.ResponsiveFooter {
+  display: flex;
+  left:0px; 
+  bottom:0px; 
+  background-color: white;
+  width: 100%;
+}
+
+.ResponsivespaceDirection {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  /* margin-left: 2.3rem; */
+  /* background-color: #efefef; */
+}
+
+
+.responsiveHomeButtonFooter {
+  /* background-color: lightgreen; */
+}
+
+.responsiveHomeButtonIconFooter {
+  font-size: 1.5rem;
+  padding: 0.3rem;
+  
+}

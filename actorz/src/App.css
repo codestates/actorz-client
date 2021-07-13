@@ -4,10 +4,28 @@ body {
   /*width: 100vw;*/
 }
 
+::-webkit-scrollbar {
+   width: 0.35rem; /*스크롤바의 너비*/ 
+} 
+
+::-webkit-scrollbar-thumb { 
+  background-color: #d6d6d6; /*스크롤바의 색상*/ 
+} 
+
+::-webkit-scrollbar-track { 
+  background-color: rgb(255, 255, 255); /*스크롤바 트랙 색상*/ 
+}
+
 .alinkEffect { 
   text-decoration: none;
   color: white;
 
+}
+
+.testBox {
+  background-color: #ff4d4f;
+  height: 500px;
+  width: 500px;
 }
 
 .introNavbar {
@@ -24,7 +42,7 @@ body {
 
 .search {
   display: flex;
-  padding: 6px;
+  padding: 0.4rem;
   position: fixed;
   left: 0;
   top: 0;
@@ -34,9 +52,11 @@ body {
   z-index: 4;
 }
 
+
 .headerLogo{
-  width: 50px;
-  height: 30px;
+  width: 3.125rem;
+  height: 1.875rem;
+  margin-left: 0.2rem;
 }
 
 .blockPositionNav {
@@ -80,15 +100,17 @@ body {
   animation: introContentsEffectDisplay 1s 0.3s normal 1 ease forwards;
   display: flex;
   flex-direction: column;
-  padding: 30px;
+  padding: 1.8rem;
   text-align: center;
+  margin-top: 3rem;
+  /* background-color: black; */
 }
 
 .scrollIcon {
-  color: white;
   /*margin-top: 200px;*/
-  font-size: 40px;
-}
+  font-size: 2rem;
+  color: yellow;
+} 
 
 
 @keyframes scrollEffectDisplay {
@@ -103,7 +125,7 @@ body {
   margin-top: 160px;
 }
 
-#initFooter {
+/* #initFooter {
   display: flex;
   left: 0;
   bottom: 0;
@@ -113,7 +135,7 @@ body {
   font-size: 1rem;
   color: white;
   z-index: 4; 
-}
+} */
 
 
 .backgroundImage {
@@ -122,7 +144,7 @@ body {
   height:100vh;
   padding: 0;
   margin: 0;
-  background:#000000;
+  background: black;
 }
 
 
@@ -138,31 +160,29 @@ body {
   
 }
 
-.footerUser {
-  /*
-  background-color: red;
-  */
-}
-
 .footerUser1 {
   padding: 0.25rem;
-  border-right: 1px solid #e0e0e0;
+  margin-top: -0.3rem;
+  /* border-right: 1px solid #e0e0e0; */
 
 }
 
 .footerUser2 {
   padding: 0.25rem;
-  border-right: 1px solid #e0e0e0;
+  margin-top: -0.3rem;
+  /* border-right: 1px solid #e0e0e0; */
 }
 
 .footerUser3 {
   padding: 0.25rem;
-  border-right: 1px solid #e0e0e0;
+  margin-top: -0.3rem;
+  /* border-right: 1px solid #e0e0e0; */
 }
 
 .footerUser4 {
   padding: 0.25rem;
-  border-right: 1px solid #e0e0e0;
+  margin-top: -0.3rem;
+  /* border-right: 1px solid #e0e0e0; */
 }
 
 .startButton1 {
@@ -283,6 +303,7 @@ body {
   display: flex;
   /*vertical-align: top;*/
   flex-direction: row;
+  margin-bottom: 3rem;
 }
 
 

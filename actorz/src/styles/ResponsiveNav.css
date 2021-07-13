@@ -1,0 +1,56 @@
+html {
+  position: relative;
+  min-height: 100vh;
+  margin: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.responsiveAvatar {
+  padding: 0.1rem;
+  margin-right: 0.5rem;
+}
+
+
+.ResponsiveFooter {
+  position: fixed;
+  display: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: center;
+  color: white;
+  background: blue;
+}
+
+.headerLogoResponsive {
+  font-family: Arial, Helvetica, sans-serif;
+  color: black;
+  font-size: 1rem;
+  margin-top: 0rem;
+  margin-left: 0.25rem;
+  padding: 0.5rem;
+}
+
+.ResponsiveNavHeader {
+  width:100%;
+  max-width: 100%;
+}
+
+
+.search2 {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.375rem;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 2.8rem;
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  z-index: 5;
+}

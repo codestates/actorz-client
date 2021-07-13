@@ -14,9 +14,11 @@ import {
   InputLabel,
 } from "./file-upload.styles";
 import "../../styles/Postupload.css";
+import Loading from "../loading";
+import { Modal } from "antd";
 
 const KILO_BYTES_PER_BYTE = 1000;
-const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 10000000;
+const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 50000000;
 
 const convertNestedObjectToArray = (nestedObj) =>
   Object.keys(nestedObj).map((key) => nestedObj[key]);
@@ -46,6 +48,11 @@ const FileUpload = ({
           return { file };
         }
         files[file.name] = file;
+      }else{
+        Modal.error({
+          title: '업로드 실패',
+          content: `파일 하나당 ${maxFileSizeInBytes / 1000 / 1000}MB을 초과 할 수 없습니다`,
+        });
       }
     }
     return { ...files };
@@ -79,22 +86,29 @@ const FileUpload = ({
   };
 
   const handleOverFiles = () => {
-    alert("5이상 선택 할 수 없습니다");
+    Modal.error({
+      title: '업로드 실패',
+      content: '파일이 5개를 초과 할 수 없습니다.',
+    });
     setFiles({});
   };
 
   useEffect(() => {
     updateContentCb(desc, "content")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [desc]);
 
   useEffect(() => {
     updateContentCb(genre, "genre")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genre]);
 
   return (
     <>
-      <div id="upload-modal-background">
-        <div id="upload-modal-container">
+      <div id="upload-modal-background"
+        onClick={() => otherProps.handleClickUpload(false)} >
+        <div id="upload-modal-container"
+        onClick={(event) => event.stopPropagation()}>
           <FileUploadContainer>
             <InputLabel>
               포트폴리오에 올릴 사진 또는 동영상을 선택해주세요
@@ -215,6 +229,7 @@ const FileUpload = ({
           <button type="submit" className="upload-btn">
             upload
           </button>
+          {otherProps.isLoading ? (<Loading />) : null}
         </div>
       </div>
     </>

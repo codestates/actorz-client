@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
+
+
+.pf.fixedSize {
+  height: auto;
+}
+
+.pf.testPic {
+  border-radius: 0%;
+}
+
+.pf.fixedContent {
+  height: auto;
+  text-align: left;
+}
+
+.pf.nameTitle {
+  padding: 1rem 0;
+  border-bottom: 1px solid black;
+}
+
+.pf.careerTitle {
+  margin: 0;
+}
+
+.pf.postsTitle {
+  font: italic small-caps bold 16px/2 cursive;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.portFolioEdit {
+  /* position: absolute; */
+  margin: 2rem 0;
+}
+
+.portFolioEdit > button {
+  margin: auto;
+}

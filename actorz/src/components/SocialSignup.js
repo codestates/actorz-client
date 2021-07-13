@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CloseOutlined } from "@ant-design/icons";
-
+import { Modal } from 'antd';
 import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
+import { redirectUri } from "../config";
+import CalendarDob from "./CalendarDob";
+import AddressModal from "./AddressModal";
 
 import "../styles/SignupModal.css";
 
 const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
-  
-  console.log(oauthSignup)
+  const [dob, setDob] = useState("");
+  const [addr, setAddr] = useState({
+    city:"",
+    street:"",
+    zipCode:""
+  });
+
+  // console.log(oauthSignup)
   const [provider, email] = oauthSignup.split("=");
   const [actorSignup, setActorSignup] = useState({});
-  const [recruitorSignup, setRecruitorSignup] = useState({});
+  const [recruiterSignup, setrecruiterSignup] = useState({});
   const [err, setError] = useState("");
   const [role, setRole] = useState("배우");
   const [loading, setLoading] = useState(false);
@@ -24,8 +33,8 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     setActorSignup({ ...actorSignup, [key]: event.target.value });
   };
 
-  const handleInputRecruitorValue = (key) => (event) => {
-    setRecruitorSignup({ ...recruitorSignup, [key]: event.target.value });
+  const handleInputrecruiterValue = (key) => (event) => {
+    setrecruiterSignup({ ...recruiterSignup, [key]: event.target.value });
   };
 
   const setGender = (gender) => {
@@ -48,16 +57,12 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
 
   const handleClickActorSignupBtn = async () => {
     setLoading(true);
-    const { name, dob, company, gender } = actorSignup;
+    const { name, company, gender } = actorSignup;
     try {
       if (
         name !== undefined &&
         dob !== undefined
       ) {
-        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
-          setLoading(false);
-          setError("생년월일 형식을 지켜서 작성해주세요");
-        } else {
           setError("");
           await server
           .post(`/signup`, {
@@ -83,7 +88,10 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               .then((res) => {
                 if (res.status === 200) {
                   dispatch(getUserInfo(res.data.data.userInfo));
-                  alert("회원가입에 성공하였습니다!");
+                  Modal.success({
+                    content: '회원가입 성공!',
+                    onOk(){window.location.href = redirectUri;}
+                  });
                 }
               })
               .catch((err) => {
@@ -94,7 +102,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               modalSocialClose();
             }
           });
-        }
       } else {
         setLoading(false);
         setError("필수 항목을 모두 적어주세요");
@@ -102,41 +109,40 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     } catch (err) {
       setLoading(false);
       if (err.message === "Request failed with status code 409") {
-        alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
+        Modal.error({
+          title: '회원가입 실패',
+          content: "이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요",
+        });
       } else {
-        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+        Modal.error({
+          title: '회원가입 실패',
+          content: "예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요",
+        });
+        // alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
     }
   };
 
-  const handleClickRecruitorSignupBtn = async () => {
+  const handleClickrecruiterSignupBtn = async () => {
     setLoading(true);
     const {
       name,
-      dob,
       gender,
       bName,
-      bAddress_city,
-      bAddress_street,
-      bAddress_zipcode,
       bEmail,
       phoneNum,
       jobTitle,
-    } = recruitorSignup;
+    } = recruiterSignup;
 
     try {
       if (
         name !== undefined &&
         dob !== undefined &&
         bName !== undefined &&
-        bAddress_city !== undefined &&
-        bAddress_street !== undefined &&
-        bAddress_zipcode !== undefined
+        addr.city !== undefined &&
+        addr.street !== undefined &&
+        addr.zipCode !== undefined
       ) {
-        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
-          setLoading(false);
-          setError("생년월일 형식을 지켜서 작성해주세요");
-        } else {
           setError("");
           await server.post(`/signup`, {
             name: name,
@@ -144,17 +150,14 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
             provider,
             gender: setGender(gender),
             dob: dob,
-            recruitor: {
+            recruiter: {
               bName: bName,
-              bAddress: {
-                city: bAddress_city,
-                street: bAddress_street,
-                zipcode: bAddress_zipcode,
-              },
+              bAddress: addr,
               bEmail: bEmail,
               phoneNum: phoneNum,
               jobTitle: jobTitle,
             },
+            role: setrole(role),
           }).then(async res => {
             if(res.status === 201){
               localStorage.setItem("accessToken", res.data.data.accessToken);
@@ -170,7 +173,11 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               .then((res) => {
                 if (res.status === 200) {
                   dispatch(getUserInfo(res.data.data.userInfo));
-                  alert("회원가입에 성공하였습니다!");
+                  Modal.success({
+                    content: '회원가입 성공!',
+                    onOk(){window.location.href = redirectUri;}
+                  });
+                  // alert("회원가입에 성공하였습니다!");
                 }
               })
               .catch((err) => {
@@ -181,14 +188,17 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               modalSocialClose();
             }
           });
-        }
       } else {
         setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch {
       setLoading(false);
-      alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+      Modal.warning({
+        title: '에러',
+        content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
+      });
+      //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
   };
 
@@ -204,8 +214,10 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     <>
       <center>
       <div id="modal-background" onClick={modalSocialClose}>
-      </div>
-      <form onSubmit={(e) => e.preventDefault()}>
+      <form 
+      onSubmit={(e) => e.preventDefault()}
+      onClick={e => e.stopPropagation()}
+      >
             <div id="modal-container">
               <div id="modal-header"></div>
               <div id="modal-section">
@@ -262,11 +274,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                     <div className="modal-group-signup">
                       <div className="importEffect">*</div>
                       <div>
-                        <input
-                          type="text"
-                          placeholder="생년월일 (1990,01,02)"
-                          onChange={handleInputActorValue("dob")}
-                        />
+                        <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
                       </div>
                     </div>
 
@@ -286,7 +294,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       {err ? <div className="err-message">{err}</div> : null}
                     </div>
                     <button
-                      className="btn-login2"
+                      className="btn-login"
                       type="submit"
                       onClick={handleClickActorSignupBtn}
                     >
@@ -307,18 +315,14 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="이름"
-                            onChange={handleInputRecruitorValue("name")}
+                            onChange={handleInputrecruiterValue("name")}
                           />
                         </div>
                       </div>
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
                         <div>
-                          <input
-                            type="text"
-                            placeholder="생년월일 (1990,01,02)"
-                            onChange={handleInputRecruitorValue("dob")}
-                          />
+                          <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
                         </div>
                       </div>
                       <div className="modal-group-signup">
@@ -327,43 +331,12 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="text"
                             placeholder="회사명"
-                            onChange={handleInputRecruitorValue("name")}
+                            onChange={handleInputrecruiterValue("bName")}
                           />
                         </div>
                       </div>
 
-                      <div className="modal-group-signup2">
-                        <div className="importEffect">*</div>
-                        <div className="modal-group-signup3">
-                          <div className="reposition">
-                            <input
-                              type="text"
-                              placeholder="시/도"
-                              onChange={handleInputRecruitorValue(
-                                "address-city"
-                              )}
-                            />
-                          </div>
-                        </div>
-                        <div className="modal-group-signup3">
-                          <input
-                            type="text"
-                            placeholder="시/군/구"
-                            onChange={handleInputRecruitorValue(
-                              "bAddress_street"
-                            )}
-                          />
-                        </div>
-                        <div className="modal-group-signup3">
-                          <input
-                            type="text"
-                            placeholder="우편번호"
-                            onChange={handleInputRecruitorValue(
-                              "bAddress_zipcode"
-                            )}
-                          />
-                        </div>
-                      </div>
+                      <AddressModal setAddr={setAddr} addr={addr}></AddressModal>
 
                       <div className="modal-group-signup">
                         <div className="importEffect2">&nbsp;&nbsp;</div>
@@ -371,7 +344,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           <input
                             type="email"
                             placeholder="회사 이메일"
-                            onChange={handleInputRecruitorValue("email")}
+                            onChange={handleInputrecruiterValue("bEmail")}
                           />
                         </div>
                       </div>
@@ -380,9 +353,9 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                         <div className="importEffect">&nbsp;&nbsp;</div>
                         <div>
                           <input
-                            type="email"
+                            type="text"
                             placeholder="회사 전화번호"
-                            onChange={handleInputRecruitorValue("phoneNumber")}
+                            onChange={handleInputrecruiterValue("phoneNumber")}
                           />
                         </div>
                       </div>
@@ -391,9 +364,9 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                         <div className="importEffect">&nbsp;&nbsp;</div>
                         <div>
                           <input
-                            type="email"
+                            type="text"
                             placeholder="직책"
-                            onChange={handleInputRecruitorValue("jobTitle")}
+                            onChange={handleInputrecruiterValue("jobTitle")}
                           />
                         </div>
                       </div>
@@ -404,7 +377,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           name="gender"
                           defaultChecked
                           value="남"
-                          onChange={handleInputRecruitorValue("gender")}
+                          onChange={handleInputrecruiterValue("gender")}
                         />
                         &nbsp;남
                         <input type="radio" name="gender" value="여" />
@@ -414,7 +387,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       <button
                         className="btn-login"
                         type="submit"
-                        onClick={handleClickRecruitorSignupBtn}
+                        onClick={handleClickrecruiterSignupBtn}
                       >
                         <div className="settingBtn">
                           회원가입
@@ -429,6 +402,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               </div>
             </div>
         </form>
+      </div>
       </center>
     </>
   );

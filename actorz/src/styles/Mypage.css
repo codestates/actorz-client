@@ -4,7 +4,12 @@
 html {
   font-size: 100%;
   background-color: #fafafa;
+}
 
+body {
+  background-color: #fafafa;
+  padding: 0rem;
+  margin: 0rem;
 }
 
 .name {
@@ -19,6 +24,29 @@ ul {
 
 li {
   list-style: none;
+}
+
+.responsiveNewblockPosition2 {
+  width: 3%;
+}
+
+.middleSpace2 {
+  /* 태블릿 반응형 */
+  flex: auto;
+  background-color: #fafafa;
+  margin-top: -1.5rem;
+  margin-left: 1rem;
+
+  /* margin-bottom: 3rem; */
+}
+
+.middleSpace5 {
+  /* 태블릿 반응형 */
+  flex: auto;
+  background-color: #fafafa;
+  margin-top: -1.5rem;
+  margin-left: 1rem;
+  margin-bottom: 3rem;
 }
 
 .careerTitle {
@@ -38,7 +66,7 @@ li {
 .careerContent {
   margin-bottom: 0.5rem;
   /*text-align: left;*/
-  /*background-color: yellow;*/  /* TEST  */
+  /*background-color: yellow;*/ /* TEST  */
 }
 
 .career li {
@@ -47,12 +75,12 @@ li {
   text-align: left;
 }
 
-
 .fixedSize {
   /*
   width: 15rem;
   height: 20rem;*/
   /*background-color: yellow;*/
+  flex: 1;
   margin-top: 2rem;
 }
 
@@ -78,6 +106,18 @@ li {
   flex: 1;
   height: 20rem;
   background-color: #fafafa;
+  margin-top: 2.5rem;
+}
+
+.fixedContent2 {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  padding: 2rem;
+  /*max-width:100%;*/
+  flex: 1;
+  height: 20rem;
+  background-color: #fafafa;
 }
 
 .displayPosition {
@@ -94,16 +134,18 @@ li {
   flex-wrap: wrap;
 }
 
-/*
-.midContentDownPart2 {
-	display: flex;
-	flex-direction: column;
-	// flex-wrap: wrap;
-	padding: 30px;
+.career-li2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 10rem;
 }
-*/
 
-
+.midContentDownPart2 {
+  display: flex;
+  flex-direction: column;
+  padding: 0.625rem;
+}
 
 /* * Button */
 .buttonHeader {
@@ -140,3 +182,7 @@ li {
 .nothing2 {
   width: 3rem;
 }
+
+/* i.like.icon::before {
+  color: red;
+} */

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { editLike } from "../actions/postAction";
+import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
-import { useSelector } from "react-redux";
 import Nav from "../components/Nav";
 import PostEdit from "./PostEdit";
 import Loading from "../components/loading";
@@ -10,6 +11,8 @@ import love from "../images/thumb-up.png";
 import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/Post.css";
+import { ServerStyleSheet } from "styled-components";
+import SendEmail from "../components/SendEmail";
 
 const Post = ({ handleClickPost }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -17,6 +20,15 @@ const Post = ({ handleClickPost }) => {
   const [postinfo, setPostinfo] = useState({});
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
+  const [like, setIsLike] = useState(false);
+  const [whoIsLike, setWhoIsLike] = useState([]);
+  const [emailClick, setEmailClick] = useState(false);
+
+  const dispatch = useDispatch();
+
+  var idx = post.data.data.posts.posts.findIndex(
+    (post) => post._id === postinfo._id
+  );
 
   let index = window.location.pathname.lastIndexOf("/");
   let url = window.location.pathname.slice(index + 1);
@@ -26,16 +38,35 @@ const Post = ({ handleClickPost }) => {
       await server
         .get(`/post/${url}`)
         .then((res) => {
-          console.log(res);
           setPostinfo(res.data.data.post);
           setIsLoading(true);
         })
         .catch((err) => {
           throw err;
         });
+
+      await server
+        .post(
+          `post/${url}/islike`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.message === "like") {
+            setIsLike(true);
+          }
+        })
+        .catch((err) => {
+          throw err;
+        });
     };
     p();
-  }, []);
+  }, [dispatch]);
+
 
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
@@ -47,14 +78,17 @@ const Post = ({ handleClickPost }) => {
 
   const handleClickDeleteBtn = async () => {
     await server
-      .post(`/post/${url}/delete`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
+      .post(
+        `/post/${url}/delete`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
-          console.log("aaa");
           window.location = "/mainpage";
         }
       })
@@ -62,6 +96,35 @@ const Post = ({ handleClickPost }) => {
         throw err;
       });
   };
+
+  const handleClickLikeBtn = async (state, post_id) => {
+    let path = null;
+    if (state === "unlike") {
+      path = `/post/${post_id}/like`;
+      setIsLike(true);
+    } else if (state === "like") {
+      path = `/post/${post_id}/unlike`;
+      setIsLike(false);
+    }
+
+    await server
+      .post(
+        path,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(editLike(url, res.data.data.likes));
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
   return (
     <>
       <Nav />
@@ -76,7 +139,14 @@ const Post = ({ handleClickPost }) => {
                 className="float-btn-box"
                 onClick={(event) => event.stopPropagation()}
               >
-                <Link to="/posts">
+                <Link
+                  to={{
+                    pathname: `/posts`,
+                    state: {
+                      id: postinfo.userInfo.user_id,
+                    },
+                  }}
+                >
                   <div className="float-btn">
                     <img
                       src={profile}
@@ -87,11 +157,35 @@ const Post = ({ handleClickPost }) => {
                   </div>
                 </Link>
                 <div className="float-btn">
-                  <img src={love} className="float-love-btn" alt=""></img>
-                  <div className="float-love-title">좋아요</div>
+                  {!like ? (
+                    <>
+                      <img
+                        src={love}
+                        className="float-love-btn"
+                        alt=""
+                        onClick={() =>
+                          handleClickLikeBtn("unlike", postinfo._id)
+                        }
+                      ></img>
+                      <div className="float-love-title">좋아요</div>
+                    </>
+                  ) : (
+                    <>
+                      <img
+                        src={love}
+                        className="float-love-btn"
+                        alt=""
+                        onClick={() => handleClickLikeBtn("like", postinfo._id)}
+                      ></img>
+                      <div className="float-love-title">좋아요 취소</div>
+                    </>
+                  )}
                 </div>
                 {user.data.userInfo.role === "recruiter" ? (
-                  <div className="float-btn">
+                  <div 
+                  className="float-btn"
+                  onClick={() => setEmailClick(true)}
+                  >
                     <img src={email} className="float-email-btn" alt=""></img>
                     <div className="float-email-title">연락하기</div>
                   </div>
@@ -121,7 +215,6 @@ const Post = ({ handleClickPost }) => {
                   </div>
                 ) : null}
               </div>
-
               <div
                 className="container"
                 onClick={(event) => event.stopPropagation()}
@@ -132,7 +225,9 @@ const Post = ({ handleClickPost }) => {
                       <div className="post-name">{postinfo.userInfo.name}</div>
                       <img src={heart} className="heart-img" alt=""></img>
                       <span className="genre">|{postinfo.genre}</span>
-                      <span className="like">{postinfo.likes.length}</span>
+                      <span className="like">
+                        {post.data.data.posts.posts[idx].likes.length}
+                      </span>
                       <button
                         className="delete-btn"
                         onClick={() => handleClickPost(false)}
@@ -180,6 +275,16 @@ const Post = ({ handleClickPost }) => {
       ) : (
         <Loading />
       )}
+      {
+        emailClick ? (
+          <SendEmail 
+            handleClickPost={handleClickPost}
+            setEmailClick={setEmailClick}
+            postData={postinfo}
+            userInfo={user.data.userInfo}
+          ></SendEmail>
+        ) : null
+      }
     </>
   );
 };

@@ -2,10 +2,10 @@ import React from "react";
 import { GithubOutlined, ToolOutlined, FormOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
-const Footer = () => {
+const FooterFixed = () => {
   return (
     <>
-      <div id="Footer">
+      <div id="FooterFixed">
         <div className="footerUser1">
           <ToolOutlined className="footerIcon" />
           <span className="footerName">김선들</span>
@@ -53,4 +53,4 @@ const Footer = () => {
     </>
   );
 }
-export default Footer;
+export default FooterFixed;
