@@ -26,6 +26,7 @@ import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIcon
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import CalendarDob from "../components/CalendarDob";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -49,10 +50,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
   const [tag, setTag] = useState("");
-  const [dob, setDob] = useState(user.data.userInfo.dob);
+  const [dob, setDob] = useState(Date.parse(user.data.userInfo.dob));
   const [email, setEmail] = useState(user.data.userInfo.email);
   const [company, setCompany] = useState(user.data.userInfo.company);
   const [password, setPassword] = useState("");
+  const [recruiter, setRecruiter] = useState(user.data.userInfo.recruiter);
+
   //const [password, setPassword] = useState(user.data.userInfo.password);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [title, setTitle] = useState("");
@@ -178,6 +181,26 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       // setYear({ [key]: event.target.value });
     } else if (key === "password") {
       setPassword({ [key]: event.target.value });
+    } else if (key === "bName") {
+      setRecruiter({ [key]: event.target.value });
+    } else if (key === "jobTitle") {
+      setRecruiter({ [key]: event.target.value });
+    } else if (key === "phoneNum") {
+      setRecruiter({ [key]: event.target.value });
+    } else if (key === "bEmail") {
+      setRecruiter({ [key]: event.target.value });
+    } else if (key === "city") {
+      setRecruiter({ "bAddress": {
+        [key]: event.target.value 
+      }});
+    } else if (key === "zipCode") {
+      setRecruiter({ "bAddress": {
+        [key]: event.target.value 
+      }});    
+    } else if (key === "street") {
+      setRecruiter({ "bAddress": {
+        [key]: event.target.value 
+      }});    
     }
   };
 
@@ -233,10 +256,11 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       dob: dob,
       careers: user.data.userInfo.careers,
       password: password.password,
+      recruiter
     };
     dispatch(editUserInfo(newUserInfo));
     await server
-      .post(`/user/:user_id/update`, newUserInfo, {
+      .post(`/user/${newUserInfo.id}/update`, newUserInfo, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -255,7 +279,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     // 서버한테 s3버킷 url 받아오는 거에요
 
     await server
-      .get(`upload`, {
+      .get(`/upload`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -307,11 +331,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       gender: user.data.userInfo.gender,
       dob: user.data.userInfo.dob,
       careers: user.data.userInfo.careers,
+      recruiter
     };
     dispatch(editUserInfo(newUserInfo));
 
     await server
-      .post(`/user/:user_id/update`, newUserInfo, {
+      .post(`/user/${newUserInfo.id}/update`, newUserInfo, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
@@ -379,6 +404,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                       <label className="fileboxCSS" for="ex_file">
   
                         <img
+                          alt=""
                           src={user.data.userInfo.mainPic}
                           className="testPic"
                         />
@@ -413,7 +439,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <div className="nameTitle">{user.data.userInfo.name}</div>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
+                          <li className="dob">
+                            <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
+                          </li>
+
                           <strong>이메일</strong>
                           <li className="email">{user.data.userInfo.email}</li>
                           <strong>소속사</strong>

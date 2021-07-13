@@ -24,7 +24,7 @@ const AddressModal = ({ addr, setAddr }) => {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
     setAddr({
-      zipcode: data.zonecode,
+      zipCode: data.zonecode,
       city: fullAddress
     });
     setAddPopUp(false);
@@ -58,12 +58,12 @@ const AddressModal = ({ addr, setAddr }) => {
         <div className="importEffect">*</div>
         <div>
           <div style={{fontSize: "0.7em", width: "90%", marginLeft:"0.9em"}}>
-            {addr.zipcode + " " + addr.city}
+            {addr.zipCode + " " + addr.city}
           </div>
         </div>
       </div>
       {
-        addr.zipcode !== "" ? (
+        addr.zipCode !== "" ? (
           <div className="modal-group-signup">
             <div className="importEffect">*</div>
             <div>

@@ -172,7 +172,7 @@ const SendEmail = ({ handleClickPost, setEmailClick, userInfo, postData }) => {
                       + "/" 
                       + userInfo.recruiter.bAddress.street 
                       + "/"
-                      + userInfo.recruiter.bAddress.zipcode
+                      + userInfo.recruiter.bAddress.zipCode
                   }
                   />
                 </div>
