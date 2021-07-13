@@ -8,7 +8,8 @@ body {
   display: none; 
 } */
 
-h1, p {
+h1,
+p {
   font-family: Lato;
 }
 
@@ -80,14 +81,12 @@ font {
   height: 3rem;
 }
 
- 
 .leftSpace {
-	text-align: center;
-	width: 30%;
-	height: 100vh;
+  text-align: center;
+  width: 30%;
+  height: 100vh;
   background-color: #fafafa;
-} 
-
+}
 
 .iconList {
   /*margin-top:100%;*/
@@ -100,24 +99,26 @@ font {
   margin-top: 2rem;
   margin-left: -1rem;
   position: fixed;
-  
 }
 
 .middleSpace {
   width: 45%;
   height: 100vh;
   background-color: #fafafa;
-	/*margin-bottom: 5rem;*/
-	/* overflow: auto; */
+  /*margin-bottom: 5rem;*/
+  /* overflow: auto; */
   -ms-overflow-style: none;
-
 }
 
-.middleSpace::-webkit-scrollbar{ 
-  display:none; 
+.middleSpace::-webkit-scrollbar {
+  display: none;
 }
 
-.midContents {
+.midContents,
+.midContentsResponsive,
+.midContentsResponsive2 {
+  display: flex;
+  flex-direction: column-reverse;
   /*
 	display: flex;
 	flex-direction: column;
@@ -308,6 +309,11 @@ font {
   color: #fff;
   font-size: 30px;
   transition: all 0.35s;
+}
+
+.alert {
+  font-size: 40px;
+  margin: 300px 0px 300px 0px;
 }
 
 .screen img {
