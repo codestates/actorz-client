@@ -212,7 +212,7 @@ const Mainpage = () => {
 
           <div className="newblockPosition"> </div>
           <div className="middleSpace" >
-            <div className="midContents2">
+            <div className="midContents2 midContentsReverse">
               {post.data.data
                 ? post.data.data.posts.posts.map((post) => {
 
@@ -310,7 +310,7 @@ const Mainpage = () => {
                       </Card>
                     );
                   })
-                ) : (
+                 : (
                   <center>
                     <div className="alert">게시물이 없어요</div>
                   </center>
@@ -324,15 +324,13 @@ const Mainpage = () => {
             </div>
           </div>
 
-        </div>
-
         <Footer />
         {
           modalSocialSignup ? (
             <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
           ) : null
         }
-      </>}
+      </>)}
 
       {isTablet && 
         <>   
@@ -342,7 +340,7 @@ const Mainpage = () => {
             <ResponsiveIconlist />
 
             <div className="middleSpaceResponsive">
-              <div className="midContentsResponsive">
+              <div className="midContentsResponsive midContentsReverse">
                 {post.data.data && post.data.data.posts.posts.length !== 0 ? (
                   post.data.data.posts.posts.map((post) => {
                     return (
@@ -449,7 +447,7 @@ const Mainpage = () => {
             ></SocialSignup>
           ) : null}
         </>
-      )}
+      }
 
       {isMobile && (
         <>
@@ -460,7 +458,7 @@ const Mainpage = () => {
             {/* <Iconlist /> */}
 
             <div className="middleSpaceResponsive2">
-              <div className="midContentsResponsive2">
+              <div className="midContentsResponsive2 midContentsReverse">
                 {post.data.data && post.data.data.posts.posts.length !== 0 ? (
                   post.data.data.posts.posts.map((post) => {
                     return (
