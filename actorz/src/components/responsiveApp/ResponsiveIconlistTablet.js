@@ -4,12 +4,14 @@ import {
   HeartOutlined,
   FileAddOutlined,
   HomeOutlined,
+  SnippetsOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
 import FileUpload from "../file-upload/file-upload.component";
 import server from "../../apis/server";
 import axios from "axios";
+import { Modal } from 'antd';
 import "../../styles/ResponsiveIconlist.css";
 
 const ResponsiveIconlistTablet = () => {
@@ -93,7 +95,10 @@ const ResponsiveIconlistTablet = () => {
     };
     await server.post("/post/create", bodyData, { headers })
     .then(() => {
-      alert("포스트가 등록되었습니다");
+      Modal.success({
+        content: '포스트가 등록되었습니다!',
+      });
+      // alert("포스트가 등록되었습니다");
       handleClickUpload(false);
     })
     .catch((err) => console.log(err));
@@ -137,6 +142,14 @@ const ResponsiveIconlistTablet = () => {
               <div className="responsiveHomeButtonIcon">
                 <Link className="noEffect" to="/mainpage">
                   <HeartOutlined className="realIcon" />
+                </Link>
+              </div>
+            </div>
+
+            <div className="responsiveHomeButton">
+              <div className="responsiveHomeButtonIcon">
+                <Link className="noEffect" to="/mypage">
+                  <SnippetsOutlined className="realIcon" />
                 </Link>
               </div>
             </div>

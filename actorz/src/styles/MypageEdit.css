@@ -2,18 +2,27 @@
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 
 .postsGallery {
-  background-color: mediumaquamarine;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+.postGallery-img {
+  width: 9.6rem;
+  height: 10.5rem;
+  border-radius: 0.5rem;
 }
 
 .galleryComponents {
-  background-color: mediumpurple;
-  width: 8rem;
+  width: 150px;
+  height: 150px;
+}
+
+.galleryComponents {
+  width: 10rem;
   height: 8rem;
   /* padding: 1rem; */
   margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 4rem;
 }
 
 .ant-tabs-nav-wrap {
@@ -24,35 +33,34 @@
   background-color: moccasin;
   height: 2rem;
   text-align: center;
-
 }
 
-.filebox label { 
-  display: inline-block; 
+.filebox label {
+  display: inline-block;
   /* width: 7.79rem; */
   /* padding: .5em .75em;  */
-  padding: .0em .1em;
-  color: rgb(0, 0, 0); 
-  font-size: inherit; 
-  line-height: normal; 
-  vertical-align: middle; 
-  background-color: #fdfdfd; 
-  cursor: pointer; 
+  padding: 0em 0.1em;
+  color: rgb(0, 0, 0);
+  font-size: inherit;
+  line-height: normal;
+  vertical-align: middle;
+  background-color: #fdfdfd;
+  cursor: pointer;
   /* border: 1px solid #dddada;  */
-  border-bottom-color: #e2e2e2; 
-  border-radius: 80%; 
+  border-bottom-color: #e2e2e2;
+  border-radius: 80%;
   margin-bottom: 0.5rem;
-} 
+}
 
-.filebox input[type="file"] { 
-  position: absolute; 
-  width: 1px; 
-  height: 1px; 
-  padding: 0; 
-  margin: -1px; 
-  overflow: hidden; 
-  clip:rect(0,0,0,0); 
-  border: 0; 
+.filebox input[type="file"] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 .testPic:hover {
@@ -61,12 +69,11 @@
   overflow: hidden;
 }
 
-
 .testPic::after {
   opacity: 1;
-} 
+}
 
- .testPic::after {
+.testPic::after {
   content: "";
   display: block;
   position: absolute;
@@ -79,13 +86,12 @@
   opacity: 0;
   transition: all 0.35s;
   border-radius: 70%;
-} 
+}
 
 .highlightDisplay {
   border-bottom: 1px solid #e0e0e0;
   background-color: rgb(255, 230, 0);
   margin-left: -0.2rem;
-
 }
 
 .highlightDisplay2 {
@@ -127,7 +133,7 @@ li {
   margin-left: 1rem;
 }
 
-.profileButtonAll{
+.profileButtonAll {
   /* float: right; 
   display:inline-block; */
 }
@@ -146,7 +152,6 @@ li {
   display: flex;
   justify-content: center;
   margin-bottom: 0.5rem;
-
 }
 
 .iconTitle {
@@ -157,7 +162,7 @@ li {
 
 .careerButtonPosition {
   flex: 1;
-  text-align: right; 
+  text-align: right;
   align-self: flex-end;
   margin-bottom: 0.3rem;
   z-index: 1;
@@ -232,14 +237,11 @@ li {
   margin-top: 0.5rem;
 }
 
-
-
 .genre-tag-box {
   margin-top: 1rem;
 }
 
 .career-tag {
-  
   margin-right: 0.5rem;
 }
 
@@ -252,7 +254,6 @@ li {
   margin-top: 0.3rem;
   margin-right: 0.5rem;
   flex-wrap: wrap;
-  
 }
 
 .radioButton {
@@ -266,7 +267,6 @@ li {
   margin: 1rem;
 }
 
-
 .careerDivide {
   display: flex;
   justify-content: space-between;
@@ -277,7 +277,6 @@ li {
   display: flex;
   height: 2.5rem;
   margin-bottom: 1rem;
-  
 }
 
 .careerDivide3 {
@@ -286,8 +285,8 @@ li {
 }
 
 .careerDivide4 {
- display: flex;
- /* flex-direction: column; */
+  display: flex;
+  /* flex-direction: column; */
 }
 
 .careerDivide5 {
@@ -300,7 +299,7 @@ li {
 }
 
 .nameTitle {
-  font-size: 1.7rem;  
+  font-size: 1.7rem;
   padding: 0.1rem;
   margin-bottom: 1rem;
 }

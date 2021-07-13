@@ -14,6 +14,7 @@ import { HeartOutlined } from "@ant-design/icons";
 import { Card, Icon, Image } from "semantic-ui-react";
 import "antd/dist/antd.css";
 import "../mainpage.css";
+import { Modal } from 'antd';
 import "semantic-ui-css/semantic.min.css";
 import Loading from "../components/loading";
 import FileUpload from "../components/file-upload/file-upload.component";
@@ -92,7 +93,10 @@ const Like = () => {
                 setOauthSignup(`${provider}=${res.data.data.email}`);
               } else {
                 setIsLoading(false);
-                alert("소셜 로그인 중 오류가 발생했습니다.");
+                Modal.error({
+                  content: '소셜 로그인 중 오류가 발생했습니다.',
+                });
+                // alert("소셜 로그인 중 오류가 발생했습니다.");
                 return;
               }
             });
@@ -169,8 +173,13 @@ const Like = () => {
   };
 
   const redirectPage = () => {
-    alert("로그인 후 이용 가능합니다.");
-    window.location = "/mainpage";
+    Modal.warning({
+      title: '접근 실패',
+      content: '로그인 후 이용 가능합니다.',
+      onOk(){window.location = "/mainpage";}
+    });
+    // alert("로그인 후 이용 가능합니다.");
+    // window.location = "/mainpage";
   };
 
   //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.

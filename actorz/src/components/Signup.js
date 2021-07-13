@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CloseOutlined } from "@ant-design/icons";
-
+import { Modal } from 'antd';
 import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
 import AddressModal from "./AddressModal";
+
 import CalendarDob from "./CalendarDob";
 
 import "../styles/SignupModal.css";
@@ -93,7 +94,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               .then((res) => {
                 if (res.status === 200) {
                   dispatch(getUserInfo(res.data.data.userInfo));
-                  alert("회원가입에 성공하였습니다!");
+                  Modal.success({
+                    content: '회원가입에 성공하였습니다!',
+                  });
+                  //alert("회원가입에 성공하였습니다!");
                 }
               })
               .catch((err) => {
@@ -111,9 +115,15 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
     } catch (err) {
       setLoading(false);
       if (err.message === "Request failed with status code 409") {
-        alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
+        Modal.error({
+          content: '이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요',
+        });
+        //alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
       } else {
-        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+        Modal.error({
+          content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
+        });
+        //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
     }
   };
@@ -177,7 +187,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                 if (res.status === 200) {
                   dispatch(getUserInfo(res.data.data.userInfo));
                 }
-                alert("회원가입에 성공하였습니다!");
+                Modal.success({
+                  content: '회원가입에 성공하였습니다!',
+                });
+                //alert("회원가입에 성공하였습니다!");
               })
               .catch((err) => {
                 setLoading(false);
@@ -195,7 +208,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       }
     } catch {
       setLoading(false);
-      alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+      Modal.error({
+        content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요.',
+      });
+      //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
   };
 

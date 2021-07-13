@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { CloseOutlined } from "@ant-design/icons";
-
+import { Modal } from 'antd';
 import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
@@ -88,8 +88,10 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               .then((res) => {
                 if (res.status === 200) {
                   dispatch(getUserInfo(res.data.data.userInfo));
-                  alert("회원가입에 성공하였습니다!");
-                  window.location.href = redirectUri;
+                  Modal.success({
+                    content: '회원가입 성공!',
+                    onOk(){window.location.href = redirectUri;}
+                  });
                 }
               })
               .catch((err) => {
@@ -107,9 +109,16 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     } catch (err) {
       setLoading(false);
       if (err.message === "Request failed with status code 409") {
-        alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
+        Modal.error({
+          title: '회원가입 실패',
+          content: "이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요",
+        });
       } else {
-        alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+        Modal.error({
+          title: '회원가입 실패',
+          content: "예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요",
+        });
+        // alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
     }
   };
@@ -164,7 +173,11 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               .then((res) => {
                 if (res.status === 200) {
                   dispatch(getUserInfo(res.data.data.userInfo));
-                  alert("회원가입에 성공하였습니다!");
+                  Modal.success({
+                    content: '회원가입 성공!',
+                    onOk(){window.location.href = redirectUri;}
+                  });
+                  // alert("회원가입에 성공하였습니다!");
                 }
               })
               .catch((err) => {
@@ -181,7 +194,11 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
       }
     } catch {
       setLoading(false);
-      alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+      Modal.warning({
+        title: '에러',
+        content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
+      });
+      //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
   };
 

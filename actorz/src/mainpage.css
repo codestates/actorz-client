@@ -129,6 +129,10 @@ font {
   margin-bottom: 3rem;
 }
 
+.mainPageResponsive {
+  width: 100%;
+}
+
 .middleSpace::-webkit-scrollbar {
   display: none;
 }

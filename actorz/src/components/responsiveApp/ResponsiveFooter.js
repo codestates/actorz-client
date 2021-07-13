@@ -9,9 +9,16 @@ import server from "../../apis/server";
 // import { persistor } from "../../store/store";
 // import Loading from "../../components/loading";
 // import Search from "antd/lib/transfer/search";
-import { HomeOutlined, FileAddOutlined, UserOutlined, HeartOutlined } from '@ant-design/icons';
+import { 
+  HomeOutlined,
+  FileAddOutlined, 
+  UserOutlined, 
+  HeartOutlined,
+  SnippetsOutlined,
+} from '@ant-design/icons';
 import 'antd/dist/antd.css';
 import "../../styles/ResponisveFooter.css";
+import { Modal, Tabs } from 'antd';
 
 const ResponsiveFooter = () => {
   const [newfile, setNewFile] = useState({
@@ -42,7 +49,10 @@ const ResponsiveFooter = () => {
     };
     await server.post("/post/create", bodyData, { headers })
     .then(() => {
-      alert("포스트가 등록되었습니다");
+      Modal.success({
+        content: '포스트가 등록되었습니다.',
+      });
+      // alert("포스트가 등록되었습니다");
       handleClickUpload(false);
     })
     .catch((err) => console.log(err));
@@ -97,6 +107,14 @@ const ResponsiveFooter = () => {
             <div className="responsiveHomeButtonIconFooter">
               <Link className="noEffect" to="/mainpage">
                 <HeartOutlined className="realIcon" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="responsiveHomeButtonFooter">
+            <div className="responsiveHomeButtonIconFooter">
+              <Link className="noEffect" to="/mainpage">
+                <SnippetsOutlined className="realIcon" />
               </Link>
             </div>
           </div>

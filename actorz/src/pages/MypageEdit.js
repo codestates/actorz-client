@@ -18,7 +18,7 @@ import {
 import { useMediaQuery } from "react-responsive";
 import FooterFixed from "../components/FooterFixed";
 import "antd/dist/antd.css";
-import { Button, Radio, Modal, Form, Input, Space, Select } from "antd";
+import { Button, Radio, Modal, Form, Input, Space, Select, DatePicker } from "antd";
 import { Tabs } from 'antd';
 import { StickyContainer, Sticky } from 'react-sticky';
 import Footer from "../components/Footer";
@@ -94,14 +94,20 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     //console.log('비밀번호 글자수: ' + pwdLength);
 
     if (pwdLength < 9 || pwdLength > 20) {
-      alert("비밀번호는 9자 이상 20자 이하여야합니다!");
+      Modal.error({
+        title: '비밀번호 변경 실패',
+        content: '비밀번호는 9자 이상 20자 이하여야합니다!',
+      });
       pwd1 = "";
       pwd2 = "";
     } else {
       checkCount++;
     }
     if (pwd1 !== pwd2) {
-      alert("비밀번호가 일치하지 않습니다!");
+      Modal.error({
+        title: '비밀번호 변경 실패',
+        content: '비밀번호가 일치하지 않습니다!',
+      });
       pwd1 = "";
       pwd2 = "";
     } else {
@@ -111,10 +117,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     if (checkCount >= 2) {
       checkCount = 0;
       setIsModalVisible(false);
-      //setPassword(password.password);
-      console.log("진짜 범인 검거: " + password);
-      console.log(JSON.stringify(password));
-
       pwd1 = "";
       pwd2 = "";
     }
@@ -158,6 +160,13 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   //   }
   // };
 
+  const onCalChange = (date, dateString) => {
+    console.log('dateString: ' +dateString);
+    setYear({ 'year': dateString});
+
+  }
+  
+
   const handleInputValue = (key) => (event) => {
     if (key === "dob") {
       setDob(event.target.value);
@@ -168,7 +177,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     } else if (key === "title") {
       setTitle({ [key]: event.target.value });
     } else if (key === "year") {
-      setYear({ [key]: event.target.value });
+      console.log(key);
+      // setYear({ [key]: event.target.value });
     } else if (key === "password") {
       setPassword({ [key]: event.target.value });
     } else if (key === "bName") {
@@ -208,7 +218,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       })
       .then((res) => {
         if (res.status === 200) {
-          console.log("회원탈퇴");
+          Modal.error({
+            title: '회원탈퇴',
+            content: '들어올 때는 마음대로였지만 나갈 때는 아니란다',
+          });
           window.location = "/mainpage";
         }
       })
@@ -253,8 +266,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         },
       })
       .then((res) => {
-        console.log("비밀번호까지 변경이요.");
-        alert("회원 정보가 변경되었습니다");
+        Modal.success({
+          content: '회원정보가 성공적으로 변경되었습니다',
+        });
       })
       .catch((err) => {
         throw err;
@@ -408,7 +422,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
                       <strong>생년월일</strong>
-                      <li className="dob">{user.data.userInfo.dob}</li>
+                      <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
                       <strong>이메일</strong>
                       <li className="email">{user.data.userInfo.email}</li>
                       <strong>소속사</strong>
@@ -428,6 +442,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           <li className="dob">
                             <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
                           </li>
+
                           <strong>이메일</strong>
                           <li className="email">{user.data.userInfo.email}</li>
                           <strong>소속사</strong>
@@ -525,7 +540,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                       fieldKey={[fieldKey, 'last']}
                                       rules={[{ required: true, message: '연도를 입력해야합니다' }]}
                                     >
-                                      <Input placeholder="1990-01-01" onChange={handleInputValue("year")}/>
+                                      <DatePicker onChange={onCalChange} style={{ width: '100%' }}/>
                                     </Form.Item>
                                     <Form.Item
                                       {...restField}
@@ -596,7 +611,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                       </div>
                                       {/* <div>{career.title}</div> */}
                                       <div className="career-year">
-                                        활동연도:{career.year}
+                                        활동연도:{career.year.split("T")[0]}
                                       </div>
                                       {/* <div>{career.year}</div> */}
                                       <div className="blockhereplz"></div>
@@ -691,7 +706,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
                       <strong>생년월일</strong>
-                      <li className="dob">{user.data.userInfo.dob}</li>
+                      <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
                       <strong>이메일</strong>
                       <li className="email">{user.data.userInfo.email}</li>
                       <strong>소속사</strong>
@@ -708,7 +723,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <div className="nameTitle">{user.data.userInfo.name}</div>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{user.data.userInfo.dob}</li>
+                          <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
                           <strong>이메일</strong>
                           <li className="email">{user.data.userInfo.email}</li>
                           <strong>소속사</strong>
@@ -806,7 +821,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                     fieldKey={[fieldKey, 'last']}
                                     rules={[{ required: true, message: '연도를 입력해야합니다' }]}
                                   >
-                                    <Input placeholder="1990-01-01" onChange={handleInputValue("year")}/>
+                                    <DatePicker onChange={onCalChange} style={{ width: '100%' }}/>
                                   </Form.Item>
                                   <Form.Item
                                     {...restField}
@@ -876,7 +891,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                       </div>
                                       {/* <div>{career.title}</div> */}
                                       <div className="career-year">
-                                        활동연도:{career.year}
+                                        활동연도:{career.year.split("T")[0]}
                                       </div>
                                       {/* <div>{career.year}</div> */}
                                       <div className="blockhereplz"></div>
@@ -966,7 +981,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
                       <strong>생년월일</strong>
-                      <li className="dob">{user.data.userInfo.dob}</li>
+                      <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
                       <strong>이메일</strong>
                       <li className="email">{user.data.userInfo.email}</li>
                       <strong>소속사</strong>
@@ -983,7 +998,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <div className="nameTitle">{user.data.userInfo.name}</div>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{user.data.userInfo.dob}</li>
+                          <li className="dob">{user.data.userInfo.dob.split("T")[0]}</li>
                           <strong>이메일</strong>
                           <li className="email">{user.data.userInfo.email}</li>
                           <strong>소속사</strong>
@@ -1081,7 +1096,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                     fieldKey={[fieldKey, 'last']}
                                     rules={[{ required: true, message: '연도를 입력해야합니다' }]}
                                   >
-                                    <Input placeholder="1990-01-01" onChange={handleInputValue("year")}/>
+                                    <DatePicker onChange={onCalChange} style={{ width: '100%' }}/>
                                   </Form.Item>
                                   <Form.Item
                                     {...restField}
@@ -1156,7 +1171,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         />
                                       </div>
                                       <div className="career-year3">
-                                        활동연도: &nbsp; {career.year}
+                                        활동연도: &nbsp; {career.year.split("T")[0]}
                                       </div>
                                       <div className="blockhereplz"></div>
                                       

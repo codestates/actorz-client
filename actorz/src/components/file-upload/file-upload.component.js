@@ -15,6 +15,7 @@ import {
 } from "./file-upload.styles";
 import "../../styles/Postupload.css";
 import Loading from "../loading";
+import { Modal } from "antd";
 
 const KILO_BYTES_PER_BYTE = 1000;
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 50000000;
@@ -48,7 +49,10 @@ const FileUpload = ({
         }
         files[file.name] = file;
       }else{
-        alert(`파일 하나당 ${maxFileSizeInBytes / 1000 / 1000}MB을 초과 할 수 없습니다`);
+        Modal.error({
+          title: '업로드 실패',
+          content: `파일 하나당 ${maxFileSizeInBytes / 1000 / 1000}MB을 초과 할 수 없습니다`,
+        });
       }
     }
     return { ...files };
@@ -82,7 +86,10 @@ const FileUpload = ({
   };
 
   const handleOverFiles = () => {
-    alert("파일이 5개를 초과 할 수 없습니다");
+    Modal.error({
+      title: '업로드 실패',
+      content: '파일이 5개를 초과 할 수 없습니다.',
+    });
     setFiles({});
   };
 
