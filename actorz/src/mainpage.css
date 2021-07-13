@@ -127,17 +127,21 @@ font {
   margin-top: -1.5rem;
 
   margin-bottom: 3rem;
-
+}
 
 .middleSpace::-webkit-scrollbar {
   display: none;
 }
 
-.midContents,
-.midContentsResponsive,
-.midContentsResponsive2 {
+.midContentsReverse{
   display: flex;
   flex-direction: column-reverse;
+}
+
+.midContents,
+.midContents2,
+.midContentsResponsive,
+.midContentsResponsive2 {
   /*
 	display: flex;
 	flex-direction: column;
