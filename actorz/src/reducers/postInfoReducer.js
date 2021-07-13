@@ -41,38 +41,16 @@ const postInfoReducer = (state = postInitState, action) => {
       };
 
     case EDIT_LIKE:
-      // 좋아요를 누른 포스트가 몇 번째 포스트인지
       const copied = { ...state };
 
-      // console.log(action.payload);
+      // 좋아요를 누른 포스트가 몇 번째 포스트인지
       let idx = state.data.data.posts.posts.findIndex((el) => {
         return el._id === action.payload.post_id;
       });
 
       copied.data.data.posts.posts[idx].likes = action.payload.like;
-      console.log(copied);
+
       return copied;
-
-    // //console.log(state.data.data.posts.posts[idx]);
-    // console.log(action.payload.like);
-    // const updateLike = Object.assign({}, state.data.data.posts.posts[idx], {
-    //   likes: action.payload.like,
-    // });
-
-    // console.log(updateLike);
-    // return updateLike;
-    // const changeLike = Object.assign({}, state.data.data.posts.posts, {
-    //   likes: action.payload.likes,
-    // });
-    // return {
-    //   data: {
-    //     data: {
-    //       cposts: {
-    //         posts: changeLike,
-    //       },
-    //     },
-    //   },
-    // };
 
     default:
       return state;

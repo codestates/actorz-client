@@ -8,7 +8,8 @@ body {
   display: none; 
 } */
 
-h1, p {
+h1,
+p {
   font-family: Lato;
 }
 
@@ -80,14 +81,12 @@ font {
   height: 3rem;
 }
 
- 
 .leftSpace {
-	text-align: center;
-	width: 30%;
-	height: 100vh;
+  text-align: center;
+  width: 30%;
+  height: 100vh;
   background-color: #fafafa;
-} 
-
+}
 
 .iconList {
   /*margin-top:100%;*/
@@ -102,7 +101,6 @@ font {
   border-radius: 0.5rem;
   margin-right: 0.5rem; 
   position: fixed;
-  
 }
 
 .middleSpace {
@@ -130,13 +128,16 @@ font {
 
   margin-bottom: 3rem;
 
+
+.middleSpace::-webkit-scrollbar {
+  display: none;
 }
 
-.middleSpace::-webkit-scrollbar{ 
-  display:none; 
-}
-
-.midContents {
+.midContents,
+.midContentsResponsive,
+.midContentsResponsive2 {
+  display: flex;
+  flex-direction: column-reverse;
   /*
 	display: flex;
 	flex-direction: column;
@@ -361,6 +362,7 @@ font {
 }
 
 /* .screen img {
+
   width: 100%;
 } */
 

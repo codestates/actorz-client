@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive"
+
 import Nav from "../components/Nav";
 import Post from "./Post";
 import { Link } from "react-router-dom";
@@ -20,7 +21,6 @@ import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlist from "../components/responsiveApp/ResponsiveIconlist";
 import "../styles/ResponsiveMainpage.css";
-
 import Loading from "../components/loading";
 import FileUpload from "../components/file-upload/file-upload.component";
 import { redirectUri } from "../config";
@@ -73,39 +73,42 @@ const Mainpage = () => {
   }, [dispatch, clickLike]);
 
   const isPc = useMediaQuery({
-    query : "(min-width:1024px)"
+    query: "(min-width:1024px)",
   });
 
   const isTablet = useMediaQuery({
-    query : "(min-width:768px) and (max-width:1023px)"
+    query: "(min-width:768px) and (max-width:1023px)",
   });
 
   const isMobile = useMediaQuery({
-    query : "(max-width:767px)"
+    query: "(max-width:767px)",
   });
 
   useEffect(() => {
     setIsLoading(true);
     const oauthLogin = async () => {
-      try{
-        const [ provider, code ] = oauthSignup.split("=");
-        if(!code.includes("@")){
-          await server.post(`/login/${provider}`, { code }).then( async res => {
-            if (res.status === 200) { //로그인 성공
-              localStorage.setItem("accessToken", res.data.data.accessToken);
-              localStorage.setItem("id", res.data.data.id);
-              // console.log(res.data.data.accessToken);
-              await server //로그인한 유저의 정보를 state에 저장
-              .get(`/user/${localStorage.getItem("id")}`)
-              .then((res) => {
-                if (res.status === 200) {
-                  setModalSocialSignup(false);
-                  // setIsLoading(false);
-                  dispatch(getUserInfo(res.data.data.userInfo));
-                  window.location.href = redirectUri;
-                }
-              })
-              .catch((err) => {
+      try {
+        const [provider, code] = oauthSignup.split("=");
+        if (!code.includes("@")) {
+          await server
+            .post(`/login/${provider}`, { code })
+            .then(async (res) => {
+              if (res.status === 200) {
+                //로그인 성공
+                localStorage.setItem("accessToken", res.data.data.accessToken);
+                localStorage.setItem("id", res.data.data.id);
+                // console.log(res.data.data.accessToken);
+                await server //로그인한 유저의 정보를 state에 저장
+                  .get(`/user/${localStorage.getItem("id")}`)
+                  .then((res) => {
+                    if (res.status === 200) {
+                      setModalSocialSignup(false);
+                      // setIsLoading(false);
+                      dispatch(getUserInfo(res.data.data.userInfo));
+                      window.location.href = redirectUri;
+                    }
+                  })
+                  .catch((err) => {
                     setIsLoading(false);
                     throw err;
                   });
@@ -146,7 +149,7 @@ const Mainpage = () => {
       if (query.code && !oauthSignup) {
         if (query.state) {
           query.provider = "naver";
-        }else if(query.token){
+        } else if (query.token) {
           query.provider = "google";
         }
         setOauthSignup(`${query.provider}=${query.code}`);
@@ -166,38 +169,41 @@ const Mainpage = () => {
 
   const handleClickLikeBtn = async (state, post_id) => {
     let path = null;
+    if (localStorage.getItem("accessToken")) {
+      if (state === "unlike") {
+        path = `/post/${post_id}/like`;
+      } else if (state === "like") {
+        path = `/post/${post_id}/unlike`;
+      }
 
-    if (state === "unlike") {
-      path = `/post/${post_id}/like`;
-    } else if (state === "like") {
-      path = `/post/${post_id}/unlike`;
+      await server
+        .post(
+          path,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+          }
+        )
+        .then((res) => {
+          setClickLike(!clickLike);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    } else {
+      alert("로그인 후 이용 가능합니다.");
     }
-
-    await server
-      .post(
-        path,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      )
-      .then((res) => {
-        setClickLike(!clickLike);
-        console.log(post);
-      })
-      .catch((err) => {
-        throw err;
-      });
   };
 
   //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
 
   return (
     <>
-      {isPc && 
+      {isPc && (
         <>
+
         <div className="blockhere"> </div>
         <div className="mainPage">
 
@@ -209,6 +215,7 @@ const Mainpage = () => {
             <div className="midContents2">
               {post.data.data
                 ? post.data.data.posts.posts.map((post) => {
+
                     return (
                       <Card centered={true} fluid={true} key={post._id}>
                         <div className="effecTest">
@@ -220,13 +227,24 @@ const Mainpage = () => {
                             <div className="bottom">
                               <HeartOutlined className="testIcon" />
                             </div>
-                            {post.media[0] ? (
+                            {post.media[0].type === "img" ? (
                               <Image
                                 src={post.media[0].path}
                                 className="exampleIMG"
                               />
-                            ) : null}{" "}
-                            {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
+                            ) : (
+                              <video
+                                autoPlay="autoplay"
+                                muted="muted"
+                                loop="loop"
+                                className="video"
+                              >
+                                <source
+                                  src={post.media[0].path}
+                                  className="exampleIMG"
+                                ></source>
+                              </video>
+                            )}
                           </div>
                         </div>
 
@@ -255,58 +273,57 @@ const Mainpage = () => {
                           <Card.Description>{post.content}</Card.Description>
                         </Card.Content>
                         <Card.Content extra>
-                          {
-                            post.likes.length !== 0 &&
-                            localStorage.getItem("accessToken") ? (
+                          {post.likes.length !== 0 &&
+                          localStorage.getItem("accessToken") ? (
                             <>
-                              {
-                                post.likes.findIndex(
-                                  (i) => i.user_id === user.data.userInfo.id
-                                ) !== -1 ? (
-                                  <Icon
-                                    name="like"
-                                    className="mylike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("like", post._id)
-                                    }
-                                  />
-                                ) : (
-                                  <Icon
-                                    name="like"
-                                    className="unlike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("unlike", post._id)
-                                    }
-                                  />
-                                )
-                              }
+                              {post.likes.findIndex(
+                                (i) => i.user_id === user.data.userInfo.id
+                              ) !== -1 ? (
+                                <Icon
+                                  name="like"
+                                  className="mylike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("like", post._id)
+                                  }
+                                />
+                              ) : (
+                                <Icon
+                                  name="like"
+                                  className="unlike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("unlike", post._id)
+                                  }
+                                />
+                              )}
                             </>
-                            ) : (
-                              <Icon
-                                name="like"
-                                className="unlike"
-                                onClick={() =>
-                                  handleClickLikeBtn("unlike", post._id)
-                                }
-                              />
-                            )}
+                          ) : (
+                            <Icon
+                              name="like"
+                              className="unlike"
+                              onClick={() =>
+                                handleClickLikeBtn("unlike", post._id)
+                              }
+                            />
+                          )}
                           {post.likes.length}
-                          </Card.Content>
-                        </Card>
-                      );
-                    }
-                  )
-                : null
-              }
-              {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                        </Card.Content>
+                      </Card>
+                    );
+                  })
+                ) : (
+                  <center>
+                    <div className="alert">게시물이 없어요</div>
+                  </center>
+                )}
+                {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+              </div>
             </div>
-
+            <div className="newblockPosition2"> </div>
+            <div className="rightSpace">
+              <div className="iconList2">{isFilter ? <Search /> : null}</div>
+            </div>
           </div>
-          <div className="newblockPosition2"> </div>
 
-          <div className="rightSpace">
-            <div className="iconList2">{isFilter ? <Search /> : null}</div>
-          </div>
         </div>
 
         <Footer />
@@ -320,100 +337,14 @@ const Mainpage = () => {
       {isTablet && 
         <>   
           <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
-           <div className="blockhere"> </div>
-            <div className="mainPageResponsive">
-             
-              <ResponsiveIconlist />
+          <div className="blockhere"> </div>
+          <div className="mainPageResponsive">
+            <ResponsiveIconlist />
 
-              <div className="middleSpaceResponsive" >
-                <div className="midContentsResponsive">
-                  {post.data.data
-                    ? post.data.data.posts.posts.map((post) => {
-                        return (
-                          <Card centered={true} fluid={true} key={post._id}>
-                            <div className="effecTest">
-                              <div
-                                className="screen"
-                                onClick={() => handleClickPost(true, post._id)}
-                              >
-                                {/* <div className="top"> 이기능쓰긴함?</div> */}
-                                <div className="bottom">
-                                  <HeartOutlined className="testIcon" />
-                                </div>
-                                {post.media[0] ? (
-                                  <Image
-                                    src={post.media[0].path}
-                                    className="exampleIMG"
-                                  />
-                                ) : null}{" "}
-                                {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
-                              </div>
-                            </div>
-
-                            <Card.Content>
-                              <Card.Header>
-                                <div className="nothing2">
-                                  <Link
-                                    to={{
-                                      pathname: `/posts`,
-                                      state: {
-                                        id: post.userInfo.user_id,
-                                      },
-                                    }}
-                                  >
-                                    <div className="nothing">
-                                      {post.userInfo.name}
-                                    </div>
-                                  </Link>
-                                </div>
-                              </Card.Header>
-                              <Card.Meta>
-                                <span className="date">
-                                  Updated at {post.updatedAt}
-                                </span>
-                              </Card.Meta>
-                              <Card.Description>{post.content}</Card.Description>
-                            </Card.Content>
-                            <Card.Content extra>
-                              <a href="/#">
-                                <Icon name="like" />
-                                {post.likes.length}
-                              </a>
-                            </Card.Content>
-                          </Card>
-                        );
-                      })
-                    : null}
-                  {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
-                </div>
-              </div>
-              <div className="responsiveNewblockPosition"> </div>
-            </div>
-            {/* <ResponsiveFooter />  */}
-            
-            {
-              modalSocialSignup ? (
-                <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
-              ) : null
-            }
-         </>}
-          
-
-      
-      {isMobile && 
-        <>
-        <div className="blockhere"> </div>
-        <div className="mainPageResponsive2">
-
-          {/* <Nav loading={loading} handleClickFiltering={handleClickFiltering} /> */}
-          <ResponsiveNav />
-          {/* <Iconlist /> */}
-
-
-          <div className="middleSpaceResponsive2" >
-            <div className="midContentsResponsive2">
-              {post.data.data
-                ? post.data.data.posts.posts.map((post) => {
+            <div className="middleSpaceResponsive">
+              <div className="midContentsResponsive">
+                {post.data.data && post.data.data.posts.posts.length !== 0 ? (
+                  post.data.data.posts.posts.map((post) => {
                     return (
                       <Card centered={true} fluid={true} key={post._id}>
                         <div className="effecTest">
@@ -460,34 +391,188 @@ const Mainpage = () => {
                           <Card.Description>{post.content}</Card.Description>
                         </Card.Content>
                         <Card.Content extra>
-                          <a href="/#">
-                            <Icon name="like" />
-                            {post.likes.length}
-                          </a>
+                          {post.likes.length !== 0 &&
+                          localStorage.getItem("accessToken") ? (
+                            <>
+                              {post.likes.findIndex(
+                                (i) => i.user_id === user.data.userInfo.id
+                              ) !== -1 ? (
+                                <Icon
+                                  name="like"
+                                  className="mylike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("like", post._id)
+                                  }
+                                />
+                              ) : (
+                                <Icon
+                                  name="like"
+                                  className="unlike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("unlike", post._id)
+                                  }
+                                />
+                              )}
+                            </>
+                          ) : (
+                            <Icon
+                              name="like"
+                              className="unlike"
+                              onClick={() =>
+                                handleClickLikeBtn("unlike", post._id)
+                              }
+                            />
+                          )}
+                          {post.likes.length}
                         </Card.Content>
                       </Card>
                     );
                   })
-                : null}
-              {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                ) : (
+                  <center>
+                    <div className="alert">게시물이 없어요</div>
+                  </center>
+                )}
+                {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+              </div>
             </div>
+            <div className="responsiveNewblockPosition"> </div>
           </div>
-          {/* <div className="newblockPosition2"> </div>
+          {/* <ResponsiveFooter />  */}
+
+          {modalSocialSignup ? (
+            <SocialSignup
+              oauthSignup={oauthSignup}
+              modalSocialClose={() => {
+                setModalSocialSignup(false);
+              }}
+            ></SocialSignup>
+          ) : null}
+        </>
+      )}
+
+      {isMobile && (
+        <>
+          <div className="blockhere"> </div>
+          <div className="mainPageResponsive2">
+            {/* <Nav loading={loading} handleClickFiltering={handleClickFiltering} /> */}
+            <ResponsiveNav />
+            {/* <Iconlist /> */}
+
+            <div className="middleSpaceResponsive2">
+              <div className="midContentsResponsive2">
+                {post.data.data && post.data.data.posts.posts.length !== 0 ? (
+                  post.data.data.posts.posts.map((post) => {
+                    return (
+                      <Card centered={true} fluid={true} key={post._id}>
+                        <div className="effecTest">
+                          <div
+                            className="screen"
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
+                            {/* <div className="top"> 이기능쓰긴함?</div> */}
+                            <div className="bottom">
+                              <HeartOutlined className="testIcon" />
+                            </div>
+                            {post.media[0] ? (
+                              <Image
+                                src={post.media[0].path}
+                                className="exampleIMG"
+                              />
+                            ) : null}{" "}
+                            {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
+                          </div>
+                        </div>
+
+                        <Card.Content>
+                          <Card.Header>
+                            <div className="nothing2">
+                              <Link
+                                to={{
+                                  pathname: `/posts`,
+                                  state: {
+                                    id: post.userInfo.user_id,
+                                  },
+                                }}
+                              >
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
+                              </Link>
+                            </div>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className="date">
+                              Updated at {post.updatedAt}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{post.content}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          {post.likes.length !== 0 &&
+                          localStorage.getItem("accessToken") ? (
+                            <>
+                              {post.likes.findIndex(
+                                (i) => i.user_id === user.data.userInfo.id
+                              ) !== -1 ? (
+                                <Icon
+                                  name="like"
+                                  className="mylike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("like", post._id)
+                                  }
+                                />
+                              ) : (
+                                <Icon
+                                  name="like"
+                                  className="unlike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("unlike", post._id)
+                                  }
+                                />
+                              )}
+                            </>
+                          ) : (
+                            <Icon
+                              name="like"
+                              className="unlike"
+                              onClick={() =>
+                                handleClickLikeBtn("unlike", post._id)
+                              }
+                            />
+                          )}
+                          {post.likes.length}
+                        </Card.Content>
+                      </Card>
+                    );
+                  })
+                ) : (
+                  <center>
+                    <div className="alert">게시물이 없어요</div>
+                  </center>
+                )}
+                {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+              </div>
+            </div>
+            {/* <div className="newblockPosition2"> </div>
 
           <div className="rightSpace">
             <div className="iconList2">{isFilter ? <Search /> : null}</div>
           </div> */}
-        </div>
-        <ResponsiveFooter /> 
-        
-        {
-          modalSocialSignup ? (
-            <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
-          ) : null
-        }
-      </>}
+          </div>
+          <ResponsiveFooter />
+
+          {modalSocialSignup ? (
+            <SocialSignup
+              oauthSignup={oauthSignup}
+              modalSocialClose={() => {
+                setModalSocialSignup(false);
+              }}
+            ></SocialSignup>
+          ) : null}
+        </>
+      )}
     </>
-    
   );
 };
 
