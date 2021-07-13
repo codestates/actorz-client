@@ -59,6 +59,12 @@ const ResponsiveFooter = () => {
 
       <div className="ResponsiveFooter">
         <div className="ResponsivespaceDirection">
+        <div className="responsiveHomeButtonFooter">
+            <div className="responsiveHomeButtonIconFooter">
+              
+            </div>
+          </div>
+
           <div className="responsiveHomeButtonFooter">
             <div className="responsiveHomeButtonIconFooter">
               <Link to="/mainpage" className="noEffect">

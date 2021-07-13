@@ -4,6 +4,18 @@ body {
   /*width: 100vw;*/
 }
 
+::-webkit-scrollbar {
+   width: 0.35rem; /*스크롤바의 너비*/ 
+} 
+
+::-webkit-scrollbar-thumb { 
+  background-color: #d6d6d6; /*스크롤바의 색상*/ 
+} 
+
+::-webkit-scrollbar-track { 
+  background-color: rgb(255, 255, 255); /*스크롤바 트랙 색상*/ 
+}
+
 .alinkEffect { 
   text-decoration: none;
   color: white;
@@ -30,7 +42,7 @@ body {
 
 .search {
   display: flex;
-  padding: 6px;
+  padding: 0.4rem;
   position: fixed;
   left: 0;
   top: 0;
@@ -39,6 +51,7 @@ body {
   background-color: black;
   z-index: 4;
 }
+
 
 .headerLogo{
   width: 3.125rem;
@@ -149,23 +162,27 @@ body {
 
 .footerUser1 {
   padding: 0.25rem;
-  border-right: 1px solid #e0e0e0;
+  margin-top: -0.3rem;
+  /* border-right: 1px solid #e0e0e0; */
 
 }
 
 .footerUser2 {
   padding: 0.25rem;
-  border-right: 1px solid #e0e0e0;
+  margin-top: -0.3rem;
+  /* border-right: 1px solid #e0e0e0; */
 }
 
 .footerUser3 {
   padding: 0.25rem;
-  border-right: 1px solid #e0e0e0;
+  margin-top: -0.3rem;
+  /* border-right: 1px solid #e0e0e0; */
 }
 
 .footerUser4 {
   padding: 0.25rem;
-  border-right: 1px solid #e0e0e0;
+  margin-top: -0.3rem;
+  /* border-right: 1px solid #e0e0e0; */
 }
 
 .startButton1 {
@@ -286,6 +303,7 @@ body {
   display: flex;
   /*vertical-align: top;*/
   flex-direction: row;
+  margin-bottom: 3rem;
 }
 
 

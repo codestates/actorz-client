@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useMediaQuery } from "react-responsive";
+import { useMediaQuery } from "react-responsive"
+
 import Nav from "../components/Nav";
 import Post from "./Post";
 import { Link } from "react-router-dom";
@@ -202,18 +203,19 @@ const Mainpage = () => {
     <>
       {isPc && (
         <>
-          <div className="blockhere"> </div>
-          <div className="mainPage">
-            <Nav
-              loading={loading}
-              handleClickFiltering={handleClickFiltering}
-            />
-            <Iconlist />
-            <div className="newblockPosition"> </div>
-            <div className="middleSpace">
-              <div className="midContents">
-                {post.data.data && post.data.data.posts.posts.length !== 0 ? (
-                  post.data.data.posts.posts.map((post) => {
+
+        <div className="blockhere"> </div>
+        <div className="mainPage">
+
+          <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
+          <Iconlist />
+
+          <div className="newblockPosition"> </div>
+          <div className="middleSpace" >
+            <div className="midContents2">
+              {post.data.data
+                ? post.data.data.posts.posts.map((post) => {
+
                     return (
                       <Card centered={true} fluid={true} key={post._id}>
                         <div className="effecTest">
@@ -321,20 +323,19 @@ const Mainpage = () => {
               <div className="iconList2">{isFilter ? <Search /> : null}</div>
             </div>
           </div>
-          {/* <Footer /> */}
-          {modalSocialSignup ? (
-            <SocialSignup
-              oauthSignup={oauthSignup}
-              modalSocialClose={() => {
-                setModalSocialSignup(false);
-              }}
-            ></SocialSignup>
-          ) : null}
-        </>
-      )}
 
-      {isTablet && (
-        <>
+        </div>
+
+        <Footer />
+        {
+          modalSocialSignup ? (
+            <SocialSignup oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
+          ) : null
+        }
+      </>}
+
+      {isTablet && 
+        <>   
           <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
           <div className="blockhere"> </div>
           <div className="mainPageResponsive">
