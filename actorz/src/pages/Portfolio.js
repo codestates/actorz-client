@@ -12,7 +12,7 @@ import Loading from "../components/loading";
 import "../styles/Portfolio.css";
 import "antd/dist/antd.css";
 import PortfolioEdit from "../components/portfolio/portfolio.component";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { SaveOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 
 import { PortfolioPostBtn } from "../components/portfolio/portfolio.styles";
@@ -24,8 +24,27 @@ const Portfolio = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [postsData, setPostsData] = useState([]);
   const [clickPfEdit, setClickPfEdit] = useState(false);
+  const [myPostsData, setMyPostsData] = useState([]);
 
 
+
+
+
+
+
+
+  const handleClickPostBtn = async () => {
+    handleClickPfEdit(true);
+    console.log(user.data)
+    await server.get(`/post/user/${user.data.userInfo.id}`)
+    .then((result) => setMyPostsData(result.data.data.posts));
+  }
+
+
+  const handleClickSaveBtn = () => {
+    console.log("save portfolio");
+    setPostsData([1]);
+  }
 
 
   const handleClickPfEdit = (boolean) => {
@@ -38,6 +57,7 @@ const Portfolio = () => {
 
   const handleDeleteAccount = async () => {
     console.log("delete portfolio");
+    setPostsData([]);
     // await server
     //   .get(`/user/${localStorage.getItem("id")}/delete`, {
     //     headers: {
@@ -59,6 +79,7 @@ const Portfolio = () => {
 
   const handeClickEditBtn = () => {
     console.log("edit portfolio");
+    handleClickPfEdit(true);
     // edit modal창 띄우기
   };
 
@@ -97,28 +118,35 @@ const Portfolio = () => {
                             <>
                               <EditOutlined
                                 className="editButton"
-                                onClick={() => handeClickEditBtn(true)}
+                                onClick={() => handeClickEditBtn()}
                               />
                               <DeleteOutlined
                                 className="deleteButton"
                                 onClick={() => handleDeleteAccount()}
                               />
-                            </> : null}
+                            </> : 
+                            <>
+                              <SaveOutlined 
+                                className="editButton"
+                                onClick={() => handleClickSaveBtn()}
+                              />  
+                            </>
+                          }
                         </div>
                       </div>
                       <div className="midContentDownPart">
                         <div className="displayPosition">
-                          <div className="fixedSize">
+                          <div className="pf fixedSize">
                             <img
                               alt="testPic"
                               src={user.data.userInfo.mainPic}
-                              className="testPic"
+                              className="pf testPic"
                             />
                           </div>
 
-                          <div className="fixedContent">
+                          <div className="pf fixedContent">
                             <ul>
-                              <div className="nameTitle">
+                              <div className="pf nameTitle">
                                 {user.data.userInfo.name}
                               </div>
                               <strong>생년월일</strong>
@@ -141,7 +169,7 @@ const Portfolio = () => {
                           </div>
                         </div>
                         {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
-                        <div className="careerTitle">Career </div>
+                        <div className="pf careerTitle">Career </div>
                         {/* <div className="iconTitle">🏆</div> */}
                         <div className="careerContent">
                           {user.data.userInfo.careers ? (
@@ -162,13 +190,13 @@ const Portfolio = () => {
                           )}
                         </div>
 
-                        <div className="postsTitle">Posts </div>
+                        <div className="pf postsTitle">Posts </div>
                         <div className="portFolioEdit">
                           {postsData[0] ? 
                             <>
                             </> :
                             <>
-                              <PortfolioPostBtn type="button" onClick={() => handleClickPfEdit(true)}>
+                              <PortfolioPostBtn type="button" onClick={() => handleClickPostBtn()}>
                                 <i class="fas fa-paste"></i>
                                 <span>Portfolio 등록</span>
                               </PortfolioPostBtn>
@@ -190,6 +218,7 @@ const Portfolio = () => {
                       <form onSubmit={() => console.log("submit")}>
                         <PortfolioEdit
                         handleClickPfEdit={handleClickPfEdit}
+                        myPostsData={myPostsData}
                         isLoading={isLoading}
                         />
                       </form>
