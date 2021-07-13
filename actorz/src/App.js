@@ -8,7 +8,9 @@ import Posts from "./pages/Posts";
 import Post from "./pages/Post";
 
 import Like from "./pages/Like";
-// import { useSelector, useDispatch } from "react-redux";
+
+import Portfolio from "./pages/Portfolio";
+
 
 function App() {
   return (
@@ -21,6 +23,7 @@ function App() {
           <Route path="/posts" component={Posts} />
           <Route path="/post/:id" component={Post} />
           <Route path="/like" component={Like} />
+          <Route path="/portfolio" component={Portfolio} />
         </Switch>
       </div>
     </Router>

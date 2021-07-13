@@ -6,18 +6,6 @@ html {
   background-color: #fafafa;
 }
 
-body {
-  background-color: #fafafa;
-  padding: 0rem;
-  margin: 0rem;
-}
-
-.name {
-  /*font: italic 1.2em "Fira Sans", serif;*/
-  font-size: 1.5rem;
-  margin-bottom: 0.6rem;
-}
-
 ul {
   padding: 0px;
 }
@@ -26,30 +14,6 @@ li {
   list-style: none;
 }
 
-.responsiveNewblockPosition2 {
-  width: 3%;
-}
-
-.middleSpace2 {
-  /* 태블릿 반응형 */
-  flex: auto;
-  background-color: #fafafa;
-  margin-top: -1.5rem;
-  margin-left: 1rem;
-
-  /* margin-bottom: 3rem; */
-}
-
-.middleSpace5 {
-  /* 태블릿 반응형 */
-  flex: auto;
-  background-color: #fafafa;
-  margin-top: -1.5rem;
-  margin-left: 1rem;
-  margin-bottom: 3rem; 
-}
-
-
 .careerTitle {
   font: italic small-caps bold 16px/2 cursive;
   font-size: 1.5rem;
@@ -57,9 +21,9 @@ li {
   border-bottom: 1px solid #e0e0e0;
 }
 
-.careerTitleDivide {
+/* .careerTitleDivide {
   display: flex;
-}
+} */
 .career {
   height: 50%;
 }
@@ -81,7 +45,6 @@ li {
   width: 15rem;
   height: 20rem;*/
   /*background-color: yellow;*/
-  flex: 1;
   margin-top: 2rem;
 }
 
@@ -89,7 +52,7 @@ li {
   width: 15rem;
   height: 15rem;
   /* flex: 1; */
-  border-radius: 70%;
+  border-radius: 0%;
   margin-bottom: 0.5rem;
   object-fit: cover;
 }
@@ -101,18 +64,6 @@ li {
 .fixedContent {
   display: flex;
   flex-direction: column;
-  text-align: center;
-  padding: 2rem;
-  /*max-width:100%;*/
-  flex: 1;
-  height: 20rem;
-  background-color: #fafafa;
-  margin-top: 2.5rem;
-}
-
-.fixedContent2 {
-  display: flex;
-  flex-direction: column;
   text-align: left;
   padding: 2rem;
   /*max-width:100%;*/
@@ -121,13 +72,13 @@ li {
   background-color: #fafafa;
 }
 
-
 .displayPosition {
   display: flex;
   /*flex-direction: column;*/
   text-align: center;
   flex-wrap: wrap;
   align-content: flex-start;
+  margin: 0px;
 }
 
 .career-li {
@@ -136,20 +87,14 @@ li {
   flex-wrap: wrap;
 }
 
-.career-li2 {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  height: 10rem;
-}
-
-
+/*
 .midContentDownPart2 {
-  display: flex;
-  flex-direction: column;
-  padding: 0.625rem;
+	display: flex;
+	flex-direction: column;
+	// flex-wrap: wrap;
+	padding: 30px;
 }
-
+*/
 
 /* * Button */
 .buttonHeader {
@@ -159,6 +104,11 @@ li {
   font-size: 2rem;
   /* padding: 0.5rem; */
   border-bottom: 1px solid lightgray;
+}
+
+.profileButtonAll {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .editButton {
@@ -183,10 +133,35 @@ li {
   border: 1px solid red;
 }
 
-.nothing2 {
+/* .nothing2 {
   width: 3rem;
-}
+} */
 
 /* i.like.icon::before {
   color: red;
 } */
+
+.nameTitle {
+  border-bottom: 1px solid black;
+}
+
+.postsTitle {
+  font: italic small-caps bold 16px/2 cursive;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.portFolioEdit {
+  /* position: absolute; */
+  margin: 2rem 0;
+}
+
+.portFolioEdit > button {
+  margin: auto;
+}
+
+.profileTitleName {
+  margin: 1rem;
+}

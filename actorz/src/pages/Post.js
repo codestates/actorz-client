@@ -26,26 +26,18 @@ const Post = ({ handleClickPost }) => {
 
   const dispatch = useDispatch();
 
-  //console.log(post.data.data.posts.posts[0]._id);
-  //console.log(post.data.data.posts.posts[0].likes);
+  var idx = post.data.data.posts.posts.findIndex(
+    (post) => post._id === postinfo._id
+  );
 
   let index = window.location.pathname.lastIndexOf("/");
   let url = window.location.pathname.slice(index + 1);
-
-  // useEffect(async () => {
-  //   await post.data.data.posts.posts[0].likes.map((like) => {
-  //     //console.log(like);
-  //     setWhoIsLike(whoIsLike, like.user_id);
-  //   });
-  // }, []);
-  // console.log(whoIsLike);
 
   useEffect(() => {
     const p = async () => {
       await server
         .get(`/post/${url}`)
         .then((res) => {
-          //console.log(res);
           setPostinfo(res.data.data.post);
           setIsLoading(true);
         })
@@ -69,11 +61,12 @@ const Post = ({ handleClickPost }) => {
           }
         })
         .catch((err) => {
-          console.log(err);
+          throw err;
         });
     };
     p();
-  }, [url]);
+  }, [dispatch]);
+
 
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
@@ -108,16 +101,11 @@ const Post = ({ handleClickPost }) => {
     let path = null;
     if (state === "unlike") {
       path = `/post/${post_id}/like`;
-      setWhoIsLike({
-        ...whoIsLike,
-        user_id: postinfo.userInfo.user_id,
-      });
+      setIsLike(true);
     } else if (state === "like") {
       path = `/post/${post_id}/unlike`;
-      let like = whoIsLike.filter((el) => el !== postinfo.userInfo.user_id);
-      setWhoIsLike(like);
+      setIsLike(false);
     }
-    console.log(whoIsLike);
 
     await server
       .post(
@@ -130,15 +118,12 @@ const Post = ({ handleClickPost }) => {
         }
       )
       .then((res) => {
-        dispatch(editLike(url, whoIsLike));
-        //console.log(url);
-        //console.log(whoIsLike);
+        dispatch(editLike(url, res.data.data.likes));
       })
       .catch((err) => {
         throw err;
       });
   };
-  console.log(whoIsLike);
 
   return (
     <>
@@ -240,7 +225,9 @@ const Post = ({ handleClickPost }) => {
                       <div className="post-name">{postinfo.userInfo.name}</div>
                       <img src={heart} className="heart-img" alt=""></img>
                       <span className="genre">|{postinfo.genre}</span>
-                      <span className="like">{postinfo.likes.length}</span>
+                      <span className="like">
+                        {post.data.data.posts.posts[idx].likes.length}
+                      </span>
                       <button
                         className="delete-btn"
                         onClick={() => handleClickPost(false)}

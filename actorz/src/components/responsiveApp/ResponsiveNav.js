@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
-//import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
 //import server from "../../apis/server";
 //import { persistor } from "../../store/store";
 import Loading from "../../components/loading";
 import "../../styles/ResponsiveNav.css";
+import { Avatar } from 'antd';
+import { UserOutlined } from '@ant-design/icons';
 
 const ResponsiveApp = () => {
+  const user = useSelector((user) => user.userInfoReducer);
   // const [search, setSearch] = useState("");
   // const [clickSignin, setClickSignin] = useState(false);
   // const [clickSignup, setClickSignup] = useState(false);
   // const [isLogin, setIsLogin] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  // const user = useSelector((user) => user.userInfoReducer);
 
   // const inputHandler = (event) => {
   //   setSearch(event.target.value);
@@ -59,15 +61,23 @@ const ResponsiveApp = () => {
   return (
     <>
     {!loading ? (
-      <div id="nav">
-        <div className="search">
+      <div id="ResponsiveNavHeader">
+        <div className="search2">
           <div>
             <Link to="/">
               <div className="headerLogoResponsive"
               > Actorz </div>
             </Link>
           </div>
+          <div className="responsiveAvatar">
+            <Link to="/mypage">
+              {/* 프로필 나타내는 부분 */}
+              <Avatar size={30} icon={<UserOutlined />} src={user.data.userInfo.mainPic}/>
+            </Link>
+          </div>
         </div>
+        
+        
         {/* {clickSignin ? (
           <Signin
             handleClickSignin={handleClickSignin}

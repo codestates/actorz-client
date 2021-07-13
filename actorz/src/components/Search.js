@@ -12,13 +12,20 @@ const Search = () => {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    console.log(name, content);
     try {
-      await server
-        .get(`post/search?name=${name}&content=${content}&age=${age}`)
-        .then((res) => {
-          dispatch(getAllPostInfo(res.data.data));
-        });
+      if (Number(age) === 50) {
+        await server
+          .get(`post/search?name=${name}&content=${content}`)
+          .then((res) => {
+            dispatch(getAllPostInfo(res.data.data));
+          });
+      } else {
+        await server
+          .get(`post/search?name=${name}&content=${content}&age=${age}`)
+          .then((res) => {
+            dispatch(getAllPostInfo(res.data.data));
+          });
+      }
     } catch (err) {
       throw err;
     }
@@ -46,16 +53,19 @@ const Search = () => {
       </div>
       <div className="search-box" onChange={handleInputValue("age")}>
         <label>
-          <input type="radio" name="age" value="10" /> 10
+          <input type="radio" name="age" value="10" /> ~10대
         </label>
         <label>
-          <input type="radio" name="age" value="20" /> 20
+          <input type="radio" name="age" value="20" /> 20대
         </label>
         <label>
-          <input type="radio" name="age" value="30" /> 30
+          <input type="radio" name="age" value="30" /> 30대
         </label>
         <label>
-          <input type="radio" name="age" value="40" /> 40
+          <input type="radio" name="age" value="40" /> 40대~
+        </label>
+        <label>
+          <input type="radio" name="age" value="50" /> 전체
         </label>
       </div>
     </div>

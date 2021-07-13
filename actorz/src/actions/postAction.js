@@ -30,7 +30,7 @@ export const editPostInfo = (posts) => {
 };
 
 export const editLike = (post_id, like) => {
-  console.log(like);
+  console.log(post_id, like);
   return {
     type: EDIT_LIKE,
     payload: {
