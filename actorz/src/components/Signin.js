@@ -52,6 +52,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           })
           .then((res) => {
             if (res.status === 200) {
+              console.log(res.data.data.userInfo)
               dispatch(getUserInfo(res.data.data.userInfo));
             }
           })

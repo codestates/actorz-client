@@ -6,11 +6,19 @@ import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
 import { redirectUri } from "../config";
+import CalendarDob from "./CalendarDob";
+import AddressModal from "./AddressModal";
 
 import "../styles/SignupModal.css";
 
 const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
-  
+  const [dob, setDob] = useState("");
+  const [addr, setAddr] = useState({
+    city:"",
+    street:"",
+    zipCode:""
+  });
+
   // console.log(oauthSignup)
   const [provider, email] = oauthSignup.split("=");
   const [actorSignup, setActorSignup] = useState({});
@@ -49,16 +57,12 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
 
   const handleClickActorSignupBtn = async () => {
     setLoading(true);
-    const { name, dob, company, gender } = actorSignup;
+    const { name, company, gender } = actorSignup;
     try {
       if (
         name !== undefined &&
         dob !== undefined
       ) {
-        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
-          setLoading(false);
-          setError("생년월일 형식을 지켜서 작성해주세요");
-        } else {
           setError("");
           await server
           .post(`/signup`, {
@@ -96,7 +100,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               modalSocialClose();
             }
           });
-        }
       } else {
         setLoading(false);
         setError("필수 항목을 모두 적어주세요");
@@ -115,12 +118,8 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     setLoading(true);
     const {
       name,
-      dob,
       gender,
       bName,
-      bAddress_city,
-      bAddress_street,
-      bAddress_zipcode,
       bEmail,
       phoneNum,
       jobTitle,
@@ -131,14 +130,10 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
         name !== undefined &&
         dob !== undefined &&
         bName !== undefined &&
-        bAddress_city !== undefined &&
-        bAddress_street !== undefined &&
-        bAddress_zipcode !== undefined
+        addr.city !== undefined &&
+        addr.street !== undefined &&
+        addr.zipCode !== undefined
       ) {
-        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
-          setLoading(false);
-          setError("생년월일 형식을 지켜서 작성해주세요");
-        } else {
           setError("");
           await server.post(`/signup`, {
             name: name,
@@ -148,11 +143,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
             dob: dob,
             recruiter: {
               bName: bName,
-              bAddress: {
-                city: bAddress_city,
-                street: bAddress_street,
-                zipcode: bAddress_zipcode,
-              },
+              bAddress: addr,
               bEmail: bEmail,
               phoneNum: phoneNum,
               jobTitle: jobTitle,
@@ -184,7 +175,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               modalSocialClose();
             }
           });
-        }
       } else {
         setLoading(false);
         setError("필수 항목을 모두 적어주세요");
@@ -267,11 +257,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                     <div className="modal-group-signup">
                       <div className="importEffect">*</div>
                       <div>
-                        <input
-                          type="text"
-                          placeholder="생년월일 (1990,01,02)"
-                          onChange={handleInputActorValue("dob")}
-                        />
+                        <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
                       </div>
                     </div>
 
@@ -293,7 +279,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                     <button
                       className="btn-login"
                       type="submit"
-                      onClick={handleClickrecruiterSignupBtn}
+                      onClick={handleClickActorSignupBtn}
                     >
                       <div className="settingBtn">
                         회원가입
@@ -319,11 +305,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
                         <div>
-                          <input
-                            type="text"
-                            placeholder="생년월일 (1990,01,02)"
-                            onChange={handleInputrecruiterValue("dob")}
-                          />
+                          <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
                         </div>
                       </div>
                       <div className="modal-group-signup">
@@ -337,38 +319,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                         </div>
                       </div>
 
-                      <div className="modal-group-signup2">
-                        <div className="importEffect">*</div>
-                        <div className="modal-group-signup3">
-                          <div className="reposition">
-                            <input
-                              type="text"
-                              placeholder="시/도"
-                              onChange={handleInputrecruiterValue(
-                                "bAddress_city"
-                              )}
-                            />
-                          </div>
-                        </div>
-                        <div className="modal-group-signup3">
-                          <input
-                            type="text"
-                            placeholder="시/군/구"
-                            onChange={handleInputrecruiterValue(
-                              "bAddress_street"
-                            )}
-                          />
-                        </div>
-                        <div className="modal-group-signup3">
-                          <input
-                            type="number"
-                            placeholder="우편번호"
-                            onChange={handleInputrecruiterValue(
-                              "bAddress_zipcode"
-                            )}
-                          />
-                        </div>
-                      </div>
+                      <AddressModal setAddr={setAddr} addr={addr}></AddressModal>
 
                       <div className="modal-group-signup">
                         <div className="importEffect2">&nbsp;&nbsp;</div>

@@ -6,9 +6,9 @@ import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
 import AddressModal from "./AddressModal";
+import CalendarDob from "./CalendarDob";
 
 import "../styles/SignupModal.css";
-import CalendarDob from "./CalendarDob";
 
 
 const Signup = ({ handleClickSignup, handleClickSignin }) => {
@@ -16,7 +16,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   const [addr, setAddr] = useState({
     city:"",
     street:"",
-    zipcode:""
+    zipCode:""
   });
 
   const [actorSignup, setActorSignup] = useState({});
@@ -66,10 +66,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         name !== undefined &&
         dob !== undefined
       ) {
-        if (dob.length !== 10 || dob[4] !== "," || dob[7] !== ",") {
-          setLoading(false);
-          setError("생년월일 형식을 지켜서 작성해주세요");
-        } else {
           setError("");
           await server
           .post(`/signup`, {
@@ -91,7 +87,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               await server //로그인한 유저의 정보를 state에 저장
               .get(`/user/${localStorage.getItem("id")}`, {
                 headers: {
-                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                 },
               })
               .then((res) => {
@@ -106,9 +102,8 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               });
               setLoading(false);
               handleClickClose();
-            }
-          });
-        }
+            }   
+        });
       } else {
         setLoading(false);
         setError("필수 항목을 모두 적어주세요");
@@ -146,7 +141,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         bName !== undefined &&
         addr.city !== undefined &&
         addr.street !== undefined &&
-        addr.zipcode !== undefined
+        addr.zipCode !== undefined
       ) {
           setError("");
           await server.post(`/signup`, {

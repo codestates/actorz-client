@@ -102,7 +102,7 @@ const Mypage = () => {
     alert("로그인 후 이용 가능합니다.");
     window.location = "/mainpage";
   };
-  //console.log(user); //여기에 서버에서 가져온 유저 정보가 담겨있음.
+  console.log(user); //여기에 서버에서 가져온 유저 정보가 담겨있음.
   //console.log(userinfo);
 
   return (
@@ -162,15 +162,7 @@ const Mypage = () => {
                                   <strong>이메일</strong>
                                   <li className="email">
                                     {user.data.userInfo.email}
-                                  </li>
-                                  <strong>소속사</strong>
-                                  {user.data.userInfo.company ? (
-                                    <li className="company">
-                                      {user.data.userInfo.company}
-                                    </li>
-                                  ) : (
-                                    <li className="company"></li>
-                                  )}
+                                  </li>                               
                                 </ul>
                               </div>
                             </div>
@@ -186,8 +178,65 @@ const Mypage = () => {
                                     <li className="dob">{user.data.userInfo.dob}</li>
                                     <strong>이메일</strong>
                                     <li className="email">{user.data.userInfo.email}</li>
-                                    <strong>소속사</strong>
-                                    <li className="company">{user.data.userInfo.company}</li>
+                                    {user.data.userInfo.role === "actor" ? ( // role에 따른 정보 가감
+                                    <>
+                                      <strong>소속사</strong>
+                                      {user.data.userInfo.company ? (
+                                        <li className="company">
+                                          {user.data.userInfo.company}
+                                        </li>
+                                      ) : (
+                                        <li className="company"></li>
+                                      )}
+                                    </>
+                                  ):(
+                                    <>
+                                      <strong>회사</strong>
+                                      {user.data.userInfo.recruiter.bName ? (
+                                        <li className="bName">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
+                                      ) : (
+                                        <li className="bName"></li>
+                                      )}
+                                      <strong>직책</strong>
+                                      {user.data.userInfo.recruiter.jobTitle ? (
+                                        <li className="jobTitle">
+                                          {user.data.userInfo.recruiter.jobTitle}
+                                        </li>
+                                      ) : (
+                                        <li className="jobTitle"></li>
+                                      )}
+                                      <strong>회사 이메일</strong>
+                                      {user.data.userInfo.recruiter.bEmail ? (
+                                        <li className="bEmail">
+                                          {user.data.userInfo.recruiter.bEmail}
+                                        </li>
+                                      ) : (
+                                        <li className="bEmail"></li>
+                                      )}
+                                      <strong>회사 전화번호</strong>
+                                      {user.data.userInfo.recruiter.phoneNum ? (
+                                        <li className="phoneNum">
+                                          {user.data.userInfo.recruiter.phoneNum}
+                                        </li>
+                                      ) : (
+                                        <li className="phoneNum"></li>
+                                      )}
+                                      <strong>회사 주소</strong>
+                                      {user.data.userInfo.recruiter.bAddress.city ? (
+                                        <li className="bAddress">
+                                          {user.data.userInfo.recruiter.bAddress.city }
+                                          <br/>
+                                          {user.data.userInfo.recruiter.bAddress.street}
+                                          <br/>
+                                          {user.data.userInfo.recruiter.bAddress.zipCode}
+                                        </li>
+                                      ) : (
+                                        <li className="bAddress"></li>
+                                      )}
+                                    </>
+                                  )}
                                   </ul>
                                 </div> 
                               </TabPane>
@@ -348,8 +397,65 @@ const Mypage = () => {
                                     <li className="dob">{user.data.userInfo.dob}</li>
                                     <strong>이메일</strong>
                                     <li className="email">{user.data.userInfo.email}</li>
-                                    <strong>소속사</strong>
-                                    <li className="company">{user.data.userInfo.company}</li>
+                                    {user.data.userInfo.role === "actor" ? ( // role에 따른 정보 가감
+                                    <>
+                                      <strong>소속사</strong>
+                                      {user.data.userInfo.company ? (
+                                        <li className="company">
+                                          {user.data.userInfo.company}
+                                        </li>
+                                      ) : (
+                                        <li className="company"></li>
+                                      )}
+                                    </>
+                                  ):(
+                                    <>
+                                      <strong>회사</strong>
+                                      {user.data.userInfo.recruiter.bName ? (
+                                        <li className="bName">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
+                                      ) : (
+                                        <li className="bName"></li>
+                                      )}
+                                      <strong>직책</strong>
+                                      {user.data.userInfo.recruiter.jobTitle ? (
+                                        <li className="jobTitle">
+                                          {user.data.userInfo.recruiter.jobTitle}
+                                        </li>
+                                      ) : (
+                                        <li className="jobTitle"></li>
+                                      )}
+                                      <strong>회사 이메일</strong>
+                                      {user.data.userInfo.recruiter.bEmail ? (
+                                        <li className="bEmail">
+                                          {user.data.userInfo.recruiter.bEmail}
+                                        </li>
+                                      ) : (
+                                        <li className="bEmail"></li>
+                                      )}
+                                      <strong>회사 전화번호</strong>
+                                      {user.data.userInfo.recruiter.phoneNum ? (
+                                        <li className="phoneNum">
+                                          {user.data.userInfo.recruiter.phoneNum}
+                                        </li>
+                                      ) : (
+                                        <li className="phoneNum"></li>
+                                      )}
+                                      <strong>회사 주소</strong>
+                                      {user.data.userInfo.recruiter.bAddress.city ? (
+                                        <li className="bAddress">
+                                          {user.data.userInfo.recruiter.bAddress.city }
+                                          <br/>
+                                          {user.data.userInfo.recruiter.bAddress.street}
+                                          <br/>
+                                          {user.data.userInfo.recruiter.bAddress.zipCode}
+                                        </li>
+                                      ) : (
+                                        <li className="bAddress"></li>
+                                      )}
+                                    </>
+                                  )}
                                   </ul>
                                 </div> 
                               </TabPane>
@@ -506,8 +612,65 @@ const Mypage = () => {
                                     <li className="dob">{user.data.userInfo.dob}</li>
                                     <strong>이메일</strong>
                                     <li className="email">{user.data.userInfo.email}</li>
-                                    <strong>소속사</strong>
-                                    <li className="company">{user.data.userInfo.company}</li>
+                                    {user.data.userInfo.role === "actor" ? ( // role에 따른 정보 가감
+                                    <>
+                                      <strong>소속사</strong>
+                                      {user.data.userInfo.company ? (
+                                        <li className="company">
+                                          {user.data.userInfo.company}
+                                        </li>
+                                      ) : (
+                                        <li className="company"></li>
+                                      )}
+                                    </>
+                                  ):(
+                                    <>
+                                      <strong>회사</strong>
+                                      {user.data.userInfo.recruiter.bName ? (
+                                        <li className="bName">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
+                                      ) : (
+                                        <li className="bName"></li>
+                                      )}
+                                      <strong>직책</strong>
+                                      {user.data.userInfo.recruiter.jobTitle ? (
+                                        <li className="jobTitle">
+                                          {user.data.userInfo.recruiter.jobTitle}
+                                        </li>
+                                      ) : (
+                                        <li className="jobTitle"></li>
+                                      )}
+                                      <strong>회사 이메일</strong>
+                                      {user.data.userInfo.recruiter.bEmail ? (
+                                        <li className="bEmail">
+                                          {user.data.userInfo.recruiter.bEmail}
+                                        </li>
+                                      ) : (
+                                        <li className="bEmail"></li>
+                                      )}
+                                      <strong>회사 전화번호</strong>
+                                      {user.data.userInfo.recruiter.phoneNum ? (
+                                        <li className="phoneNum">
+                                          {user.data.userInfo.recruiter.phoneNum}
+                                        </li>
+                                      ) : (
+                                        <li className="phoneNum"></li>
+                                      )}
+                                      <strong>회사 주소</strong>
+                                      {user.data.userInfo.recruiter.bAddress.city ? (
+                                        <li className="bAddress">
+                                          {user.data.userInfo.recruiter.bAddress.city }
+                                          <br/>
+                                          {user.data.userInfo.recruiter.bAddress.street}
+                                          <br/>
+                                          {user.data.userInfo.recruiter.bAddress.zipCode}
+                                        </li>
+                                      ) : (
+                                        <li className="bAddress"></li>
+                                      )}
+                                    </>
+                                  )}
                                   </ul>
                                 </div> 
                               </TabPane>
