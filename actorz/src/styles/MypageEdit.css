@@ -1,6 +1,31 @@
 @import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 
+.postsGallery {
+  background-color: mediumaquamarine;
+  display: flex;
+  justify-content: space-between;
+}
+
+.galleryComponents {
+  background-color: mediumpurple;
+  width: 8rem;
+  height: 8rem;
+  /* padding: 1rem; */
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.ant-tabs-nav-wrap {
+  margin-bottom: 1rem;
+}
+
+.nextpageBtn {
+  background-color: moccasin;
+  height: 2rem;
+  text-align: center;
+
+}
 
 .filebox label { 
   display: inline-block; 
@@ -17,7 +42,6 @@
   border-bottom-color: #e2e2e2; 
   border-radius: 80%; 
   margin-bottom: 0.5rem;
-  
 } 
 
 .filebox input[type="file"] { 
@@ -67,7 +91,12 @@
 .highlightDisplay2 {
   border-bottom: 1px solid #e0e0e0;
   background-color: rgb(255, 230, 0);
+}
 
+.highlightDisplay3 {
+  margin-left: 2.25rem;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: rgb(255, 230, 0);
 }
 
 ul {
@@ -183,8 +212,9 @@ li {
   margin-right: 0.5rem;
 }
 
-.career-title {
-
+.career-title2 {
+  display: flex;
+  justify-content: space-between;
 }
 
 .career-year {
@@ -194,6 +224,15 @@ li {
   margin-left: 4rem;
   margin-right: 0.5rem;
 }
+
+.career-year2 {
+  /*
+  border-left: 1px solid #e0e0e0;
+  */
+  margin-top: 0.5rem;
+}
+
+
 
 .genre-tag-box {
   margin-top: 1rem;
@@ -207,6 +246,13 @@ li {
 .career-tag2 {
   margin-top: 0.3rem;
   margin-right: 0.5rem;
+}
+
+.career-tag3 {
+  margin-top: 0.3rem;
+  margin-right: 0.5rem;
+  flex-wrap: wrap;
+  
 }
 
 .radioButton {
@@ -230,6 +276,23 @@ li {
 .careerDivide2 {
   display: flex;
   height: 2.5rem;
+  margin-bottom: 1rem;
+  
+}
+
+.careerDivide3 {
+  display: flex;
+  flex-direction: column;
+}
+
+.careerDivide4 {
+ display: flex;
+ /* flex-direction: column; */
+}
+
+.careerDivide5 {
+  display: flex;
+  flex-direction: column;
 }
 
 .blockhereplz {

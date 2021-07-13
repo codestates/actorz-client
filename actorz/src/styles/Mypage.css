@@ -6,6 +6,12 @@ html {
   background-color: #fafafa;
 }
 
+body {
+  background-color: #fafafa;
+  padding: 0rem;
+  margin: 0rem;
+}
+
 .name {
   /*font: italic 1.2em "Fira Sans", serif;*/
   font-size: 1.5rem;
@@ -19,6 +25,30 @@ ul {
 li {
   list-style: none;
 }
+
+.responsiveNewblockPosition2 {
+  width: 3%;
+}
+
+.middleSpace2 {
+  /* 태블릿 반응형 */
+  flex: auto;
+  background-color: #fafafa;
+  margin-top: -1.5rem;
+  margin-left: 1rem;
+
+  /* margin-bottom: 3rem; */
+}
+
+.middleSpace5 {
+  /* 태블릿 반응형 */
+  flex: auto;
+  background-color: #fafafa;
+  margin-top: -1.5rem;
+  margin-left: 1rem;
+  margin-bottom: 3rem; 
+}
+
 
 .careerTitle {
   font: italic small-caps bold 16px/2 cursive;
@@ -51,6 +81,7 @@ li {
   width: 15rem;
   height: 20rem;*/
   /*background-color: yellow;*/
+  flex: 1;
   margin-top: 2rem;
 }
 
@@ -76,6 +107,7 @@ li {
   flex: 1;
   height: 20rem;
   background-color: #fafafa;
+  margin-top: 2.5rem;
 }
 
 .fixedContent2 {
@@ -104,14 +136,20 @@ li {
   flex-wrap: wrap;
 }
 
-/*
-.midContentDownPart2 {
-	display: flex;
-	flex-direction: column;
-	// flex-wrap: wrap;
-	padding: 30px;
+.career-li2 {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  height: 10rem;
 }
-*/
+
+
+.midContentDownPart2 {
+  display: flex;
+  flex-direction: column;
+  padding: 0.625rem;
+}
+
 
 /* * Button */
 .buttonHeader {
