@@ -12,7 +12,7 @@ import Loading from "../components/loading";
 import "../styles/Portfolio.css";
 import "antd/dist/antd.css";
 import PortfolioEdit from "../components/portfolio/portfolio.component";
-import { SaveOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { SaveOutlined, EditOutlined, DeleteOutlined, ConsoleSqlOutlined } from "@ant-design/icons";
 
 
 import { PortfolioPostBtn } from "../components/portfolio/portfolio.styles";
@@ -33,11 +33,9 @@ const Portfolio = () => {
 
 
 
-  const handleClickPostBtn = async () => {
-    handleClickPfEdit(true);
-    console.log(user.data)
-    await server.get(`/post/user/${user.data.userInfo.id}`)
-    .then((result) => setMyPostsData(result.data.data.posts));
+  const handleClickPostBtn = (postsData) => {
+    console.log(postsData);
+
   }
 
 
@@ -91,6 +89,10 @@ const Portfolio = () => {
     });
     
   };
+  useEffect(async () => {
+    await server.get(`/post/user/${user.data.userInfo.id}`)
+    .then((result) => setMyPostsData(result.data.data.posts));
+  }, [])
 
   return (
     <>
@@ -196,7 +198,7 @@ const Portfolio = () => {
                             <>
                             </> :
                             <>
-                              <PortfolioPostBtn type="button" onClick={() => handleClickPostBtn()}>
+                              <PortfolioPostBtn type="button" onClick={() => handleClickPfEdit(true)}>
                                 <i class="fas fa-paste"></i>
                                 <span>Portfolio 등록</span>
                               </PortfolioPostBtn>
@@ -215,13 +217,12 @@ const Portfolio = () => {
                 <div>
                   {clickPfEdit ? (
                     <div>
-                      <form onSubmit={() => console.log("submit")}>
-                        <PortfolioEdit
-                        handleClickPfEdit={handleClickPfEdit}
-                        myPostsData={myPostsData}
-                        isLoading={isLoading}
-                        />
-                      </form>
+                      <PortfolioEdit
+                      handleClickPfEdit={handleClickPfEdit}
+                      myPostsData={myPostsData}
+                      clickPostBtn={handleClickPostBtn}
+                      isLoading={isLoading}
+                      />
                     </div> 
                   ) : null}
                 </div>
