@@ -45,7 +45,7 @@ const Posts = (props) => {
   }, []);
 
   //console.log(userinfo.userInfo); //여기에 해당 게시물 작성자 정보가 담겨있음.
-  console.log(userPost);
+  //console.log(userPost);
   const settings = {
     dots: true,
     infinite: true,

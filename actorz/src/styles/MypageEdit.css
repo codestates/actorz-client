@@ -3,19 +3,17 @@
 
 .postsGallery {
   display: flex;
-  /*   justify-content: space-between;
- */
+  justify-content: flex-start;
+  flex-direction: row;
   flex-wrap: wrap;
+  margin-left: 1rem;
+  text-align: center;
 }
-.postGallery-img {
+.postGallery-img,
+.img-container {
   width: 9.6rem;
   height: 10.5rem;
   border-radius: 0.5rem;
-}
-
-.galleryComponents {
-  width: 150px;
-  height: 150px;
 }
 
 .galleryComponents {

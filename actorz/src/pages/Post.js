@@ -13,6 +13,7 @@ import heart from "../images/heart.png";
 import "../styles/Post.css";
 import { ServerStyleSheet } from "styled-components";
 import SendEmail from "../components/SendEmail";
+import "../styles/Postupload.css";
 
 const Post = ({ handleClickPost }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -25,7 +26,7 @@ const Post = ({ handleClickPost }) => {
   const [emailClick, setEmailClick] = useState(false);
 
   const dispatch = useDispatch();
-  console.log(post.data.data);
+  console.log(post);
 
   var idx = post.data.data.posts.posts.findIndex(
     (post) => post._id === postinfo._id
