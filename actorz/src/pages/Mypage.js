@@ -36,6 +36,7 @@ const renderTabBar = (props, DefaultTabBar) => (
 
 const Mypage = () => {
   const user = useSelector((user) => user.userInfoReducer);
+  const post = useSelector((post) => post.postInfoReducer);
 
   const [isEdit, setIsEdit] = useState(false);
   const [isloading, setIsLoading] = useState(false);
@@ -66,7 +67,7 @@ const Mypage = () => {
         });
     };
     p();
-  }, []);
+  }, [post]);
 
   const handleDeleteAccount = async () => {
     await server
@@ -364,13 +365,26 @@ const Mypage = () => {
                                                             )
                                                           }
                                                         >
-                                                          <img
-                                                            className="postGallery-img"
-                                                            key={post._id}
-                                                            src={
-                                                              post.media[0].path
-                                                            }
-                                                          ></img>
+                                                          {post.media[0]
+                                                            .type === "img" ? (
+                                                            <img
+                                                              className="postGallery-img"
+                                                              key={post._id}
+                                                              src={
+                                                                post.media[0]
+                                                                  .path
+                                                              }
+                                                            ></img>
+                                                          ) : (
+                                                            <video
+                                                              className="postGallery-img"
+                                                              key={post._id}
+                                                              src={
+                                                                post.media[0]
+                                                                  .path
+                                                              }
+                                                            ></video>
+                                                          )}
                                                         </div>
                                                       </>
                                                     )
@@ -451,7 +465,7 @@ const Mypage = () => {
         </>
       )}
 
-{isTablet && (
+      {isTablet && (
         <>
           {!isloading ? (
             <>
@@ -729,7 +743,7 @@ const Mypage = () => {
         </>
       )}
 
-{isMobile && (
+      {isMobile && (
         <>
           {!isloading ? (
             <>
