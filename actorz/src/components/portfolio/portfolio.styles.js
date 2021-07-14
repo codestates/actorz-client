@@ -13,23 +13,6 @@ export const PfUploadContainer = styled.section`
   background-color: white;
 `;
 
-export const InputLabel = styled.label`
-  top: -35px;
-  font-size: 17px;
-  color: black;
-  left: 10;
-  position: absolute;
-`;
-
-export const PostPreviewContainer = styled.article`
-  span {
-    font-size: 14px;
-  }
-  align-items: center;
-  width: auto;
-  height: auto;
-`;
-
 export const ImagePreview = styled.img`
   border-radius: 6px;
   width: 100px;

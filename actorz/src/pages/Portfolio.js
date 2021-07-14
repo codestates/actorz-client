@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { useMediaQuery } from "react-responsive"
 import { useSelector } from "react-redux";
 import server from "../apis/server";
 import { Modal } from 'antd';
 import Nav from "../components/Nav";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
+import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
+import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
+import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 
 import Loading from "../components/loading";
 
@@ -34,6 +38,18 @@ const Portfolio = () => {
   const [myPostsData, setMyPostsData] = useState([]);
   const [postsData, setPostsData] = useState([]);
   const [selectData, setSelectData] = useState([]);
+
+  const isPc = useMediaQuery({
+    query: "(min-width:1024px)",
+  });
+
+  const isTablet = useMediaQuery({
+    query: "(min-width:768px) and (max-width:1023px)",
+  });
+
+  const isMobile = useMediaQuery({
+    query: "(max-width:767px)",
+  });
 
   // post modal 창 띄우기 유무
   const handleClickPfEdit = (boolean) => {
@@ -146,164 +162,138 @@ const Portfolio = () => {
 
   return (
     <>
-      {!isLoading ? (
+      {isPc && (
         <>
-          {localStorage.getItem("accessToken") ? (
+          {!isLoading ? (
             <>
-              <Nav />
-              <>
-                <div className="blockhere"> </div>
-                <div className="mainPage">
-                  <Nav />
-                  <Iconlist />
+              {localStorage.getItem("accessToken") ? (
+                <>
+                  <div className="blockhere"> </div>
+                  <div className="mainPage">
+                    <Nav />
+                    <Iconlist />
 
-                  <div className="newblockPosition"> </div>
+                    <div className="newblockPosition"> </div>
 
-                  <div className="middleSpace">
-                    <div className="midContents">
-                      <div className="buttonHeader">
-                        <div className="profileTitleName">
-                          {user.data.userInfo.name}'s portfolio
-                        </div>
-
-                        <div className="profileButtonAll">
-                          {selectData[0] ? 
-                            postsData[0] ? (
-                              <>
-                                <EditOutlined
-                                  className="editButton"
-                                  onClick={() => handleClickPortfolioPostBtn()}
-                                />
-                                <SaveOutlined 
-                                  className="editButton"
-                                  onClick={() => handleClickSaveBtn()}
-                                />
-                                <DeleteOutlined
-                                  className="deleteButton"
-                                  onClick={() => handleDeleteAccount()}
-                                />
-                              </>
-                            ) : (
-                              <>
-                                <EditOutlined
-                                  className="editButton"
-                                  onClick={() => handleClickPortfolioPostBtn()}
-                                />
-                                <SaveOutlined 
-                                  className="editButton"
-                                  onClick={() => handleClickSaveBtn()}
-                                />  
-                              </>
-                            ) :
-                            postsData[0] ? (
-                              <>
-                                <EditOutlined
-                                  className="editButton"
-                                  onClick={() => handleClickPortfolioPostBtn()}
-                                />
-                                <DeleteOutlined
-                                  className="deleteButton"
-                                  onClick={() => handleDeleteAccount()}
-                                />
-                              </>
-                            ) : (
-                              <>
-                                <SaveOutlined 
-                                  className="editButton"
-                                  onClick={() => handleClickSaveBtn()}
-                                />
-                              </>
-                            )
-                          }
-                        </div>
-                      </div>
-
-                      <div className="midContentDownPart">
-                        <div className="displayPosition">
-                          <div className="pf fixedSize">
-                            <img
-                              alt="testPic"
-                              src={user.data.userInfo.mainPic}
-                              className="pf testPic"
-                            />
+                    <div className="middleSpace">
+                      <div className="midContents">
+                        <div className="buttonHeader">
+                          <div className="profileTitleName">
+                            {user.data.userInfo.name}'s portfolio
                           </div>
 
-                          <div className="pf fixedContent">
-                            <ul>
-                              <div className="pf nameTitle">
-                                {user.data.userInfo.name}
-                              </div>
-                              <strong>생년월일</strong>
-                              <li className="dob">
-                                {user.data.userInfo.dob.split("T")[0]}
-                              </li>
-                              <strong>이메일</strong>
-                              <li className="email">
-                                {user.data.userInfo.email}
-                              </li>
-                              <strong>소속사</strong>
-                              {user.data.userInfo.company ? (
-                                <li className="company">
-                                  {user.data.userInfo.company}
-                                </li>
+                          <div className="profileButtonAll">
+                            {selectData[0] ? 
+                              postsData[0] ? (
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />
+                                  <DeleteOutlined
+                                    className="deleteButton"
+                                    onClick={() => handleDeleteAccount()}
+                                  />
+                                </>
                               ) : (
-                                <li className="company"></li>
-                              )}
-                            </ul>
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />  
+                                </>
+                              ) :
+                              postsData[0] ? (
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <DeleteOutlined
+                                    className="deleteButton"
+                                    onClick={() => handleDeleteAccount()}
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />
+                                </>
+                              )
+                            }
                           </div>
                         </div>
-                        {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
-                        <div className="pf careerTitle">Career </div>
-                        {/* <div className="iconTitle">🏆</div> */}
-                        <div className="careerContent">
-                          {user.data.userInfo.careers ? (
-                            <div className="career">
-                              {user.data.userInfo.careers.map((career) => {
-                                return (
-                                  <li>
-                                    {`${career.year.split("T")[0]}` +
-                                      ` ${career.title}` +
-                                      ` / ` +
-                                      `${career.type}`}
-                                  </li>
-                                );
-                              })}
-                            </div>
-                          ) : (
-                            <div className="career"></div>
-                          )}
-                        </div>
 
-                        <div className="pf postsTitle">Posts </div>
-                        <div className="portFolioEdit">
-                          {selectData[0] ? 
-                            selectData.map((post) => {
-                              return (
-                                <div key={post._id}>
-                                  <Slider {...settings}>
-                                    {post.media.map((data) => data.type === "img" ? 
-                                      <img 
-                                        key={data._id}
-                                        className="pf selectImg"
-                                        src={data.path}
-                                        alt="post img"
-                                      /> : 
-                                      <video
-                                        controls
-                                        key={data._id}
-                                        className="pf selectVideo"
-                                        src={data.path}
-                                      />
-                                    )}
-                                  </Slider>
-                                  <div className="pf postHeader">
-                                    <label>{post.content}</label>
-                                  </div>
-                                </div> 
-                              )
-                            }) : 
-                            postsData[0] ?
-                              postsData.map((post) => {
+                        <div className="midContentDownPart">
+                          <div className="displayPosition">
+                            <div className="pf fixedSize">
+                              <img
+                                alt="testPic"
+                                src={user.data.userInfo.mainPic}
+                                className="pf testPic"
+                              />
+                            </div>
+
+                            <div className="pf fixedContent">
+                              <ul>
+                                <div className="pf nameTitle">
+                                  {user.data.userInfo.name}
+                                </div>
+                                <strong>생년월일</strong>
+                                <li className="dob">
+                                  {user.data.userInfo.dob.split("T")[0]}
+                                </li>
+                                <strong>이메일</strong>
+                                <li className="email">
+                                  {user.data.userInfo.email}
+                                </li>
+                                <strong>소속사</strong>
+                                {user.data.userInfo.company ? (
+                                  <li className="company">
+                                    {user.data.userInfo.company}
+                                  </li>
+                                ) : (
+                                  <li className="company"></li>
+                                )}
+                              </ul>
+                            </div>
+                          </div>
+                          {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
+                          <div className="pf careerTitle">Career </div>
+                          {/* <div className="iconTitle">🏆</div> */}
+                          <div className="careerContent">
+                            {user.data.userInfo.careers ? (
+                              <div className="career">
+                                {user.data.userInfo.careers.map((career) => {
+                                  return (
+                                    <li>
+                                      {`${career.year.split("T")[0]}` +
+                                        ` ${career.title}` +
+                                        ` / ` +
+                                        `${career.type}`}
+                                    </li>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <div className="career"></div>
+                            )}
+                          </div>
+
+                          <div className="pf postsTitle">Posts </div>
+                          <div className="portFolioEdit">
+                            {selectData[0] ? 
+                              selectData.map((post) => {
                                 return (
                                   <div key={post._id}>
                                     <Slider {...settings}>
@@ -327,46 +317,510 @@ const Portfolio = () => {
                                     </div>
                                   </div> 
                                 )
-                              }) : (
-                              <>
-                                <PortfolioPostBtn type="button" onClick={handleClickPortfolioPostBtn}>
-                                  <i className="fas fa-paste"></i>
-                                  <span>Portfolio 등록</span>
-                                </PortfolioPostBtn>
-                              </>
-                            )
-                          }
+                              }) : 
+                              postsData[0] ?
+                                postsData.map((post) => {
+                                  return (
+                                    <div key={post._id}>
+                                      <Slider {...settings}>
+                                        {post.media.map((data) => data.type === "img" ? 
+                                          <img 
+                                            key={data._id}
+                                            className="pf selectImg"
+                                            src={data.path}
+                                            alt="post img"
+                                          /> : 
+                                          <video
+                                            controls
+                                            key={data._id}
+                                            className="pf selectVideo"
+                                            src={data.path}
+                                          />
+                                        )}
+                                      </Slider>
+                                      <div className="pf postHeader">
+                                        <label>{post.content}</label>
+                                      </div>
+                                    </div> 
+                                  )
+                                }) : (
+                                <>
+                                  <PortfolioPostBtn type="button" onClick={handleClickPortfolioPostBtn}>
+                                    <i className="fas fa-paste"></i>
+                                    <span>Portfolio 등록</span>
+                                  </PortfolioPostBtn>
+                                </>
+                              )
+                            }
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="newblockPosition2"> </div>
+                    <div className="newblockPosition2"> </div>
 
-                  <div className="rightSpace">
-                    <div className="iconList2"> </div>
+                    <div className="rightSpace">
+                      <div className="iconList2"> </div>
+                    </div>
                   </div>
-                </div>
-                <div>
-                  {clickPfEdit ? (
-                    <div>
-                      <PortfolioEdit
-                        handleClickPfEdit={handleClickPfEdit}
-                        myPostsData={myPostsData}
-                        clickPostBtn={handleClickPostBtn}
-                        isLoading={isLoading}
-                      />
-                    </div> 
-                  ) : null}
-                </div>
-                <Footer />
-              </>
+                  <div>
+                    {clickPfEdit ? (
+                      <div>
+                        <PortfolioEdit
+                          handleClickPfEdit={handleClickPfEdit}
+                          myPostsData={myPostsData}
+                          clickPostBtn={handleClickPostBtn}
+                          isLoading={isLoading}
+                        />
+                      </div> 
+                    ) : null}
+                  </div>
+                  <Footer />
+                </>
+              ) : (
+                isNotLoginModal()
+              )}
             </>
           ) : (
-            isNotLoginModal()
+            <Loading />
           )}
         </>
-      ) : (
-        <Loading />
+      )}
+      {isTablet && (
+        <>
+          {!isLoading ? (
+            <>
+              {localStorage.getItem("accessToken") ? (
+                <>
+                  <div className="blockhere"> </div>
+                  <div className="mainPageResponsive">
+                    <Nav />
+                    <ResponsiveIconlistTablet />
+
+                    <div className="newblockPosition"> </div>
+
+                    <div className="middleSpace3">
+                      <div className="midContents">
+                        <div className="buttonHeader">
+                          <div className="profileTitleName">
+                            {user.data.userInfo.name}'s portfolio
+                          </div>
+
+                          <div className="profileButtonAll">
+                            {selectData[0] ? 
+                              postsData[0] ? (
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />
+                                  <DeleteOutlined
+                                    className="deleteButton"
+                                    onClick={() => handleDeleteAccount()}
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />  
+                                </>
+                              ) :
+                              postsData[0] ? (
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <DeleteOutlined
+                                    className="deleteButton"
+                                    onClick={() => handleDeleteAccount()}
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />
+                                </>
+                              )
+                            }
+                          </div>
+                        </div>
+
+                        <div className="midContentDownPart">
+                          <div className="displayPosition">
+                            <div className="pf fixedSize">
+                              <img
+                                alt="testPic"
+                                src={user.data.userInfo.mainPic}
+                                className="pf testPic"
+                              />
+                            </div>
+
+                            <div className="pf fixedContent">
+                              <ul>
+                                <div className="pf nameTitle">
+                                  {user.data.userInfo.name}
+                                </div>
+                                <strong>생년월일</strong>
+                                <li className="dob">
+                                  {user.data.userInfo.dob.split("T")[0]}
+                                </li>
+                                <strong>이메일</strong>
+                                <li className="email">
+                                  {user.data.userInfo.email}
+                                </li>
+                                <strong>소속사</strong>
+                                {user.data.userInfo.company ? (
+                                  <li className="company">
+                                    {user.data.userInfo.company}
+                                  </li>
+                                ) : (
+                                  <li className="company"></li>
+                                )}
+                              </ul>
+                            </div>
+                          </div>
+                          {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
+                          <div className="pf careerTitle">Career </div>
+                          {/* <div className="iconTitle">🏆</div> */}
+                          <div className="careerContent">
+                            {user.data.userInfo.careers ? (
+                              <div className="career">
+                                {user.data.userInfo.careers.map((career) => {
+                                  return (
+                                    <li>
+                                      {`${career.year.split("T")[0]}` +
+                                        ` ${career.title}` +
+                                        ` / ` +
+                                        `${career.type}`}
+                                    </li>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <div className="career"></div>
+                            )}
+                          </div>
+
+                          <div className="pf postsTitle">Posts </div>
+                          <div className="portFolioEdit">
+                            {selectData[0] ? 
+                              selectData.map((post) => {
+                                return (
+                                  <div key={post._id}>
+                                    <Slider {...settings}>
+                                      {post.media.map((data) => data.type === "img" ? 
+                                        <img 
+                                          key={data._id}
+                                          className="pf selectImg"
+                                          src={data.path}
+                                          alt="post img"
+                                        /> : 
+                                        <video
+                                          controls
+                                          key={data._id}
+                                          className="pf selectVideo"
+                                          src={data.path}
+                                        />
+                                      )}
+                                    </Slider>
+                                    <div className="pf postHeader">
+                                      <label>{post.content}</label>
+                                    </div>
+                                  </div> 
+                                )
+                              }) : 
+                              postsData[0] ?
+                                postsData.map((post) => {
+                                  return (
+                                    <div key={post._id}>
+                                      <Slider {...settings}>
+                                        {post.media.map((data) => data.type === "img" ? 
+                                          <img 
+                                            key={data._id}
+                                            className="pf selectImg"
+                                            src={data.path}
+                                            alt="post img"
+                                          /> : 
+                                          <video
+                                            controls
+                                            key={data._id}
+                                            className="pf selectVideo"
+                                            src={data.path}
+                                          />
+                                        )}
+                                      </Slider>
+                                      <div className="pf postHeader">
+                                        <label>{post.content}</label>
+                                      </div>
+                                    </div> 
+                                  )
+                                }) : (
+                                <>
+                                  <PortfolioPostBtn type="button" onClick={handleClickPortfolioPostBtn}>
+                                    <i className="fas fa-paste"></i>
+                                    <span>Portfolio 등록</span>
+                                  </PortfolioPostBtn>
+                                </>
+                              )
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="newblockPosition2"> </div>
+                  </div>
+                  <div>
+                    {clickPfEdit ? (
+                      <div>
+                        <PortfolioEdit
+                          handleClickPfEdit={handleClickPfEdit}
+                          myPostsData={myPostsData}
+                          clickPostBtn={handleClickPostBtn}
+                          isLoading={isLoading}
+                        />
+                      </div> 
+                    ) : null}
+                  </div>
+                  <Footer />
+                </>
+              ) : (
+                isNotLoginModal()
+              )}
+            </>
+          ) : (
+            <Loading />
+          )}
+        </>
+      )}
+      {isMobile && (
+        <>
+          {!isLoading ? (
+            <>
+              {localStorage.getItem("accessToken") ? (
+                <>
+                  <div className="blockhere"> </div>
+                  <div className="mainPageResponsive2">
+                    <ResponsiveNav />
+
+                    <div className="newblockPosition"> </div>
+
+                    <div className="middleSpace3">
+                      <div className="midContents">
+                        <div className="buttonHeader">
+                          <div className="profileTitleName">
+                            {user.data.userInfo.name}'s portfolio
+                          </div>
+
+                          <div className="profileButtonAll">
+                            {selectData[0] ? 
+                              postsData[0] ? (
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />
+                                  <DeleteOutlined
+                                    className="deleteButton"
+                                    onClick={() => handleDeleteAccount()}
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />  
+                                </>
+                              ) :
+                              postsData[0] ? (
+                                <>
+                                  <EditOutlined
+                                    className="editButton"
+                                    onClick={() => handleClickPortfolioPostBtn()}
+                                  />
+                                  <DeleteOutlined
+                                    className="deleteButton"
+                                    onClick={() => handleDeleteAccount()}
+                                  />
+                                </>
+                              ) : (
+                                <>
+                                  <SaveOutlined 
+                                    className="editButton"
+                                    onClick={() => handleClickSaveBtn()}
+                                  />
+                                </>
+                              )
+                            }
+                          </div>
+                        </div>
+
+                        <div className="midContentDownPart">
+                          <div className="displayPosition">
+                            <div className="pf fixedSize">
+                              <img
+                                alt="testPic"
+                                src={user.data.userInfo.mainPic}
+                                className="pf testPic"
+                              />
+                            </div>
+
+                            <div className="pf fixedContent">
+                              <ul>
+                                <div className="pf nameTitle">
+                                  {user.data.userInfo.name}
+                                </div>
+                                <strong>생년월일</strong>
+                                <li className="dob">
+                                  {user.data.userInfo.dob.split("T")[0]}
+                                </li>
+                                <strong>이메일</strong>
+                                <li className="email">
+                                  {user.data.userInfo.email}
+                                </li>
+                                <strong>소속사</strong>
+                                {user.data.userInfo.company ? (
+                                  <li className="company">
+                                    {user.data.userInfo.company}
+                                  </li>
+                                ) : (
+                                  <li className="company"></li>
+                                )}
+                              </ul>
+                            </div>
+                          </div>
+                          {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
+                          <div className="pf careerTitle">Career </div>
+                          {/* <div className="iconTitle">🏆</div> */}
+                          <div className="careerContent">
+                            {user.data.userInfo.careers ? (
+                              <div className="career">
+                                {user.data.userInfo.careers.map((career) => {
+                                  return (
+                                    <li>
+                                      {`${career.year.split("T")[0]}` +
+                                        ` ${career.title}` +
+                                        ` / ` +
+                                        `${career.type}`}
+                                    </li>
+                                  );
+                                })}
+                              </div>
+                            ) : (
+                              <div className="career"></div>
+                            )}
+                          </div>
+
+                          <div className="pf postsTitle">Posts </div>
+                          <div className="portFolioEdit">
+                            {selectData[0] ? 
+                              selectData.map((post) => {
+                                return (
+                                  <div key={post._id}>
+                                    <Slider {...settings}>
+                                      {post.media.map((data) => data.type === "img" ? 
+                                        <img 
+                                          key={data._id}
+                                          className="pf selectImg"
+                                          src={data.path}
+                                          alt="post img"
+                                        /> : 
+                                        <video
+                                          controls
+                                          key={data._id}
+                                          className="pf selectVideo"
+                                          src={data.path}
+                                        />
+                                      )}
+                                    </Slider>
+                                    <div className="pf postHeader">
+                                      <label>{post.content}</label>
+                                    </div>
+                                  </div> 
+                                )
+                              }) : 
+                              postsData[0] ?
+                                postsData.map((post) => {
+                                  return (
+                                    <div key={post._id}>
+                                      <Slider {...settings}>
+                                        {post.media.map((data) => data.type === "img" ? 
+                                          <img 
+                                            key={data._id}
+                                            className="pf selectImg"
+                                            src={data.path}
+                                            alt="post img"
+                                          /> : 
+                                          <video
+                                            controls
+                                            key={data._id}
+                                            className="pf selectVideo"
+                                            src={data.path}
+                                          />
+                                        )}
+                                      </Slider>
+                                      <div className="pf postHeader">
+                                        <label>{post.content}</label>
+                                      </div>
+                                    </div> 
+                                  )
+                                }) : (
+                                <>
+                                  <PortfolioPostBtn type="button" onClick={handleClickPortfolioPostBtn}>
+                                    <i className="fas fa-paste"></i>
+                                    <span>Portfolio 등록</span>
+                                  </PortfolioPostBtn>
+                                </>
+                              )
+                            }
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="newblockPosition2"> </div>
+                  </div>
+                  <div>
+                    {clickPfEdit ? (
+                      <div>
+                        <PortfolioEdit
+                          handleClickPfEdit={handleClickPfEdit}
+                          myPostsData={myPostsData}
+                          clickPostBtn={handleClickPostBtn}
+                          isLoading={isLoading}
+                        />
+                      </div> 
+                    ) : null}
+                  </div>
+                  <ResponsiveFooter />
+                </>
+              ) : (
+                isNotLoginModal()
+              )}
+            </>
+          ) : (
+            <Loading />
+          )}
+        </>
       )}
     </>
   );
