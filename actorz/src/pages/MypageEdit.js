@@ -471,29 +471,28 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   return (
     <>
-      {isPc && (
-        <>
-          <div className="blockhere"> </div>
-          <div className="mainPage">
-            <Nav />
-            <Iconlist />
-
-            <div className="newblockPosition"> </div>
-
-            <div className="middleSpace">
-              <div className="midContents">
-                <div className="buttonHeader">
-                  <div className="profileTitleName"> 회원정보 수정</div>
-                  <div>
-                    <SaveOutlined
-                      className="editButton"
-                      onClick={() => handleClickSaveBtn()}
-                    />
-                    <DeleteOutlined
-                      className="deleteButton"
-                      onClick={() => handleDeleteAccount()}
-                    />
-                  </div>
+      {isPc && 
+      <>
+        <div className="blockhere"> </div>
+        <div className="mainPage">
+          <Nav />
+          <Iconlist />
+  
+          <div className="newblockPosition"> </div>
+  
+          <div className="middleSpace">
+            <div className="midContents">
+              <div className="buttonHeader">
+                <div className="profileTitleName"> 회원정보 수정</div>
+                <div>
+                  <SaveOutlined
+                    className="editButton"
+                    onClick={() => handleClickSaveBtn()}
+                  />
+                  <DeleteOutlined
+                    className="deleteButton"
+                    onClick={() => handleDeleteAccount()}
+                  />
                 </div>
               </div>
               <div className="midContentDownPart">
@@ -916,31 +915,30 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           </div>
           <Footer />
         </>
-      )}
+      }
 
-      {isTablet && (
+      {isTablet && 
         <>
-          <div className="blockhere"> </div>
-          <div className="mainPage">
-            <Nav />
-            <ResponsiveIconlistTablet />
-
-            <div className="newblockPosition"> </div>
-
-            <div className="middleSpace2">
-              <div className="midContents">
-                <div className="buttonHeader">
-                  <div className="profileTitleName"> 회원정보 수정</div>
-                  <div>
-                    <SaveOutlined
-                      className="editButton"
-                      onClick={() => handleClickSaveBtn()}
-                    />
-                    <DeleteOutlined
-                      className="deleteButton"
-                      onClick={() => handleDeleteAccount()}
-                    />
-                  </div>
+        <div className="blockhere"> </div>
+        <div className="mainPage">
+          <Nav />
+          <ResponsiveIconlistTablet />
+  
+          <div className="newblockPosition"> </div>
+  
+          <div className="middleSpace2">
+            <div className="midContents">
+              <div className="buttonHeader">
+                <div className="profileTitleName"> 회원정보 수정</div>
+                <div>
+                  <SaveOutlined
+                    className="editButton"
+                    onClick={() => handleClickSaveBtn()}
+                  />
+                  <DeleteOutlined
+                    className="deleteButton"
+                    onClick={() => handleDeleteAccount()}
+                  />
                 </div>
               </div>
               <div className="midContentDownPart">
@@ -955,31 +953,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           alt=""
                           src={user.data.userInfo.mainPic}
                           className="testPic"
-
-                        </label>
-                        <input
-                          type="file"
-                          id="ex_file"
-                          accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
-                          onChange={handleprofileButton}
                         />
-                      </div>
+                      </label>
+                      <input
+                        type="file"
+                        id="ex_file"
+                        accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
+                        onChange={handleprofileButton}
+                      />
                     </div>
-
-                    <div className="fixedContent">
-                      <div className="nameTitle">{user.data.userInfo.name}</div>
-                      <ul>
-                        <strong>생년월일</strong>
-                        <li className="dob">{user.data.userInfo.dob}</li>
-                        <strong>이메일</strong>
-                        <li className="email">{user.data.userInfo.email}</li>
-                        <strong>소속사</strong>
-                        <li className="company">
-                          {user.data.userInfo.company}
-                        </li>
-                      </ul>
-                    </div>
-                  </div>  
+                  </div>
+  
                   <div className="fixedContent">
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
@@ -1356,31 +1340,30 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           </div>
           <FooterFixed />
         </>
-      )}
+      }
 
-      {isMobile && (
+      {isMobile &&
         <>
-          <div className="blockhere"> </div>
-          <div className="mainPage">
-            <ResponsiveNav />
-            <ResponsiveFooter />
-
-            <div className="newblockPosition"> </div>
-
-            <div className="middleSpace5">
-              <div className="midContents">
-                <div className="buttonHeader">
-                  <div className="profileTitleName"> 회원정보 수정</div>
-                  <div>
-                    <SaveOutlined
-                      className="editButton"
-                      onClick={() => handleClickSaveBtn()}
-                    />
-                    <DeleteOutlined
-                      className="deleteButton"
-                      onClick={() => handleDeleteAccount()}
-                    />
-                  </div>
+        <div className="blockhere"> </div>
+        <div className="mainPage">
+          <ResponsiveNav />
+          <ResponsiveFooter />
+  
+          <div className="newblockPosition"> </div>
+  
+          <div className="middleSpace5">
+            <div className="midContents">
+              <div className="buttonHeader">
+                <div className="profileTitleName"> 회원정보 수정</div>
+                <div>
+                  <SaveOutlined
+                    className="editButton"
+                    onClick={() => handleClickSaveBtn()}
+                  />
+                  <DeleteOutlined
+                    className="deleteButton"
+                    onClick={() => handleDeleteAccount()}
+                  />
                 </div>
               </div>
               <div className="midContentDownPart2">
@@ -1395,19 +1378,18 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           alt=""
                           src={user.data.userInfo.mainPic}
                           className="testPic"
-
-                          />
-                        </label>
-                        <input
-                          type="file"
-                          id="ex_file"
-                          accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
-                          onChange={handleprofileButton}
                         />
-                      </div>
+                      </label>
+                      <input
+                        type="file"
+                        id="ex_file"
+                        accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
+                        onChange={handleprofileButton}
+                      />
                     </div>
-
-                    <div className="fixedContent">
+                  </div>
+  
+                  <div className="fixedContent">
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
                       <strong>생년월일</strong>
@@ -1790,7 +1772,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
             <div className="responsiveNewblockPosition2"> </div>
           </div>
         </>
-      )}
+      }
     </>
   );
 };
