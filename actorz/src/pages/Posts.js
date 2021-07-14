@@ -1,38 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import Post from "../pages/Post";
 import Nav from "../components/Nav";
-import Slider from "react-slick";
 import server from "../apis/server";
+import Iconlist from "../components/Iconlist";
+import Footer from "../components/Footer";
+import Loading from "../components/loading";
+import { Pagination } from "antd";
+import { DeleteOutlined } from "@ant-design/icons";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/Posts.css";
-import Iconlist from "../components/Iconlist";
-import { DeleteOutlined } from "@ant-design/icons";
-import Footer from "../components/Footer";
-import Loading from "../components/loading";
 
 const Posts = (props) => {
   const [clickModal, setClickModal] = useState(false);
   const [userinfo, setUserInfo] = useState({});
   const [userPost, setUserPost] = useState({});
-  //const user = useSelector((user) => user.userInfoReducer);
-  //const post = useSelector((post) => post.postInfoReducer);
-  //console.log(post);
+  let [data, setData] = useState([]);
+  let [totalPage, setTotalPage] = useState(0);
+  let [current, setCurrent] = useState(1);
+  let [minIndex, setMinIndex] = useState(0);
+  let [maxIndex, setMaxIndex] = useState(0);
+  let pageSize = 4;
 
   useEffect(() => {
     const p = async () => {
-      await server // 유저의 포스트를 가져옴
+      await server
         .get(`/post/user/${props.history.location.state.id}`)
         .then((res) => {
-          //console.log(res);
           setUserPost(res.data.data);
+          setData(res.data.data.posts);
+          setTotalPage(Math.ceil(res.data.data.posts.length / pageSize));
+          setMinIndex(0);
+          setMaxIndex(pageSize);
         })
         .catch((err) => {
           throw err;
         });
 
-      await server //유저의 정보를 가져옴
+      await server
         .get(`/user/${props.history.location.state.id}`)
         .then((res) => {
           setUserInfo(res.data.data);
@@ -44,20 +49,6 @@ const Posts = (props) => {
     p();
   }, []);
 
-  //console.log(userinfo.userInfo); //여기에 해당 게시물 작성자 정보가 담겨있음.
-  //console.log(userPost);
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 1000,
-    pauseOnHover: true,
-    autoplay: true,
-    draggable: false,
-    slidesToShow: 1,
-    slidesToScroll: 2,
-    arrows: true,
-  };
-
   const handleClickPost = (boolean, id) => {
     if (boolean) {
       setClickModal(true);
@@ -68,6 +59,12 @@ const Posts = (props) => {
     }
   };
 
+  const handleChange = (page) => {
+    setCurrent(page);
+    setMinIndex((page - 1) * pageSize);
+    setMaxIndex((maxIndex = page * pageSize));
+  };
+
   return (
     <>
       <div className="blockhere"> </div>
@@ -76,13 +73,15 @@ const Posts = (props) => {
         <Iconlist />
 
         <div className="newblockPosition"> </div>
+        {userinfo.userInfo ? (
+          <div className="middleSpace">
+            <div className="midContents">
+              <div className="buttonHeader">
+                <div className="profileTitleName">
+                  {userinfo.userInfo.name}'s profile
+                </div>
+              </div>
 
-        <div className="middleSpace">
-          <div className="midContents">
-            <div className="buttonHeader">
-              <DeleteOutlined className="deleteButton" />
-            </div>
-            {userinfo.userInfo ? (
               <div className="midContentDownPart">
                 <div className="displayPosition">
                   <div className="fixedSize">
@@ -93,33 +92,30 @@ const Posts = (props) => {
                     />
                   </div>
                   <div className="fixedContent">
-                    <p className="name">{}</p>
+                    <p className="name">{userinfo.userInfo.name}</p>
                     <ul>
                       <strong>생년월일</strong>
                       <li className="dob">{userinfo.userInfo.dob}</li>
                       <strong>이메일</strong>
                       <li className="email">{userinfo.userInfo.email}</li>
-                      {
-                        userinfo.userInfo.role === "actor" ? (
-                          <>
-                            <strong>소속사</strong>
-                            <li className="company">
-                              {userinfo.userInfo.company}
-                            </li>
-                          </>
-                        ):(
-                          <>
-                            <strong>회사</strong>
-                            <li className="company">
-                              {userinfo.userInfo.recruiter.bName}
-                            </li>
-                          </>
-                        )
-                      }
+                      {userinfo.userInfo.role === "actor" ? (
+                        <>
+                          <strong>소속사</strong>
+                          <li className="company">
+                            {userinfo.userInfo.company}
+                          </li>
+                        </>
+                      ) : (
+                        <>
+                          <strong>회사</strong>
+                          <li className="company">
+                            {userinfo.userInfo.recruiter.bName}
+                          </li>
+                        </>
+                      )}
                     </ul>
                   </div>
                 </div>
-                {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
                 <div className="careerTitle">Career 🏆</div>
                 <div className="careerContent">
                   <div className="career">
@@ -136,26 +132,63 @@ const Posts = (props) => {
                   </div>
                 </div>
                 <div className="slider-img-box">
-                  <Slider {...settings} className="slider">
-                    {userPost.posts.map((post) => {
-                      return (
-                        <img
-                          alt=""
-                          key={post._id}
-                          src={post.media[0].path}
-                          onClick={() => handleClickPost(true, post._id)}
-                        ></img>
-                      );
-                    })}
-                  </Slider>
+                  <div className="postsGallery">
+                    {userPost.posts
+                      ? userPost.posts.map((post, index) => {
+                          return (
+                            index >= minIndex &&
+                            index < maxIndex && (
+                              <>
+                                <div
+                                  className="galleryComponents"
+                                  onClick={() =>
+                                    handleClickPost(true, post._id)
+                                  }
+                                >
+                                  {post.media[0].type === "img" ? (
+                                    <img
+                                      className="postGallery-img"
+                                      key={post._id}
+                                      src={post.media[0].path}
+                                      onClick={() =>
+                                        handleClickPost(true, post._id)
+                                      }
+                                    ></img>
+                                  ) : (
+                                    <video
+                                      className="postGallery-img"
+                                      key={post._id}
+                                      src={post.media[0].path}
+                                      onClick={() =>
+                                        handleClickPost(true, post._id)
+                                      }
+                                    ></video>
+                                  )}
+                                </div>
+                              </>
+                            )
+                          );
+                        })
+                      : null}
+
+                    {clickModal ? (
+                      <Post handleClickPost={handleClickPost} />
+                    ) : null}
+                  </div>
+                  <Pagination
+                    pageSize={pageSize}
+                    current={current}
+                    total={data.length}
+                    onChange={handleChange}
+                  />
                 </div>
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
-            ) : (
-              <Loading />
-            )}
+            </div>
           </div>
-        </div>
+        ) : (
+          <Loading />
+        )}
         <div className="newblockPosition2"> </div>
 
         <div className="rightSpace">
@@ -163,51 +196,6 @@ const Posts = (props) => {
         </div>
       </div>
       <Footer />
-
-      {/* <Nav />
-      <div id="post-container1"></div>
-      <div id="post-title">Actor</div>
-      <div id="container">
-        <img src={img} className="img" alt="프로필"></img>
-        <span id="post-info">
-          <p className="name">{user.data.userInfo.name}</p>
-          <ul>
-            <strong>생년월일</strong>
-            <li className="dob">{user.data.userInfo.dob}</li>
-            <strong>이메일</strong>
-            <li className="email">{user.data.userInfo.email}</li>
-            <strong>소속사</strong>
-            <li className="company">{user.data.userInfo.company}</li>
-          </ul>
-        </span>
-      </div>
-      <span className="post-career">
-        {user.data.userInfo.careers.map((career) => {
-          return (
-            <li>
-              {`${career.year}` +
-                ` ${career.title}` +
-                ` / ` +
-                `${career.type.map((type) => {
-                  return type;
-                })}`}
-            </li>
-          );
-        })}
-      </span>
-      {
-        <Slider {...settings} className="slider">
-          {post.data.posts.map((post) => {
-            return (
-              <img
-                src={post.path}
-                onClick={() => handleClickPost(true, post.id)}
-              ></img>
-            );
-          })}
-        </Slider>
-      }
-      {clickModal ? <Post handleClickPost={handleClickPost} /> : null} */}
     </>
   );
 };
