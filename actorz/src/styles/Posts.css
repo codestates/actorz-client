@@ -10,12 +10,18 @@
   width: 10%;
   height: 10%;
   padding-bottom: 10%;
-  /* background: linear-gradient(-45deg, white 50%, #dee2d8 50%); */
   background: linear-gradient(-45deg, #dee2d8 50%, white 50%);
   content: "";
   position: absolute;
 }
 
+.profileTitleName {
+  margin: 1rem;
+}
+
+div.fixedContent {
+  text-align: left;
+}
 #post-title {
   font-size: 72px;
   margin-top: 45px;
@@ -41,8 +47,6 @@
 
 .img {
   width: 300px;
-  /*   margin-top: 120px;
- */
 }
 
 ul {
@@ -58,45 +62,4 @@ li {
   font-size: 17px;
   margin-top: 20px;
   margin-left: 300px;
-}
-
-.slider {
-  margin-bottom: 2rem;
-  /*
-  margin-top: 50px;
-  margin-left: 280px;
-  */
-  /*width: 800px;*/
-}
-
-.slider-img-box {
-  margin-top: 10px;
-  width: 550px;
-}
-
-.slider img:hover {
-  transform: scale(1.1);
-  transition: all 0.3s ease-in-out;
-}
-
-.slick-slider .slick-list {
-  display: block;
-  overflow-x: hidden;
-  overflow-y: hidden;
-  position: relative;
-}
-
-button.slick-arrow.slick-next::before,
-button.slick-arrow.slick-prev::before {
-  font-size: 25px;
-  color: white;
-}
-
-.slick-prev {
-  z-index: 1;
-  left: 1px;
-}
-
-.slick-next {
-  right: 5px;
 }
