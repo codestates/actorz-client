@@ -3,7 +3,6 @@ import DaumPostcode from "react-daum-postcode"; ///
 
 const AddressModal = ({ addr, setAddr }) => {
   const [addPopUp, setAddPopUp] = useState(false);
-  const [extras, setExtras] = useState("");
 
   const handleOpenAdd = () => {
     setAddPopUp(true);

@@ -54,7 +54,10 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           .then((res) => {
             if (res.status === 200) {
               console.log(res.data.data.userInfo)
-              dispatch(getUserInfo(res.data.data.userInfo));
+              dispatch(getUserInfo({
+                ...res.data.data.userInfo,
+                dob: res.data.data.userInfo.dob.toString().split("T")[0]
+              }));
             }
           })
           .catch((err) => {
@@ -149,7 +152,10 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
                     <div
                       className="movetoSignUpBtn"
-                      onClick={() => handleClickSignup(true)}
+                      onClick={() => {
+                        handleClickSignup(true);
+                        handleClickSignin(false);
+                      }}
                     >
                       회원가입 하러 하기
                     </div>

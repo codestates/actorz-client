@@ -116,7 +116,7 @@ li {
   padding: 2rem;
   /*max-width:100%;*/
   flex: 1;
-  height: 20rem;
+  min-height: 20rem;
   background-color: #fafafa;
 }
 

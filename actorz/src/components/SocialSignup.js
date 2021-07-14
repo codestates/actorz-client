@@ -6,7 +6,7 @@ import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
 import { redirectUri } from "../config";
-import CalendarDob from "./CalendarDob";
+import { DatePicker } from "antd";
 import AddressModal from "./AddressModal";
 
 import "../styles/SignupModal.css";
@@ -18,6 +18,8 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     street:"",
     zipCode:""
   });
+
+  const [buttonDisable, setButtonDisable] = useState(false);
 
   // console.log(oauthSignup)
   const [provider, email] = oauthSignup.split("=");
@@ -57,6 +59,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
 
   const handleClickActorSignupBtn = async () => {
     setLoading(true);
+    setButtonDisable(true);
     const { name, company, gender } = actorSignup;
     try {
       if (
@@ -87,7 +90,10 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               })
               .then((res) => {
                 if (res.status === 200) {
-                  dispatch(getUserInfo(res.data.data.userInfo));
+                  dispatch(getUserInfo({
+                    ...res.data.data.userInfo,
+                    dob: res.data.data.userInfo.dob.toString().split("T")[0]
+                  }));
                   Modal.success({
                     content: '회원가입 성공!',
                     onOk(){window.location.href = redirectUri;}
@@ -96,18 +102,22 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               })
               .catch((err) => {
                 setLoading(false);
+                setButtonDisable(false);
                 throw err;
               });
               setLoading(false);
+              setButtonDisable(false);
               modalSocialClose();
             }
           });
       } else {
         setLoading(false);
+        setButtonDisable(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch (err) {
       setLoading(false);
+      setButtonDisable(false);
       if (err.message === "Request failed with status code 409") {
         Modal.error({
           title: '회원가입 실패',
@@ -121,10 +131,12 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
         // alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
     }
+    setButtonDisable(false);
   };
 
   const handleClickrecruiterSignupBtn = async () => {
     setLoading(true);
+    setButtonDisable(true);
     const {
       name,
       gender,
@@ -172,7 +184,10 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               })
               .then((res) => {
                 if (res.status === 200) {
-                  dispatch(getUserInfo(res.data.data.userInfo));
+                  dispatch(getUserInfo({
+                    ...res.data.data.userInfo,
+                    dob: res.data.data.userInfo.dob.toString().split("T")[0]
+                  }));
                   Modal.success({
                     content: '회원가입 성공!',
                     onOk(){window.location.href = redirectUri;}
@@ -182,17 +197,21 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               })
               .catch((err) => {
                 setLoading(false);
+                setButtonDisable(false);
                 throw err;
               });
               setLoading(false);
+              setButtonDisable(false);
               modalSocialClose();
             }
           });
       } else {
+        setButtonDisable(false);
         setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch {
+      setButtonDisable(false);
       setLoading(false);
       Modal.warning({
         title: '에러',
@@ -200,6 +219,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
       });
       //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
+    setButtonDisable(false);
   };
 
   const handleClickRadio = (event) => {
@@ -274,7 +294,19 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                     <div className="modal-group-signup">
                       <div className="importEffect">*</div>
                       <div>
-                        <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
+                        <div style={{alignItems:"left", maxWidth:"88%"}}>
+                          <DatePicker 
+                          placeholder="생년월일"
+                          popupStyle={{
+                            position:"relative",
+                            top:"10em"
+                          }}
+                          getPopupContainer={(triggerNode) => {
+                            return triggerNode.parentNode;
+                          }}
+                          onChange={(date, dateString) => {setDob(date)}} 
+                          style={{maxWidth:"92%"}}></DatePicker>
+                        </div>
                       </div>
                     </div>
 
@@ -294,6 +326,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       {err ? <div className="err-message">{err}</div> : null}
                     </div>
                     <button
+                      disabled={buttonDisable}
                       className="btn-login"
                       type="submit"
                       onClick={handleClickActorSignupBtn}
@@ -322,7 +355,19 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
                         <div>
-                          <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
+                          <div style={{alignItems:"left", maxWidth:"88%"}}>
+                          <DatePicker 
+                          placeholder="생년월일"
+                          popupStyle={{
+                            position:"relative",
+                            top:"10em"
+                          }}
+                          getPopupContainer={(triggerNode) => {
+                            return triggerNode.parentNode;
+                          }}
+                          onChange={(date, dateString) => {setDob(date)}} 
+                          style={{maxWidth:"92%"}}></DatePicker>
+                        </div>
                         </div>
                       </div>
                       <div className="modal-group-signup">
@@ -385,6 +430,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       </div>
                       {err ? <div className="err-message">{err}</div> : null}
                       <button
+                        disabled={buttonDisable}
                         className="btn-login"
                         type="submit"
                         onClick={handleClickrecruiterSignupBtn}

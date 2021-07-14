@@ -96,11 +96,26 @@ const Posts = (props) => {
                     <p className="name">{}</p>
                     <ul>
                       <strong>생년월일</strong>
-                      <li className="dob">{userinfo.userInfo.dob}</li>
+                      <li className="dob">{userinfo.userInfo.dob.toString().split("T")[0]}</li>
                       <strong>이메일</strong>
                       <li className="email">{userinfo.userInfo.email}</li>
-                      <strong>소속사</strong>
-                      <li className="company">{userinfo.userInfo.company}</li>
+                      {
+                        userinfo.userInfo.role === "actor" ? (
+                          <>
+                            <strong>소속사</strong>
+                            <li className="company">
+                              {userinfo.userInfo.company}
+                            </li>
+                          </>
+                        ):(
+                          <>
+                            <strong>회사</strong>
+                            <li className="company">
+                              {userinfo.userInfo.recruiter.bName}
+                            </li>
+                          </>
+                        )
+                      }
                     </ul>
                   </div>
                 </div>
@@ -125,6 +140,7 @@ const Posts = (props) => {
                     {userPost.posts.map((post) => {
                       return (
                         <img
+                          alt=""
                           key={post._id}
                           src={post.media[0].path}
                           onClick={() => handleClickPost(true, post._id)}

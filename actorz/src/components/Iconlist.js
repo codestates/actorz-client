@@ -157,11 +157,11 @@ const Iconlist = () => {
 
             <div className="homeButton" onClick={() => handleClickUpload(true)}>
               <div className="homeButtonIcon">
-                <Link className="noEffect">
-                  <FileAddOutlined className="realIcon" />
+                <Link className="noEffect" to={`/mainpage`}>
+                  <FileAddOutlined className="realIcon"/>
                 </Link>
               </div>
-              <Link className="noEffect">
+              <Link className="noEffect" to={`/mainpage`}>
                 <div className="homeButtonText">Post</div>
               </Link>
             </div>
