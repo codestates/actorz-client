@@ -279,7 +279,7 @@ const Mainpage = () => {
                           </Card.Header>
                           <Card.Meta>
                             <span className="date">
-                              Updated at {post.updatedAt}
+                              Updated at {post.updatedAt.split("T")[0]} {post.updatedAt.split("T")[1].slice(0,8)}
                             </span>
                           </Card.Meta>
                           <Card.Description>{post.content}</Card.Description>

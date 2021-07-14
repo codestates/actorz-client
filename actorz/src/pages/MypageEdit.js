@@ -31,8 +31,9 @@ import Footer from "../components/Footer";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import CalendarDob from "../components/CalendarDob";
+import DaumPostcode from "react-daum-postcode"; ///
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
+import moment from 'moment';
 import {
   RemoveFileIcon,
   FileMetaData,
@@ -65,11 +66,14 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const dispatch = useDispatch();
   //const [clickCareer, setClickCareer] = useState([]);
   const [tag, setTag] = useState("");
-  const [dob, setDob] = useState(Date.parse(user.data.userInfo.dob));
+  const [dob, setDob] = useState(user.data.userInfo.dob);
+  // console.log(dob)
+  // console.log(typeof dob)
   const [email, setEmail] = useState(user.data.userInfo.email);
   const [company, setCompany] = useState(user.data.userInfo.company);
   const [password, setPassword] = useState("");
   const [recruiter, setRecruiter] = useState(user.data.userInfo.recruiter);
+  const [addressModalVisible, setAddressModalVisible] = useState(false);
 
   //const [password, setPassword] = useState(user.data.userInfo.password);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -108,6 +112,30 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     { label: "광고", value: "광고" },
     { label: "뮤직비디오", value: "뮤직비디오" },
   ];
+
+  const handleAddressComplete = (data) => { ///
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+    setRecruiter({
+      bAddress: {
+        ...recruiter.bAddress,
+        zipCode: data.zonecode,
+        city: fullAddress
+      }
+    });
+    setAddressModalVisible(false);
+  };
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -200,9 +228,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const handleInputValue = (key) => (event) => {
-    if (key === "dob") {
-      setDob(event.target.value);
-    } else if (key === "email") {
+    if (key === "email") {
       setEmail(event.target.value);
     } else if (key === "company") {
       setCompany(event.target.value);
@@ -216,29 +242,28 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     } else if (key === "bName") {
       setRecruiter({ [key]: event.target.value });
     } else if (key === "jobTitle") {
-      setRecruiter({ [key]: event.target.value });
-    } else if (key === "phoneNum") {
-      setRecruiter({ [key]: event.target.value });
-    } else if (key === "bEmail") {
-      setRecruiter({ [key]: event.target.value });
-    } else if (key === "city") {
-      setRecruiter({
-        bAddress: {
-          [key]: event.target.value,
-        },
+      setRecruiter({ 
+        ...recruiter,
+        [key]: event.target.value 
       });
-    } else if (key === "zipCode") {
-      setRecruiter({
-        bAddress: {
-          [key]: event.target.value,
-        },
+    } else if (key === "phoneNum") {
+      setRecruiter({ 
+        ...recruiter,
+        [key]: event.target.value 
+      });
+    } else if (key === "bEmail") {
+      setRecruiter({ 
+        ...recruiter,
+        [key]: event.target.value 
       });
     } else if (key === "street") {
       setRecruiter({
-        bAddress: {
-          [key]: event.target.value,
-        },
-      });
+        ...recruiter,
+        bAddress: { 
+        ...recruiter.bAddress,
+        street: event.target.value 
+      }});
+
     }
   };
 
@@ -290,12 +315,21 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       company: company,
       provider: user.data.userInfo.provider,
       gender: user.data.userInfo.gender,
-      dob: dob,
+      dob: new Date(dob),
       careers: user.data.userInfo.careers,
       password: password.password,
-      recruiter,
+      role: user.data.userInfo.role
+
     };
-    dispatch(editUserInfo(newUserInfo));
+
+    if(user.data.userInfo.role === "recruiter"){
+      newUserInfo.recruiter = recruiter;
+    }
+
+    dispatch(editUserInfo({
+      ...newUserInfo,
+      dob
+    }));
     await server
       .post(`/user/${newUserInfo.id}/update`, newUserInfo, {
         headers: {
@@ -366,11 +400,20 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       company: user.data.userInfo.company,
       provider: user.data.userInfo.provider,
       gender: user.data.userInfo.gender,
-      dob: user.data.userInfo.dob,
+      dob: new Date(dob),
       careers: user.data.userInfo.careers,
-      recruiter,
+      role: user.data.userInfo.role
+
     };
-    dispatch(editUserInfo(newUserInfo));
+
+    if(user.data.userInfo.role === "actor"){
+      newUserInfo.recruiter = recruiter;
+    }
+
+    dispatch(editUserInfo({
+      ...newUserInfo,
+      dob
+    }));
 
     await server
       .post(`/user/${newUserInfo.id}/update`, newUserInfo, {
@@ -452,117 +495,210 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     />
                   </div>
                 </div>
-                <div className="midContentDownPart">
-                  <div className="displayPosition">
-                    <div className="fixedSize">
-                      <div className="filebox">
-                        <label className="fileboxCSS" for="ex_file">
+              </div>
+              <div className="midContentDownPart">
+                <div className="displayPosition">
+                  <div className="fixedSize">
+                    
+  
+                    <div className="filebox">
+                      <label className="fileboxCSS" htmlFor="ex_file">
+                        <div className="profileImgContainer">
                           <img
                             alt=""
                             src={user.data.userInfo.mainPic}
-                            className="testPic"
+                            className="testPic profileImgEdit"
                           />
-                        </label>
-                        <input
-                          type="file"
-                          id="ex_file"
-                          accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
-                          onChange={handleprofileButton}
-                        />
-                      </div>
-                    </div>
-
-                    <div className="fixedContent">
-                      <div className="nameTitle">{user.data.userInfo.name}</div>
-                      <ul>
-                        <strong>생년월일</strong>
-                        <li className="dob">{user.data.userInfo.dob}</li>
-                        <strong>이메일</strong>
-                        <li className="email">{user.data.userInfo.email}</li>
-                        <strong>소속사</strong>
-                        <li className="company">
-                          {user.data.userInfo.company}
-                        </li>
-                      </ul>
+                          <div
+                            className="profileImgEditText"
+                          >
+                            <div className="profileImgEditTextText">프로필 사진 편집</div>
+                          </div>
+                        </div>
+                      </label>
+                      <input
+                        type="file"
+                        id="ex_file"
+                        accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
+                        onChange={handleprofileButton}
+                      />
                     </div>
                   </div>
+  
+                  <div className="fixedContent">
+                    <div className="nameTitle">{user.data.userInfo.name}</div>
+                    <ul>
+                      <strong>생년월일</strong>
+                      <li className="dob">{user.data.userInfo.dob}</li>
+                      <strong>이메일</strong>
+                      <li className="email">{user.data.userInfo.email}</li>
+                      {
+                        user.data.userInfo.role === "actor" ? (
+                          <>
+                            <strong>소속사</strong>
+                            <li className="company">{user.data.userInfo.company}</li>
+                          </>
+                        ):(
+                          <>
+                            <strong>회사</strong>
+                            <li className="company">{recruiter.bName}</li>
+                          </>
+                        )
+                      }
+                    </ul>
+                  </div>
+                </div>
+  
+                <div className="stickyContainerPosition">
+                  <StickyContainer>
+                    <Tabs defaultActiveKey="1" renderTabBar={renderTabBar} centered="true">
+                    <TabPane tab="INFO" key="1">
+                      <div className="fixedContent2">
+                        <div className="nameTitle">{user.data.userInfo.name}</div>
+                        <ul>
+                          <strong>생년월일</strong>
+                          <li className="dob">
+                            <DatePicker 
+                              defaultValue={moment(dob, "YYYY-MM-DD")}
+                              onChange={(date, dateString) => {setDob(dateString)}}></DatePicker>
+                          </li>
 
-                  <div className="stickyContainerPosition">
-                    <StickyContainer>
-                      <Tabs
-                        defaultActiveKey="1"
-                        renderTabBar={renderTabBar}
-                        centered="true"
-                      >
-                        <TabPane tab="INFO" key="1">
-                          <div className="fixedContent2">
-                            <div className="nameTitle">
-                              {user.data.userInfo.name}
-                            </div>
-                            <ul>
-                              <strong>생년월일</strong>
-                              <li className="dob">
-                                <CalendarDob
-                                  dob={dob}
-                                  setDob={setDob}
-                                ></CalendarDob>
-                              </li>
-
-                              <strong>이메일</strong>
-                              <li className="email">
-                                {user.data.userInfo.email}
-                              </li>
-                              <strong>소속사</strong>
-                              <li className="company">
-                                <input
-                                  type="text"
-                                  className="highlightDisplay"
-                                  defaultValue={user.data.userInfo.company}
-                                  onChange={handleInputValue("company")}
-                                ></input>
-                              </li>
-                            </ul>
+                          <strong>이메일</strong>
+                          <li className="email">{user.data.userInfo.email}</li>
+                          {
+                            user.data.userInfo.role === "actor" ? (
+                              <>
+                                <strong>소속사</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={user.data.userInfo.company}
+                                    onChange={handleInputValue("company")}
+                                  ></input>
+                                </li>
+                              </>
+                            ) : (
+                              <>
+                                <strong>회사</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bName}
+                                    onChange={handleInputValue("bName")}
+                                  ></input>
+                                </li>
+                                <strong>직책</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.jobTitle}
+                                    onChange={handleInputValue("jobTitle")}
+                                  ></input>
+                                </li>
+                                <strong>회사 이메일</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bEmail}
+                                    onChange={handleInputValue("bEmail")}
+                                  ></input>
+                                </li>
+                                <strong>전화번호</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.phoneNum}
+                                    onChange={handleInputValue("phoneNum")}
+                                  ></input>
+                                </li>
+                                <strong>회사 주소</strong>
+                                <li className="company">
+                                  {recruiter.bAddress.zipCode}
+                                  <br/>
+                                  {recruiter.bAddress.city }
+                                  <br/>
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bAddress.street}
+                                    onChange={handleInputValue("street")}
+                                  ></input>
+                                  <br/>
+                                </li>
+                              </>
+                            )
+                          }
+                        </ul>
+                        {
+                          user.data.userInfo.role === "actor" ? null : (
                             <div className="passwordModifyButton">
                               <Button
                                 variant="outlined"
                                 className="passwordModifyBtn"
-                                onClick={showModal}
+                                onClick={() => setAddressModalVisible(true)}
                               >
-                                비밀번호 변경
+                                주소 변경
                               </Button>
                               <Modal
-                                title="비밀번호 변경"
-                                visible={isModalVisible}
-                                onOk={handleOk}
-                                onCancel={handleCancel}
-                                width={330}
-                                okText="변경"
-                                cancelText="취소"
+                                title="회사 주소 변경"
+                                visible={addressModalVisible}
+                                onCancel={() => setAddressModalVisible(false)}
+                                footer={null}
                               >
-                                <p>변경하실 비밀번호를 입력하여주세요. </p>
-                                <br />
-                                <div>
-                                  비밀번호 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                  <input
-                                    type="password"
-                                    className="passwordDef"
-                                    onChange={handleInputValue("password")}
-                                  ></input>
-                                </div>
-                                <br />
-                                <div>
-                                  비밀번호 확인
-                                  <input
-                                    type="password"
-                                    defaultValue=""
-                                    className="passwordDef"
-                                  ></input>
-                                </div>
+                                <DaumPostcode
+                                  onComplete={handleAddressComplete} 
+                                />
                               </Modal>
                             </div>
-                          </div>
-                        </TabPane>
-                        <TabPane tab="POSTS" key="2">
+                          )
+                        }
+                        <div className="passwordModifyButton">
+                          <Button
+                            variant="outlined"
+                            className="passwordModifyBtn"
+                            onClick={showModal}
+                          >
+                            비밀번호 변경
+                          </Button>
+                          <Modal
+                            title="비밀번호 변경"
+                            visible={isModalVisible}
+                            onOk={handleOk}
+                            onCancel={handleCancel}
+                            width={330}
+                            okText="변경"
+                            cancelText="취소"
+                          >
+                            <p>변경하실 비밀번호를 입력하여주세요. </p>
+                            <br />
+                            <div>
+                              비밀번호 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                              <input
+                                type="password"
+                                className="passwordDef"
+                                onChange={handleInputValue("password")}
+                              ></input>
+                            </div>
+                            <br />
+                            <div>
+                              비밀번호 확인
+                              <input
+                                type="password"
+                                defaultValue=""
+                                className="passwordDef"
+                              ></input>
+                            </div>
+                          </Modal>
+                        </div>
+                      </div>
+                      
+                    </TabPane>
+                    <TabPane tab="POSTS" key="2">
                           <div>
                             <div className="postsGallery">
                               {userPost.posts
@@ -806,15 +942,20 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     />
                   </div>
                 </div>
-                <div className="midContentDownPart">
-                  <div className="displayPosition">
-                    <div className="fixedSize">
-                      <div className="filebox">
-                        <label className="fileboxCSS" for="ex_file">
-                          <img
-                            src={user.data.userInfo.mainPic}
-                            className="testPic"
-                          />
+              </div>
+              <div className="midContentDownPart">
+                <div className="displayPosition">
+                  <div className="fixedSize">
+                    
+  
+                    <div className="filebox">
+                      <label className="fileboxCSS" htmlFor="ex_file">
+  
+                        <img
+                          alt=""
+                          src={user.data.userInfo.mainPic}
+                          className="testPic"
+
                         </label>
                         <input
                           type="file"
@@ -838,77 +979,179 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         </li>
                       </ul>
                     </div>
+                  </div>  
+                  <div className="fixedContent">
+                    <div className="nameTitle">{user.data.userInfo.name}</div>
+                    <ul>
+                      <strong>생년월일</strong>
+                      <li className="dob">{user.data.userInfo.dob}</li>
+                      <strong>이메일</strong>
+                      <li className="email">{user.data.userInfo.email}</li>
+                      {
+                        user.data.userInfo.role === "actor" ? (
+                          <>
+                            <strong>소속사</strong>
+                            <li className="company">{user.data.userInfo.company}</li>
+                          </>
+                        ):(
+                          <>
+                            <strong>회사</strong>
+                            <li className="company">{recruiter.bName}</li>
+                          </>
+                        )
+                      }
+                    </ul>
                   </div>
-
-                  <div className="stickyContainerPosition">
-                    <StickyContainer>
-                      <Tabs
-                        defaultActiveKey="1"
-                        renderTabBar={renderTabBar}
-                        centered="true"
-                      >
-                        <TabPane tab="INFO" key="1">
-                          <div className="fixedContent2">
-                            <div className="nameTitle">
-                              {user.data.userInfo.name}
-                            </div>
-                            <ul>
-                              <strong>생년월일</strong>
-                              <li className="dob">{user.data.userInfo.dob}</li>
-                              <strong>이메일</strong>
-                              <li className="email">
-                                {user.data.userInfo.email}
-                              </li>
-                              <strong>소속사</strong>
-                              <li className="company">
-                                <input
-                                  type="text"
-                                  className="highlightDisplay"
-                                  defaultValue={user.data.userInfo.company}
-                                  onChange={handleInputValue("company")}
-                                ></input>
-                              </li>
-                            </ul>
+                </div>
+  
+                <div className="stickyContainerPosition">
+                  <StickyContainer>
+                    <Tabs defaultActiveKey="1" renderTabBar={renderTabBar} centered="true">
+                    <TabPane tab="INFO" key="1">
+                      <div className="fixedContent2">
+                        <div className="nameTitle">{user.data.userInfo.name}</div>
+                        <ul>
+                          <strong>생년월일</strong>
+                          <li className="dob">
+                            <DatePicker 
+                              defaultValue={moment(dob, "YYYY-MM-DD")}
+                              onChange={(date, dateString) => {setDob(dateString)}}></DatePicker>
+                          </li>
+                          <strong>이메일</strong>
+                          <li className="email">{user.data.userInfo.email}</li>
+                          {
+                            user.data.userInfo.role === "actor" ? (
+                              <>
+                                <strong>소속사</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={user.data.userInfo.company}
+                                    onChange={handleInputValue("company")}
+                                  ></input>
+                                </li>
+                              </>
+                            ) : (
+                              <>
+                                <strong>회사</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bName}
+                                    onChange={handleInputValue("bName")}
+                                  ></input>
+                                </li>
+                                <strong>직책</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.jobTitle}
+                                    onChange={handleInputValue("jobTitle")}
+                                  ></input>
+                                </li>
+                                <strong>회사 이메일</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bEmail}
+                                    onChange={handleInputValue("bEmail")}
+                                  ></input>
+                                </li>
+                                <strong>전화번호</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.phoneNum}
+                                    onChange={handleInputValue("phoneNum")}
+                                  ></input>
+                                </li>
+                                <strong>회사 주소</strong>
+                                <li className="company">
+                                  {recruiter.bAddress.zipCode}
+                                  <br/>
+                                  {recruiter.bAddress.city }
+                                  <br/>
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bAddress.street}
+                                    onChange={handleInputValue("street")}
+                                  ></input>
+                                  <br/>
+                                </li>
+                              </>
+                            )
+                          }
+                        </ul>
+                        {
+                          user.data.userInfo.role === "actor" ? null : (
                             <div className="passwordModifyButton">
                               <Button
                                 variant="outlined"
                                 className="passwordModifyBtn"
-                                onClick={showModal}
+                                onClick={() => setAddressModalVisible(true)}
                               >
-                                비밀번호 변경
+                                주소 변경
                               </Button>
                               <Modal
-                                title="비밀번호 변경"
-                                visible={isModalVisible}
-                                onOk={handleOk}
-                                onCancel={handleCancel}
-                                width={330}
-                                okText="변경"
-                                cancelText="취소"
+                                title="회사 주소 변경"
+                                visible={addressModalVisible}
+                                onCancel={() => setAddressModalVisible(false)}
+                                footer={null}
                               >
-                                <p>변경하실 비밀번호를 입력하여주세요. </p>
-                                <br />
-                                <div>
-                                  비밀번호 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                  <input
-                                    type="password"
-                                    className="passwordDef"
-                                    onChange={handleInputValue("password")}
-                                  ></input>
-                                </div>
-                                <br />
-                                <div>
-                                  비밀번호 확인
-                                  <input
-                                    type="password"
-                                    defaultValue=""
-                                    className="passwordDef"
-                                  ></input>
-                                </div>
+                                <DaumPostcode
+                                  onComplete={handleAddressComplete} 
+                                />
                               </Modal>
                             </div>
-                          </div>
-                        </TabPane>
+                          )
+                        }
+                        <div className="passwordModifyButton">
+                      <Button
+                        variant="outlined"
+                        className="passwordModifyBtn"
+                        onClick={showModal}
+                      >
+                        비밀번호 변경
+                      </Button>
+                      <Modal
+                        title="비밀번호 변경"
+                        visible={isModalVisible}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        width={330}
+                        okText="변경"
+                        cancelText="취소"
+                      >
+                        <p>변경하실 비밀번호를 입력하여주세요. </p>
+                        <br />
+                        <div>
+                          비밀번호 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input
+                            type="password"
+                            className="passwordDef"
+                            onChange={handleInputValue("password")}
+                          ></input>
+                        </div>
+                        <br />
+                        <div>
+                          비밀번호 확인
+                          <input
+                            type="password"
+                            defaultValue=""
+                            className="passwordDef"
+                          ></input>
+                        </div>
+                      </Modal>
+                    </div>
+                      </div>
+                      
+                    </TabPane>
                         <TabPane tab="POSTS" key="2">
                           <div>
                             <div className="postsGallery">
@@ -1139,14 +1382,20 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     />
                   </div>
                 </div>
-                <div className="midContentDownPart2">
-                  <div className="displayPosition">
-                    <div className="fixedSize">
-                      <div className="filebox">
-                        <label className="fileboxCSS" for="ex_file">
-                          <img
-                            src={user.data.userInfo.mainPic}
-                            className="testPic"
+              </div>
+              <div className="midContentDownPart2">
+                <div className="displayPosition">
+                  <div className="fixedSize">
+                    
+  
+                    <div className="filebox">
+                      <label className="fileboxCSS" htmlFor="ex_file">
+  
+                        <img
+                          alt=""
+                          src={user.data.userInfo.mainPic}
+                          className="testPic"
+
                           />
                         </label>
                         <input
@@ -1159,89 +1408,177 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     </div>
 
                     <div className="fixedContent">
-                      <div className="nameTitle">{user.data.userInfo.name}</div>
-                      <ul>
-                        <strong>생년월일</strong>
-                        <li className="dob">{user.data.userInfo.dob}</li>
-                        <strong>이메일</strong>
-                        <li className="email">{user.data.userInfo.email}</li>
-                        <strong>소속사</strong>
-                        <li className="company">
-                          {user.data.userInfo.company}
-                        </li>
-                      </ul>
-                    </div>
+                    <div className="nameTitle">{user.data.userInfo.name}</div>
+                    <ul>
+                      <strong>생년월일</strong>
+                      <li className="dob">{user.data.userInfo.dob}</li>
+                      <strong>이메일</strong>
+                      <li className="email">{user.data.userInfo.email}</li>
+                      {
+                        user.data.userInfo.role === "actor" ? (
+                          <>
+                            <strong>소속사</strong>
+                            <li className="company">{user.data.userInfo.company}</li>
+                          </>
+                        ):(
+                          <>
+                            <strong>회사</strong>
+                            <li className="company">{recruiter.bName}</li>
+                          </>
+                        )
+                      }
+                    </ul>
                   </div>
-
-                  <div className="stickyContainerPosition">
-                    <StickyContainer>
-                      <Tabs
-                        defaultActiveKey="1"
-                        renderTabBar={renderTabBar}
-                        centered="true"
-                      >
-                        <TabPane tab="INFO" key="1">
-                          <div className="fixedContent2">
-                            <div className="nameTitle">
-                              {user.data.userInfo.name}
-                            </div>
-                            <ul>
-                              <strong>생년월일</strong>
-                              <li className="dob">{user.data.userInfo.dob}</li>
-                              <strong>이메일</strong>
-                              <li className="email">
-                                {user.data.userInfo.email}
-                              </li>
-                              <strong>소속사</strong>
-                              <li className="company">
-                                <input
-                                  type="text"
-                                  className="highlightDisplay"
-                                  defaultValue={user.data.userInfo.company}
-                                  onChange={handleInputValue("company")}
-                                ></input>
-                              </li>
-                            </ul>
+                </div>
+  
+                <div className="stickyContainerPosition">
+                  <StickyContainer>
+                    <Tabs defaultActiveKey="1" renderTabBar={renderTabBar} centered="true">
+                    <TabPane tab="INFO" key="1">
+                      <div className="fixedContent2">
+                        <div className="nameTitle">{user.data.userInfo.name}</div>
+                        <ul>
+                          <strong>생년월일</strong>
+                          <li className="dob">
+                            <DatePicker 
+                              defaultValue={moment(dob, "YYYY-MM-DD")}
+                              onChange={(date, dateString) => {setDob(dateString)}}></DatePicker>
+                          </li>
+                          <strong>이메일</strong>
+                          <li className="email">{user.data.userInfo.email}</li>
+                          {
+                            user.data.userInfo.role === "actor" ? (
+                              <>
+                                <strong>소속사</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={user.data.userInfo.company}
+                                    onChange={handleInputValue("company")}
+                                  ></input>
+                                </li>
+                              </>
+                            ) : (
+                              <>
+                                <strong>회사</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bName}
+                                    onChange={handleInputValue("bName")}
+                                  ></input>
+                                </li>
+                                <strong>직책</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.jobTitle}
+                                    onChange={handleInputValue("jobTitle")}
+                                  ></input>
+                                </li>
+                                <strong>회사 이메일</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bEmail}
+                                    onChange={handleInputValue("bEmail")}
+                                  ></input>
+                                </li>
+                                <strong>전화번호</strong>
+                                <li className="company">
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.phoneNum}
+                                    onChange={handleInputValue("phoneNum")}
+                                  ></input>
+                                </li>
+                                <strong>회사 주소</strong>
+                                <li className="company">
+                                  {recruiter.bAddress.zipCode}
+                                  <br/>
+                                  {recruiter.bAddress.city }
+                                  <br/>
+                                  <input
+                                    type="text"
+                                    className="highlightDisplay"
+                                    defaultValue={recruiter.bAddress.street}
+                                    onChange={handleInputValue("street")}
+                                  ></input>
+                                  <br/>
+                                </li>
+                              </>
+                            )
+                          }
+                        </ul>
+                        {
+                          user.data.userInfo.role === "actor" ? null : (
                             <div className="passwordModifyButton">
                               <Button
                                 variant="outlined"
                                 className="passwordModifyBtn"
-                                onClick={showModal}
+                                onClick={() => setAddressModalVisible(true)}
                               >
-                                비밀번호 변경
+                                주소 변경
                               </Button>
                               <Modal
-                                title="비밀번호 변경"
-                                visible={isModalVisible}
-                                onOk={handleOk}
-                                onCancel={handleCancel}
-                                width={330}
-                                okText="변경"
-                                cancelText="취소"
+                                title="회사 주소 변경"
+                                visible={addressModalVisible}
+                                onCancel={() => setAddressModalVisible(false)}
+                                footer={null}
                               >
-                                <p>변경하실 비밀번호를 입력하여주세요. </p>
-                                <br />
-                                <div>
-                                  비밀번호 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
-                                  <input
-                                    type="password"
-                                    className="passwordDef"
-                                    onChange={handleInputValue("password")}
-                                  ></input>
-                                </div>
-                                <br />
-                                <div>
-                                  비밀번호 확인
-                                  <input
-                                    type="password"
-                                    defaultValue=""
-                                    className="passwordDef"
-                                  ></input>
-                                </div>
+                                <DaumPostcode
+                                  onComplete={handleAddressComplete} 
+                                />
                               </Modal>
                             </div>
-                          </div>
-                        </TabPane>
+                          )
+                        }
+                        <div className="passwordModifyButton">
+                      <Button
+                        variant="outlined"
+                        className="passwordModifyBtn"
+                        onClick={showModal}
+                      >
+                        비밀번호 변경
+                      </Button>
+                      <Modal
+                        title="비밀번호 변경"
+                        visible={isModalVisible}
+                        onOk={handleOk}
+                        onCancel={handleCancel}
+                        width={330}
+                        okText="변경"
+                        cancelText="취소"
+                      >
+                        <p>변경하실 비밀번호를 입력하여주세요. </p>
+                        <br />
+                        <div>
+                          비밀번호 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <input
+                            type="password"
+                            className="passwordDef"
+                            onChange={handleInputValue("password")}
+                          ></input>
+                        </div>
+                        <br />
+                        <div>
+                          비밀번호 확인
+                          <input
+                            type="password"
+                            defaultValue=""
+                            className="passwordDef"
+                          ></input>
+                        </div>
+                      </Modal>
+                    </div>
+                      </div>
+                      
+                    </TabPane>
                         <TabPane tab="POSTS" key="2">
                           <div>
                             <div className="postsGallery">
