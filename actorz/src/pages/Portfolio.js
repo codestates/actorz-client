@@ -213,33 +213,32 @@ const Portfolio = () => {
                         <div className="portFolioEdit">
                           {selectData[0] ? 
                             selectData.map((post) => {
-                              return <>
-                                <div>
+                              return (
+                                <div key={post._id}>
                                   <Slider {...settings}>
-                                    {post.media.map((data) => data.type === "img"
-                                    ? <img 
-                                      key={data._id}
-                                      className="pf selectImg"
-                                      src={data.path}
-                                      />
-                                    : <video
-                                      controls
-                                      key={data._id}
-                                      className="pf selectVideo"
-                                      src={data.path}
+                                    {post.media.map((data) => data.type === "img" ? 
+                                      <img 
+                                        key={data._id}
+                                        className="pf selectImg"
+                                        src={data.path}
+                                      /> : 
+                                      <video
+                                        controls
+                                        key={data._id}
+                                        className="pf selectVideo"
+                                        src={data.path}
                                       />
                                     )}
                                   </Slider>
                                   <div className="pf postHeader">
-                                    <label key={post._id}>{post.content}</label>
+                                    <label>{post.content}</label>
                                   </div>
                                 </div> 
-                              </>
-                              })
-                          : (
+                              )
+                            }) : (
                             <>
                               <PortfolioPostBtn type="button" onClick={() => handleClickPfEdit(true)}>
-                                <i class="fas fa-paste"></i>
+                                <i className="fas fa-paste"></i>
                                 <span>Portfolio 등록</span>
                               </PortfolioPostBtn>
                             </>
