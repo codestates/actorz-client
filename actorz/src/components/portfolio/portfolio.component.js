@@ -65,61 +65,63 @@ const PortfolioEdit = ({
           </section>
           <section className="pf postsSection">
             <Slider {...settings}>
-              {myPostsData.map((post) => post.media[0].type === "img"
-              ? <img 
-                key={post._id}
-                className="pf postImg"
-                src={post.media[0].path}
-                onClick={() => handleClickPost(post)}
+              {myPostsData.map((post) => post.media[0].type === "img" ? (
+                <img 
+                  key={post._id}
+                  className="pf postImg"
+                  src={post.media[0].path}
+                  onClick={() => handleClickPost(post)}
                 />
-              : <video
-                controls
-                key={post._id}
-                className="pf postVideo"
-                src={post.media[0].path}
-                onClick={() => handleClickPost(post)} 
+              ) : (
+                <video
+                  controls
+                  key={post._id}
+                  className="pf postVideo"
+                  src={post.media[0].path}
+                  onClick={() => handleClickPost(post)} 
                 />
-              )}
+              ))}
             </Slider>
           </section>
           <section className="pf selectSection">
-            {postsData[0]
-            ? <PfUploadContainer>
+            {postsData[0] ? (
+              <PfUploadContainer>
                 <PreviewList>
-                  {postsData.length > 4
-                  ? null
-                  : postsData.map((post, index) => {
-                    let isImage = post.media[0].type === "img";
-                    return (
-                      <PreviewContainer key={post._id}>
-                        <div>
-                          {(isImage ?
-                            <ImagePreview
+                  {/* 등록 포스트가 4개이상 선택 될 경우경고 모달 나오게 수정해야함 */}
+                  {postsData.length > 4 ? null : 
+                    postsData.map((post, index) => {
+                      let isImage = post.media[0].type === "img";
+                      return (
+                        <PreviewContainer key={post._id}>
+                          <div>
+                            {(isImage ? (
+                              <ImagePreview
+                                src={post.media[0].path}
+                                alt={`file preview ${index}`}
+                              />
+                            ) : (
+                              <VideoPreview 
                               src={post.media[0].path}
                               alt={`file preview ${index}`}
-                            />
-                          :
-                            <VideoPreview 
-                            src={post.media[0].path}
-                            alt={`file preview ${index}`}
-                            />
-                          )}
-                          <PostMetaData isMediaFile={true}>
-                            <span>{post.content}</span>
-                            <aside>
-                              <RemovePostIcon
-                                className="fas fa-trash-alt"
-                                onClick={() => removePost(index)}
                               />
-                            </aside>
-                          </PostMetaData>
-                        </div>
-                      </PreviewContainer>
-                    );
-                  })}
+                            ))}
+                            <PostMetaData isMediaFile={true}>
+                              <span>{post.content}</span>
+                              <aside>
+                                <RemovePostIcon
+                                  className="fas fa-trash-alt"
+                                  onClick={() => removePost(index)}
+                                />
+                              </aside>
+                            </PostMetaData>
+                          </div>
+                        </PreviewContainer>
+                      );
+                    })
+                  }
                 </PreviewList>
               </PfUploadContainer>
-            : null}
+            ) : null}
           </section>
 
           <button

@@ -74,3 +74,30 @@
 .pf.slider {
   /* height: 100px; */
 }
+
+
+
+
+
+.pf-select-slick {
+  height: 300px;
+  /* justify-content: center; */
+}
+
+.pf.selectImg {
+  height: 300px;
+  object-fit: cover;
+}
+
+.pf.selectVideo {
+  height: 300px;
+  object-fit: cover;
+}
+
+.pf.postHeader {
+  /* height: 50px; */
+  line-height: 40px;
+  padding: 0 10px;
+  border: 1px solid lightgray;
+  margin-bottom: 10px;
+}
