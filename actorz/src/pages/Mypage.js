@@ -246,11 +246,11 @@ const Mypage = () => {
                                                     ) : (
                                                       <li className="company"></li>
                                                     )}
-                                                  </>
+                                                   </>
                                                 ):(
-                                                  <>
-                                                    <strong>회사</strong>
-                                                    {user.data.userInfo.recruiter.bName ? (
+                                                <>
+                                                {/*     <strong>회사</strong>
+                                                     {user.data.userInfo.recruiter.bName ? (
                                                       <li className="bName">
                                                         {user.data.userInfo.recruiter.bName}
                                                       </li>
@@ -293,6 +293,7 @@ const Mypage = () => {
                                                     ) : (
                                                       <li className="bAddress"></li>
                                                     )}
+                                                    */ }
                                                 </>
                                               )}
                                           </ul>
