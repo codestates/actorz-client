@@ -1,23 +1,20 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import Slider from "react-slick";
 
 import {
   PfUploadContainer,
-  FormField,
-  DragDropText,
-  PostPreviewContainer,
   ImagePreview,
   VideoPreview,
   PostMetaData,
   PreviewContainer,
   PreviewList,
   RemovePostIcon,
-  InputLabel,
 } from "./portfolio.styles";
 import "../../styles/Postupload.css";
-import "./portfolio.styles.css"
+import "./portfolio.styles.css";
 
 import Loading from "../loading";
+import { Modal } from "antd";
 import { NextArrow, PrevArrow } from "./portfolio.customArrow";
 
 const settings = {
@@ -44,13 +41,21 @@ const PortfolioEdit = ({
   };
 
   const handleClickPostBtn = () => {
-    console.log("선택 완료")
     handleClickPfEdit(false);
     clickPostBtn(postsData);
   };
 
+  // 선택한 post가 4개를 초과시, 경고 모달창
+  const handleOverFiles = () => {
+    Modal.error({
+      title: "포스트 선택 실패",
+      content: "포스트가 4개를 초과 할 수 없습니다.",
+    });
+    setPostsData([]);
+  };
+
   const removePost = (index) => {
-    postsData.splice(index, 1)
+    postsData.splice(index, 1);
     setPostsData([...postsData]);
   };
 
@@ -70,6 +75,7 @@ const PortfolioEdit = ({
                   key={post._id}
                   className="pf postImg"
                   src={post.media[0].path}
+                  alt="post first img"
                   onClick={() => handleClickPost(post)}
                 />
               ) : (
@@ -88,7 +94,8 @@ const PortfolioEdit = ({
               <PfUploadContainer>
                 <PreviewList>
                   {/* 등록 포스트가 4개이상 선택 될 경우경고 모달 나오게 수정해야함 */}
-                  {postsData.length > 4 ? null : 
+                  {postsData.length > 4 ? 
+                    handleOverFiles() : 
                     postsData.map((post, index) => {
                       let isImage = post.media[0].type === "img";
                       return (

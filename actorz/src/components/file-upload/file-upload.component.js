@@ -90,7 +90,7 @@ const FileUpload = ({
   const handleOverFiles = () => {
     Modal.error({
       title: "업로드 실패",
-      content: "파일이 5개를 초과 할 수 없습니다.",
+      content: "파일이 4개를 초과 할 수 없습니다.",
     });
     setFiles({});
   };
@@ -135,7 +135,7 @@ const FileUpload = ({
             <FilePreviewContainer>
               {/* <span>To Upload</span> */}
               <PreviewList>
-                {Object.keys(files).length > 5
+                {Object.keys(files).length > 4
                   ? handleOverFiles()
                   : Object.keys(files).map((fileName, index) => {
                       let file = files[fileName];
