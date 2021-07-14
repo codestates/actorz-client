@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const PfUploadContainer = styled.section`
   position: relative;
-  margin: 25px 0 15px;
-  border: 2px dotted lightgray;
-  padding: 1rem;
+  // margin: 25px 0 15px;
+  // border: 2px dotted lightgray;
+  // padding: 1rem;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 250px;
+  height: 100px;
   background-color: white;
 `;
 
@@ -32,8 +32,9 @@ export const PostPreviewContainer = styled.article`
 
 export const ImagePreview = styled.img`
   border-radius: 6px;
-  width: 100%;
-  height: 100%;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 `;
 
 export const VideoPreview = styled.video`
@@ -66,7 +67,7 @@ aside {
 export const PreviewContainer = styled.section`
 padding: 0.25rem;
 width: 20%;
-height: 120px;
+height: 110px;
 border-radius: 6px;
 box-sizing: border-box;
 
@@ -102,8 +103,8 @@ width: 550px;
 display: flex;
 flex-wrap: wrap;
 margin: auto;
-margin-top: 30px;
-margin-left: 100px;
+margin-top: 5px;
+margin-left: 10px;
 
 @media only screen and (max-width: 400px) {
   flex-direction: column;
