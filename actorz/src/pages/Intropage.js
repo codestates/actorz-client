@@ -46,7 +46,7 @@ const Intropage = () => {
     speed: 1700,
     autoplaySpeed: 4000,
     pauseOnHover: false,
-    // autoplay: true,
+    autoplay: true,
     draggable: false,
     slidesToShow: 1,
     slidesToScroll: 1,
