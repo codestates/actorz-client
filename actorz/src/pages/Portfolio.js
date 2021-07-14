@@ -12,19 +12,30 @@ import Loading from "../components/loading";
 import "../styles/Portfolio.css";
 import "antd/dist/antd.css";
 import PortfolioEdit from "../components/portfolio/portfolio.component";
-import { SaveOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { SaveOutlined, EditOutlined, DeleteOutlined, ConsoleSqlOutlined } from "@ant-design/icons";
 
 
 import { PortfolioPostBtn } from "../components/portfolio/portfolio.styles";
+import Slider from "react-slick";
 
-
+const settings = {
+  className: "pf-select-slick",
+  infinite: true,
+  speed: 500,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  // centerMode: true,
+  dots: true,
+  arrows: false,
+};
 
 const Portfolio = () => {
   const user = useSelector((user) => user.userInfoReducer);
   const [isLoading, setIsLoading] = useState(false);
-  const [postsData, setPostsData] = useState([]);
   const [clickPfEdit, setClickPfEdit] = useState(false);
   const [myPostsData, setMyPostsData] = useState([]);
+  const [postsData, setPostsData] = useState([]);
+  const [selectData, setSelectData] = useState([])
 
 
 
@@ -32,18 +43,16 @@ const Portfolio = () => {
 
 
 
-
-  const handleClickPostBtn = async () => {
-    handleClickPfEdit(true);
-    console.log(user.data)
-    await server.get(`/post/user/${user.data.userInfo.id}`)
-    .then((result) => setMyPostsData(result.data.data.posts));
+  const handleClickPostBtn = (postsData) => {
+    console.log(postsData);
+    setSelectData(postsData);
   }
 
 
   const handleClickSaveBtn = () => {
     console.log("save portfolio");
-    setPostsData([1]);
+    setPostsData(selectData);
+    console.log(selectData)
   }
 
 
@@ -92,6 +101,11 @@ const Portfolio = () => {
     
   };
 
+  useEffect(async () => {
+    await server.get(`/post/user/${user.data.userInfo.id}`)
+    .then((result) => setMyPostsData(result.data.data.posts));
+  }, []);
+
   return (
     <>
       {!isLoading ? (
@@ -114,7 +128,7 @@ const Portfolio = () => {
                           {user.data.userInfo.name}'s portfolio
                         </div>
                         <div className="profileButtonAll">
-                          {postsData[0] ? 
+                          {postsData[0] ? (
                             <>
                               <EditOutlined
                                 className="editButton"
@@ -124,14 +138,19 @@ const Portfolio = () => {
                                 className="deleteButton"
                                 onClick={() => handleDeleteAccount()}
                               />
-                            </> : 
+                            </>
+                          ) : (
                             <>
+                              <EditOutlined
+                                className="editButton"
+                                onClick={() => handeClickEditBtn()}
+                              />
                               <SaveOutlined 
                                 className="editButton"
                                 onClick={() => handleClickSaveBtn()}
                               />  
                             </>
-                          }
+                          )}
                         </div>
                       </div>
                       <div className="midContentDownPart">
@@ -192,16 +211,39 @@ const Portfolio = () => {
 
                         <div className="pf postsTitle">Posts </div>
                         <div className="portFolioEdit">
-                          {postsData[0] ? 
+                          {selectData[0] ? 
+                            selectData.map((post) => {
+                              return <>
+                                <div>
+                                  <Slider {...settings}>
+                                    {post.media.map((data) => data.type === "img"
+                                    ? <img 
+                                      key={data._id}
+                                      className="pf selectImg"
+                                      src={data.path}
+                                      />
+                                    : <video
+                                      controls
+                                      key={data._id}
+                                      className="pf selectVideo"
+                                      src={data.path}
+                                      />
+                                    )}
+                                  </Slider>
+                                  <div className="pf postHeader">
+                                    <label key={post._id}>{post.content}</label>
+                                  </div>
+                                </div> 
+                              </>
+                              })
+                          : (
                             <>
-                            </> :
-                            <>
-                              <PortfolioPostBtn type="button" onClick={() => handleClickPostBtn()}>
+                              <PortfolioPostBtn type="button" onClick={() => handleClickPfEdit(true)}>
                                 <i class="fas fa-paste"></i>
                                 <span>Portfolio 등록</span>
                               </PortfolioPostBtn>
                             </>
-                          }
+                          )}
                         </div>
                       </div>
                     </div>
@@ -215,13 +257,12 @@ const Portfolio = () => {
                 <div>
                   {clickPfEdit ? (
                     <div>
-                      <form onSubmit={() => console.log("submit")}>
-                        <PortfolioEdit
-                        handleClickPfEdit={handleClickPfEdit}
-                        myPostsData={myPostsData}
-                        isLoading={isLoading}
-                        />
-                      </form>
+                      <PortfolioEdit
+                      handleClickPfEdit={handleClickPfEdit}
+                      myPostsData={myPostsData}
+                      clickPostBtn={handleClickPostBtn}
+                      isLoading={isLoading}
+                      />
                     </div> 
                   ) : null}
                 </div>

@@ -7,13 +7,14 @@ import MypageEdit from "./MypageEdit";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
+import Post from "./Post";
 import "../styles/Mypage.css";
 import "antd/dist/antd.css";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import Loading from "../components/loading";
 
-import { Modal, Tabs } from 'antd';
-import { StickyContainer, Sticky } from 'react-sticky';
+import { Modal, Tabs, Pagination } from "antd";
+import { StickyContainer, Sticky } from "react-sticky";
 
 import { useMediaQuery } from "react-responsive";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
@@ -33,37 +34,32 @@ const renderTabBar = (props, DefaultTabBar) => (
   </Sticky>
 );
 
-const settings = {
-  dots: true,
-  infinite: true,
-  speed: 1000,
-  pauseOnHover: true,
-  autoplay: true,
-  draggable: false,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  arrows: true,
-};
-
 const Mypage = () => {
   const user = useSelector((user) => user.userInfoReducer);
-  // const dispatch = useDispatch();
-  // const [userinfo, setUserinfo] = useState({});
-  // const [clickupload, setClickUpload] = useState(false);
+
   const [isEdit, setIsEdit] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [userPost, setUserPost] = useState({});
+  const [clickModal, setClickModal] = useState(false);
 
-  //console.log(userPost);
+  let [data, setData] = useState([]);
+  let [totalPage, setTotalPage] = useState(0);
+  let [current, setCurrent] = useState(1);
+  let [minIndex, setMinIndex] = useState(0);
+  let [maxIndex, setMaxIndex] = useState(0);
+
+  let pageSize;
 
   useEffect(() => {
     const p = async () => {
       await server // 유저의 포스트를 가져옴
         .get(`/post/user/${user.data.userInfo.id}`)
         .then((res) => {
-          //console.log(res);
           setUserPost(res.data.data);
-          console.log(userPost.posts);
+          setData(res.data.data.posts);
+          setTotalPage(Math.ceil(res.data.data.posts.length / pageSize));
+          setMinIndex(0);
+          setMaxIndex(pageSize);
         })
         .catch((err) => {
           throw err;
@@ -133,24 +129,47 @@ const Mypage = () => {
   // };
 
   const windowLocation = () => {
-    return window.location = "/mainpage";
-  }
+    return (window.location = "/mainpage");
+  };
 
   const redirectPage = () => {
     Modal.warning({
-      title: '접근 실패',
-      content: '로그인 후 이용 가능합니다.',
-      onOk(){windowLocation()}
+      title: "접근 실패",
+      content: "로그인 후 이용 가능합니다.",
+      onOk() {
+        windowLocation();
+      },
     });
     //alert("로그인 후 이용 가능합니다.");
     //window.location = "/mainpage";
   };
-  console.log(user); //여기에 서버에서 가져온 유저 정보가 담겨있음.
+
+  const handleClickPost = (boolean, id) => {
+    console.log(boolean, id);
+    if (boolean) {
+      setClickModal(true);
+      window.history.pushState(null, "", `/post/${id}`);
+    } else {
+      setClickModal(false);
+      window.history.pushState(null, "", `/mypage`);
+    }
+  };
+
+  const handleChange = (page) => {
+    setCurrent(page);
+    setMinIndex((page - 1) * pageSize);
+    setMaxIndex((maxIndex = page * pageSize));
+  };
+
+  {
+    isPc ? (pageSize = 6) : isTablet ? (pageSize = 8) : (pageSize = 4);
+  }
+  //console.log(user); //여기에 서버에서 가져온 유저 정보가 담겨있음.
   //console.log(userinfo);
   //console.log(userPost.posts);
   return (
     <>
-      {isPc && 
+      {isPc && (
         <>
           {!isloading ? (
             <>
@@ -172,31 +191,29 @@ const Mypage = () => {
                               <div className="profileTitleName">
                                 {user.data.userInfo.name}'s profile
                               </div>
-                                <div className="profileButtonAll">
-                                  <EditOutlined
-                                    className="editButton"
-                                    onClick={() => handeClickEditBtn(true)}
-                                  />
-                                  <DeleteOutlined
-                                    className="deleteButton"
-                                    onClick={() => handleDeleteAccount()}
+                              <div className="profileButtonAll">
+                                <EditOutlined
+                                  className="editButton"
+                                  onClick={() => handeClickEditBtn(true)}
+                                />
+                                <DeleteOutlined
+                                  className="deleteButton"
+                                  onClick={() => handleDeleteAccount()}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="midContentDownPart">
+                              <div className="displayPosition">
+                                <div className="fixedSize">
+                                  <img
+                                    alt="testPic"
+                                    src={user.data.userInfo.mainPic}
+                                    className="testPic"
                                   />
                                 </div>
-                                </div>
 
-                              
-          
-                              <div className="midContentDownPart">
-                                <div className="displayPosition">
-                                  <div className="fixedSize">
-                                    <img
-                                      alt="testPic"
-                                      src={user.data.userInfo.mainPic}
-                                      className="testPic"
-                                    />
-                                  </div>
-
-                                  <div className="fixedContent">
+                                <div className="fixedContent">
                                   <ul>
                                     <div className="nameTitle">
                                       {user.data.userInfo.name}
@@ -311,123 +328,99 @@ const Mypage = () => {
                                           </ul>
                                         </div>
                                       </TabPane>
-                                      <TabPane tab="POSTS" key="2">
-                                        <div>
-                                          <div className="postsGallery">
-                                            {userPost.posts
-                                              ? userPost.posts.map((post) => {
+                                      
+
+                              
+                                    <TabPane tab="POSTS" key="2">
+                                      <div>
+                                        <div className="postsGallery">
+                                          {userPost.posts
+                                            ? userPost.posts.map(
+                                                (post, index) => {
                                                   return (
-                                                    <>
-                                                      <div className="galleryComponents">
-                                                        <img
-                                                          className="postGallery-img"
-                                                          key={post._id}
-                                                          src={post.media[0].path}
-                                                        ></img>
-                                                      </div>
-                                                      <div className="galleryComponents">
-                                                        <img
-                                                          className="postGallery-img"
-                                                          key={post._id}
-                                                          src={post.media[0].path}
-                                                        ></img>
-                                                      </div>
-
-                                                      <div className="galleryComponents">
-                                                        <img
-                                                          className="postGallery-img"
-                                                          key={post._id}
-                                                          src={post.media[0].path}
-                                                        ></img>
-                                                      </div>
-                                                      <div className="galleryComponents">
-                                                        <img
-                                                          className="postGallery-img"
-                                                          key={post._id}
-                                                          src={post.media[0].path}
-                                                        ></img>
-                                                      </div>
-                                                      <div className="galleryComponents">
-                                                        <img
-                                                          className="postGallery-img"
-                                                          key={post._id}
-                                                          src={post.media[0].path}
-                                                        ></img>
-                                                      </div>
-                                                    </>
-                                                  );
-                                                })
-                                              : null}
-                                          </div>
-                                          {/* <div className="postsGallery">
-                                            <div className="galleryComponents">
-                                              4
-                                            </div>
-                                            <div className="galleryComponents">
-                                              5
-                                            </div>
-                                            <div className="galleryComponents">
-                                              6
-                                            </div>
-                                          </div>
-
-                                          <div className="postsGallery">
-                                            <div className="galleryComponents">
-                                              7
-                                            </div>
-                                            <div className="galleryComponents">
-                                              8
-                                            </div>
-                                            <div className="galleryComponents">
-                                              9
-                                            </div>
-                                          </div> */}
-                                        </div>
-
-                                        <div className="nextpageBtn">
-                                          일단 버튼은 놔두기
-                                        </div>
-                                      </TabPane>
-                                      <TabPane tab="CAREER" key="3">
-                                        <div className="careerContent">
-                                          {user.data.userInfo.careers ? (
-                                            <div className="career">
-                                              {user.data.userInfo.careers.map(
-                                                (career) => {
-                                                  return (
-                                                    <li>
-                                                      {`${career.year.split("T")[0]}` +
-                                                        ` ${career.title}` +
-                                                        ` / ` +
-                                                        `${career.type}`}
-                                                    </li>
+                                                    index >= minIndex &&
+                                                    index < maxIndex && (
+                                                      <>
+                                                        <div
+                                                          className="galleryComponents"
+                                                          onClick={() =>
+                                                            handleClickPost(
+                                                              true,
+                                                              post._id
+                                                            )
+                                                          }
+                                                        >
+                                                          <img
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></img>
+                                                        </div>
+                                                      </>
+                                                    )
                                                   );
                                                 }
-                                              )}
-                                            </div>
-                                          ) : (
-                                            <div className="career"></div>
-                                          )}
+                                              )
+                                            : null}
+
+                                          {clickModal ? (
+                                            <Post
+                                              handleClickPost={handleClickPost}
+                                            />
+                                          ) : null}
                                         </div>
-                                      </TabPane>
-                                      <TabPane tab="LIKES" key="4">
-                                        좋아요 했던 게시물들 모아보는 공간
-                                      </TabPane>
-                                      <TabPane tab="TAGGED" key="5">
-                                        컨텐츠 준비 중입니다.
-                                      </TabPane>
-                                    </Tabs>
-                                  </StickyContainer>
-                                </div>
+                                        <Pagination
+                                          pageSize={pageSize}
+                                          current={current}
+                                          total={data.length}
+                                          onChange={handleChange}
+                                        />
+                                      </div>
+                                    </TabPane>
+                                    <TabPane tab="CAREER" key="3">
+                                      <div className="careerContent">
+                                        {user.data.userInfo.careers ? (
+                                          <div className="career">
+                                            {user.data.userInfo.careers.map(
+                                              (career) => {
+                                                return (
+                                                  <li>
+                                                    {`${
+                                                      career.year.split("T")[0]
+                                                    }` +
+                                                      ` ${career.title}` +
+                                                      ` / ` +
+                                                      `${career.type}`}
+                                                  </li>
+                                                );
+                                              }
+                                            )}
+                                          </div>
+                                        ) : (
+                                          <div className="career"></div>
+                                        )}
+                                      </div>
+                                    </TabPane>
+                                    <TabPane tab="LIKES" key="4">
+                                      좋아요 했던 게시물들 모아보는 공간
+                                    </TabPane>
+                                    <TabPane tab="TAGGED" key="5">
+                                      컨텐츠 준비 중입니다.
+                                    </TabPane>
+                                  </Tabs>
+                                </StickyContainer>
                               </div>
                             </div>
                           </div>
-                          <div className="newblockPosition2"> </div>
-
-                          <div className="rightSpace">
-                            <div className="iconList2"></div>
-                          </div>
                         </div>
+                        <div className="newblockPosition2"> </div>
+
+                        <div className="rightSpace">
+                          <div className="iconList2"></div>
+                        </div>
+                      </div>
                       <Footer />
                     </>
                   ) : (
@@ -442,7 +435,7 @@ const Mypage = () => {
             <Loading />
           )}
         </>
-      }
+      )}
 
       {isTablet && (
         <>
@@ -466,8 +459,7 @@ const Mypage = () => {
                               <div className="profileTitleName">
                                 {user.data.userInfo.name}'s profile
                               </div>
-  
-                              
+
                               <div className="profileButtonAll">
                                 <EditOutlined
                                   className="editButton"
@@ -601,51 +593,54 @@ const Mypage = () => {
                                           </>
                                         )}
                                       </ul>
-                                       
                                       </div>
                                     </TabPane>
                                     <TabPane tab="POSTS" key="2">
                                       <div>
                                         <div className="postsGallery">
-                                          <div className="galleryComponents">
-                                            1
-                                          </div>
-                                          <div className="galleryComponents">
-                                            2
-                                          </div>
-                                          <div className="galleryComponents">
-                                            3
-                                          </div>
-                                        </div>
+                                          {userPost.posts
+                                            ? userPost.posts.map(
+                                                (post, index) => {
+                                                  return (
+                                                    index >= minIndex &&
+                                                    index < maxIndex && (
+                                                      <>
+                                                        <div
+                                                          className="galleryComponents"
+                                                          onClick={() =>
+                                                            handleClickPost(
+                                                              true,
+                                                              post._id
+                                                            )
+                                                          }
+                                                        >
+                                                          <img
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></img>
+                                                        </div>
+                                                      </>
+                                                    )
+                                                  );
+                                                }
+                                              )
+                                            : null}
 
-                                        <div className="postsGallery">
-                                          <div className="galleryComponents">
-                                            4
-                                          </div>
-                                          <div className="galleryComponents">
-                                            5
-                                          </div>
-                                          <div className="galleryComponents">
-                                            6
-                                          </div>
+                                          {clickModal ? (
+                                            <Post
+                                              handleClickPost={handleClickPost}
+                                            />
+                                          ) : null}
                                         </div>
-
-                                        <div className="postsGallery">
-                                          <div className="galleryComponents">
-                                            7
-                                          </div>
-                                          <div className="galleryComponents">
-                                            8
-                                          </div>
-                                          <div className="galleryComponents">
-                                            9
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                      <div className="nextpageBtn">
-                                        {" "}
-                                        일단 버튼은 놔두기
+                                        <Pagination
+                                          pageSize={pageSize}
+                                          current={current}
+                                          total={data.length}
+                                          onChange={handleChange}
+                                        />
                                       </div>
                                     </TabPane>
                                     <TabPane tab="CAREER" key="3">
@@ -656,7 +651,9 @@ const Mypage = () => {
                                               (career) => {
                                                 return (
                                                   <li>
-                                                    {`${career.year.split("T")[0]}` +
+                                                    {`${
+                                                      career.year.split("T")[0]
+                                                    }` +
                                                       ` ${career.title}` +
                                                       ` / ` +
                                                       `${career.type}`}
@@ -854,55 +851,57 @@ const Mypage = () => {
                                             </li>
                                           ) : (
                                             <li className="email"></li>
+
                                           )}
-                                        </>
-                                      )}
-                                      </ul>
-                                        
+                                        </ul>
                                       </div>
                                     </TabPane>
                                     <TabPane tab="POSTS" key="2">
                                       <div>
                                         <div className="postsGallery">
-                                          <div className="galleryComponents">
-                                            1
-                                          </div>
-                                          <div className="galleryComponents">
-                                            2
-                                          </div>
-                                          <div className="galleryComponents">
-                                            3
-                                          </div>
-                                        </div>
+                                          {userPost.posts
+                                            ? userPost.posts.map(
+                                                (post, index) => {
+                                                  return (
+                                                    index >= minIndex &&
+                                                    index < maxIndex && (
+                                                      <>
+                                                        <div
+                                                          className="galleryComponents"
+                                                          onClick={() =>
+                                                            handleClickPost(
+                                                              true,
+                                                              post._id
+                                                            )
+                                                          }
+                                                        >
+                                                          <img
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></img>
+                                                        </div>
+                                                      </>
+                                                    )
+                                                  );
+                                                }
+                                              )
+                                            : null}
 
-                                        <div className="postsGallery">
-                                          <div className="galleryComponents">
-                                            4
-                                          </div>
-                                          <div className="galleryComponents">
-                                            5
-                                          </div>
-                                          <div className="galleryComponents">
-                                            6
-                                          </div>
+                                          {clickModal ? (
+                                            <Post
+                                              handleClickPost={handleClickPost}
+                                            />
+                                          ) : null}
                                         </div>
-
-                                        <div className="postsGallery">
-                                          <div className="galleryComponents">
-                                            7
-                                          </div>
-                                          <div className="galleryComponents">
-                                            8
-                                          </div>
-                                          <div className="galleryComponents">
-                                            9
-                                          </div>
-                                        </div>
-                                      </div>
-
-                                      <div className="nextpageBtn">
-                                        {" "}
-                                        일단 버튼은 놔두기
+                                        <Pagination
+                                          pageSize={pageSize}
+                                          current={current}
+                                          total={data.length}
+                                          onChange={handleChange}
+                                        />
                                       </div>
                                     </TabPane>
                                     <TabPane tab="CAREER" key="3">
@@ -913,7 +912,9 @@ const Mypage = () => {
                                               (career) => {
                                                 return (
                                                   <li>
-                                                    {`${career.year.split("T")[0]}` +
+                                                    {`${
+                                                      career.year.split("T")[0]
+                                                    }` +
                                                       ` ${career.title}` +
                                                       ` / ` +
                                                       `${career.type}`}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
 import axios from "axios";
@@ -10,17 +10,23 @@ import {
 import "../styles/MypageEdit.css";
 import Iconlist from "../components/Iconlist";
 import Nav from "../components/Nav";
-import { 
-  CloseOutlined, 
-  SaveOutlined, 
-  DeleteOutlined, } from "@ant-design/icons";
+import { CloseOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 //import Footer from "../components/Footer";
 import { useMediaQuery } from "react-responsive";
 import FooterFixed from "../components/FooterFixed";
 import "antd/dist/antd.css";
-import { Button, Radio, Modal, Form, Input, Space, Select, DatePicker } from "antd";
-import { Tabs } from 'antd';
-import { StickyContainer, Sticky } from 'react-sticky';
+import {
+  Button,
+  Radio,
+  Modal,
+  Form,
+  Input,
+  Space,
+  Select,
+  DatePicker,
+} from "antd";
+import { Tabs } from "antd";
+import { StickyContainer, Sticky } from "react-sticky";
 import Footer from "../components/Footer";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
@@ -28,6 +34,12 @@ import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import DaumPostcode from "react-daum-postcode"; ///
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons';
 import moment from 'moment';
+import {
+  RemoveFileIcon,
+  FileMetaData,
+  PreviewContainer,
+} from "../components/file-upload/file-upload.styles";
+import { removePost } from "../actions/postAction";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
@@ -35,7 +47,11 @@ const { Option } = Select;
 const renderTabBar = (props, DefaultTabBar) => (
   <Sticky bottomOffset={80}>
     {({ style }) => (
-      <DefaultTabBar {...props} className="site-custom-tab-bar" style={{ ...style }} />
+      <DefaultTabBar
+        {...props}
+        className="site-custom-tab-bar"
+        style={{ ...style }}
+      />
     )}
   </Sticky>
 );
@@ -43,7 +59,6 @@ const renderTabBar = (props, DefaultTabBar) => (
 const onFinish = (values) => {
   // console.log('테스트', values);
 };
-
 
 const MypageEdit = ({ handeClickEditBtn }) => {
   const user = useSelector((user) => user.userInfoReducer);
@@ -65,10 +80,29 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [title, setTitle] = useState("");
   const [year, setYear] = useState("");
   const [write, setWrite] = useState(true);
+  const post = useSelector((post) => post.postInfoReducer);
+
+  const [userPost, setUserPost] = useState({});
+
   //const [upload, setUpload] = useState({});
 
   let s3Url = null;
   let result = null;
+
+  useEffect(() => {
+    const p = async () => {
+      await server // 유저의 포스트를 가져옴
+        .get(`/post/user/${user.data.userInfo.id}`)
+        .then((res) => {
+          setUserPost(res.data.data);
+          console.log(res.data.data);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
+    p();
+  }, [post]);
 
   const tagOptions = [
     { label: "드라마", value: "드라마" },
@@ -108,8 +142,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const initInputBox = async () => {
-    document.getElementById("formCareer_users_0_first").value = ""
-    document.getElementById("formCareer_users_0_last").value=""
+    document.getElementById("formCareer_users_0_first").value = "";
+    document.getElementById("formCareer_users_0_last").value = "";
   };
 
   const handleOk = async () => {
@@ -123,8 +157,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
     if (pwdLength < 9 || pwdLength > 20) {
       Modal.error({
-        title: '비밀번호 변경 실패',
-        content: '비밀번호는 9자 이상 20자 이하여야합니다!',
+        title: "비밀번호 변경 실패",
+        content: "비밀번호는 9자 이상 20자 이하여야합니다!",
       });
       pwd1 = "";
       pwd2 = "";
@@ -133,8 +167,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     }
     if (pwd1 !== pwd2) {
       Modal.error({
-        title: '비밀번호 변경 실패',
-        content: '비밀번호가 일치하지 않습니다!',
+        title: "비밀번호 변경 실패",
+        content: "비밀번호가 일치하지 않습니다!",
       });
       pwd1 = "";
       pwd2 = "";
@@ -170,7 +204,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       setTag(e);
     }
   };
-  
+
   // const onChangeTag = (e) => {
   //   console.log(e)
   //   if (e.target.value === "드라마") {
@@ -189,11 +223,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   // };
 
   const onCalChange = (date, dateString) => {
-    console.log('dateString: ' +dateString);
-    setYear({ 'year': dateString});
-
-  }
-  
+    console.log("dateString: " + dateString);
+    setYear({ year: dateString });
+  };
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -231,6 +263,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         ...recruiter.bAddress,
         street: event.target.value 
       }});
+
     }
   };
 
@@ -261,17 +294,16 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const isPc = useMediaQuery({
-    query : "(min-width:1024px)"
+    query: "(min-width:1024px)",
   });
 
   const isTablet = useMediaQuery({
-    query : "(min-width:768px) and (max-width:1023px)"
+    query: "(min-width:768px) and (max-width:1023px)",
   });
 
   const isMobile = useMediaQuery({
-    query : "(max-width:767px)"
+    query: "(max-width:767px)",
   });
-
 
   const handleClickSaveBtn = async () => {
     handeClickEditBtn(false);
@@ -287,6 +319,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       careers: user.data.userInfo.careers,
       password: password.password,
       role: user.data.userInfo.role
+
     };
 
     if(user.data.userInfo.role === "recruiter"){
@@ -305,7 +338,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       })
       .then((res) => {
         Modal.success({
-          content: '회원정보가 성공적으로 변경되었습니다',
+          content: "회원정보가 성공적으로 변경되었습니다",
         });
       })
       .catch((err) => {
@@ -370,6 +403,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       dob: new Date(dob),
       careers: user.data.userInfo.careers,
       role: user.data.userInfo.role
+
     };
 
     if(user.data.userInfo.role === "actor"){
@@ -397,8 +431,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     // 경로를 서버에 보내줘야한다.
 
     //그래서 그걸 받아서 다시 사진을 투척
-
-  }
+  };
 
   const handleClickConfirmBtn = () => {
     //document.getElementsByClassName("highlightDisplay")[1].value = "";
@@ -415,30 +448,52 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     }
   };
 
+  const handleClickDeleteBtn = async (post_id) => {
+    await server
+      .post(
+        `/post/${post_id}/delete`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200) {
+          dispatch(removePost(post_id));
+        }
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
   return (
     <>
-      {isPc && 
-      <>
-        <div className="blockhere"> </div>
-        <div className="mainPage">
-          <Nav />
-          <Iconlist />
-  
-          <div className="newblockPosition"> </div>
-  
-          <div className="middleSpace">
-            <div className="midContents">
-              <div className="buttonHeader">
-                <div className="profileTitleName"> 회원정보 수정</div>
-                <div>
-                  <SaveOutlined
-                    className="editButton"
-                    onClick={() => handleClickSaveBtn()}
-                  />
-                  <DeleteOutlined
-                    className="deleteButton"
-                    onClick={() => handleDeleteAccount()}
-                  />
+      {isPc && (
+        <>
+          <div className="blockhere"> </div>
+          <div className="mainPage">
+            <Nav />
+            <Iconlist />
+
+            <div className="newblockPosition"> </div>
+
+            <div className="middleSpace">
+              <div className="midContents">
+                <div className="buttonHeader">
+                  <div className="profileTitleName"> 회원정보 수정</div>
+                  <div>
+                    <SaveOutlined
+                      className="editButton"
+                      onClick={() => handleClickSaveBtn()}
+                    />
+                    <DeleteOutlined
+                      className="deleteButton"
+                      onClick={() => handleDeleteAccount()}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="midContentDownPart">
@@ -643,110 +698,170 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                       </div>
                       
                     </TabPane>
-                    <TabPane tab="POSTS" key="2" >
-                        <div>
-                          <div className="postsGallery">
-                            <div className="galleryComponents">1</div>
-                            <div className="galleryComponents">2</div>
-                            <div className="galleryComponents">3</div>
+                    <TabPane tab="POSTS" key="2">
+                          <div>
+                            <div className="postsGallery">
+                              {userPost.posts
+                                ? userPost.posts.map((post) => {
+                                    return (
+                                      <>
+                                        <div className="galleryComponents">
+                                          <PreviewContainer>
+                                            <div className="img-container">
+                                              <img
+                                                className="postGallery-img"
+                                                key={post._id}
+                                                src={post.media[0].path}
+                                              ></img>
+                                              <FileMetaData>
+                                                <aside>
+                                                  <RemoveFileIcon
+                                                    className="fas fa-trash-alt"
+                                                    onClick={() =>
+                                                      handleClickDeleteBtn(
+                                                        post._id
+                                                      )
+                                                    }
+                                                  />
+                                                </aside>
+                                              </FileMetaData>
+                                            </div>
+                                          </PreviewContainer>
+                                        </div>
+                                      </>
+                                    );
+                                  })
+                                : null}
+                            </div>
                           </div>
-  
-                          <div className="postsGallery">
-                            <div className="galleryComponents">4</div>
-                            <div className="galleryComponents">5</div>
-                            <div className="galleryComponents">6</div>
-                          </div>
-  
-                          <div className="postsGallery">
-                            <div className="galleryComponents">7</div>
-                            <div className="galleryComponents">8</div>
-                            <div className="galleryComponents">9</div>
-                          </div>
-                        </div>
-  
-                        <div className="nextpageBtn"> 일단 버튼은 놔두기</div>
-                    </TabPane>
-                      <TabPane tab="CAREER" key="3">
-                        <Form name="formCareer" onFinish={onFinish} autoComplete="off">
-                          <Form.List name="users" >
-                            {(fields, { add, remove }) => (
-                              <>
-                                {fields.map(({ key, name, fieldKey, ...restField }) => (
-                                  <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                                    <Form.Item
-                                      {...restField}
-                                      name={[name, 'first']}
-                                      fieldKey={[fieldKey, 'first']}
-                                      rules={[{ required: true, message: '타이틀을 입력해야합니다' }]}
-                                    >
-                                      <Input placeholder="Title" onChange={handleInputValue("title")}/>
-                                    </Form.Item>
-                                    <Form.Item
-                                      {...restField}
-                                      name={[name, 'last']}
-                                      fieldKey={[fieldKey, 'last']}
-                                      rules={[{ required: true, message: '연도를 입력해야합니다' }]}
-                                    >
-                                      <DatePicker onChange={onCalChange} style={{ width: '100%' }}/>
-                                    </Form.Item>
-                                    <Form.Item
-                                      {...restField}
-                                      name={[name, 'tag']}
-                                      fieldKey={[fieldKey, 'tag']}
-                                      rules={[{ required: false }]}
-                                    >
-                                      {/* <Input placeholder="tag" /> */}
-                                      <Select style={{ width: 110 }} onChange={onChangeTag}>
-                                        <Option value="드라마">드라마</Option>
-                                        <Option value="영화">영화</Option>
-                                        <Option value="뮤지컬">뮤지컬</Option>
-                                        <Option value="연극">연극</Option>
-                                        <Option value="광고">광고</Option>
-                                        <Option value="뮤직비디오">뮤직비디오</Option>
-                                      </Select>
-                                    </Form.Item>
-                                    {/* <Button type="primary" onClick={() => {
+                        </TabPane>
+                        <TabPane tab="CAREER" key="3">
+                          <Form
+                            name="formCareer"
+                            onFinish={onFinish}
+                            autoComplete="off"
+                          >
+                            <Form.List name="users">
+                              {(fields, { add, remove }) => (
+                                <>
+                                  {fields.map(
+                                    ({ key, name, fieldKey, ...restField }) => (
+                                      <Space
+                                        key={key}
+                                        style={{
+                                          display: "flex",
+                                          marginBottom: 8,
+                                        }}
+                                        align="baseline"
+                                      >
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "first"]}
+                                          fieldKey={[fieldKey, "first"]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message:
+                                                "타이틀을 입력해야합니다",
+                                            },
+                                          ]}
+                                        >
+                                          <Input
+                                            placeholder="Title"
+                                            onChange={handleInputValue("title")}
+                                          />
+                                        </Form.Item>
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "last"]}
+                                          fieldKey={[fieldKey, "last"]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message: "연도를 입력해야합니다",
+                                            },
+                                          ]}
+                                        >
+                                          <DatePicker
+                                            onChange={onCalChange}
+                                            style={{ width: "100%" }}
+                                          />
+                                        </Form.Item>
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "tag"]}
+                                          fieldKey={[fieldKey, "tag"]}
+                                          rules={[{ required: false }]}
+                                        >
+                                          {/* <Input placeholder="tag" /> */}
+                                          <Select
+                                            style={{ width: 110 }}
+                                            onChange={onChangeTag}
+                                          >
+                                            <Option value="드라마">
+                                              드라마
+                                            </Option>
+                                            <Option value="영화">영화</Option>
+                                            <Option value="뮤지컬">
+                                              뮤지컬
+                                            </Option>
+                                            <Option value="연극">연극</Option>
+                                            <Option value="광고">광고</Option>
+                                            <Option value="뮤직비디오">
+                                              뮤직비디오
+                                            </Option>
+                                          </Select>
+                                        </Form.Item>
+                                        {/* <Button type="primary" onClick={() => {
                                       remove(name)
                                       setWrite(true)}
                                     } danger>
                                       취소하기
                                     </Button> */}
-                                    <MinusCircleOutlined onClick={() => { 
-                                      remove(name) 
-                                      setWrite(true)
-                                      }}/>
-                                  </Space>
-                                  ))}
-                                    
-                                  { write ? (
+                                        <MinusCircleOutlined
+                                          onClick={() => {
+                                            remove(name);
+                                            setWrite(true);
+                                          }}
+                                        />
+                                      </Space>
+                                    )
+                                  )}
+
+                                  {write ? (
                                     <Form.Item>
-                                      <Button type="dashed" onClick={() => {
-                                        add()
-                                        setWrite(false) 
-                                        }} 
-                                        block icon={<PlusOutlined />}>
+                                      <Button
+                                        type="dashed"
+                                        onClick={() => {
+                                          add();
+                                          setWrite(false);
+                                        }}
+                                        block
+                                        icon={<PlusOutlined />}
+                                      >
                                         경력 추가하기
                                       </Button>
                                     </Form.Item>
-                                    ) : ( 
-                                      <>
-                                      </>
+                                  ) : (
+                                    <></>
                                   )}
-                                  
                                 </>
-                                )}
-                                </Form.List>
-                                <Form.Item>
-                                  <Button type="primary" htmlType="submit" onClick={()=>{
-                                    handleClickConfirmBtn()
-                                    initInputBox()
-                                    
-                                    }}>
-                                    저장하기
-                                  </Button>
-                                </Form.Item>
-                              </Form>
-                        
+                              )}
+                            </Form.List>
+                            <Form.Item>
+                              <Button
+                                type="primary"
+                                htmlType="submit"
+                                onClick={() => {
+                                  handleClickConfirmBtn();
+                                  initInputBox();
+                                }}
+                              >
+                                저장하기
+                              </Button>
+                            </Form.Item>
+                          </Form>
+
                           <span className="career-box">
                             {user.data.userInfo.careers.map((career) => {
                               return (
@@ -781,50 +896,51 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                             })}
                           </span>
                         </TabPane>
-                      <TabPane tab="LIKES" key="4">
-                        좋아요 했던 게시물들 모아보는 공간
-                      </TabPane>
-                      <TabPane tab="TAGGED" key="5">
-                        컨텐츠 준비 중입니다.
-                      </TabPane>
-                    </Tabs>
-                  </StickyContainer>
+                        <TabPane tab="LIKES" key="4">
+                          좋아요 했던 게시물들 모아보는 공간
+                        </TabPane>
+                        <TabPane tab="TAGGED" key="5">
+                          컨텐츠 준비 중입니다.
+                        </TabPane>
+                      </Tabs>
+                    </StickyContainer>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="newblockPosition2"> </div>
-  
-          <div className="rightSpace">
-            <div className="iconList2"> </div>
-          </div>
-        </div>
-        <Footer />
-      </>}
+            <div className="newblockPosition2"> </div>
 
-      
-      {isTablet && 
+            <div className="rightSpace">
+              <div className="iconList2"> </div>
+            </div>
+          </div>
+          <Footer />
+        </>
+      )}
+
+      {isTablet && (
         <>
-        <div className="blockhere"> </div>
-        <div className="mainPage">
-          <Nav />
-          <ResponsiveIconlistTablet />
-  
-          <div className="newblockPosition"> </div>
-  
-          <div className="middleSpace2">
-            <div className="midContents">
-              <div className="buttonHeader">
-                <div className="profileTitleName"> 회원정보 수정</div>
-                <div>
-                  <SaveOutlined
-                    className="editButton"
-                    onClick={() => handleClickSaveBtn()}
-                  />
-                  <DeleteOutlined
-                    className="deleteButton"
-                    onClick={() => handleDeleteAccount()}
-                  />
+          <div className="blockhere"> </div>
+          <div className="mainPage">
+            <Nav />
+            <ResponsiveIconlistTablet />
+
+            <div className="newblockPosition"> </div>
+
+            <div className="middleSpace2">
+              <div className="midContents">
+                <div className="buttonHeader">
+                  <div className="profileTitleName"> 회원정보 수정</div>
+                  <div>
+                    <SaveOutlined
+                      className="editButton"
+                      onClick={() => handleClickSaveBtn()}
+                    />
+                    <DeleteOutlined
+                      className="deleteButton"
+                      onClick={() => handleDeleteAccount()}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="midContentDownPart">
@@ -839,17 +955,31 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           alt=""
                           src={user.data.userInfo.mainPic}
                           className="testPic"
+
+                        </label>
+                        <input
+                          type="file"
+                          id="ex_file"
+                          accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
+                          onChange={handleprofileButton}
                         />
-                      </label>
-                      <input
-                        type="file"
-                        id="ex_file"
-                        accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
-                        onChange={handleprofileButton}
-                      />
+                      </div>
                     </div>
-                  </div>
-  
+
+                    <div className="fixedContent">
+                      <div className="nameTitle">{user.data.userInfo.name}</div>
+                      <ul>
+                        <strong>생년월일</strong>
+                        <li className="dob">{user.data.userInfo.dob}</li>
+                        <strong>이메일</strong>
+                        <li className="email">{user.data.userInfo.email}</li>
+                        <strong>소속사</strong>
+                        <li className="company">
+                          {user.data.userInfo.company}
+                        </li>
+                      </ul>
+                    </div>
+                  </div>  
                   <div className="fixedContent">
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
@@ -1022,108 +1152,159 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                       </div>
                       
                     </TabPane>
-                    <TabPane tab="POSTS" key="2" >
-                        <div>
-                          <div className="postsGallery">
-                            <div className="galleryComponents">1</div>
-                            <div className="galleryComponents">2</div>
-                            <div className="galleryComponents">3</div>
+                        <TabPane tab="POSTS" key="2">
+                          <div>
+                            <div className="postsGallery">
+                              {userPost.posts
+                                ? userPost.posts.map((post) => {
+                                    return (
+                                      <>
+                                        <div className="galleryComponents">
+                                          <img
+                                            className="postGallery-img"
+                                            key={post._id}
+                                            src={post.media[0].path}
+                                          ></img>
+                                          <RemoveFileIcon
+                                            className="fas fa-trash-alt"
+                                            onClick={() =>
+                                              handleClickDeleteBtn(post._id)
+                                            }
+                                          />
+                                        </div>
+                                      </>
+                                    );
+                                  })
+                                : null}
+                            </div>
                           </div>
-  
-                          <div className="postsGallery">
-                            <div className="galleryComponents">4</div>
-                            <div className="galleryComponents">5</div>
-                            <div className="galleryComponents">6</div>
-                          </div>
-  
-                          <div className="postsGallery">
-                            <div className="galleryComponents">7</div>
-                            <div className="galleryComponents">8</div>
-                            <div className="galleryComponents">9</div>
-                          </div>
-                        </div>
-  
-                        <div className="nextpageBtn"> 일단 버튼은 놔두기</div>
-                    </TabPane>
-                      <TabPane tab="CAREER" key="3">
-                      <Form name="formCareer" onFinish={onFinish} autoComplete="off">
-                        <Form.List name="users" >
-                          {(fields, { add, remove }) => (
-                            <>
-                              {fields.map(({ key, name, fieldKey, ...restField }) => (
-                                <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                                  <Form.Item
-                                    {...restField}
-                                    name={[name, 'first']}
-                                    fieldKey={[fieldKey, 'first']}
-                                    rules={[{ required: true, message: '타이틀을 입력해야합니다' }]}
-                                  >
-                                    <Input placeholder="Title" onChange={handleInputValue("title")}/>
-                                  </Form.Item>
-                                  <Form.Item
-                                    {...restField}
-                                    name={[name, 'last']}
-                                    fieldKey={[fieldKey, 'last']}
-                                    rules={[{ required: true, message: '연도를 입력해야합니다' }]}
-                                  >
-                                    <DatePicker onChange={onCalChange} style={{ width: '100%' }}/>
-                                  </Form.Item>
-                                  <Form.Item
-                                    {...restField}
-                                    name={[name, 'tag']}
-                                    fieldKey={[fieldKey, 'tag']}
-                                    rules={[{ required: false }]}
-                                  >
-                                    {/* <Input placeholder="tag" /> */}
-                                    <Select style={{ width: 110 }} onChange={onChangeTag}>
-                                      <Option value="드라마">드라마</Option>
-                                      <Option value="영화">영화</Option>
-                                      <Option value="뮤지컬">뮤지컬</Option>
-                                      <Option value="연극">연극</Option>
-                                      <Option value="광고">광고</Option>
-                                      <Option value="뮤직비디오">뮤직비디오</Option>
-                                    </Select>
-                                  </Form.Item>
-                                  {/* <Button type="primary" onClick={() => {
+                        </TabPane>
+                        <TabPane tab="CAREER" key="3">
+                          <Form
+                            name="formCareer"
+                            onFinish={onFinish}
+                            autoComplete="off"
+                          >
+                            <Form.List name="users">
+                              {(fields, { add, remove }) => (
+                                <>
+                                  {fields.map(
+                                    ({ key, name, fieldKey, ...restField }) => (
+                                      <Space
+                                        key={key}
+                                        style={{
+                                          display: "flex",
+                                          marginBottom: 8,
+                                        }}
+                                        align="baseline"
+                                      >
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "first"]}
+                                          fieldKey={[fieldKey, "first"]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message:
+                                                "타이틀을 입력해야합니다",
+                                            },
+                                          ]}
+                                        >
+                                          <Input
+                                            placeholder="Title"
+                                            onChange={handleInputValue("title")}
+                                          />
+                                        </Form.Item>
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "last"]}
+                                          fieldKey={[fieldKey, "last"]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message: "연도를 입력해야합니다",
+                                            },
+                                          ]}
+                                        >
+                                          <DatePicker
+                                            onChange={onCalChange}
+                                            style={{ width: "100%" }}
+                                          />
+                                        </Form.Item>
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "tag"]}
+                                          fieldKey={[fieldKey, "tag"]}
+                                          rules={[{ required: false }]}
+                                        >
+                                          {/* <Input placeholder="tag" /> */}
+                                          <Select
+                                            style={{ width: 110 }}
+                                            onChange={onChangeTag}
+                                          >
+                                            <Option value="드라마">
+                                              드라마
+                                            </Option>
+                                            <Option value="영화">영화</Option>
+                                            <Option value="뮤지컬">
+                                              뮤지컬
+                                            </Option>
+                                            <Option value="연극">연극</Option>
+                                            <Option value="광고">광고</Option>
+                                            <Option value="뮤직비디오">
+                                              뮤직비디오
+                                            </Option>
+                                          </Select>
+                                        </Form.Item>
+                                        {/* <Button type="primary" onClick={() => {
                                     remove(name)
                                     setWrite(true)}
                                   } danger>
                                     취소하기
                                   </Button> */}
-                                  <MinusCircleOutlined onClick={() => { 
-                                    remove(name) 
-                                    setWrite(true)
-                                    }}/>
-                                </Space>
-                                ))}
-                                   
-                                { write ? (
-                                  <Form.Item>
-                                    <Button type="dashed" onClick={() => {
-                                      add()
-                                      setWrite(false) 
-                                      }} 
-                                      block icon={<PlusOutlined />}>
-                                      경력 추가하기
-                                    </Button>
-                                  </Form.Item>
-                                  ) : ( 
-                                    <>
-                                    </>
-                                )}
-                                
-                              </>
+                                        <MinusCircleOutlined
+                                          onClick={() => {
+                                            remove(name);
+                                            setWrite(true);
+                                          }}
+                                        />
+                                      </Space>
+                                    )
+                                  )}
+
+                                  {write ? (
+                                    <Form.Item>
+                                      <Button
+                                        type="dashed"
+                                        onClick={() => {
+                                          add();
+                                          setWrite(false);
+                                        }}
+                                        block
+                                        icon={<PlusOutlined />}
+                                      >
+                                        경력 추가하기
+                                      </Button>
+                                    </Form.Item>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </>
                               )}
-                              </Form.List>
-                              <Form.Item>
-                                <Button type="primary" htmlType="submit" onClick={()=>{
-                                  handleClickConfirmBtn()
-                                  initInputBox()
-                                }}>
-                                  저장하기
-                                </Button>
-                              </Form.Item>
-                            </Form>
+                            </Form.List>
+                            <Form.Item>
+                              <Button
+                                type="primary"
+                                htmlType="submit"
+                                onClick={() => {
+                                  handleClickConfirmBtn();
+                                  initInputBox();
+                                }}
+                              >
+                                저장하기
+                              </Button>
+                            </Form.Item>
+                          </Form>
 
                           <span className="career-box">
                             {user.data.userInfo.careers.map((career) => {
@@ -1159,45 +1340,47 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                             })}
                           </span>
                         </TabPane>
-                      <TabPane tab="LIKES" key="4">
-                        좋아요 했던 게시물들 모아보는 공간
-                      </TabPane>
-                      <TabPane tab="TAGGED" key="5">
-                        컨텐츠 준비 중입니다.
-                      </TabPane>
-                    </Tabs>
-                  </StickyContainer>
+                        <TabPane tab="LIKES" key="4">
+                          좋아요 했던 게시물들 모아보는 공간
+                        </TabPane>
+                        <TabPane tab="TAGGED" key="5">
+                          컨텐츠 준비 중입니다.
+                        </TabPane>
+                      </Tabs>
+                    </StickyContainer>
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="responsiveNewblockPosition2"> </div>
           </div>
-          <div className="responsiveNewblockPosition2"> </div>
-        </div>
-        <FooterFixed />
-      </>}
+          <FooterFixed />
+        </>
+      )}
 
-      {isMobile &&
+      {isMobile && (
         <>
-        <div className="blockhere"> </div>
-        <div className="mainPage">
-          <ResponsiveNav />
-          <ResponsiveFooter />
-  
-          <div className="newblockPosition"> </div>
-  
-          <div className="middleSpace5">
-            <div className="midContents">
-              <div className="buttonHeader">
-                <div className="profileTitleName"> 회원정보 수정</div>
-                <div>
-                  <SaveOutlined
-                    className="editButton"
-                    onClick={() => handleClickSaveBtn()}
-                  />
-                  <DeleteOutlined
-                    className="deleteButton"
-                    onClick={() => handleDeleteAccount()}
-                  />
+          <div className="blockhere"> </div>
+          <div className="mainPage">
+            <ResponsiveNav />
+            <ResponsiveFooter />
+
+            <div className="newblockPosition"> </div>
+
+            <div className="middleSpace5">
+              <div className="midContents">
+                <div className="buttonHeader">
+                  <div className="profileTitleName"> 회원정보 수정</div>
+                  <div>
+                    <SaveOutlined
+                      className="editButton"
+                      onClick={() => handleClickSaveBtn()}
+                    />
+                    <DeleteOutlined
+                      className="deleteButton"
+                      onClick={() => handleDeleteAccount()}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="midContentDownPart2">
@@ -1212,18 +1395,19 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           alt=""
                           src={user.data.userInfo.mainPic}
                           className="testPic"
+
+                          />
+                        </label>
+                        <input
+                          type="file"
+                          id="ex_file"
+                          accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
+                          onChange={handleprofileButton}
                         />
-                      </label>
-                      <input
-                        type="file"
-                        id="ex_file"
-                        accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
-                        onChange={handleprofileButton}
-                      />
+                      </div>
                     </div>
-                  </div>
-  
-                  <div className="fixedContent">
+
+                    <div className="fixedContent">
                     <div className="nameTitle">{user.data.userInfo.name}</div>
                     <ul>
                       <strong>생년월일</strong>
@@ -1395,108 +1579,170 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                       </div>
                       
                     </TabPane>
-                    <TabPane tab="POSTS" key="2" >
-                        <div>
-                          <div className="postsGallery">
-                            <div className="galleryComponents">1</div>
-                            <div className="galleryComponents">2</div>
-                            <div className="galleryComponents">3</div>
+                        <TabPane tab="POSTS" key="2">
+                          <div>
+                            <div className="postsGallery">
+                              {userPost.posts
+                                ? userPost.posts.map((post) => {
+                                    return (
+                                      <>
+                                        <div className="galleryComponents">
+                                          <FileMetaData>
+                                            <span>{"abc"}</span>
+                                            <aside>
+                                              <RemoveFileIcon
+                                                className="fas fa-trash-alt"
+                                                onClick={() =>
+                                                  handleClickDeleteBtn(post._id)
+                                                }
+                                              />
+                                            </aside>
+                                          </FileMetaData>
+                                          <img
+                                            className="postGallery-img"
+                                            key={post._id}
+                                            src={post.media[0].path}
+                                          ></img>
+                                          {/* <RemoveFileIcon
+                                            className="fas fa-trash-alt"
+                                            onClick={() =>
+                                              handleClickDeleteBtn(post._id)
+                                            }
+                                          /> */}
+                                        </div>
+                                      </>
+                                    );
+                                  })
+                                : null}
+                            </div>
                           </div>
-  
-                          <div className="postsGallery">
-                            <div className="galleryComponents">4</div>
-                            <div className="galleryComponents">5</div>
-                            <div className="galleryComponents">6</div>
-                          </div>
-  
-                          <div className="postsGallery">
-                            <div className="galleryComponents">7</div>
-                            <div className="galleryComponents">8</div>
-                            <div className="galleryComponents">9</div>
-                          </div>
-                        </div>
-  
-                        <div className="nextpageBtn"> 일단 버튼은 놔두기</div>
-                    </TabPane>
-                      <TabPane tab="CAREER" key="3">
-                      <Form name="formCareer" onFinish={onFinish} autoComplete="off">
-                        <Form.List name="users" >
-                          {(fields, { add, remove }) => (
-                            <>
-                              {fields.map(({ key, name, fieldKey, ...restField }) => (
-                                <Space key={key} style={{ display: 'flex', marginBottom: 8 }} align="baseline">
-                                  <Form.Item
-                                    {...restField}
-                                    name={[name, 'first']}
-                                    fieldKey={[fieldKey, 'first']}
-                                    rules={[{ required: true, message: '타이틀을 입력해야합니다' }]}
-                                  >
-                                    <Input placeholder="Title" onChange={handleInputValue("title")}/>
-                                  </Form.Item>
-                                  <Form.Item
-                                    {...restField}
-                                    name={[name, 'last']}
-                                    fieldKey={[fieldKey, 'last']}
-                                    rules={[{ required: true, message: '연도를 입력해야합니다' }]}
-                                  >
-                                    <DatePicker onChange={onCalChange} style={{ width: '100%' }}/>
-                                  </Form.Item>
-                                  <Form.Item
-                                    {...restField}
-                                    name={[name, 'tag']}
-                                    fieldKey={[fieldKey, 'tag']}
-                                    rules={[{ required: false }]}
-                                  >
-                                    {/* <Input placeholder="tag" /> */}
-                                    <Select style={{ width: 110 }} onChange={onChangeTag}>
-                                      <Option value="드라마">드라마</Option>
-                                      <Option value="영화">영화</Option>
-                                      <Option value="뮤지컬">뮤지컬</Option>
-                                      <Option value="연극">연극</Option>
-                                      <Option value="광고">광고</Option>
-                                      <Option value="뮤직비디오">뮤직비디오</Option>
-                                    </Select>
-                                  </Form.Item>
-                                  {/* <Button type="primary" onClick={() => {
+                        </TabPane>
+                        <TabPane tab="CAREER" key="3">
+                          <Form
+                            name="formCareer"
+                            onFinish={onFinish}
+                            autoComplete="off"
+                          >
+                            <Form.List name="users">
+                              {(fields, { add, remove }) => (
+                                <>
+                                  {fields.map(
+                                    ({ key, name, fieldKey, ...restField }) => (
+                                      <Space
+                                        key={key}
+                                        style={{
+                                          display: "flex",
+                                          marginBottom: 8,
+                                        }}
+                                        align="baseline"
+                                      >
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "first"]}
+                                          fieldKey={[fieldKey, "first"]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message:
+                                                "타이틀을 입력해야합니다",
+                                            },
+                                          ]}
+                                        >
+                                          <Input
+                                            placeholder="Title"
+                                            onChange={handleInputValue("title")}
+                                          />
+                                        </Form.Item>
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "last"]}
+                                          fieldKey={[fieldKey, "last"]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message: "연도를 입력해야합니다",
+                                            },
+                                          ]}
+                                        >
+                                          <DatePicker
+                                            onChange={onCalChange}
+                                            style={{ width: "100%" }}
+                                          />
+                                        </Form.Item>
+                                        <Form.Item
+                                          {...restField}
+                                          name={[name, "tag"]}
+                                          fieldKey={[fieldKey, "tag"]}
+                                          rules={[{ required: false }]}
+                                        >
+                                          {/* <Input placeholder="tag" /> */}
+                                          <Select
+                                            style={{ width: 110 }}
+                                            onChange={onChangeTag}
+                                          >
+                                            <Option value="드라마">
+                                              드라마
+                                            </Option>
+                                            <Option value="영화">영화</Option>
+                                            <Option value="뮤지컬">
+                                              뮤지컬
+                                            </Option>
+                                            <Option value="연극">연극</Option>
+                                            <Option value="광고">광고</Option>
+                                            <Option value="뮤직비디오">
+                                              뮤직비디오
+                                            </Option>
+                                          </Select>
+                                        </Form.Item>
+                                        {/* <Button type="primary" onClick={() => {
                                     remove(name)
                                     setWrite(true)}
                                   } danger>
                                     취소하기
                                   </Button> */}
-                                  <MinusCircleOutlined onClick={() => { 
-                                    remove(name) 
-                                    setWrite(true)
-                                    }}/>
-                                </Space>
-                                ))}
-                                   
-                                { write ? (
-                                  <Form.Item>
-                                    <Button type="dashed" onClick={() => {
-                                      add()
-                                      setWrite(false) 
-                                      }} 
-                                      block icon={<PlusOutlined />}>
-                                      경력 추가하기
-                                    </Button>
-                                  </Form.Item>
-                                  ) : ( 
-                                    <>
-                                    </>
-                                )}
-                                
-                              </>
+                                        <MinusCircleOutlined
+                                          onClick={() => {
+                                            remove(name);
+                                            setWrite(true);
+                                          }}
+                                        />
+                                      </Space>
+                                    )
+                                  )}
+
+                                  {write ? (
+                                    <Form.Item>
+                                      <Button
+                                        type="dashed"
+                                        onClick={() => {
+                                          add();
+                                          setWrite(false);
+                                        }}
+                                        block
+                                        icon={<PlusOutlined />}
+                                      >
+                                        경력 추가하기
+                                      </Button>
+                                    </Form.Item>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </>
                               )}
-                              </Form.List>
-                              <Form.Item>
-                                <Button type="primary" htmlType="submit" onClick={()=>{
-                                  handleClickConfirmBtn()
-                                  initInputBox()
-                                }}>
-                                  저장하기
-                                </Button>
-                              </Form.Item>
-                            </Form>
+                            </Form.List>
+                            <Form.Item>
+                              <Button
+                                type="primary"
+                                htmlType="submit"
+                                onClick={() => {
+                                  handleClickConfirmBtn();
+                                  initInputBox();
+                                }}
+                              >
+                                저장하기
+                              </Button>
+                            </Form.Item>
+                          </Form>
                           <span className="career-box">
                             {user.data.userInfo.careers.map((career) => {
                               return (
@@ -1505,19 +1751,19 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                     <div className="careerDivide5">
                                       <div className="career-title2">
                                         제목: &nbsp; {career.title}
-                                        
                                         <CloseOutlined
-                                        className="career-delete-btn"
-                                        onClick={() => {
-                                          handleDeleteBtn(career._id);
-                                        }}
+                                          className="career-delete-btn"
+                                          onClick={() => {
+                                            handleDeleteBtn(career._id);
+                                          }}
                                         />
                                       </div>
                                       <div className="career-year3">
-                                        활동연도: &nbsp; {career.year.split("T")[0]}
+                                        활동연도: &nbsp;{" "}
+                                        {career.year.split("T")[0]}
                                       </div>
                                       <div className="blockhereplz"></div>
-                                      
+
                                       <div className="tag">
                                         <div className="tagPosition">태그:</div>
                                         <div>{career.type}</div>
@@ -1529,22 +1775,22 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                             })}
                           </span>
                         </TabPane>
-                      <TabPane tab="LIKES" key="4">
-                        좋아요 했던 게시물들 모아보는 공간
-                      </TabPane>
-                      <TabPane tab="TAGGED" key="5">
-                        컨텐츠 준비 중입니다.
-                      </TabPane>
-                    </Tabs>
-                  </StickyContainer>
+                        <TabPane tab="LIKES" key="4">
+                          좋아요 했던 게시물들 모아보는 공간
+                        </TabPane>
+                        <TabPane tab="TAGGED" key="5">
+                          컨텐츠 준비 중입니다.
+                        </TabPane>
+                      </Tabs>
+                    </StickyContainer>
+                  </div>
                 </div>
               </div>
             </div>
+            <div className="responsiveNewblockPosition2"> </div>
           </div>
-          <div className="responsiveNewblockPosition2"> </div>
-        </div>
-      </>}
-      
+        </>
+      )}
     </>
   );
 };
