@@ -169,9 +169,31 @@ export const FileMetaData = styled.div`
   }
 `;
 
+export const FileMetaData2 = styled.div`
+  display: ${(props) => (props.isImageFile ? "none" : "flex")};
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  border-radius: 6px;
+  height: 200px;
+  color: white;
+  font-weight: bold;
+
+  aside {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+  }
+`;
+
 export const RemoveFileIcon = styled.i`
   cursor: pointer;
-
+  color: rgb(54, 54, 54);
+  margin-bottom: 5px;
   &:hover {
     transform: scale(1.3);
   }

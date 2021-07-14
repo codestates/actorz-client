@@ -13,7 +13,7 @@ import heart from "../images/heart.png";
 import "../styles/Post.css";
 import { ServerStyleSheet } from "styled-components";
 import SendEmail from "../components/SendEmail";
-import "../styles/Postupload.css";
+import "../styles/Fileupload.css";
 
 const Post = ({ handleClickPost }) => {
   const [isEdit, setIsEdit] = useState(false);

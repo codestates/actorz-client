@@ -1,5 +1,30 @@
 #search-modal-container {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  width: 18rem;
+  height: 15px;
+  margin: 2rem 20rem 0rem 0rem;
+}
+
+div.search-box {
+  margin-top: 1rem;
+  border: solid 1px #c7c7c7;
+  border-radius: 0.2rem;
+  padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+}
+
+div.ant-row {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+input.ant-input {
+  margin-right: 2rem;
+}
+
+span.ant-input-group {
+  width: 22.6rem;
+}
+
+span.ant-input-group.ant-input-group-compact {
+  width: 4.3rem;
 }

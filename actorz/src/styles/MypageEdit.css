@@ -7,20 +7,23 @@
   flex-direction: row;
   flex-wrap: wrap;
   margin-left: 1rem;
-  text-align: center;
 }
-.postGallery-img,
-.img-container {
-  width: 9.6rem;
-  height: 10.5rem;
-  border-radius: 0.5rem;
+
+div.postsGallery {
+  margin-top: 2rem;
+}
+
+.postGallery-img {
+  width: 11rem;
+  height: 12rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgb(207, 207, 207);
 }
 
 .galleryComponents {
   width: 10rem;
   height: 8rem;
-  /* padding: 1rem; */
-  margin: 0rem 1.2rem 4rem 1.2rem;
+  margin: 0rem 0rem 4.5rem 1.5rem;
 }
 
 .ant-tabs-nav-wrap {

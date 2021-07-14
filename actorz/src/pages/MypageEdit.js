@@ -35,7 +35,7 @@ import {
 } from "../actions/userAction";
 import {
   RemoveFileIcon,
-  FileMetaData,
+  FileMetaData2,
   PreviewContainer,
 } from "../components/file-upload/file-upload.styles";
 
@@ -658,7 +658,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                                 key={post._id}
                                                 src={post.media[0].path}
                                               ></img>
-                                              <FileMetaData>
+                                              <FileMetaData2>
                                                 <aside>
                                                   <RemoveFileIcon
                                                     className="fas fa-trash-alt"
@@ -669,7 +669,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                                     }
                                                   />
                                                 </aside>
-                                              </FileMetaData>
+                                              </FileMetaData2>
                                             </div>
                                           </PreviewContainer>
                                         </div>
@@ -1085,17 +1085,27 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                     return (
                                       <>
                                         <div className="galleryComponents">
-                                          <img
-                                            className="postGallery-img"
-                                            key={post._id}
-                                            src={post.media[0].path}
-                                          ></img>
-                                          <RemoveFileIcon
-                                            className="fas fa-trash-alt"
-                                            onClick={() =>
-                                              handleClickDeleteBtn(post._id)
-                                            }
-                                          />
+                                          <PreviewContainer>
+                                            <div className="img-container">
+                                              <img
+                                                className="postGallery-img"
+                                                key={post._id}
+                                                src={post.media[0].path}
+                                              ></img>
+                                              <FileMetaData2>
+                                                <aside>
+                                                  <RemoveFileIcon
+                                                    className="fas fa-trash-alt"
+                                                    onClick={() =>
+                                                      handleClickDeleteBtn(
+                                                        post._id
+                                                      )
+                                                    }
+                                                  />
+                                                </aside>
+                                              </FileMetaData2>
+                                            </div>
+                                          </PreviewContainer>
                                         </div>
                                       </>
                                     );
@@ -1504,22 +1514,27 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                     return (
                                       <>
                                         <div className="galleryComponents">
-                                          <FileMetaData>
-                                            <span>{"abc"}</span>
-                                            <aside>
-                                              <RemoveFileIcon
-                                                className="fas fa-trash-alt"
-                                                onClick={() =>
-                                                  handleClickDeleteBtn(post._id)
-                                                }
-                                              />
-                                            </aside>
-                                          </FileMetaData>
-                                          <img
-                                            className="postGallery-img"
-                                            key={post._id}
-                                            src={post.media[0].path}
-                                          ></img>
+                                          <PreviewContainer>
+                                            <div className="img-container">
+                                              <img
+                                                className="postGallery-img"
+                                                key={post._id}
+                                                src={post.media[0].path}
+                                              ></img>
+                                              <FileMetaData2>
+                                                <aside>
+                                                  <RemoveFileIcon
+                                                    className="fas fa-trash-alt"
+                                                    onClick={() =>
+                                                      handleClickDeleteBtn(
+                                                        post._id
+                                                      )
+                                                    }
+                                                  />
+                                                </aside>
+                                              </FileMetaData2>
+                                            </div>
+                                          </PreviewContainer>
                                         </div>
                                       </>
                                     );
@@ -1604,6 +1619,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                             </Option>
                                           </Select>
                                         </Form.Item>
+
                                         <MinusCircleOutlined
                                           onClick={() => {
                                             remove(name);
