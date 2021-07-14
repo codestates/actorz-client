@@ -473,27 +473,26 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     <>
       {isPc && (
         <>
-          <div className="blockhere"> </div>
-          <div className="mainPage">
-            <Nav />
-            <Iconlist />
-
-            <div className="newblockPosition"> </div>
-
-            <div className="middleSpace">
-              <div className="midContents">
-                <div className="buttonHeader">
-                  <div className="profileTitleName"> 회원정보 수정</div>
-                  <div>
-                    <SaveOutlined
-                      className="editButton"
-                      onClick={() => handleClickSaveBtn()}
-                    />
-                    <DeleteOutlined
-                      className="deleteButton"
-                      onClick={() => handleDeleteAccount()}
-                    />
-                  </div>
+        <div className="blockhere"> </div>
+        <div className="mainPage">
+          <Nav />
+          <Iconlist />
+  
+          <div className="newblockPosition"> </div>
+  
+          <div className="middleSpace">
+            <div className="midContents">
+              <div className="buttonHeader">
+                <div className="profileTitleName"> 회원정보 수정</div>
+                <div>
+                  <SaveOutlined
+                    className="editButton"
+                    onClick={() => handleClickSaveBtn()}
+                  />
+                  <DeleteOutlined
+                    className="deleteButton"
+                    onClick={() => handleDeleteAccount()}
+                  />
                 </div>
               </div>
               <div className="midContentDownPart">
