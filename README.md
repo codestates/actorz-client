@@ -77,4 +77,4 @@ BACK-END <br>
 # UI Design 
 # System Architecture
 
-![header](https://capsule-render.vercel.app/api?type=Waving&text=Actorz&animation=twinkling&color=gradient&height=150)
+![](https://github.com/codestates/actorz-client/blob/master/blob/main/img/systemArchitecture_simple.jpeg)
