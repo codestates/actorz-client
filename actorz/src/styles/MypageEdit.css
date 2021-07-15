@@ -3,26 +3,27 @@
 
 .postsGallery {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-direction: row;
   flex-wrap: wrap;
-}
-.postGallery-img {
-  width: 9.6rem;
-  height: 10.5rem;
-  border-radius: 0.5rem;
+  margin-left: 1rem;
 }
 
-.galleryComponents {
-  width: 150px;
-  height: 150px;
+div.postsGallery {
+  margin-top: 2rem;
+}
+
+.postGallery-img {
+  width: 11rem;
+  height: 12rem;
+  border-radius: 0.3rem;
+  border: 1px solid rgb(207, 207, 207);
 }
 
 .galleryComponents {
   width: 10rem;
   height: 8rem;
-  /* padding: 1rem; */
-  margin-right: 0.5rem;
-  margin-bottom: 4rem;
+  margin: 0rem 0rem 4.5rem 1.5rem;
 }
 
 .ant-tabs-nav-wrap {
@@ -63,8 +64,55 @@
   border: 0;
 }
 
+.profileImgEdit {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.profileImgEditText {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: #000000;
+
+  /* flex: 1; */
+  border-radius: 70%;
+  margin-bottom: 0.5rem;
+  object-fit: cover;
+}
+
+.profileImgEditTextText {
+  color: white;
+  font-size: 1.2em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+/* 프로필 이미지 수정 css 반투명 검은색 hover */
+.profileImgContainer {
+  position: relative;
+}
+
+.profileImgContainer:hover .profileImgEdit {
+  opacity: 0.7;
+}
+
+.profileImgContainer:hover .profileImgEditText {
+  opacity: 0.7;
+}
+
 .testPic:hover {
-  background-color: lime;
   position: relative;
   overflow: hidden;
 }
@@ -90,7 +138,7 @@
 
 .highlightDisplay {
   border-bottom: 1px solid #e0e0e0;
-  background-color: rgb(255, 230, 0);
+  background-color: rgb(222, 239, 255);
   margin-left: -0.2rem;
 }
 

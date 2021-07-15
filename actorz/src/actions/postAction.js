@@ -2,6 +2,7 @@ export const GET_ALL_POST_INFO = "GET_ALL_POST_INFO";
 export const EDIT_POST_INFO = "EDIT_POST_INFO";
 export const REMOVE_POST_PHOTO = "REMOVE_POST_PHOTO";
 export const EDIT_LIKE = "EDIT_LIKE";
+export const REMOVE_POST = "REMOVE_POST";
 
 export const getAllPostInfo = (allPostInfo) => {
   return {
@@ -36,6 +37,15 @@ export const editLike = (post_id, like) => {
     payload: {
       post_id: post_id,
       like: like,
+    },
+  };
+};
+
+export const removePost = (post_id) => {
+  return {
+    type: REMOVE_POST,
+    payload: {
+      post_id,
     },
   };
 };

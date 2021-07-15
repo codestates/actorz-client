@@ -33,6 +33,7 @@ const Nav = ({ handleClickFiltering }) => {
           persistor.purge();
           console.log("logout success!");
           localStorage.removeItem("accessToken");
+          localStorage.removeItem("id");
           window.location = "/mainpage";
         }
       })
@@ -41,22 +42,12 @@ const Nav = ({ handleClickFiltering }) => {
       });
   };
 
-  const handleClickSignin = () => {
-    setClickSignup(false);
-    if (clickSignin) {
-      setClickSignin(false);
-    } else {
-      setClickSignin(true);
-    }
+  const handleClickSignin = (bool) => {
+    setClickSignin(bool);
   };
 
-  const handleClickSignup = () => {
-    setIsLogin(false);
-    if (clickSignup) {
-      setClickSignup(false);
-    } else {
-      setClickSignup(true);
-    }
+  const handleClickSignup = (bool) => {
+    setClickSignup(bool);
   };
 
   // useEffect( async () => {
@@ -117,7 +108,7 @@ const Nav = ({ handleClickFiltering }) => {
                 <Button
                   variant="outlined"
                   className="navSignInBtn"
-                  onClick={handleClickSignin}
+                  onClick={() => handleClickSignin(true)}
                 >
                   Sign in
                 </Button>
@@ -125,7 +116,7 @@ const Nav = ({ handleClickFiltering }) => {
                 <Button
                   variant="outlined"
                   className="navSignInBtn"
-                  onClick={handleClickSignup}
+                  onClick={() => handleClickSignup(true)}
                 >
                   Sign up
                 </Button>

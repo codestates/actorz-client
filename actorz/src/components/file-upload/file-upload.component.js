@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+
 import {
   FileUploadContainer,
   FormField,
@@ -13,7 +14,7 @@ import {
   RemoveFileIcon,
   InputLabel,
 } from "./file-upload.styles";
-import "../../styles/Postupload.css";
+import "../../styles/Fileupload.css";
 import Loading from "../loading";
 import { Modal } from "antd";
 
@@ -26,6 +27,7 @@ const convertNestedObjectToArray = (nestedObj) =>
 const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 
 const FileUpload = ({
+  isMobile,
   label,
   updateFilesCb,
   updateContentCb,
@@ -36,6 +38,7 @@ const FileUpload = ({
   const [files, setFiles] = useState({});
   const [genre, setGenre] = useState("");
   const [desc, setDesc] = useState("");
+  const [modalClassName, setModalClassName] = useState("upload-modal-container");
 
   const handleUploadBtnClick = () => {
     fileInputField.current.click();
@@ -48,10 +51,13 @@ const FileUpload = ({
           return { file };
         }
         files[file.name] = file;
-      }else{
+      } else {
         Modal.error({
-          title: '업로드 실패',
-          content: `파일 하나당 ${maxFileSizeInBytes / 1000 / 1000}MB을 초과 할 수 없습니다`,
+          getContainer: "upload-modal-container",
+          title: "업로드 실패",
+          content: `파일 하나당 ${
+            maxFileSizeInBytes / 1000 / 1000
+          }MB을 초과 할 수 없습니다`,
         });
       }
     }
@@ -87,31 +93,36 @@ const FileUpload = ({
 
   const handleOverFiles = () => {
     Modal.error({
-      title: '업로드 실패',
-      content: '파일이 5개를 초과 할 수 없습니다.',
+      getContainer: "upload-modal-container",
+      title: "업로드 실패",
+      content: "파일이 4개를 초과 할 수 없습니다.",
     });
     setFiles({});
   };
 
   useEffect(() => {
-    updateContentCb(desc, "content")
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    updateContentCb(desc, "content");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [desc]);
 
   useEffect(() => {
-    updateContentCb(genre, "genre")
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    updateContentCb(genre, "genre");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genre]);
 
   return (
     <>
-      <div id="upload-modal-background"
-        onClick={() => otherProps.handleClickUpload(false)} >
-        <div id="upload-modal-container"
-        onClick={(event) => event.stopPropagation()}>
+      <div
+        id="upload-modal-background"
+        onClick={() => otherProps.handleClickUpload(false)}
+      >
+        <div
+          id="upload-modal-container"
+          onClick={(event) => event.stopPropagation()}
+        >
           <FileUploadContainer>
             <InputLabel>
-              포트폴리오에 올릴 사진 또는 동영상을 선택해주세요
+              사진 또는 동영상을 선택해주세요
             </InputLabel>
             <DragDropText>Drag and drop your files anywhere or</DragDropText>
             <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
@@ -129,40 +140,42 @@ const FileUpload = ({
             <FilePreviewContainer>
               {/* <span>To Upload</span> */}
               <PreviewList>
-                {Object.keys(files).length > 5
-                ? handleOverFiles()
-                : Object.keys(files).map((fileName, index) => {
-                  let file = files[fileName];
-                  let isMediaFile = file.type.split("/")[0] === "image" || "video";
-                  let isImageFile = file.type.split("/")[0] === "image";
-                  return (
-                    <PreviewContainer key={fileName}>
-                      <div>
-                        {isMediaFile && (isImageFile ?
-                          <ImagePreview
-                            src={URL.createObjectURL(file)}
-                            alt={`file preview ${index}`}
-                          />
-                          :
-                          <VideoPreview 
-                          src={URL.createObjectURL(file)}
-                          alt={`file preview ${index}`}
-                          />
-                          )}
-                        <FileMetaData isMediaFile={isMediaFile}>
-                          <span>{file.name}</span>
-                          <aside>
-                            <span>{convertBytesToKB(file.size)} kb</span>
-                            <RemoveFileIcon
-                              className="fas fa-trash-alt"
-                              onClick={() => removeFile(fileName)}
-                            />
-                          </aside>
-                        </FileMetaData>
-                      </div>
-                    </PreviewContainer>
-                  );
-                })}
+                {Object.keys(files).length > 4
+                  ? handleOverFiles()
+                  : Object.keys(files).map((fileName, index) => {
+                      let file = files[fileName];
+                      let isMediaFile =
+                        file.type.split("/")[0] === "image" || "video";
+                      let isImageFile = file.type.split("/")[0] === "image";
+                      return (
+                        <PreviewContainer key={fileName}>
+                          <div>
+                            {isMediaFile &&
+                              (isImageFile ? (
+                                <ImagePreview
+                                  src={URL.createObjectURL(file)}
+                                  alt={`file preview ${index}`}
+                                />
+                              ) : (
+                                <VideoPreview
+                                  src={URL.createObjectURL(file)}
+                                  alt={`file preview ${index}`}
+                                />
+                              ))}
+                            <FileMetaData isMediaFile={isMediaFile}>
+                              <span>{file.name}</span>
+                              <aside>
+                                <span>{convertBytesToKB(file.size)} kb</span>
+                                <RemoveFileIcon
+                                  className="fas fa-trash-alt"
+                                  onClick={() => removeFile(fileName)}
+                                />
+                              </aside>
+                            </FileMetaData>
+                          </div>
+                        </PreviewContainer>
+                      );
+                    })}
               </PreviewList>
             </FilePreviewContainer>
           </FileUploadContainer>
@@ -174,7 +187,7 @@ const FileUpload = ({
               onChange={handleInputValue("desc")}
             />
 
-            <div className="genre">
+            <div className="genre" style={{maxWidth:"100%", paddingRight:"1rem"}}>
               <input
                 type="radio"
                 name="genre"
@@ -222,14 +235,15 @@ const FileUpload = ({
 
           <button
             className="cancel-btn"
+            style={{marginLeft: "1em"}}
             onClick={() => otherProps.handleClickUpload(false)}
           >
             cancel
           </button>
-          <button type="submit" className="upload-btn">
+          <button type="submit" className="upload-btn" style={{marginRight: "1em"}}>
             upload
           </button>
-          {otherProps.isLoading ? (<Loading />) : null}
+          {otherProps.isLoading ? <Loading /> : null}
         </div>
       </div>
     </>

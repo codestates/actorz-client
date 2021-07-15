@@ -6,19 +6,21 @@ import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
 import AddressModal from "./AddressModal";
+import { DatePicker } from "antd";
 
-import CalendarDob from "./CalendarDob";
 
 import "../styles/SignupModal.css";
 
 
-const Signup = ({ handleClickSignup, handleClickSignin }) => {
+const Signup = ({ handleClickSignup, handleClickSignin, isMobile }) => {
   const [dob, setDob] = useState("");
   const [addr, setAddr] = useState({
     city:"",
     street:"",
     zipCode:""
   });
+
+  const [buttonDisable, setButtonDisable] = useState(false);
 
   const [actorSignup, setActorSignup] = useState({});
   const [recruiterSignup, setrecruiterSignup] = useState({});
@@ -29,6 +31,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
 
   const handleClickClose = () => {
     handleClickSignup(false);
+    handleClickSignin(false);
   };
 
   const handleInputActorValue = (key) => (event) => {
@@ -59,6 +62,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
 
   const handleClickActorSignupBtn = async () => {
     setLoading(true);
+    setButtonDisable(true);
     const { email, password, name, company, gender } = actorSignup;
     try {
       if (
@@ -93,10 +97,14 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               })
               .then((res) => {
                 if (res.status === 200) {
-                  dispatch(getUserInfo(res.data.data.userInfo));
+                  dispatch(getUserInfo({
+                    ...res.data.data.userInfo,
+                    dob: res.data.data.userInfo.dob.toString().split("T")[0]
+                  }));
                   Modal.success({
                     content: '회원가입에 성공하였습니다!',
                   });
+
                   //alert("회원가입에 성공하였습니다!");
                 }
               })
@@ -109,10 +117,12 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
             }   
         });
       } else {
+        setButtonDisable(false);
         setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch (err) {
+      setButtonDisable(false);
       setLoading(false);
       if (err.message === "Request failed with status code 409") {
         Modal.error({
@@ -126,9 +136,11 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
     }
+    setButtonDisable(false);
   };
 
   const handleClickrecruiterSignupBtn = async () => {
+    setButtonDisable(true);
     setLoading(true);
     const {
       email,
@@ -185,34 +197,43 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               })
               .then((res) => {
                 if (res.status === 200) {
-                  dispatch(getUserInfo(res.data.data.userInfo));
+                  dispatch(getUserInfo({
+                    ...res.data.data.userInfo,
+                    dob: res.data.data.userInfo.dob.toString().split("T")[0]
+                  }));
                 }
+                handleClickClose();
                 Modal.success({
                   content: '회원가입에 성공하였습니다!',
                 });
                 //alert("회원가입에 성공하였습니다!");
               })
               .catch((err) => {
+                setButtonDisable(false);
                 setLoading(false);
                 throw err;
               });
               
               setLoading(false);
+              setButtonDisable(false);
               handleClickClose();
             }
           })
         
       } else {
+        setButtonDisable(false);
         setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch {
+      setButtonDisable(false);
       setLoading(false);
       Modal.error({
         content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요.',
       });
       //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
+    setButtonDisable(false);
   };
 
   const handleClickRadio = (event) => {
@@ -305,9 +326,19 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       </div>
                     </div>
                     <div className="modal-group-signup">
-                      <div className="importEffect">*</div>
-                      <div>
-                        <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
+                    <div className="importEffect">*</div>
+                      <div style={{alignItems:"left", maxWidth:"88%"}}>
+                        <DatePicker 
+                        placeholder="생년월일"
+                        popupStyle={{
+                          position:"relative",
+                          top:"10em"
+                        }}
+                        getPopupContainer={(triggerNode) => {
+                          return triggerNode.parentNode;
+                        }}
+                        onChange={(date, dateString) => {setDob(date)}} 
+                        style={{maxWidth:"92%"}}></DatePicker>
                       </div>
                     </div>
 
@@ -327,6 +358,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       {err ? <div className="err-message">{err}</div> : null}
                     </div>
                     <button
+                      disabled={buttonDisable}
                       className="btn-login"
                       type="submit"
                       onClick={handleClickActorSignupBtn}
@@ -345,7 +377,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       </div>
                       <div
                         className="movetoSignUpBtn"
-                        onClick={() => handleClickSignin(true)}
+                        onClick={() => {
+                          handleClickSignup(false)
+                          handleClickSignin(true)}
+                        }
                       >
                         로그인 하러 하기
                       </div>
@@ -386,8 +421,18 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       </div>
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
-                        <div>
-                          <CalendarDob dob={dob} setDob={setDob}></CalendarDob>
+                        <div style={{alignItems:"left", maxWidth:"88%"}}>
+                          <DatePicker 
+                          placeholder="생년월일"
+                          popupStyle={{
+                            position:"relative",
+                            top:"10em"
+                          }}
+                          getPopupContainer={(triggerNode) => {
+                            return triggerNode.parentNode;
+                          }}
+                          onChange={(date, dateString) => {setDob(date)}} 
+                          style={{maxWidth:"92%"}}></DatePicker>
                         </div>
                       </div>
                       <div className="modal-group-signup">
@@ -401,7 +446,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         </div>
                       </div>
 
-                      <AddressModal setAddr={setAddr} addr={addr}></AddressModal>
+                      <AddressModal isMobile={isMobile} setAddr={setAddr} addr={addr}></AddressModal>
 
                       <div className="modal-group-signup">
                         <div className="importEffect2">&nbsp;&nbsp;</div>
@@ -450,6 +495,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       </div>
                       {err ? <div className="err-message">{err}</div> : null}
                       <button
+                        disabled={buttonDisable}
                         className="btn-login"
                         type="submit"
                         onClick={handleClickrecruiterSignupBtn}
@@ -469,7 +515,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       </div>
                       <div
                         className="movetoSignUpBtn"
-                        onClick={() => handleClickSignin(true)}
+                        onClick={() => {
+                          handleClickSignup(false)
+                          handleClickSignin(true)
+                        }}
                       >
                         로그인 하러 하기
                       </div>

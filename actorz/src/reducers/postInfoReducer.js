@@ -3,6 +3,7 @@ import {
   EDIT_POST_INFO,
   REMOVE_POST_PHOTO,
   EDIT_LIKE,
+  REMOVE_POST,
 } from "../actions/postAction";
 import { postInitState } from "./postInitState";
 
@@ -22,7 +23,6 @@ const postInfoReducer = (state = postInitState, action) => {
           return el._id !== action.payload.img_id;
         }),
       });
-
       return {
         data: {
           data: { posts: { posts: [filteredPhoto] } },
@@ -33,7 +33,6 @@ const postInfoReducer = (state = postInitState, action) => {
       const editedPost = Object.assign({}, state.data.data.posts, {
         posts: [action.payload],
       });
-
       return {
         data: {
           data: { posts: editedPost },
@@ -42,15 +41,29 @@ const postInfoReducer = (state = postInitState, action) => {
 
     case EDIT_LIKE:
       const copied = { ...state };
-
-      // 좋아요를 누른 포스트가 몇 번째 포스트인지
       let idx = state.data.data.posts.posts.findIndex((el) => {
         return el._id === action.payload.post_id;
       });
-
       copied.data.data.posts.posts[idx].likes = action.payload.like;
-
       return copied;
+
+    case REMOVE_POST:
+      const copiedPost = { ...state };
+      console.log(state);
+
+      const filt = copiedPost.data.data.posts.posts.filter((post) => {
+        return post._id !== action.payload.post_id;
+      });
+      console.log(filt);
+
+      return { data: { data: { posts: { posts: filt } } } };
+
+    // const result = Object.assign({}, state.data.data.posts.posts, {
+    //   data: state.data.data.posts.posts.filter((post) => {
+    //     return post._id !== action.payload.post_id;
+    //   }),
+    // });
+    //return { data: { posts: result } };
 
     default:
       return state;

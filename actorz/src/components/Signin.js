@@ -9,7 +9,7 @@ import Loading from "../components/loading";
 import "../styles/SigninModal.css";
 import { Modal } from 'antd';
 
-const Signin = ({ handleClickSignin, handleClickSignup }) => {
+const Signin = ({ handleClickSignin, handleClickSignup, isMobile }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setError] = useState("");
@@ -17,6 +17,10 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
 
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
+
+  const handleClickClose = () => {
+    handleClickSignin(false);
+  };
 
   const handleInputValue = (key) => (event) => {
     if (key === "email") {
@@ -54,7 +58,10 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           .then((res) => {
             if (res.status === 200) {
               console.log(res.data.data.userInfo)
-              dispatch(getUserInfo(res.data.data.userInfo));
+              dispatch(getUserInfo({
+                ...res.data.data.userInfo,
+                dob: res.data.data.userInfo.dob.toString().split("T")[0]
+              }));
             }
           })
           .catch((err) => {
@@ -69,22 +76,19 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
       setLoading(false);
       if (err.message === "Request failed with status code 401") {
         Modal.warning({
+          getContainer: document.getElementById("modal-container"),
           content: '등록되지 않은 회원이거나 잘못된 비밀번호 입니다.',
         });
         //alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
       } else {
         Modal.error({
+          getContainer: document.getElementById("modal-container"),
           content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
     }
   };
-
-  const handleClickClose = () => {
-    handleClickSignin(false);
-  };
-
   return (
     <>
       <center>
@@ -149,7 +153,10 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
                     <div
                       className="movetoSignUpBtn"
-                      onClick={() => handleClickSignup(true)}
+                      onClick={() => {
+                        handleClickSignin(false);
+                        handleClickSignup(true);
+                      }}
                     >
                       회원가입 하러 하기
                     </div>

@@ -1,9 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode"; ///
 
-const AddressModal = ({ addr, setAddr }) => {
+const AddressModal = ({ addr, setAddr, isMobile }) => {
   const [addPopUp, setAddPopUp] = useState(false);
-  const [extras, setExtras] = useState("");
+  const [boxHeight, setBoxHeight] = useState("80%");
+  const [boxWidth, setBoxWidth] = useState("90%");
+  const [boxPosition, setBoxPosition] = useState("50%");
+
+  useEffect(() => {
+    if(isMobile){
+      setBoxHeight("100%");
+      setBoxWidth("100%");
+      setBoxPosition("0%");
+    }else{
+      setBoxHeight("80%");
+      setBoxWidth("90%");
+      setBoxPosition("50%");
+    }
+  },[isMobile]);
 
   const handleOpenAdd = () => {
     setAddPopUp(true);
@@ -45,15 +59,15 @@ const AddressModal = ({ addr, setAddr }) => {
           <DaumPostcode style={{
             display: "block",
             position: "absolute",
-            top: "50%",
-            width: "90%",
-            height: "80%",
+            top: boxPosition,
+            width: boxWidth,
+            height: boxHeight,
             padding: "0.7em",
           }} 
           onComplete={handleAddressComplete} 
           />
           ) : null
-        }
+      }
       <div className="modal-group-signup">
         <div className="importEffect">*</div>
         <div>
