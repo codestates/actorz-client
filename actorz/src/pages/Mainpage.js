@@ -248,7 +248,8 @@ const Mainpage = () => {
                                 muted="muted"
                                 loop="loop"
                                 className="video"
-                              >
+                                style={{width:"100%", margin:0}}
+                                >
                                 <source
                                   src={post.media[0].path}
                                   className="exampleIMG"
@@ -333,17 +334,13 @@ const Mainpage = () => {
             </div>
           </div>
 
-          <Footer />
-          {modalSocialSignup ? (
-            <SocialSignup
-              oauthSignup={oauthSignup}
-              modalSocialClose={() => {
-                setModalSocialSignup(false);
-              }}
-            ></SocialSignup>
-          ) : null}
-        </>
-      )}
+        <Footer />
+        {
+          modalSocialSignup ? (
+            <SocialSignup isMobile={false} oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
+          ) : null
+        }
+      </>)}
 
       {isTablet && (
         <>
@@ -368,12 +365,25 @@ const Mainpage = () => {
                             <div className="bottom">
                               <HeartOutlined className="testIcon" />
                             </div>
-                            {post.media[0] ? (
+                            {post.media[0].type === "img" ? (
                               <Image
                                 src={post.media[0].path}
                                 className="exampleIMG"
                               />
-                            ) : null}{" "}
+                            ) : (
+                              <video
+                                autoPlay="autoplay"
+                                muted="muted"
+                                loop="loop"
+                                className="video"
+                                style={{width:"100%", margin:0}}
+                                >
+                                <source
+                                  src={post.media[0].path}
+                                  className="exampleIMG"
+                                ></source>
+                              </video>
+                            )}
                             {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                           </div>
                         </div>
@@ -454,6 +464,7 @@ const Mainpage = () => {
 
           {modalSocialSignup ? (
             <SocialSignup
+              isMobile={false}
               oauthSignup={oauthSignup}
               modalSocialClose={() => {
                 setModalSocialSignup(false);
@@ -486,12 +497,25 @@ const Mainpage = () => {
                             <div className="bottom">
                               <HeartOutlined className="testIcon" />
                             </div>
-                            {post.media[0] ? (
+                            {post.media[0].type === "img" ? (
                               <Image
                                 src={post.media[0].path}
                                 className="exampleIMG"
                               />
-                            ) : null}{" "}
+                            ) : (
+                              <video
+                                autoPlay="autoplay"
+                                muted="muted"
+                                loop="loop"
+                                className="video"
+                                style={{width:"100%", margin:0}}
+                                >
+                                <source
+                                  src={post.media[0].path}
+                                  className="exampleIMG"
+                                ></source>
+                              </video>
+                            )}
                             {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                           </div>
                         </div>
@@ -576,6 +600,7 @@ const Mainpage = () => {
 
           {modalSocialSignup ? (
             <SocialSignup
+              isMobile={true}
               oauthSignup={oauthSignup}
               modalSocialClose={() => {
                 setModalSocialSignup(false);

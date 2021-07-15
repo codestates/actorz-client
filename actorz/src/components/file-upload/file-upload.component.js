@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
+
 import {
   FileUploadContainer,
   FormField,
@@ -13,7 +14,7 @@ import {
   RemoveFileIcon,
   InputLabel,
 } from "./file-upload.styles";
-import "../../styles/Postupload.css";
+import "../../styles/Fileupload.css";
 import Loading from "../loading";
 import { Modal } from "antd";
 
@@ -26,6 +27,7 @@ const convertNestedObjectToArray = (nestedObj) =>
 const convertBytesToKB = (bytes) => Math.round(bytes / KILO_BYTES_PER_BYTE);
 
 const FileUpload = ({
+  isMobile,
   label,
   updateFilesCb,
   updateContentCb,
@@ -36,6 +38,7 @@ const FileUpload = ({
   const [files, setFiles] = useState({});
   const [genre, setGenre] = useState("");
   const [desc, setDesc] = useState("");
+  const [modalClassName, setModalClassName] = useState("upload-modal-container");
 
   const handleUploadBtnClick = () => {
     fileInputField.current.click();
@@ -50,6 +53,7 @@ const FileUpload = ({
         files[file.name] = file;
       } else {
         Modal.error({
+          getContainer: "upload-modal-container",
           title: "업로드 실패",
           content: `파일 하나당 ${
             maxFileSizeInBytes / 1000 / 1000
@@ -89,6 +93,7 @@ const FileUpload = ({
 
   const handleOverFiles = () => {
     Modal.error({
+      getContainer: "upload-modal-container",
       title: "업로드 실패",
       content: "파일이 5개를 초과 할 수 없습니다.",
     });
@@ -117,7 +122,7 @@ const FileUpload = ({
         >
           <FileUploadContainer>
             <InputLabel>
-              포트폴리오에 올릴 사진 또는 동영상을 선택해주세요
+              사진 또는 동영상을 선택해주세요
             </InputLabel>
             <DragDropText>Drag and drop your files anywhere or</DragDropText>
             <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
@@ -182,7 +187,7 @@ const FileUpload = ({
               onChange={handleInputValue("desc")}
             />
 
-            <div className="genre">
+            <div className="genre" style={{maxWidth:"100%", paddingRight:"1rem"}}>
               <input
                 type="radio"
                 name="genre"
@@ -230,11 +235,12 @@ const FileUpload = ({
 
           <button
             className="cancel-btn"
+            style={{marginLeft: "1em"}}
             onClick={() => otherProps.handleClickUpload(false)}
           >
             cancel
           </button>
-          <button type="submit" className="upload-btn">
+          <button type="submit" className="upload-btn" style={{marginRight: "1em"}}>
             upload
           </button>
           {otherProps.isLoading ? <Loading /> : null}

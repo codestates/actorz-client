@@ -39,6 +39,8 @@ import {
   PreviewContainer,
 } from "../components/file-upload/file-upload.styles";
 
+import { persistor } from "../store/store";
+
 const { TabPane } = Tabs;
 const { Option } = Select;
 
@@ -73,6 +75,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [year, setYear] = useState("");
   const [write, setWrite] = useState(true);
   const [userPost, setUserPost] = useState({});
+  const [deleteUserModal, setDeleteUserModal] = useState(false);
+  //const [upload, setUpload] = useState({});
+
 
   let s3Url = null;
   let result = null;
@@ -238,17 +243,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   const handleDeleteAccount = async () => {
     await server
-      .get(`/user/${localStorage.get("id")}/delete`, {
+      .get(`/user/${localStorage.getItem("id")}/delete`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
       })
       .then((res) => {
-        if (res.status === 200) {
-          Modal.error({
-            title: "회원탈퇴",
-            content: "들어올 때는 마음대로였지만 나갈 때는 아니란다",
-          });
+        if (res.status === 205) {
+          console.log("회원탈퇴");
+          persistor.purge();
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("id");
           window.location = "/mainpage";
         }
       })
@@ -413,28 +418,43 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
   return (
     <>
-      {isPc && (
-        <>
-          <div className="blockhere"> </div>
-          <div className="mainPage">
-            <Nav />
-            <Iconlist />
-
-            <div className="newblockPosition"> </div>
-
-            <div className="middleSpace">
-              <div className="midContents">
-                <div className="buttonHeader">
-                  <div className="profileTitleName"> 회원정보 수정</div>
-                  <div>
-                    <SaveOutlined
-                      className="editButton"
-                      onClick={() => handleClickSaveBtn()}
-                    />
-                    <DeleteOutlined
-                      className="deleteButton"
-                      onClick={() => handleDeleteAccount()}
-                    />
+      {isPc && 
+      <>
+        <div className="blockhere"> </div>
+        <div className="mainPage">
+          <Nav />
+          <Iconlist />
+  
+          <div className="newblockPosition"> </div>
+  
+          <div className="middleSpace">
+            <div className="midContents">
+              <div className="buttonHeader">
+                <div className="profileTitleName"> 회원정보 수정</div>
+                <div>
+                  <SaveOutlined
+                    className="editButton"
+                    onClick={() => handleClickSaveBtn()}
+                  />
+                  <DeleteOutlined
+                    className="deleteButton"
+                    onClick={() => setDeleteUserModal(true)}
+                  />
+                  <Modal
+                    title="계정 삭제"
+                    visible={deleteUserModal}
+                    onOk={() => handleDeleteAccount()}
+                    onCancel={() => setDeleteUserModal(false)}
+                    okText="계정 삭제"
+                    cancelText="계정 유지"
+                  >
+                  계정이 삭제되면 업로드 되었던 사진 및 동영상 또한 함께 삭제됩니다.
+                  <br/> 
+                  <strong>
+                    삭제된 모든 정보들은 복구되지 않습니다.
+                  </strong>
+                  <br/>
+                  정말로 계정을 삭제하시겠습니까?</Modal>
                   </div>
                 </div>
                 <div className="midContentDownPart">

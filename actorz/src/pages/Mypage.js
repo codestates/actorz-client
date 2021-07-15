@@ -9,6 +9,7 @@ import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import Loading from "../components/loading";
+import { persistor } from "../store/store";
 import { useMediaQuery } from "react-responsive";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
@@ -72,7 +73,9 @@ const Mypage = () => {
         },
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 205) {
+          console.log("회원탈퇴");
+          persistor.purge();
           localStorage.removeItem("accessToken");
           localStorage.removeItem("id");
           window.location = "/mainpage";
@@ -338,6 +341,7 @@ const Mypage = () => {
                                                             )
                                                           }
                                                         >
+
                                                           {post.media[0]
                                                             .type === "img" ? (
                                                             <img
@@ -634,6 +638,7 @@ const Mypage = () => {
                                                           }
                                                         >
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={
@@ -914,6 +919,7 @@ const Mypage = () => {
                                                           }
                                                         >
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={

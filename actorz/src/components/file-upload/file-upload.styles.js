@@ -4,12 +4,15 @@ export const FileUploadContainer = styled.section`
   position: relative;
   margin: 25px 0 15px;
   border: 2px dotted lightgray;
-  padding: 35px 20px;
+  max-width: 100%;
+  width: 35rem;
+  padding: 35px;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 300px;
+  height: fit-content;
+  max-height: 100%;
   background-color: white;
 `;
 
@@ -25,6 +28,7 @@ export const FormField = styled.input`
   right: 0;
   bottom: 0;
   opacity: 0;
+  margin: 0;
 
   &:focus {
     outline: none;
@@ -137,11 +141,10 @@ export const FilePreviewContainer = styled.article`
 `;
 
 export const PreviewList = styled.section`
-  width: 550px;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   margin-top: 30px;
-  margin-left: 100px;
 
   @media only screen and (max-width: 400px) {
     flex-direction: column;

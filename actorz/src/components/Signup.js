@@ -12,7 +12,7 @@ import { DatePicker } from "antd";
 import "../styles/SignupModal.css";
 
 
-const Signup = ({ handleClickSignup, handleClickSignin }) => {
+const Signup = ({ handleClickSignup, handleClickSignin, isMobile }) => {
   const [dob, setDob] = useState("");
   const [addr, setAddr] = useState({
     city:"",
@@ -202,6 +202,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                     dob: res.data.data.userInfo.dob.toString().split("T")[0]
                   }));
                 }
+                handleClickClose();
                 Modal.success({
                   content: '회원가입에 성공하였습니다!',
                 });
@@ -248,7 +249,6 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       <center>
         <form onSubmit={(e) => e.preventDefault()}>
           <div id="modal-background" onClick={() => handleClickClose()}>
-            <Modal></Modal>
             <div
               id="modal-container"
               onClick={(event) => event.stopPropagation()}
@@ -421,20 +421,18 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                       </div>
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
-                        <div>
-                          <div style={{alignItems:"left", maxWidth:"88%"}}>
-                            <DatePicker 
-                            placeholder="생년월일"
-                            popupStyle={{
-                              position:"relative",
-                              top:"10em"
-                            }}
-                            getPopupContainer={(triggerNode) => {
-                              return triggerNode.parentNode;
-                            }}
-                            onChange={(date, dateString) => {setDob(date)}} 
-                            style={{maxWidth:"92%"}}></DatePicker>
-                          </div>
+                        <div style={{alignItems:"left", maxWidth:"88%"}}>
+                          <DatePicker 
+                          placeholder="생년월일"
+                          popupStyle={{
+                            position:"relative",
+                            top:"10em"
+                          }}
+                          getPopupContainer={(triggerNode) => {
+                            return triggerNode.parentNode;
+                          }}
+                          onChange={(date, dateString) => {setDob(date)}} 
+                          style={{maxWidth:"92%"}}></DatePicker>
                         </div>
                       </div>
                       <div className="modal-group-signup">
@@ -448,7 +446,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                         </div>
                       </div>
 
-                      <AddressModal setAddr={setAddr} addr={addr}></AddressModal>
+                      <AddressModal isMobile={isMobile} setAddr={setAddr} addr={addr}></AddressModal>
 
                       <div className="modal-group-signup">
                         <div className="importEffect2">&nbsp;&nbsp;</div>

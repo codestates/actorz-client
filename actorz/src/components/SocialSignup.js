@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
 import { useDispatch } from "react-redux";
 import { CloseOutlined } from "@ant-design/icons";
 import { Modal } from 'antd';
@@ -11,7 +12,7 @@ import AddressModal from "./AddressModal";
 
 import "../styles/SignupModal.css";
 
-const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
+const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
   const [dob, setDob] = useState("");
   const [addr, setAddr] = useState({
     city:"",
@@ -293,7 +294,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                     </div>
                     <div className="modal-group-signup">
                       <div className="importEffect">*</div>
-                      <div>
                         <div style={{alignItems:"left", maxWidth:"88%"}}>
                           <DatePicker 
                           placeholder="생년월일"
@@ -306,7 +306,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           }}
                           onChange={(date, dateString) => {setDob(date)}} 
                           style={{maxWidth:"92%"}}></DatePicker>
-                        </div>
                       </div>
                     </div>
 
@@ -354,7 +353,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                       </div>
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
-                        <div>
                           <div style={{alignItems:"left", maxWidth:"88%"}}>
                           <DatePicker 
                           placeholder="생년월일"
@@ -368,7 +366,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           onChange={(date, dateString) => {setDob(date)}} 
                           style={{maxWidth:"92%"}}></DatePicker>
                         </div>
-                        </div>
                       </div>
                       <div className="modal-group-signup">
                         <div className="importEffect">*</div>
@@ -381,7 +378,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                         </div>
                       </div>
 
-                      <AddressModal setAddr={setAddr} addr={addr}></AddressModal>
+                      <AddressModal isMobile={isMobile} setAddr={setAddr} addr={addr}></AddressModal>
 
                       <div className="modal-group-signup">
                         <div className="importEffect2">&nbsp;&nbsp;</div>

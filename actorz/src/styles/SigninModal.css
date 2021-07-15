@@ -25,22 +25,52 @@
 }
 
 #modal-container {
-  /* overflow-y: auto; */
+  overflow-y: auto;
   /* display: flex;  */
   /* opacity: 0; */
   margin: 0 auto;
+  padding-bottom: 1em;
   transform: translate(-50%, -50%);
   transition: all 1s ease;
   top: 50%;
   left: 50%;
-  width: 20rem;
-  max-height: fit-content; 
+  transform: translate(-50%, -50%);
+  max-width: 100%;
+  max-height: 100%;
   position: absolute;
   z-index: 10000;
   background-color: #fafafa;
   align-content: center;
   transition: 0.5s ease;
 }
+
+#modal-container-mobile {
+  overflow-y: auto;
+  /* display: flex;  */
+  /* opacity: 0; */
+  margin: 0 auto;
+  padding-bottom: 1em;
+  transform: translate(-50%, -50%);
+  transition: all 1s ease;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 10000;
+  background-color: #fafafa;
+  align-content: center;
+  transition: 0.5s ease;
+}
+
+/*
+.modalCancleBtn {
+  background-color: red;
+  width:0.6rem;
+  height:0.6rem;
+}
+*/
 
 .modal-group {
   padding: 0.6rem;
@@ -54,6 +84,20 @@
   font-size: 0.5rem;
   color: red;
 }
+
+/*
+.modal-title .title {
+  display: flex;
+  font-size: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.modal-title .modal-welcome-message {
+  font-size: 1.56rem;
+  padding-bottom: 1rem;
+}
+*/
+
 
 .modal-btn {
   position: absolute;
@@ -77,6 +121,12 @@
   /* padding: 1rem; */
   background: #fafafa;
 
+}
+
+
+button.btn-login.login {
+  /* margin-top: 1rem;
+  margin-bottom: 0.5rem; */
 }
 
 .oauth-logo {
@@ -104,6 +154,10 @@
   font-family: Lato;
   /* font-family: 'Montserrat', Arial, Helvetica, sans-serif; */
   /* font-family: cursive; */
+}
+
+.modal-welcome-message {
+  /* font-family: Lato; */
 }
 
 input {
@@ -182,3 +236,110 @@ input {
   background-color: #eceff1;
 }
 
+/* css loading */
+.cssload-spin-box {
+	position: absolute;
+	margin: auto;
+	/* left: 0;
+	top: 0;
+	bottom: 0;
+	right: 0; */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+	width: 23px;
+	height: 23px;
+	border-radius: 100%;
+	box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+		-o-box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+		-ms-box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+		-webkit-box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+		-moz-box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+	animation: cssload-spin ease infinite 4.6s;
+		-o-animation: cssload-spin ease infinite 4.6s;
+		-ms-animation: cssload-spin ease infinite 4.6s;
+		-webkit-animation: cssload-spin ease infinite 4.6s;
+		-moz-animation: cssload-spin ease infinite 4.6s;
+}
+
+
+
+@keyframes cssload-spin {
+	0%,
+	100% {
+		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+	}
+	25% {
+		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
+	}
+	50% {
+		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
+	}
+	75% {
+		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
+	}
+}
+
+@-o-keyframes cssload-spin {
+	0%,
+	100% {
+		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+	}
+	25% {
+		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
+	}
+	50% {
+		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
+	}
+	75% {
+		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
+	}
+}
+
+@-ms-keyframes cssload-spin {
+	0%,
+	100% {
+		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+	}
+	25% {
+		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
+	}
+	50% {
+		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
+	}
+	75% {
+		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
+	}
+}
+
+@-webkit-keyframes cssload-spin {
+	0%,
+	100% {
+		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+	}
+	25% {
+		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
+	}
+	50% {
+		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
+	}
+	75% {
+		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
+	}
+}
+
+@-moz-keyframes cssload-spin {
+	0%,
+	100% {
+		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
+	}
+	25% {
+		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
+	}
+	50% {
+		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
+	}
+	75% {
+		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
+	}
+}

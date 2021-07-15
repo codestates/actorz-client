@@ -33,6 +33,7 @@ const Nav = ({ handleClickFiltering }) => {
           persistor.purge();
           console.log("logout success!");
           localStorage.removeItem("accessToken");
+          localStorage.removeItem("id");
           window.location = "/mainpage";
         }
       })
