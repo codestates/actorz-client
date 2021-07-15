@@ -79,8 +79,12 @@ const Posts = (props) => {
     query: "(max-width:767px)",
   });
 
-  {
-    isPc ? (pageSize = 6) : isTablet ? (pageSize = 8) : (pageSize = 4);
+  if (isPc) {
+    pageSize = 6;
+  } else if (isTablet) {
+    pageSize = 8;
+  } else {
+    pageSize = 4;
   }
 
   return (

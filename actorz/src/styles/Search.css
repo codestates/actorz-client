@@ -18,7 +18,9 @@ div.ant-row {
 }
 
 input.ant-input {
-  margin-right: 2rem;
+}
+
+div.ant-col.ant-col-8 {
 }
 
 span.ant-input-group {
