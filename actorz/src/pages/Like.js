@@ -50,6 +50,7 @@ const Like = () => {
       window.history.pushState(null, "", `/mainpage`);
     }
   };
+
   useEffect(async () => {
     await server
       .get(`like/${user.data.userInfo.id}`)

@@ -41,12 +41,20 @@ const Mypage = () => {
   const [isloading, setIsLoading] = useState(false);
   const [userPost, setUserPost] = useState({});
   const [clickModal, setClickModal] = useState(false);
+  const [clickLike, setClickLike] = useState(false);
+  const [likePost, setLikePost] = useState([]);
 
-  let [data, setData] = useState([]);
-  let [current, setCurrent] = useState(1);
-  let [minIndex, setMinIndex] = useState(0);
-  let [maxIndex, setMaxIndex] = useState(0);
-  let pageSize;
+  let [post_data, setPostData] = useState([]);
+  let [post_current, setPostCurrent] = useState(1);
+  let [post_minIndex, setPostMinIndex] = useState(0);
+  let [post_maxIndex, setPostMaxIndex] = useState(0);
+  let post_pageSize;
+
+  let [like_data, setLikeData] = useState([]);
+  let [like_current, setLikeCurrent] = useState(1);
+  let [like_minIndex, setLikeMinIndex] = useState(0);
+  let [like_maxIndex, setLikeMaxIndex] = useState(0);
+  let like_pageSize;
 
   useEffect(() => {
     const p = async () => {
@@ -54,16 +62,28 @@ const Mypage = () => {
         .get(`/post/user/${user.data.userInfo.id}`)
         .then((res) => {
           setUserPost(res.data.data);
-          setData(res.data.data.posts);
-          setMinIndex(0);
-          setMaxIndex(pageSize);
+          setPostData(res.data.data.posts);
+          setPostMinIndex(0);
+          setPostMaxIndex(post_pageSize);
+        })
+        .catch((err) => {
+          throw err;
+        });
+
+      await server
+        .get(`like/${user.data.userInfo.id}`)
+        .then((res) => {
+          setLikePost(res.data.data.posts);
+          setLikeData(res.data.data.posts);
+          setLikeMinIndex(0);
+          setLikeMaxIndex(like_pageSize);
         })
         .catch((err) => {
           throw err;
         });
     };
     p();
-  }, [post]);
+  }, [post, user]);
 
   const handleDeleteAccount = async () => {
     await server
@@ -131,17 +151,26 @@ const Mypage = () => {
   };
 
   const handleChange = (page) => {
-    setCurrent(page);
-    setMinIndex((page - 1) * pageSize);
-    setMaxIndex((maxIndex = page * pageSize));
+    setPostCurrent(page);
+    setPostMinIndex((page - 1) * post_pageSize);
+    setPostMaxIndex((post_maxIndex = page * post_pageSize));
+  };
+
+  const handleLikeChange = (page) => {
+    setLikeCurrent(page);
+    setLikeMinIndex((page - 1) * like_pageSize);
+    setLikeMaxIndex((like_maxIndex = page * like_pageSize));
   };
 
   if (isPc) {
-    pageSize = 6;
+    post_pageSize = 6;
+    like_pageSize = 6;
   } else if (isTablet) {
-    pageSize = 8;
+    post_pageSize = 8;
+    like_pageSize = 8;
   } else {
-    pageSize = 4;
+    post_pageSize = 4;
+    like_pageSize = 4;
   }
 
   return (
@@ -329,8 +358,8 @@ const Mypage = () => {
                                             ? userPost.posts.map(
                                                 (post, index) => {
                                                   return (
-                                                    index >= minIndex &&
-                                                    index < maxIndex && (
+                                                    index >= post_minIndex &&
+                                                    index < post_maxIndex && (
                                                       <>
                                                         <div
                                                           className="galleryComponents"
@@ -341,7 +370,6 @@ const Mypage = () => {
                                                             )
                                                           }
                                                         >
-
                                                           {post.media[0]
                                                             .type === "img" ? (
                                                             <img
@@ -377,9 +405,9 @@ const Mypage = () => {
                                           ) : null}
                                         </div>
                                         <Pagination
-                                          pageSize={pageSize}
-                                          current={current}
-                                          total={data.length}
+                                          pageSize={post_pageSize}
+                                          current={post_current}
+                                          total={post_data.length}
                                           onChange={handleChange}
                                         />
                                       </div>
@@ -409,7 +437,61 @@ const Mypage = () => {
                                       </div>
                                     </TabPane>
                                     <TabPane tab="LIKES" key="4">
-                                      좋아요 했던 게시물들 모아보는 공간
+                                      <div>
+                                        <div className="postsGallery">
+                                          {likePost
+                                            ? likePost.map((post, index) => {
+                                                return (
+                                                  index >= like_minIndex &&
+                                                  index < like_maxIndex && (
+                                                    <>
+                                                      <div
+                                                        className="galleryComponents"
+                                                        onClick={() =>
+                                                          handleClickPost(
+                                                            true,
+                                                            post._id
+                                                          )
+                                                        }
+                                                      >
+                                                        {post.media[0].type ===
+                                                        "img" ? (
+                                                          <img
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></img>
+                                                        ) : (
+                                                          <video
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></video>
+                                                        )}
+                                                      </div>
+                                                    </>
+                                                  )
+                                                );
+                                              })
+                                            : null}
+
+                                          {clickModal ? (
+                                            <Post
+                                              handleClickPost={handleClickPost}
+                                            />
+                                          ) : null}
+                                        </div>
+                                        <Pagination
+                                          pageSize={like_pageSize}
+                                          current={like_current}
+                                          total={like_data.length}
+                                          onChange={handleLikeChange}
+                                        />
+                                      </div>
                                     </TabPane>
                                     <TabPane tab="TAGGED" key="5">
                                       컨텐츠 준비 중입니다.
@@ -625,8 +707,8 @@ const Mypage = () => {
                                             ? userPost.posts.map(
                                                 (post, index) => {
                                                   return (
-                                                    index >= minIndex &&
-                                                    index < maxIndex && (
+                                                    index >= post_minIndex &&
+                                                    index < post_maxIndex && (
                                                       <>
                                                         <div
                                                           className="galleryComponents"
@@ -637,14 +719,26 @@ const Mypage = () => {
                                                             )
                                                           }
                                                         >
-                                                          <img
-                                                            alt=""
-                                                            className="postGallery-img"
-                                                            key={post._id}
-                                                            src={
-                                                              post.media[0].path
-                                                            }
-                                                          ></img>
+                                                          {post.media[0]
+                                                            .type === "img" ? (
+                                                            <img
+                                                              className="postGallery-img"
+                                                              key={post._id}
+                                                              src={
+                                                                post.media[0]
+                                                                  .path
+                                                              }
+                                                            ></img>
+                                                          ) : (
+                                                            <video
+                                                              className="postGallery-img"
+                                                              key={post._id}
+                                                              src={
+                                                                post.media[0]
+                                                                  .path
+                                                              }
+                                                            ></video>
+                                                          )}
                                                         </div>
                                                       </>
                                                     )
@@ -660,9 +754,9 @@ const Mypage = () => {
                                           ) : null}
                                         </div>
                                         <Pagination
-                                          pageSize={pageSize}
-                                          current={current}
-                                          total={data.length}
+                                          pageSize={post_pageSize}
+                                          current={post_current}
+                                          total={post_data.length}
                                           onChange={handleChange}
                                         />
                                       </div>
@@ -692,7 +786,61 @@ const Mypage = () => {
                                       </div>
                                     </TabPane>
                                     <TabPane tab="LIKES" key="4">
-                                      좋아요 했던 게시물들 모아보는 공간
+                                      <div>
+                                        <div className="postsGallery">
+                                          {likePost
+                                            ? likePost.map((post, index) => {
+                                                return (
+                                                  index >= like_minIndex &&
+                                                  index < like_maxIndex && (
+                                                    <>
+                                                      <div
+                                                        className="galleryComponents"
+                                                        onClick={() =>
+                                                          handleClickPost(
+                                                            true,
+                                                            post._id
+                                                          )
+                                                        }
+                                                      >
+                                                        {post.media[0].type ===
+                                                        "img" ? (
+                                                          <img
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></img>
+                                                        ) : (
+                                                          <video
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></video>
+                                                        )}
+                                                      </div>
+                                                    </>
+                                                  )
+                                                );
+                                              })
+                                            : null}
+
+                                          {clickModal ? (
+                                            <Post
+                                              handleClickPost={handleClickPost}
+                                            />
+                                          ) : null}
+                                        </div>
+                                        <Pagination
+                                          pageSize={like_pageSize}
+                                          current={like_current}
+                                          total={like_data.length}
+                                          onChange={handleLikeChange}
+                                        />
+                                      </div>
                                     </TabPane>
                                     <TabPane tab="TAGGED" key="5">
                                       컨텐츠 준비 중입니다.
@@ -906,8 +1054,8 @@ const Mypage = () => {
                                             ? userPost.posts.map(
                                                 (post, index) => {
                                                   return (
-                                                    index >= minIndex &&
-                                                    index < maxIndex && (
+                                                    index >= post_minIndex &&
+                                                    index < post_maxIndex && (
                                                       <>
                                                         <div
                                                           className="galleryComponents"
@@ -918,14 +1066,26 @@ const Mypage = () => {
                                                             )
                                                           }
                                                         >
-                                                          <img
-                                                            alt=""
-                                                            className="postGallery-img"
-                                                            key={post._id}
-                                                            src={
-                                                              post.media[0].path
-                                                            }
-                                                          ></img>
+                                                          {post.media[0]
+                                                            .type === "img" ? (
+                                                            <img
+                                                              className="postGallery-img"
+                                                              key={post._id}
+                                                              src={
+                                                                post.media[0]
+                                                                  .path
+                                                              }
+                                                            ></img>
+                                                          ) : (
+                                                            <video
+                                                              className="postGallery-img"
+                                                              key={post._id}
+                                                              src={
+                                                                post.media[0]
+                                                                  .path
+                                                              }
+                                                            ></video>
+                                                          )}
                                                         </div>
                                                       </>
                                                     )
@@ -941,9 +1101,9 @@ const Mypage = () => {
                                           ) : null}
                                         </div>
                                         <Pagination
-                                          pageSize={pageSize}
-                                          current={current}
-                                          total={data.length}
+                                          pageSize={post_pageSize}
+                                          current={post_current}
+                                          total={post_data.length}
                                           onChange={handleChange}
                                         />
                                       </div>
@@ -973,7 +1133,61 @@ const Mypage = () => {
                                       </div>
                                     </TabPane>
                                     <TabPane tab="LIKES" key="4">
-                                      좋아요 했던 게시물들 모아보는 공간
+                                      <div>
+                                        <div className="postsGallery">
+                                          {likePost
+                                            ? likePost.map((post, index) => {
+                                                return (
+                                                  index >= like_minIndex &&
+                                                  index < like_maxIndex && (
+                                                    <>
+                                                      <div
+                                                        className="galleryComponents"
+                                                        onClick={() =>
+                                                          handleClickPost(
+                                                            true,
+                                                            post._id
+                                                          )
+                                                        }
+                                                      >
+                                                        {post.media[0].type ===
+                                                        "img" ? (
+                                                          <img
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></img>
+                                                        ) : (
+                                                          <video
+                                                            className="postGallery-img"
+                                                            key={post._id}
+                                                            src={
+                                                              post.media[0].path
+                                                            }
+                                                          ></video>
+                                                        )}
+                                                      </div>
+                                                    </>
+                                                  )
+                                                );
+                                              })
+                                            : null}
+
+                                          {clickModal ? (
+                                            <Post
+                                              handleClickPost={handleClickPost}
+                                            />
+                                          ) : null}
+                                        </div>
+                                        <Pagination
+                                          pageSize={like_pageSize}
+                                          current={like_current}
+                                          total={like_data.length}
+                                          onChange={handleLikeChange}
+                                        />
+                                      </div>
                                     </TabPane>
                                     <TabPane tab="TAGGED" key="5">
                                       컨텐츠 준비 중입니다.

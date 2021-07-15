@@ -8,7 +8,22 @@ import { useMediaQuery } from "react-responsive";
 import FooterFixed from "../components/FooterFixed";
 import Footer from "../components/Footer";
 import DaumPostcode from "react-daum-postcode";
-import { CloseOutlined, SaveOutlined, DeleteOutlined } from "@ant-design/icons";
+import {
+  CloseOutlined,
+  SaveOutlined,
+  DeleteOutlined,
+  HeartOutlined,
+} from "@ant-design/icons";
+import { Card, Icon, Image } from "semantic-ui-react";
+import { StickyContainer, Sticky } from "react-sticky";
+import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
+import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
+import "antd/dist/antd.css";
+import "../styles/MypageEdit.css";
+import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
+import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import moment from "moment";
+import { removePost } from "../actions/postAction";
 import {
   Button,
   Modal,
@@ -19,15 +34,6 @@ import {
   DatePicker,
   Tabs,
 } from "antd";
-import { StickyContainer, Sticky } from "react-sticky";
-import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
-import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
-import "antd/dist/antd.css";
-import "../styles/MypageEdit.css";
-import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
-import moment from "moment";
-import { removePost } from "../actions/postAction";
 import {
   editUserInfo,
   addUserCareer,
@@ -76,8 +82,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   const [write, setWrite] = useState(true);
   const [userPost, setUserPost] = useState({});
   const [deleteUserModal, setDeleteUserModal] = useState(false);
-  //const [upload, setUpload] = useState({});
-
+  const [clickLike, setClickLike] = useState(false);
+  const [likePost, setLikePost] = useState([]);
 
   let s3Url = null;
   let result = null;
@@ -92,9 +98,18 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         .catch((err) => {
           throw err;
         });
+
+      await server
+        .get(`like/${user.data.userInfo.id}`)
+        .then((res) => {
+          setLikePost(res.data.data.posts);
+        })
+        .catch((err) => {
+          throw err;
+        });
     };
     p();
-  }, [post]);
+  }, [post, clickLike]);
 
   const tagOptions = [
     { label: "드라마", value: "드라마" },
@@ -416,45 +431,69 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       });
   };
 
+  const handleClickLikeBtn = async (post_id) => {
+    let path = null;
+
+    path = `/post/${post_id}/unlike`;
+
+    await server
+      .post(
+        path,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      )
+      .then((res) => {
+        setClickLike(!clickLike);
+        console.log(post);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
   return (
     <>
-      {isPc && 
-      <>
-        <div className="blockhere"> </div>
-        <div className="mainPage">
-          <Nav />
-          <Iconlist />
-  
-          <div className="newblockPosition"> </div>
-  
-          <div className="middleSpace">
-            <div className="midContents">
-              <div className="buttonHeader">
-                <div className="profileTitleName"> 회원정보 수정</div>
-                <div>
-                  <SaveOutlined
-                    className="editButton"
-                    onClick={() => handleClickSaveBtn()}
-                  />
-                  <DeleteOutlined
-                    className="deleteButton"
-                    onClick={() => setDeleteUserModal(true)}
-                  />
-                  <Modal
-                    title="계정 삭제"
-                    visible={deleteUserModal}
-                    onOk={() => handleDeleteAccount()}
-                    onCancel={() => setDeleteUserModal(false)}
-                    okText="계정 삭제"
-                    cancelText="계정 유지"
-                  >
-                  계정이 삭제되면 업로드 되었던 사진 및 동영상 또한 함께 삭제됩니다.
-                  <br/> 
-                  <strong>
-                    삭제된 모든 정보들은 복구되지 않습니다.
-                  </strong>
-                  <br/>
-                  정말로 계정을 삭제하시겠습니까?</Modal>
+      {isPc && (
+        <>
+          <div className="blockhere"> </div>
+          <div className="mainPage">
+            <Nav />
+            <Iconlist />
+
+            <div className="newblockPosition"> </div>
+
+            <div className="middleSpace">
+              <div className="midContents">
+                <div className="buttonHeader">
+                  <div className="profileTitleName"> 회원정보 수정</div>
+                  <div>
+                    <SaveOutlined
+                      className="editButton"
+                      onClick={() => handleClickSaveBtn()}
+                    />
+                    <DeleteOutlined
+                      className="deleteButton"
+                      onClick={() => setDeleteUserModal(true)}
+                    />
+                    <Modal
+                      title="계정 삭제"
+                      visible={deleteUserModal}
+                      onOk={() => handleDeleteAccount()}
+                      onCancel={() => setDeleteUserModal(false)}
+                      okText="계정 삭제"
+                      cancelText="계정 유지"
+                    >
+                      계정이 삭제되면 업로드 되었던 사진 및 동영상 또한 함께
+                      삭제됩니다.
+                      <br />
+                      <strong>삭제된 모든 정보들은 복구되지 않습니다.</strong>
+                      <br />
+                      정말로 계정을 삭제하시겠습니까?
+                    </Modal>
                   </div>
                 </div>
                 <div className="midContentDownPart">
@@ -673,11 +712,19 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         <div className="galleryComponents">
                                           <PreviewContainer>
                                             <div className="img-container">
-                                              <img
-                                                className="postGallery-img"
-                                                key={post._id}
-                                                src={post.media[0].path}
-                                              ></img>
+                                              {post.media[0].type === "img" ? (
+                                                <img
+                                                  className="postGallery-img"
+                                                  key={post._id}
+                                                  src={post.media[0].path}
+                                                ></img>
+                                              ) : (
+                                                <video
+                                                  className="postGallery-img"
+                                                  key={post._id}
+                                                  src={post.media[0].path}
+                                                ></video>
+                                              )}
                                               <FileMetaData2>
                                                 <aside>
                                                   <RemoveFileIcon
@@ -854,7 +901,49 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           </span>
                         </TabPane>
                         <TabPane tab="LIKES" key="4">
-                          좋아요 했던 게시물들 모아보는 공간
+                          <div>
+                            <div className="postsGallery">
+                              {likePost
+                                ? likePost.map((post) => {
+                                    return (
+                                      <>
+                                        <div className="galleryComponents">
+                                          <PreviewContainer>
+                                            <div className="img-container">
+                                              {post.media[0].type === "img" ? (
+                                                <img
+                                                  className="postGallery-img"
+                                                  key={post._id}
+                                                  src={post.media[0].path}
+                                                ></img>
+                                              ) : (
+                                                <video
+                                                  className="postGallery-img"
+                                                  key={post._id}
+                                                  src={post.media[0].path}
+                                                ></video>
+                                              )}
+                                              <FileMetaData2>
+                                                <aside>
+                                                  <Icon
+                                                    className="heart"
+                                                    onClick={() =>
+                                                      handleClickLikeBtn(
+                                                        post._id
+                                                      )
+                                                    }
+                                                  />
+                                                </aside>
+                                              </FileMetaData2>
+                                            </div>
+                                          </PreviewContainer>
+                                        </div>
+                                      </>
+                                    );
+                                  })
+                                : null}
+                            </div>
+                          </div>
                         </TabPane>
                         <TabPane tab="TAGGED" key="5">
                           컨텐츠 준비 중입니다.
@@ -873,7 +962,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           </div>
           <Footer />
         </>
-      }
+      )}
 
       {isTablet && (
         <>
@@ -1287,7 +1376,49 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           </span>
                         </TabPane>
                         <TabPane tab="LIKES" key="4">
-                          좋아요 했던 게시물들 모아보는 공간
+                          <div>
+                            <div className="postsGallery">
+                              {likePost
+                                ? likePost.map((post) => {
+                                    return (
+                                      <>
+                                        <div className="galleryComponents">
+                                          <PreviewContainer>
+                                            <div className="img-container">
+                                              {post.media[0].type === "img" ? (
+                                                <img
+                                                  className="postGallery-img"
+                                                  key={post._id}
+                                                  src={post.media[0].path}
+                                                ></img>
+                                              ) : (
+                                                <video
+                                                  className="postGallery-img"
+                                                  key={post._id}
+                                                  src={post.media[0].path}
+                                                ></video>
+                                              )}
+                                              <FileMetaData2>
+                                                <aside>
+                                                  <Icon
+                                                    className="heart"
+                                                    onClick={() =>
+                                                      handleClickLikeBtn(
+                                                        post._id
+                                                      )
+                                                    }
+                                                  />
+                                                </aside>
+                                              </FileMetaData2>
+                                            </div>
+                                          </PreviewContainer>
+                                        </div>
+                                      </>
+                                    );
+                                  })
+                                : null}
+                            </div>
+                          </div>
                         </TabPane>
                         <TabPane tab="TAGGED" key="5">
                           컨텐츠 준비 중입니다.
@@ -1716,7 +1847,49 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                           </span>
                         </TabPane>
                         <TabPane tab="LIKES" key="4">
-                          좋아요 했던 게시물들 모아보는 공간
+                          <div>
+                            <div className="postsGallery">
+                              {likePost
+                                ? likePost.map((post) => {
+                                    return (
+                                      <>
+                                        <div className="galleryComponents">
+                                          <PreviewContainer>
+                                            <div className="img-container">
+                                              {post.media[0].type === "img" ? (
+                                                <img
+                                                  className="postGallery-img"
+                                                  key={post._id}
+                                                  src={post.media[0].path}
+                                                ></img>
+                                              ) : (
+                                                <video
+                                                  className="postGallery-img"
+                                                  key={post._id}
+                                                  src={post.media[0].path}
+                                                ></video>
+                                              )}
+                                              <FileMetaData2>
+                                                <aside>
+                                                  <Icon
+                                                    className="heart"
+                                                    onClick={() =>
+                                                      handleClickLikeBtn(
+                                                        post._id
+                                                      )
+                                                    }
+                                                  />
+                                                </aside>
+                                              </FileMetaData2>
+                                            </div>
+                                          </PreviewContainer>
+                                        </div>
+                                      </>
+                                    );
+                                  })
+                                : null}
+                            </div>
+                          </div>
                         </TabPane>
                         <TabPane tab="TAGGED" key="5">
                           컨텐츠 준비 중입니다.

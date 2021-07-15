@@ -86,3 +86,6 @@ body {
   margin-bottom: 0.3rem;
   background-color: rgb(233, 239, 240);
 }
+img.res-search-img {
+  width: 2rem;
+}

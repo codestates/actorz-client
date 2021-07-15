@@ -59,13 +59,12 @@ const Search = () => {
     <div id="search-modal-container">
       <div className="search-box">
         <span className="search-desc">원하는 검색어를 입력해보세요</span>
+        <hr></hr>
         <Input.Group>
           <Row gutter={8}>
             <Col span={8}>
               <Input onChange={handleInputValue("name")} placeholder="이름" />
             </Col>
-          </Row>
-          <Row gutter={8}>
             <Col span={8}>
               <Input onChange={handleInputValue("conent")} placeholder="내용" />
             </Col>

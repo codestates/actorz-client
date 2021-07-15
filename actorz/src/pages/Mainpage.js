@@ -24,6 +24,9 @@ import "../styles/ResponsiveMainpage.css";
 import Loading from "../components/loading";
 import { redirectUri } from "../config";
 import failed from "../images/depression.png";
+import { Popover, Button } from "antd";
+
+import "../styles/Search.css";
 
 const Mainpage = () => {
   const [clickupload, setClickUpload] = useState(false);
@@ -337,7 +340,13 @@ const Mainpage = () => {
             </div>
             <div className="newblockPosition2"> </div>
             <div className="rightSpace">
-              <div className="iconList2">{isFilter ? <Search /> : null}</div>
+              <div className="iconList2">
+                {/* {isFilter ? (
+                  <Popover placement="bottomRight" trigger="click">
+                    <Button>BR</Button>
+                  </Popover>
+                ) : null} */}
+              </div>
             </div>
           </div>
 

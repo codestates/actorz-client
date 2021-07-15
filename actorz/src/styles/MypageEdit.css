@@ -377,3 +377,11 @@ li {
   margin-right: 1rem;
   font-size: large;
 }
+
+i.icon {
+  margin-bottom: 0.6rem;
+}
+
+i.icon.heart::before {
+  color: rgb(255, 82, 82);
+}
