@@ -873,7 +873,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
           </div>
           <Footer />
         </>
-      )}
+      }
 
       {isTablet && (
         <>
