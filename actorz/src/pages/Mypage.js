@@ -727,7 +727,6 @@ const Mypage = () => {
             <>
               {localStorage.getItem("accessToken") ? (
                 <>
-                  <ResponsiveNav />
                   {!isEdit ? (
                     <>
                       <div className="blockhere"> </div>

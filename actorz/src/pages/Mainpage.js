@@ -481,6 +481,7 @@ const Mainpage = () => {
             {/* <Nav loading={loading} handleClickFiltering={handleClickFiltering} /> */}
             <ResponsiveNav />
             {/* <Iconlist /> */}
+            <ResponsiveFooter />
 
             <div className="middleSpaceResponsive2">
               <div className="midContentsResponsive2 midContentsReverse">
@@ -596,7 +597,6 @@ const Mainpage = () => {
             <div className="iconList2">{isFilter ? <Search /> : null}</div>
           </div> */}
           </div>
-          <ResponsiveFooter />
 
           {modalSocialSignup ? (
             <SocialSignup
