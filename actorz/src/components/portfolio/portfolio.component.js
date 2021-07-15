@@ -151,16 +151,18 @@ const PortfolioEdit = ({
               </PfUploadContainer>
             ) : null}
           </section>
-
-          <button
-            className="pf cancel-btn"
-            onClick={() => handleClickPfEdit(false)}
-          >
-            cancel
-          </button>
-          <button onClick={handleClickPostBtn} className="pf upload-btn">
-            post
-          </button>
+          
+          <div className="pf cancel-or-post-btn">
+            <button
+              className="pf cancel-btn"
+              onClick={() => handleClickPfEdit(false)}
+            >
+              cancel
+            </button>
+            <button onClick={handleClickPostBtn} className="pf upload-btn">
+              post
+            </button>
+          </div>
 
           {isLoading ? (<Loading />) : null}
         </div>

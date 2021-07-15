@@ -2,21 +2,21 @@ import styled from "styled-components";
 
 export const PfUploadContainer = styled.section`
   position: relative;
-  // margin: 25px 0 15px;
+  margin: 0 15px;
   // border: 2px dotted lightgray;
   // padding: 1rem;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100px;
+  height: 125px;
   background-color: white;
 `;
 
 export const ImagePreview = styled.img`
   border-radius: 6px;
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 `;
 
@@ -49,7 +49,7 @@ aside {
 
 export const PreviewContainer = styled.section`
 padding: 0.25rem;
-width: 20%;
+width: 110px;
 height: 110px;
 border-radius: 6px;
 box-sizing: border-box;
@@ -75,19 +75,21 @@ box-sizing: border-box;
   width: 50%;
 }
 
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 110px) {
   width: 100%;
   padding: 0 0 0.4em;
 }
 `;
 
 export const PreviewList = styled.section`
-width: 550px;
+width: 100%;
 display: flex;
 flex-wrap: wrap;
 margin: auto;
 margin-top: 5px;
 margin-left: 10px;
+margin-right: 10px;
+overflow-x: scroll;
 
 @media only screen and (max-width: 400px) {
   flex-direction: column;
