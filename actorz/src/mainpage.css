@@ -94,12 +94,12 @@ font {
   border: solid 1px #e0e0e0;
   background-color: #fafafa;
   width: 11rem;
-  height: 17rem;
+  height: 15.27rem;
   display: inline-block;
-  margin-top: 2rem;
+  margin-top: 2.8rem;
   margin-left: -2rem;
   border-radius: 0.5rem;
-  margin-right: 0.5rem; 
+  margin-right: 0.5rem;
   position: fixed;
 }
 
@@ -107,23 +107,22 @@ font {
   width: 45%;
   /* height: 100vh; */
   background-color: #fafafa;
-	/* margin-bottom: 5rem; */
-	/* overflow: auto; */
+  /* margin-bottom: 5rem; */
+  /* overflow: auto; */
   -ms-overflow-style: none;
-  overflow:hidden;
-	height:auto;
-
+  overflow: hidden;
+  height: auto;
 }
 
 .middleSpace3 {
   width: 100%;
   /* height: 100vh; */
   background-color: #fafafa;
-	/* margin-bottom: 5rem; */
-	/* overflow: auto; */
+  /* margin-bottom: 5rem; */
+  /* overflow: auto; */
   -ms-overflow-style: none;
-  overflow:hidden;
-	height:auto;
+  overflow: hidden;
+  height: auto;
   margin-top: -1.5rem;
 
   margin-bottom: 3rem;
@@ -137,7 +136,7 @@ font {
   display: none;
 }
 
-.midContentsReverse{
+.midContentsReverse {
   display: flex;
   flex-direction: column-reverse;
 }
@@ -175,7 +174,6 @@ font {
   background-color: #fafafa;
 }
 
-
 .midContentDownPart {
   display: flex;
   flex-direction: column;
@@ -205,10 +203,10 @@ font {
 .newblockPosition {
   width: 1%;
   background-color: #fafafa;
-} 
+}
 
 .newblockPosition2 {
-  width: 10%;
+  width: 8%;
   background-color: #fafafa;
 }
 

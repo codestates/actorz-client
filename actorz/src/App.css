@@ -33,34 +33,104 @@ body {
   background-color: rgb(217, 255, 0);
 } */
 
-.free {
-  width: 100%;
-  background-color: rgb(48, 16, 231);
-}
-
-
 .freeGroup {
+  position: relative;
   margin-top: -0.5rem;
-  /* width: 100%; */
-  height: 150%;
+  /* height: 100%; */
   background-color: rgb(0, 0, 0);
 }
+
 
 
 .set1,
 .set2, 
 .set3,
-.set4 {
-  width: 25%;
-  background-color: rgb(255, 251, 0);
+.set4,
+.set5 {
+  padding: 0.5rem;
+  margin: 0;
+  width: 100%;
+  height: auto; 
+  opacity: 0.25;
+  background-color: rgb(0, 0, 0);
+
+  /* 370*420 */
 }
 
-.setPhotoA {
-  /* object-fit: contain; */
-  /* object-fit: cover; */
+.set1 .img,
+.set2 .img, 
+.set3 .img,
+.set4 .img,
+.set5 .img{
+  /* object-fit: cover;
+  position: absolute; top:0; left: 0; */
+  background-color: rgb(0, 0, 0);
 }
 
+.colorTest01 {
+  color: #ffffff;
+  font-size: 1rem;
+  text-align: center;
+}
 
+.colorTest02 {
+  color: #ffffff;
+  font-size: 3.5rem;
+  text-align: center;
+}
+
+.scrollIMG {
+  width: 4.5rem;
+  height: 4.5rem;
+}
+
+.scrollIMGPosition {
+  margin: auto;
+  text-align: center;
+}
+
+.startContentsTitle .h1 {
+  font-family: lato;
+  font-size: 5rem;
+}
+
+.startContentsTitle {
+  text-align: center;
+}
+
+.commentsGroup {
+  display: flex;
+  flex-direction: row;
+}
+
+.commentsGroupX {
+  width: 30%;
+}
+
+.commentsGroupY {
+  width: 40%;
+}
+
+.mainContentsCenterDisplay {
+  position: absolute; 
+  width: 100%;
+  margin-top: -8rem;
+  /* transform: translate(-50%, -50%); */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* margin-top: -1rem; */
+}
+
+/* .div, svg {
+  position: absolute;
+} */
+
+.container {
+  perspective: 10rem;
+  /* left:50%;
+  top:50%; */
+}
 
 .testBox {
   background-color: #ff4d4f;
@@ -113,7 +183,20 @@ body {
 }
 
 .blockPosition {
-  height: 500px;
+  height: 30rem;
+}
+
+.blockPositionDivide {
+  height: 20rem;
+}
+
+.cardSlice {
+  display: flex;
+  justify-content: center;
+}
+
+.profileCardList {
+  margin-right: 1rem;
 }
 
 .blockPosition2 {

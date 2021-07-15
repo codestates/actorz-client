@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useMediaQuery } from "react-responsive"
+import { useMediaQuery } from "react-responsive";
 
 import Nav from "../components/Nav";
 import Post from "./Post";
@@ -13,7 +13,7 @@ import SocialSignup from "../components/SocialSignup";
 import Footer from "../components/Footer";
 import Search from "../components/Search";
 import { HeartOutlined } from "@ant-design/icons";
-import { Modal } from 'antd';
+import { Modal } from "antd";
 import { Card, Icon, Image } from "semantic-ui-react";
 import "antd/dist/antd.css";
 import "../mainpage.css";
@@ -67,10 +67,10 @@ const Mainpage = () => {
       } catch (err) {
         setIsLoading(false);
         Modal.error({
-          title: '실패',
-          content: '게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다  \n 잠시 후 다시 이용해주세요',
+          title: "실패",
+          content:
+            "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다  \n 잠시 후 다시 이용해주세요",
         });
-
       }
     };
     getPostLists();
@@ -124,8 +124,8 @@ const Mainpage = () => {
               } else {
                 setIsLoading(false);
                 Modal.error({
-                  title: '로그인 실패',
-                  content: '소셜 로그인 중 오류가 발생했습니다.',
+                  title: "로그인 실패",
+                  content: "소셜 로그인 중 오류가 발생했습니다.",
                 });
                 return;
               }
@@ -200,34 +200,32 @@ const Mainpage = () => {
           throw err;
         });
     } else {
-      return (
-        Modal.warning({
-          title: 'Login first',
-          content: '로그인 후 이용 가능합니다.',
-        })
-      )
+      return Modal.warning({
+        title: "Login first",
+        content: "로그인 후 이용 가능합니다.",
+      });
     }
   };
 
   //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
-
+  console.log(post);
   return (
     <>
       {isPc && (
         <>
+          <div className="blockhere"> </div>
+          <div className="mainPage">
+            <Nav
+              loading={loading}
+              handleClickFiltering={handleClickFiltering}
+            />
+            <Iconlist />
 
-        <div className="blockhere"> </div>
-        <div className="mainPage">
-
-          <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
-          <Iconlist />
-
-          <div className="newblockPosition"> </div>
-          <div className="middleSpace" >
-            <div className="midContents2 midContentsReverse">
-              {post.data.data
-                ? post.data.data.posts.posts.map((post) => {
-
+            <div className="newblockPosition"> </div>
+            <div className="middleSpace">
+              <div className="midContents2 midContentsReverse">
+                {post.data.data ? (
+                  post.data.data.posts.posts.map((post) => {
                     return (
                       <Card centered={true} fluid={true} key={post._id}>
                         <div className="effecTest">
@@ -280,7 +278,8 @@ const Mainpage = () => {
                           </Card.Header>
                           <Card.Meta>
                             <span className="date">
-                              Updated at {post.updatedAt.split("T")[0]} {post.updatedAt.split("T")[1].slice(0,8)}
+                              Updated at {post.updatedAt.split("T")[0]}{" "}
+                              {post.updatedAt.split("T")[1].slice(0, 8)}
                             </span>
                           </Card.Meta>
                           <Card.Description>{post.content}</Card.Description>
@@ -323,10 +322,8 @@ const Mainpage = () => {
                       </Card>
                     );
                   })
-                 : (
-                  <center>
-                    <div className="alert">게시물이 없어요</div>
-                  </center>
+                ) : (
+                  <Loading />
                 )}
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
@@ -345,16 +342,15 @@ const Mainpage = () => {
         }
       </>)}
 
-      {isTablet && 
-        <>   
+      {isTablet && (
+        <>
           <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
           <div className="blockhere"> </div>
           <div className="mainPageResponsive">
             <ResponsiveIconlistTablet />
 
             <div className="middleSpace2">
-
-            {/* <div className="middleSpaceResponsive2"> */}
+              {/* <div className="middleSpaceResponsive2"> */}
               <div className="midContentsResponsive midContentsReverse">
                 {post.data.data && post.data.data.posts.posts.length !== 0 ? (
                   post.data.data.posts.posts.map((post) => {
@@ -476,7 +472,7 @@ const Mainpage = () => {
             ></SocialSignup>
           ) : null}
         </>
-      }
+      )}
 
       {isMobile && (
         <>
