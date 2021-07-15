@@ -14,7 +14,7 @@ import {
   RemovePostIcon,
   InputLabel,
 } from "./portfolio.styles";
-import "../../styles/Postupload.css";
+import "../../styles/Fileupload.css";
 import "./portfolio.styles.css"
 
 import Loading from "../loading";

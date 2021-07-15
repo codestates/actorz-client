@@ -15,6 +15,7 @@ import Loading from "../components/loading";
 
 import { Modal, Tabs, Pagination } from "antd";
 import { StickyContainer, Sticky } from "react-sticky";
+import { persistor } from "../store/store";
 
 import { useMediaQuery } from "react-responsive";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
@@ -76,8 +77,9 @@ const Mypage = () => {
         },
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 205) {
           console.log("회원탈퇴");
+          persistor.purge();
           localStorage.removeItem("accessToken");
           localStorage.removeItem("id");
           window.location = "/mainpage";
@@ -365,6 +367,7 @@ const Mypage = () => {
                                                           }
                                                         >
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={
@@ -647,6 +650,7 @@ const Mypage = () => {
                                                           }
                                                         >
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={
@@ -927,6 +931,7 @@ const Mypage = () => {
                                                           }
                                                         >
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={

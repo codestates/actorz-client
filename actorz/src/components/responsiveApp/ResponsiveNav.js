@@ -36,22 +36,12 @@ const ResponsiveApp = () => {
       });
   };
 
-  const handleClickSignin = () => {
-    setClickSignup(false);
-    if (clickSignin) {
-      setClickSignin(false);
-    } else {
-      setClickSignin(true);
-    }
+  const handleClickSignin = (bool) => {
+    setClickSignin(bool);
   };
 
-  const handleClickSignup = () => {
-    setIsLogin(false);
-    if (clickSignup) {
-      setClickSignup(false);
-    } else {
-      setClickSignup(true);
-    }
+  const handleClickSignup = (bool) => {
+    setClickSignup(bool);
   };
 
   return (
@@ -117,12 +107,14 @@ const ResponsiveApp = () => {
 
           {clickSignin ? (
             <Signin
+              isMobile={true}
               handleClickSignin={handleClickSignin}
               handleClickSignup={handleClickSignup}
             />
           ) : null}
           {clickSignup ? (
             <Signup
+              isMobile={true}
               handleClickSignin={handleClickSignin}
               handleClickSignup={handleClickSignup}
             />
