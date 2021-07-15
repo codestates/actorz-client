@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import server from "../apis/server";
 import Nav from "../components/Nav";
-import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
+import Post from "./Post";
 import MypageEdit from "./MypageEdit";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
-import Post from "./Post";
-import "../styles/Mypage.css";
-import "antd/dist/antd.css";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import Loading from "../components/loading";
-
-import { Modal, Tabs, Pagination } from "antd";
-import { StickyContainer, Sticky } from "react-sticky";
-
+import { persistor } from "../store/store";
 import { useMediaQuery } from "react-responsive";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
+import { Modal, Tabs, Pagination } from "antd";
+import { StickyContainer, Sticky } from "react-sticky";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import "../styles/Mypage.css";
+import "antd/dist/antd.css";
 
 const { TabPane } = Tabs;
 
@@ -36,6 +35,7 @@ const renderTabBar = (props, DefaultTabBar) => (
 
 const Mypage = () => {
   const user = useSelector((user) => user.userInfoReducer);
+  const post = useSelector((post) => post.postInfoReducer);
 
   const [isEdit, setIsEdit] = useState(false);
   const [isloading, setIsLoading] = useState(false);
@@ -43,21 +43,18 @@ const Mypage = () => {
   const [clickModal, setClickModal] = useState(false);
 
   let [data, setData] = useState([]);
-  let [totalPage, setTotalPage] = useState(0);
   let [current, setCurrent] = useState(1);
   let [minIndex, setMinIndex] = useState(0);
   let [maxIndex, setMaxIndex] = useState(0);
-
   let pageSize;
 
   useEffect(() => {
     const p = async () => {
-      await server // 유저의 포스트를 가져옴
+      await server
         .get(`/post/user/${user.data.userInfo.id}`)
         .then((res) => {
           setUserPost(res.data.data);
           setData(res.data.data.posts);
-          setTotalPage(Math.ceil(res.data.data.posts.length / pageSize));
           setMinIndex(0);
           setMaxIndex(pageSize);
         })
@@ -66,7 +63,7 @@ const Mypage = () => {
         });
     };
     p();
-  }, []);
+  }, [post]);
 
   const handleDeleteAccount = async () => {
     await server
@@ -76,8 +73,9 @@ const Mypage = () => {
         },
       })
       .then((res) => {
-        if (res.status === 200) {
+        if (res.status === 205) {
           console.log("회원탈퇴");
+          persistor.purge();
           localStorage.removeItem("accessToken");
           localStorage.removeItem("id");
           window.location = "/mainpage";
@@ -100,10 +98,6 @@ const Mypage = () => {
     query: "(max-width:767px)",
   });
 
-  const [newfile, setNewFile] = useState({
-    profileImages: [],
-  });
-
   const handeClickEditBtn = (boolean) => {
     if (boolean) {
       setIsEdit(true);
@@ -111,22 +105,6 @@ const Mypage = () => {
       setIsEdit(false);
     }
   };
-
-  // const handleClickUpload = (boolean) => {
-  //   if (boolean) {
-  //     setClickUpload(true);
-  //   } else {
-  //     setClickUpload(false);
-  //   }
-  // };
-
-  // const updateUploadedFiles = (files) =>
-  //   setNewFile({ ...newfile, profileImages: files });
-
-  // const handleSubmit = (event) => {
-  //   event.preventDefault();
-  //   // 여기에 이미지 올리는 로직 작성해야 함
-  // };
 
   const windowLocation = () => {
     return (window.location = "/mainpage");
@@ -140,12 +118,9 @@ const Mypage = () => {
         windowLocation();
       },
     });
-    //alert("로그인 후 이용 가능합니다.");
-    //window.location = "/mainpage";
   };
 
   const handleClickPost = (boolean, id) => {
-    console.log(boolean, id);
     if (boolean) {
       setClickModal(true);
       window.history.pushState(null, "", `/post/${id}`);
@@ -161,12 +136,14 @@ const Mypage = () => {
     setMaxIndex((maxIndex = page * pageSize));
   };
 
-  {
-    isPc ? (pageSize = 6) : isTablet ? (pageSize = 8) : (pageSize = 4);
+  if (isPc) {
+    pageSize = 6;
+  } else if (isTablet) {
+    pageSize = 8;
+  } else {
+    pageSize = 4;
   }
-  //console.log(user); //여기에 서버에서 가져온 유저 정보가 담겨있음.
-  //console.log(userinfo);
-  //console.log(userPost.posts);
+
   return (
     <>
       {isPc && (
@@ -364,13 +341,27 @@ const Mypage = () => {
                                                             )
                                                           }
                                                         >
-                                                          <img
-                                                            className="postGallery-img"
-                                                            key={post._id}
-                                                            src={
-                                                              post.media[0].path
-                                                            }
-                                                          ></img>
+
+                                                          {post.media[0]
+                                                            .type === "img" ? (
+                                                            <img
+                                                              className="postGallery-img"
+                                                              key={post._id}
+                                                              src={
+                                                                post.media[0]
+                                                                  .path
+                                                              }
+                                                            ></img>
+                                                          ) : (
+                                                            <video
+                                                              className="postGallery-img"
+                                                              key={post._id}
+                                                              src={
+                                                                post.media[0]
+                                                                  .path
+                                                              }
+                                                            ></video>
+                                                          )}
                                                         </div>
                                                       </>
                                                     )
@@ -400,7 +391,7 @@ const Mypage = () => {
                                             {user.data.userInfo.careers.map(
                                               (career) => {
                                                 return (
-                                                  <li>
+                                                  <li key={career._id}>
                                                     {`${
                                                       career.year.split("T")[0]
                                                     }` +
@@ -451,7 +442,7 @@ const Mypage = () => {
         </>
       )}
 
-{isTablet && (
+      {isTablet && (
         <>
           {!isloading ? (
             <>
@@ -647,6 +638,7 @@ const Mypage = () => {
                                                           }
                                                         >
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={
@@ -682,7 +674,7 @@ const Mypage = () => {
                                             {user.data.userInfo.careers.map(
                                               (career) => {
                                                 return (
-                                                  <li>
+                                                  <li key={career._id}>
                                                     {`${
                                                       career.year.split("T")[0]
                                                     }` +
@@ -729,7 +721,7 @@ const Mypage = () => {
         </>
       )}
 
-{isMobile && (
+      {isMobile && (
         <>
           {!isloading ? (
             <>
@@ -927,6 +919,7 @@ const Mypage = () => {
                                                           }
                                                         >
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={
@@ -962,7 +955,7 @@ const Mypage = () => {
                                             {user.data.userInfo.careers.map(
                                               (career) => {
                                                 return (
-                                                  <li>
+                                                  <li key={career._id}>
                                                     {`${
                                                       career.year.split("T")[0]
                                                     }` +

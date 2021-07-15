@@ -22,6 +22,7 @@ const ResponsiveIconlist = () => {
     genre: ""
   })
   const [clickupload, setClickUpload] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleClickUpload = (boolean) => {
     if (boolean) {
@@ -47,61 +48,95 @@ const ResponsiveIconlist = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // 여기에 이미지 올리는 로직 작성해야 함
-    const media = [];
-
-    for(let el of newfile.profileImages){
-      const ext = el.name.split(".")[1];
-
-      const url = await server.get("/upload")
-      .then((res) => res.data.data);
-      const path = url.split("?")[0];
-      const config = {
-        headers: {
-          "Content-Type": "multipart/form-data"
-        }
-      };
-      await axios.put(url, el, config)
-      .catch((err) => console.log(err));
-
-      let obj;
-      if(ext === "mp4"){
-        obj = {
-          type: "video",
-          path
+    // login유무 확인
+    if(!localStorage.getItem("accessToken")){
+      Modal.error({
+        getContainer: document.getElementById("upload-modal-container"),
+        content: '로그인 후 이용 가능합니다',
+      });
+      //alert("로그인 후 이용 가능합니다");
+    } else if(!content.genre){
+        Modal.warning({
+          getContainer: document.getElementById("upload-modal-container"),
+          content: '장르를 선택해 주세요',
+        });
+      //return alert("장르를 선택해 주세요");
+    }else{
+      // loading 중...
+      setIsLoading(true);
+      // {type, path}들을 담을 변수, media 선언
+      const media = [];
+  
+      for(let el of newfile.profileImages){
+        // 파일의 확장자 추출
+        const ext = el.name.split(".")[1];
+        // 파일을 저장할 url 생성
+        const url = await server.get("/upload")
+        .then((res) => res.data.data);
+        // 저장될 파일 경로 추출
+        const path = url.split("?")[0];
+        const config = {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         };
-      }else{
-        obj = {
-          type: "img",
-          path
+  
+        // S3 bucket에 파일을 저장
+        await axios.put(url, el, config)
+        .catch((err) => console.log(err));
+  
+        // DB에 저장할 파일 경로 가공
+        let obj;
+        if (ext === "mp4") {
+          obj = {
+            type: "video",
+            path,
+          };
+        } else {
+          obj = {
+            type: "img",
+            path,
+          };
+  
         };
-      };
-      media.push(obj);
-    };
-
-    handlePost(media);
-
+        // 파일 경로들을 array에 저장
+        media.push(obj);
+      }
+  
+      handlePost(media);
+    }
+    
   };
 
+  // 가공된 bodyData를 서버에 보내는 함수
   const handlePost = async (media) => {
-    const accessToken = window.localStorage.getItem("accessToken")
+    const accessToken = window.localStorage.getItem("accessToken");
     const bodyData = {
       media,
-      ...content
+      ...content,
     };
     const headers = {
-      authorization: `Bearer ${accessToken}`
+      authorization: `Bearer ${accessToken}`,
     };
+
     await server.post("/post/create", bodyData, { headers })
     .then(() => {
+      // 완료 후 등록완료 메세지 알림과 페이지 리디렉션
+      setIsLoading(false);
       Modal.success({
+        getContainer: document.getElementById("upload-modal-container"),
         content: '포스트가 등록되었습니다',
       });
       // alert("포스트가 등록되었습니다");
-      handleClickUpload(false);
+      redirectPage();
     })
     .catch((err) => console.log(err));
 
+  };
+
+  // 미 로그인 이라면, 메인페이지로 이동
+  const redirectPage = () => {
+    window.location = "/mainpage";
   };
 
   return (
@@ -122,7 +157,7 @@ const ResponsiveIconlist = () => {
                 <Link
                   className="noEffect"
                   onClick={() => handleClickUpload(true)}
-                  to="/"
+                  to="/mainpage"
                 >
                   <FileAddOutlined className="realIcon" />
                 </Link>
@@ -158,6 +193,7 @@ const ResponsiveIconlist = () => {
                 updateFilesCb={updateUploadedFiles}
                 updateContentCb={updateUploadedContents}
                 handleClickUpload={handleClickUpload}
+                isLoading={isLoading}
               />
             </form>
           </div>

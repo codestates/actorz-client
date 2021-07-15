@@ -10,8 +10,10 @@ import {
   PreviewList,
   RemovePostIcon,
 } from "./portfolio.styles";
-import "../../styles/Postupload.css";
-import "./portfolio.styles.css";
+
+import "../../styles/Fileupload.css";
+import "./portfolio.styles.css"
+
 
 import Loading from "../loading";
 import { Modal } from "antd";
