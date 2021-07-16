@@ -11,7 +11,7 @@ import { UserOutlined } from "@ant-design/icons";
 import Signin from "../Signin";
 import Signup from "../Signup";
 import { getAllPostInfo } from "../../actions/postAction";
-import img from "../../images/search.gif";
+import img from "../../images/search.png";
 import { Input, Col, Row, Select } from "antd";
 
 const ResponsiveApp = () => {
@@ -94,15 +94,16 @@ const ResponsiveApp = () => {
                 <div className="headerLogoResponsive"> Actorz </div>
               </Link>
             </div>
-            <div className="responsiveAvatar">
+            <div>
               <Popover
+                className="searchResponsive"
                 placement="bottomRight"
                 trigger="click"
                 content={
                   <>
                     <Input.Group>
                       <Row gutter={8}>
-                        <Col span={8}>
+                        <Col span={21}>
                           <Input
                             onChange={handleInputValue("name")}
                             placeholder="이름"
@@ -110,7 +111,7 @@ const ResponsiveApp = () => {
                         </Col>
                       </Row>
                       <Row gutter={8}>
-                        <Col span={8}>
+                        <Col span={21}>
                           <Input
                             onChange={handleInputValue("conent")}
                             placeholder="내용"
@@ -145,6 +146,9 @@ const ResponsiveApp = () => {
               >
                 <img src={img} className="res-search-img"></img>
               </Popover>
+            </div>
+
+            <div className="responsiveAvatar">
               {localStorage.getItem("accessToken") ? (
                 <Popover
                   content={

@@ -2,16 +2,7 @@ import React, { useState, useEffect } from "react";
 import server from "../apis/server";
 import { useDispatch } from "react-redux";
 import { getAllPostInfo } from "../actions/postAction";
-import {
-  Input,
-  Col,
-  Row,
-  Select,
-  InputNumber,
-  DatePicker,
-  AutoComplete,
-  Cascader,
-} from "antd";
+import { Input, Col, Row, Select } from "antd";
 
 import "../styles/Search.css";
 

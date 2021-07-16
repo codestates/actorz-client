@@ -10,7 +10,7 @@ import server from "../apis/server";
 import { persistor } from "../store/store";
 import Loading from "../components/loading";
 import { getAllPostInfo } from "../actions/postAction";
-import img from "../images/search.gif";
+import img from "../images/search.png";
 import { Input, Col, Row, Select } from "antd";
 
 import "../styles/Search.css";
@@ -18,13 +18,17 @@ import "../styles/Search.css";
 const { Option } = Select;
 
 const Nav = ({ handleClickFiltering }) => {
+  const user = useSelector((user) => user.userInfoReducer);
+  const dispatch = useDispatch();
+
   const [search, setSearch] = useState("");
   const [clickSignin, setClickSignin] = useState(false);
   const [clickSignup, setClickSignup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const user = useSelector((user) => user.userInfoReducer);
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
+  const [age, setAge] = useState("");
 
   const inputHandler = (event) => {
     setSearch(event.target.value);
@@ -57,13 +61,8 @@ const Nav = ({ handleClickFiltering }) => {
     setClickSignup(bool);
   };
 
-  const [name, setName] = useState("");
-  const [content, setContent] = useState("");
-  const [age, setAge] = useState("");
-
-  const dispatch = useDispatch();
-
   useEffect(async () => {
+    console.log(name, content, age);
     try {
       if (Number(age) === 50) {
         await server
@@ -136,7 +135,7 @@ const Nav = ({ handleClickFiltering }) => {
                 <>
                   <Input.Group>
                     <Row gutter={8}>
-                      <Col span={8}>
+                      <Col span={21}>
                         <Input
                           onChange={handleInputValue("name")}
                           placeholder="이름"
@@ -144,7 +143,7 @@ const Nav = ({ handleClickFiltering }) => {
                       </Col>
                     </Row>
                     <Row gutter={8}>
-                      <Col span={8}>
+                      <Col span={21}>
                         <Input
                           onChange={handleInputValue("conent")}
                           placeholder="내용"
