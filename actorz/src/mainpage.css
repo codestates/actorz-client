@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 body {
   margin: 0px;
   /* -ms-overflow-style: none; */
@@ -139,6 +140,20 @@ font {
 .midContentsReverse {
   display: flex;
   flex-direction: column-reverse;
+}
+
+.failed-box {
+  margin-top: 10rem;
+}
+
+.failed-span {
+  font-size: 1.5rem;
+  color: rgb(59, 84, 195);
+  font-family: "Jua", sans-serif;
+}
+
+.failed-icon {
+  width: 6rem;
 }
 
 .midContents,

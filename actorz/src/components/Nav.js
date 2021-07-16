@@ -1,23 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
-
-import { Button } from "antd";
+import { useDispatch } from "react-redux";
+import { Button, Popover } from "antd";
 import server from "../apis/server";
 import { persistor } from "../store/store";
 import Loading from "../components/loading";
+import { getAllPostInfo } from "../actions/postAction";
+import img from "../images/search.png";
+import { Input, Col, Row, Select } from "antd";
+
+import "../styles/Search.css";
+
+const { Option } = Select;
 
 const Nav = ({ handleClickFiltering }) => {
+  const user = useSelector((user) => user.userInfoReducer);
+  const dispatch = useDispatch();
+
   const [search, setSearch] = useState("");
   const [clickSignin, setClickSignin] = useState(false);
   const [clickSignup, setClickSignup] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const user = useSelector((user) => user.userInfoReducer);
+  const [name, setName] = useState("");
+  const [content, setContent] = useState("");
+  const [age, setAge] = useState("");
 
   const inputHandler = (event) => {
     setSearch(event.target.value);
@@ -48,6 +59,38 @@ const Nav = ({ handleClickFiltering }) => {
 
   const handleClickSignup = (bool) => {
     setClickSignup(bool);
+  };
+
+  useEffect(async () => {
+    console.log(name, content, age);
+    try {
+      if (Number(age) === 50) {
+        await server
+          .get(`post/search?name=${name}&content=${content}`)
+          .then((res) => {
+            dispatch(getAllPostInfo(res.data.data));
+          });
+      } else {
+        await server
+          .get(`post/search?name=${name}&content=${content}&age=${age}`)
+          .then((res) => {
+            dispatch(getAllPostInfo(res.data.data));
+          });
+      }
+    } catch (err) {
+      throw err;
+    }
+  }, [name, content, age]);
+
+  const handleInputValue = (key) => (event) => {
+    console.log(event);
+    if (key === "name") {
+      setName(event.target.value);
+    } else if (key === "conent") {
+      setContent(event.target.value);
+    } else if (key === "age") {
+      setAge(event);
+    }
   };
 
   // useEffect( async () => {
@@ -82,16 +125,59 @@ const Nav = ({ handleClickFiltering }) => {
               <Button variant="outlined" className="product-search-btn">
                 검색
               </Button>
-              <Button
-                variant="outlined"
-                className="product-search-btn"
-                onClick={handleClickFiltering}
-              >
-                조건검색
-              </Button>
             </div>
 
             <div className="blackNav2"> </div>
+            <Popover
+              placement="bottomRight"
+              trigger="click"
+              content={
+                <>
+                  <Input.Group>
+                    <Row gutter={8}>
+                      <Col span={21}>
+                        <Input
+                          onChange={handleInputValue("name")}
+                          placeholder="이름"
+                        />
+                      </Col>
+                    </Row>
+                    <Row gutter={8}>
+                      <Col span={21}>
+                        <Input
+                          onChange={handleInputValue("conent")}
+                          placeholder="내용"
+                        />
+                      </Col>
+                    </Row>
+                  </Input.Group>
+                  <Input.Group compact>
+                    <Select
+                      defaultValue="50"
+                      onChange={handleInputValue("age")}
+                    >
+                      <Option value="10" name="age">
+                        ~10대
+                      </Option>
+                      <Option value="20" name="age">
+                        20대
+                      </Option>
+                      <Option value="30" name="age">
+                        30대
+                      </Option>
+                      <Option value="40" name="age">
+                        40대~
+                      </Option>
+                      <Option value="50" name="age">
+                        전체
+                      </Option>
+                    </Select>
+                  </Input.Group>
+                </>
+              }
+            >
+              <img src={img} className="search-img"></img>
+            </Popover>
 
             {user.isLogin ? (
               <div className="signBtnPosition">

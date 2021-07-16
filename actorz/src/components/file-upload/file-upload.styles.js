@@ -247,3 +247,12 @@ export const VideoPreview = styled.video`
   width: 100%;
   height: 100%;
 `;
+
+export const HeartOutlined = styled.button`
+  cursor: pointer;
+  color: rgb(54, 54, 54);
+  margin-bottom: 5px;
+  &:hover {
+    transform: scale(1.3);
+  }
+`;
