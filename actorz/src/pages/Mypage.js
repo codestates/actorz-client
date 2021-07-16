@@ -464,6 +464,7 @@ const Mypage = () => {
                                                         {post.media[0].type ===
                                                         "img" ? (
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={
@@ -724,6 +725,7 @@ const Mypage = () => {
                                                           {post.media[0]
                                                             .type === "img" ? (
                                                             <img
+                                                              alt=""
                                                               className="postGallery-img"
                                                               key={post._id}
                                                               src={
@@ -808,6 +810,7 @@ const Mypage = () => {
                                                         {post.media[0].type ===
                                                         "img" ? (
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={
@@ -1066,6 +1069,7 @@ const Mypage = () => {
                                                           {post.media[0]
                                                             .type === "img" ? (
                                                             <img
+                                                              alt=""
                                                               className="postGallery-img"
                                                               key={post._id}
                                                               src={
@@ -1150,6 +1154,7 @@ const Mypage = () => {
                                                         {post.media[0].type ===
                                                         "img" ? (
                                                           <img
+                                                            alt=""
                                                             className="postGallery-img"
                                                             key={post._id}
                                                             src={
