@@ -14,6 +14,45 @@ p {
   font-family: Lato;
 }
 
+ul,
+li {
+  text-decoration: none;
+  list-style-type: none;
+  display: inline-block;
+}
+ul {
+  text-decoration: none;
+  padding-left: 0px;
+}
+li {
+  text-decoration: none;
+  margin: 8px 16px;
+}
+
+.nav-link {
+  position: relative;
+  text-decoration: none;
+  color: #fff;
+
+}
+.nav-link:before {
+  text-decoration: none;
+  content: "";
+  position: absolute;
+  height: 2px;
+  background: #fff;
+  bottom: -4px;
+  right: 0;
+  width: 0%;
+  transition: 0.3s cubic-bezier(0.47, 0, 0.745, 0.715);
+}
+.nav-link:hover:before {
+  text-decoration: none;
+  left: 0;
+  width: 100%;
+}
+
+
 .nothing {
   color: black;
 }

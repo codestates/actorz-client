@@ -100,10 +100,17 @@ body {
 .startContentsTitle {
   font-family: lato;
   font-size: 5rem;
+  text-align: center;
 }
 
-.startContentsTitle {
-  text-align: center;
+.startContentsTitle2 {
+  width: 100%;
+  display: flex;
+
+  font-family: lato;
+  font-size: 4rem;
+  text-align: right;
+  margin-left: 75rem;
 }
 
 .commentsGroup {

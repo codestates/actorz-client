@@ -6,15 +6,17 @@ import 'antd/dist/antd.css';
 import { Button, Carousel } from 'antd';
 import { ArrowDownOutlined } from '@ant-design/icons';
 import IntroNav from "../components/IntroNav";
-//import IntroFooter from "../components/IntroFooter"
-import ScrollTrigger from '@terwanerik/scrolltrigger';
+//import IntroFooter from "../components/IntroFooter";
 import ResponsiveApp from "../components/responsiveApp/ResponsiveNav"
 import Footer from "../components/Footer";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import Slider from "react-slick";
 import { _Button, Comment, Form, Header, Card, Icon } from 'semantic-ui-react';
 import GotoTop from "../components/GotoTop";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
 
+gsap.registerPlugin(ScrollTrigger);
 
 const trigger = new ScrollTrigger();
 trigger.add('[data-trigger]');
@@ -255,12 +257,12 @@ const Intropage = () => {
           <br/>
           <br/>
           <br/>
-          <h4> * 실제 한국예술종합학교 학생들의 설문 조사를 바탕으로 작성하였습니다. </h4>
+          {/* <h4> * 실제 한국예술종합학교 학생들의 설문 조사를 바탕으로 작성하였습니다. </h4> */}
         </div>
 
-        <div className="blockPosition"></div>
-        <div className="startContentsTitle" style={{backgroundPositionY: position / 2 }}>
-          Why we made this App?
+        <div className="blockPositionDivide"></div>
+        <div className="startContentsTitle2" style={{transform: `translateX(${-position}px)` }}>
+          포트플리오에 사진과 영상을 담을 수 있다면 어떨까?
           <br/>
         </div>
 
@@ -430,6 +432,23 @@ const Intropage = () => {
 
           <div className="blockPosition"></div>
           
+
+          {/* <section class="panel">
+            <div class="container">
+              <div class="grid-item">
+                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/590856/512.jpg" class="panel-image" />
+              </div>
+              <div class="grid-item">
+                <p class="panel-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis quisquam facilis beatae molestias qui impedit,
+                  accusamus eius pariatur inventore expedita minima necessitatibus iste labore quibusdam neque adipisci sequi voluptatem iusto dignissimos!
+                  Commodi mollitia doloribus reprehenderit rem sunt? Ea quis numquam consectetur esse nostrum eveniet totam laborum? Deserunt fugiat aliquam assumenda
+                  qui sit vero vitae id laudantium nostrum quae sapiente temporibus quaerat dolorem culpa quos,
+                  aspernatur quo maiores voluptatem incidunt autem, repudiandae iste aperiam. Culpa sunt nulla accusamus, maxime voluptatum molestias?</p>
+                <button class="btn">Read more</button>
+              </div>
+            </div>
+          </section> */}
+
           <a href="#" className="noEffectAtag">
             <GotoTop />
           </a>
