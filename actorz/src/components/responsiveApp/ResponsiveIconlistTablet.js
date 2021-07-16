@@ -175,7 +175,7 @@ const ResponsiveIconlistTablet = () => {
 
             <div className="responsiveHomeButton">
               <div className="responsiveHomeButtonIcon">
-                <Link className="noEffect" to="/mainpage">
+                <Link className="noEffect" to="/like">
                   <HeartOutlined className="realIcon" />
                 </Link>
               </div>
@@ -183,7 +183,7 @@ const ResponsiveIconlistTablet = () => {
 
             <div className="responsiveHomeButton">
               <div className="responsiveHomeButtonIcon">
-                <Link className="noEffect" to="/mypage">
+                <Link className="noEffect" to="/portfolio">
                   <SnippetsOutlined className="realIcon" />
                 </Link>
               </div>

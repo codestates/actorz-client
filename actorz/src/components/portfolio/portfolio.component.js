@@ -71,25 +71,44 @@ const PortfolioEdit = ({
             <label className="pf headerLabel">포트폴리오에 등록할 포스트를 선택해주세요</label>
           </section>
           <section className="pf postsSection">
-            <Slider {...settings}>
-              {myPostsData.map((post) => post.media[0].type === "img" ? (
+            {myPostsData.length === 1 ? 
+              myPostsData[0].media[0].type === "img" ? (
                 <img 
-                  key={post._id}
+                  key={myPostsData[0]._id}
                   className="pf postImg"
-                  src={post.media[0].path}
+                  src={myPostsData[0].media[0].path}
                   alt="post first img"
-                  onClick={() => handleClickPost(post)}
+                  onClick={() => handleClickPost(myPostsData[0])}
                 />
               ) : (
                 <video
                   controls
-                  key={post._id}
+                  key={myPostsData[0]._id}
                   className="pf postVideo"
-                  src={post.media[0].path}
-                  onClick={() => handleClickPost(post)} 
+                  src={myPostsData[0].media[0].path}
+                  onClick={() => handleClickPost(myPostsData[0])} 
                 />
-              ))}
-            </Slider>
+              ) : (
+              <Slider {...settings}>
+                {myPostsData.map((post) => post.media[0].type === "img" ? (
+                  <img 
+                    key={post._id}
+                    className="pf postImg"
+                    src={post.media[0].path}
+                    alt="post first img"
+                    onClick={() => handleClickPost(post)}
+                  />
+                ) : (
+                  <video
+                    controls
+                    key={post._id}
+                    className="pf postVideo"
+                    src={post.media[0].path}
+                    onClick={() => handleClickPost(post)} 
+                  />
+                ))}
+              </Slider>
+            )}
           </section>
           <section className="pf selectSection">
             {postsData[0] ? (
@@ -132,16 +151,18 @@ const PortfolioEdit = ({
               </PfUploadContainer>
             ) : null}
           </section>
-
-          <button
-            className="pf cancel-btn"
-            onClick={() => handleClickPfEdit(false)}
-          >
-            cancel
-          </button>
-          <button onClick={handleClickPostBtn} className="pf upload-btn">
-            post
-          </button>
+          
+          <div className="pf cancel-or-post-btn">
+            <button
+              className="pf cancel-btn"
+              onClick={() => handleClickPfEdit(false)}
+            >
+              cancel
+            </button>
+            <button onClick={handleClickPostBtn} className="pf upload-btn">
+              post
+            </button>
+          </div>
 
           {isLoading ? (<Loading />) : null}
         </div>

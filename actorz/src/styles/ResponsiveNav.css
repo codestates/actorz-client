@@ -34,6 +34,10 @@ body {
   padding: 0.5rem;
 }
 
+.searchResponsive {
+  margin-right: 20rem;
+}
+
 .ResponsiveNavHeader {
   width: 100%;
   max-width: 100%;
@@ -51,6 +55,10 @@ body {
   background-color: white;
   border-bottom: 1px solid #e0e0e0;
   z-index: 5;
+}
+
+.ant-popover {
+  position: fixed;
 }
 
 /* .nav-btn {
@@ -85,4 +93,7 @@ body {
   padding: 0.5rem 0rem 0rem 2rem;
   margin-bottom: 0.3rem;
   background-color: rgb(233, 239, 240);
+}
+img.res-search-img {
+  width: 2rem;
 }

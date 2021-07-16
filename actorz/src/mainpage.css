@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 body {
   margin: 0px;
   /* -ms-overflow-style: none; */
@@ -132,6 +133,10 @@ font {
   width: 100%;
 }
 
+.mainPageResponsive2 {
+  padding-bottom: 100px;
+}
+
 .middleSpace::-webkit-scrollbar {
   display: none;
 }
@@ -143,6 +148,19 @@ font {
 
 div.ui.centered.fluid.card {
   margin: 0.5rem 0 0.5rem 0;
+}
+.failed-box {
+  margin-top: 10rem;
+}
+
+.failed-span {
+  font-size: 1.5rem;
+  color: rgb(59, 84, 195);
+  font-family: "Jua", sans-serif;
+}
+
+.failed-icon {
+  width: 6rem;
 }
 
 .midContents,
