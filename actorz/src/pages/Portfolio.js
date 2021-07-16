@@ -398,7 +398,7 @@ const Portfolio = () => {
 
                     <div className="newblockPosition"> </div>
 
-                    <div className="middleSpace3">
+                    <div className="middleSpace2">
                       <div className="midContents">
                         <div className="buttonHeader">
                           <div className="profileTitleName">
@@ -593,7 +593,6 @@ const Portfolio = () => {
                       </div> 
                     ) : null}
                   </div>
-                  <Footer />
                 </>
               ) : (
                 isNotLoginModal()
