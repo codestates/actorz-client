@@ -2,16 +2,22 @@
   margin-left: 0.5rem;
 }
 
+#modal-container-mobile2::-webkit-scrollbar,
 #modal-container::-webkit-scrollbar {
-  width: 0.5rem;
+  width: 0.1rem;
+}
+
+.modal-group-signup-align-center {
+  align-content: center;
 }
 
 .modal-group-signup {
   display: flex;
   padding: 0.6rem;
   /* color: red; */
+  width: fit-content;
   font-size: 1.25rem;
-  margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 .modal-group-signup2 {
@@ -35,7 +41,7 @@
 
 .modal-group-signup input {
   width: 15rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   padding: 0.2rem;
   background-color: #fafafa;
   font-family: Lato;
@@ -61,6 +67,7 @@
 
 .modal-group-signup-gender {
   font-size: 0.8rem;
+  margin-top: 0.5rem;
   margin-right: 1rem;
 }
 
@@ -110,12 +117,6 @@
   margin-top: 0.8rem;
   /* padding: 1rem; */
   background: #fafafa;
-}
-
-.signUpbtnPosition2 {
-  display: flex;
-  margin-top: 0.8rem;
-  margin-left: 2.5rem;
 }
 
 .signUpbtnPosition3 {

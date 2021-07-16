@@ -8,8 +8,9 @@ import Naver from "../components/Naverlogin";
 import Loading from "../components/loading";
 import "../styles/SigninModal.css";
 import { Modal } from 'antd';
+import { useMediaQuery } from "react-responsive";
 
-const Signin = ({ handleClickSignin, handleClickSignup, isMobile }) => {
+const Signin = ({ handleClickSignin, handleClickSignup }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setError] = useState("");
@@ -17,6 +18,14 @@ const Signin = ({ handleClickSignin, handleClickSignup, isMobile }) => {
 
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
+
+  const isPcORTablet = useMediaQuery({
+    query: "(min-width:768px)",
+  });
+
+  const isMobile = useMediaQuery({
+    query: "(max-width:767px)",
+  });
 
   const handleClickClose = () => {
     handleClickSignin(false);
@@ -74,16 +83,26 @@ const Signin = ({ handleClickSignin, handleClickSignup, isMobile }) => {
       }
     } catch (err) {
       setLoading(false);
+      let node;
+      if(isMobile){
+        node = document.getElementById("modal-container-mobile");
+      }else{
+        node = document.getElementById("modal-container");
+      }
       if (err.message === "Request failed with status code 401") {
         Modal.warning({
-          getContainer: document.getElementById("modal-container"),
+          getContainer: node,
           content: '등록되지 않은 회원이거나 잘못된 비밀번호 입니다.',
+          mask: false,
+          maskClosable: true
         });
         //alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
       } else {
         Modal.error({
-          getContainer: document.getElementById("modal-container"),
+          getContainer: node,
           content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
+          mask: false,
+          maskClosable: true
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
@@ -91,82 +110,171 @@ const Signin = ({ handleClickSignin, handleClickSignup, isMobile }) => {
   };
   return (
     <>
-      <center>
-        <form onSubmit={(e) => e.preventDefault()}>
-          <div id="modal-background" onClick={() => handleClickClose()}>
-            <div
-              id="modal-container"
-              onClick={(event) => event.stopPropagation()}
-            >
-              <div className="buttonHeader"></div>
+      {isPcORTablet && (
+        <>
+          <center>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div id="modal-background" onClick={() => handleClickClose()}>
+                <div
+                  id="modal-container"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <div className="modalCancleBtn"></div>
+                  <div className="modal-title">
+                    <div className="title">
+                      <div>Login</div>
 
-              <div className="modalCancleBtn"></div>
-              <div className="modal-title">
-                <div className="title">
-                  <div>Sign In </div>
-
-                  <CloseOutlined
-                    className="closeBtn"
-                    onClick={handleClickClose}
-                  />
-                </div>
-              </div>
-              <div className="modal-welcome-message">Welcome to Actorz</div>
-              <div className="modal-group">
-                <input
-                  type="email"
-                  placeholder=" email"
-                  onChange={handleInputValue("email")}
-                />
-              </div>
-              <div className="modal-group">
-                <input
-                  type="password"
-                  placeholder=" password"
-                  onChange={handleInputValue("password")}
-                />
-              </div>
-              <div>{err ? <div className="err-message">{err}</div> : null}</div>
-              <div className="modalButtonPosition">
-                <div className="loginBtnPosition">
-                  <button
-                    className="btn-login login"
-                    type="submit"
-                    onClick={handleClickSigninBtn}
-                  >
-                    <div className="settingBtn">
-                      로그인
-                      <div className="loading">
-                        {loading ? <Loading /> : ""}
+                      <CloseOutlined
+                        className="closeBtn"
+                        onClick={handleClickClose}
+                      />
+                    </div>
+                  </div>
+                  <div className="modal-welcome-message">Welcome to Actorz</div>
+                  <div className="modal-group">
+                    <input
+                      type="email"
+                      placeholder=" 이메일"
+                      onChange={handleInputValue("email")}
+                    />
+                  </div>
+                  <div className="modal-group">
+                    <input
+                      type="password"
+                      placeholder=" 비밀번호"
+                      onChange={handleInputValue("password")}
+                    />
+                  </div>
+                  <div>{err ? <div className="err-message">{err}</div> : null}</div>
+                  <div className="modalButtonPosition">
+                    <div className="loginBtnPosition">
+                      <button
+                        className="btn-login login"
+                        type="submit"
+                        onClick={handleClickSigninBtn}
+                      >
+                        <div className="settingBtn" style={{marginLeft:"0.8rem"}}>
+                          로그인
+                          <div className="loading">
+                            {loading ? <Loading /> : ""}
+                          </div>
+                        </div>
+                      </button>
+                    </div>
+                    <div className="modalButtonPosition">
+                      <div className="loginBtnPosition">
+                        <Google handleClickClose={handleClickClose} />
+                      </div>
+                      <div className="loginBtnPosition">
+                        <Naver handleClickClose={handleClickClose} />
+                      </div>
+                      <div className="signUpbtnPosition">
+                        <div>
+                          <div className="movetoSignUp">아직 계정이 없으십니까?
+                          </div>
+                          <div
+                            className="movetoSignUpBtn"
+                            onClick={() => {
+                              handleClickSignin(false);
+                              handleClickSignup(true);
+                            }}
+                          >
+                            회원가입 하러 하기
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </button>
-                </div>
-                <div className="modalButtonPosition">
-                  <div className="loginBtnPosition">
-                    <Google handleClickClose={handleClickClose} />
-                  </div>
-                  <div className="loginBtnPosition">
-                    <Naver handleClickClose={handleClickClose} />
-                  </div>
-                  <div className="signUpbtnPosition">
-                    <div className="movetoSignUp"> 아직 계정이 없으십니까?</div>
-                    <div
-                      className="movetoSignUpBtn"
-                      onClick={() => {
-                        handleClickSignin(false);
-                        handleClickSignup(true);
-                      }}
-                    >
-                      회원가입 하러 하기
-                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </form>
-      </center>
+            </form>
+          </center>
+        </>
+      )}
+      {
+        isMobile && (
+          <>
+            <center>
+              <form onSubmit={(e) => e.preventDefault()}>
+                <div id="modal-background">
+                  <div id="modal-container-mobile2">
+                    <CloseOutlined
+                      className="closeBtn-mobile"
+                      onClick={handleClickClose}
+                    />
+                    <div
+                      id="modal-container-mobile"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      <div className="modal-title">
+                        <div className="title-mobile">
+                          <div>Login</div>
+
+                        </div>
+                      </div>
+                      <div className="modal-welcome-message">Welcome to Actorz</div>
+                      <div className="modal-group">
+                        <input
+                          type="email"
+                          placeholder=" 이메일"
+                          onChange={handleInputValue("email")}
+                        />
+                      </div>
+                      <div className="modal-group">
+                        <input
+                          type="password"
+                          placeholder=" 비밀번호"
+                          onChange={handleInputValue("password")}
+                        />
+                      </div>
+                      <div>{err ? <div className="err-message">{err}</div> : null}</div>
+                      <div className="modalButtonPosition">
+                        <div className="loginBtnPosition">
+                          <button
+                            className="btn-login login"
+                            type="submit"
+                            onClick={handleClickSigninBtn}
+                          >
+                            <div className="settingBtn" style={{marginLeft:"0.8rem"}}>
+                              로그인
+                              <div className="loading">
+                                {loading ? <Loading /> : ""}
+                              </div>
+                            </div>
+                          </button>
+                        </div>
+                        <div className="modalButtonPosition">
+                          <div className="loginBtnPosition">
+                            <Google handleClickClose={handleClickClose} />
+                          </div>
+                          <div className="loginBtnPosition">
+                            <Naver handleClickClose={handleClickClose} />
+                          </div>
+                          <div className="signUpbtnPosition">
+                            <div>
+                              <div className="movetoSignUp">아직 계정이 없으십니까?
+                              </div>
+                              <div
+                                className="movetoSignUpBtn"
+                                onClick={() => {
+                                  handleClickSignin(false);
+                                  handleClickSignup(true);
+                                }}
+                              >
+                                회원가입 하러 하기
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </center>
+          </>
+        )
+      }
     </>
   );
 };

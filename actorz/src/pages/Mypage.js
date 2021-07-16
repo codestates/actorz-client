@@ -65,26 +65,26 @@ const Mypage = () => {
     p();
   }, [post]);
 
-  const handleDeleteAccount = async () => {
-    await server
-      .get(`/user/${localStorage.getItem("id")}/delete`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        if (res.status === 205) {
-          console.log("회원탈퇴");
-          persistor.purge();
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("id");
-          window.location = "/mainpage";
-        }
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
+  // const handleDeleteAccount = async () => {
+  //   await server
+  //     .get(`/user/${localStorage.getItem("id")}/delete`, {
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //       },
+  //     })
+  //     .then((res) => {
+  //       if (res.status === 205) {
+  //         console.log("회원탈퇴");
+  //         persistor.purge();
+  //         localStorage.removeItem("accessToken");
+  //         localStorage.removeItem("id");
+  //         window.location = "/mainpage";
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       throw err;
+  //     });
+  // };
 
   const isPc = useMediaQuery({
     query: "(min-width:1024px)",
@@ -172,10 +172,6 @@ const Mypage = () => {
                                 <EditOutlined
                                   className="editButton"
                                   onClick={() => handeClickEditBtn(true)}
-                                />
-                                <DeleteOutlined
-                                  className="deleteButton"
-                                  onClick={() => handleDeleteAccount()}
                                 />
                               </div>
                             </div>
@@ -345,6 +341,7 @@ const Mypage = () => {
                                                           {post.media[0]
                                                             .type === "img" ? (
                                                             <img
+                                                              alt=""
                                                               className="postGallery-img"
                                                               key={post._id}
                                                               src={
@@ -469,10 +466,6 @@ const Mypage = () => {
                                 <EditOutlined
                                   className="editButton"
                                   onClick={() => handeClickEditBtn(true)}
-                                />
-                                <DeleteOutlined
-                                  className="deleteButton"
-                                  onClick={() => handleDeleteAccount()}
                                 />
                               </div>
                             </div>
@@ -748,10 +741,6 @@ const Mypage = () => {
                                 <EditOutlined
                                   className="editButton"
                                   onClick={() => handeClickEditBtn(true)}
-                                />
-                                <DeleteOutlined
-                                  className="deleteButton"
-                                  onClick={() => handleDeleteAccount()}
                                 />
                               </div>
                             </div>

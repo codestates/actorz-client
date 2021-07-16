@@ -261,7 +261,7 @@ const Mainpage = () => {
 
                         <Card.Content>
                           <Card.Header>
-                            <div className="nothing2">
+                            <div className="nothing2" style={{width: "fit-content"}}>
                               <Link
                                 to={{
                                   pathname: `/posts`,
@@ -390,7 +390,7 @@ const Mainpage = () => {
 
                         <Card.Content>
                           <Card.Header>
-                            <div className="nothing2">
+                            <div className="nothing2" style={{width: "fit-content"}}>
                               <Link
                                 to={{
                                   pathname: `/posts`,
@@ -407,7 +407,8 @@ const Mainpage = () => {
                           </Card.Header>
                           <Card.Meta>
                             <span className="date">
-                              Updated at {post.updatedAt}
+                              Updated at {post.updatedAt.split("T")[0]}{" "}
+                              {post.updatedAt.split("T")[1].slice(0, 8)}
                             </span>
                           </Card.Meta>
                           <Card.Description>{post.content}</Card.Description>
@@ -508,7 +509,7 @@ const Mainpage = () => {
                                 muted="muted"
                                 loop="loop"
                                 className="video"
-                                style={{width:"100%", margin:0}}
+                                style={{width:"100%", margin:0, maxHeight:"50rem"}}
                                 >
                                 <source
                                   src={post.media[0].path}
@@ -522,7 +523,7 @@ const Mainpage = () => {
 
                         <Card.Content>
                           <Card.Header>
-                            <div className="nothing2">
+                            <div className="nothing2" style={{width: "fit-content"}}>
                               <Link
                                 to={{
                                   pathname: `/posts`,
@@ -539,7 +540,8 @@ const Mainpage = () => {
                           </Card.Header>
                           <Card.Meta>
                             <span className="date">
-                              Updated at {post.updatedAt}
+                              Updated at {post.updatedAt.split("T")[0]}{" "}
+                              {post.updatedAt.split("T")[1].slice(0, 8)}
                             </span>
                           </Card.Meta>
                           <Card.Description>{post.content}</Card.Description>

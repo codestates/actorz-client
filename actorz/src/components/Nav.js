@@ -110,7 +110,7 @@ const Nav = ({ handleClickFiltering }) => {
                   className="navSignInBtn"
                   onClick={() => handleClickSignin(true)}
                 >
-                  Sign in
+                  로그인
                 </Button>
                 &nbsp;
                 <Button
@@ -118,7 +118,7 @@ const Nav = ({ handleClickFiltering }) => {
                   className="navSignInBtn"
                   onClick={() => handleClickSignup(true)}
                 >
-                  Sign up
+                  회원가입
                 </Button>
               </div>
             )}

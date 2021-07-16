@@ -67,7 +67,7 @@ const Post = ({ handleClickPost }) => {
         });
     };
     p();
-  }, [dispatch]);
+  }, [dispatch, url]);
 
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
@@ -136,133 +136,135 @@ const Post = ({ handleClickPost }) => {
               id="post-modal-background"
               onClick={() => handleClickPost(false)}
             >
-              <div
-                className="float-btn-box"
-                onClick={(event) => event.stopPropagation()}
-              >
-                <Link
-                  to={{
-                    pathname: `/posts`,
-                    state: {
-                      id: postinfo.userInfo.user_id,
-                    },
-                  }}
+              <div id="post-modal-container">
+                <div
+                  className="float-btn-box"
+                  onClick={(event) => event.stopPropagation()}
                 >
-                  <div className="float-btn">
-                    <img
-                      src={profile}
-                      className="float-profile-btn"
-                      alt=""
-                    ></img>
-                    <div className="float-profile-title">프로필</div>
-                  </div>
-                </Link>
-                <div className="float-btn">
-                  {!like ? (
-                    <>
-                      <img
-                        src={love}
-                        className="float-love-btn"
-                        alt=""
-                        onClick={() =>
-                          handleClickLikeBtn("unlike", postinfo._id)
-                        }
-                      ></img>
-                      <div className="float-love-title">좋아요</div>
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        src={love}
-                        className="float-love-btn"
-                        alt=""
-                        onClick={() => handleClickLikeBtn("like", postinfo._id)}
-                      ></img>
-                      <div className="float-love-title">좋아요 취소</div>
-                    </>
-                  )}
-                </div>
-                {user.data.userInfo.role === "recruiter" ? (
-                  <div
-                    className="float-btn"
-                    onClick={() => setEmailClick(true)}
+                  <Link
+                    to={{
+                      pathname: `/posts`,
+                      state: {
+                        id: postinfo.userInfo.user_id,
+                      },
+                    }}
                   >
-                    <img src={email} className="float-email-btn" alt=""></img>
-                    <div className="float-email-title">연락하기</div>
-                  </div>
-                ) : null}
-                {postinfo.userInfo &&
-                user.data.userInfo.id === postinfo.userInfo.user_id ? (
-                  <div className="float-btn">
-                    <img
-                      alt=""
-                      src={email}
-                      className="float-edit-btn"
-                      onClick={() => handleClickEditBtn(true)}
-                    ></img>
-                    <div className="float-email-title">수정하기</div>
-                  </div>
-                ) : null}
-                {postinfo.userInfo &&
-                user.data.userInfo.id === postinfo.userInfo.user_id ? (
-                  <div className="float-btn">
-                    <img
-                      alt=""
-                      src={email}
-                      className="float-edit-btn"
-                      onClick={handleClickDeleteBtn}
-                    ></img>
-                    <div className="float-email-title">삭제하기</div>
-                  </div>
-                ) : null}
-              </div>
-              <div
-                className="container"
-                onClick={(event) => event.stopPropagation()}
-              >
-                {postinfo.genre ? (
-                  <div className="info">
-                    <div className="info-box">
-                      <div className="post-name">{postinfo.userInfo.name}</div>
-                      <img src={heart} className="heart-img" alt=""></img>
-                      <span className="genre">|{postinfo.genre}</span>
-                      <span className="like">
-                        {post.data.data.posts.posts[idx].likes.length}
-                      </span>
-                      <button
-                        className="delete-btn"
-                        onClick={() => handleClickPost(false)}
-                      >
-                        X
-                      </button>
-                      <span className="desc">{postinfo.content}</span>
+                    <div className="float-btn">
+                      <img
+                        src={profile}
+                        className="float-profile-btn"
+                        alt=""
+                      ></img>
+                      <div className="float-profile-title">프로필</div>
                     </div>
-                    <div className="img-box">
-                      <div className="div-img">
-                        {postinfo.media.map((img) => {
-                          if (img.type === "img") {
-                            return (
-                              <img
-                                key={img._id}
-                                src={img.path}
-                                className="post-image"
-                                alt="이미지"
-                              ></img>
-                            );
-                          } else {
-                            return (
-                              <video controls className="video" key={img._id}>
-                                <source src={img.path}></source>
-                              </video>
-                            );
+                  </Link>
+                  <div className="float-btn">
+                    {!like ? (
+                      <>
+                        <img
+                          src={love}
+                          className="float-love-btn"
+                          alt=""
+                          onClick={() =>
+                            handleClickLikeBtn("unlike", postinfo._id)
                           }
-                        })}
+                        ></img>
+                        <div className="float-love-title">좋아요</div>
+                      </>
+                    ) : (
+                      <>
+                        <img
+                          src={love}
+                          className="float-love-btn"
+                          alt=""
+                          onClick={() => handleClickLikeBtn("like", postinfo._id)}
+                        ></img>
+                        <div className="float-love-title">좋아요 취소</div>
+                      </>
+                    )}
+                  </div>
+                  {user.data.userInfo.role === "recruiter" ? (
+                    <div
+                      className="float-btn"
+                      onClick={() => setEmailClick(true)}
+                    >
+                      <img src={email} className="float-email-btn" alt=""></img>
+                      <div className="float-email-title">연락하기</div>
+                    </div>
+                  ) : null}
+                  {postinfo.userInfo &&
+                  user.data.userInfo.id === postinfo.userInfo.user_id ? (
+                    <div className="float-btn">
+                      <img
+                        alt=""
+                        src={email}
+                        className="float-edit-btn"
+                        onClick={() => handleClickEditBtn(true)}
+                      ></img>
+                      <div className="float-email-title">수정하기</div>
+                    </div>
+                  ) : null}
+                  {postinfo.userInfo &&
+                  user.data.userInfo.id === postinfo.userInfo.user_id ? (
+                    <div className="float-btn">
+                      <img
+                        alt=""
+                        src={email}
+                        className="float-edit-btn"
+                        onClick={handleClickDeleteBtn}
+                      ></img>
+                      <div className="float-email-title">삭제하기</div>
+                    </div>
+                  ) : null}
+                </div>
+                <div
+                  className="container"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  {postinfo.genre ? (
+                    <div className="info">
+                      <div className="info-box">
+                        <div className="post-name">{postinfo.userInfo.name}</div>
+                        <img src={heart} className="heart-img" alt=""></img>
+                        <span className="genre">|{postinfo.genre}</span>
+                        <span className="like">
+                          {post.data.data.posts.posts[idx].likes.length}
+                        </span>
+                        <button
+                          className="delete-btn"
+                          onClick={() => handleClickPost(false)}
+                        >
+                          X
+                        </button>
+                        <span className="desc">{postinfo.content}</span>
+                      </div>
+                      <div className="img-box">
+                        <div className="div-img">
+                          {postinfo.media.map((img) => {
+                            if (img.type === "img") {
+                              return (
+                                <img
+                                  key={img._id}
+                                  src={img.path}
+                                  className="post-image"
+                                  alt="이미지"
+                                ></img>
+                              );
+                            } else {
+                              return (
+                                <video controls className="video" key={img._id}>
+                                  <source src={img.path}></source>
+                                </video>
+                              );
+                            }
+                          })}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <Loading />
-                )}
+                  ) : (
+                    <Loading />
+                  )}
+                </div>
               </div>
             </div>
           ) : (
