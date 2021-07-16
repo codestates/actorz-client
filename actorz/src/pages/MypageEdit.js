@@ -111,15 +111,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     p();
   }, [post, clickLike]);
 
-  const tagOptions = [
-    { label: "드라마", value: "드라마" },
-    { label: "영화", value: "영화" },
-    { label: "뮤지컬", value: "뮤지컬" },
-    { label: "연극", value: "연극" },
-    { label: "광고", value: "광고" },
-    { label: "뮤직비디오", value: "뮤직비디오" },
-  ];
-
   const handleAddressComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";

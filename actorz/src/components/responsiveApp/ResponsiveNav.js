@@ -11,8 +11,8 @@ import { UserOutlined } from "@ant-design/icons";
 import Signin from "../Signin";
 import Signup from "../Signup";
 import { getAllPostInfo } from "../../actions/postAction";
-import img from "../../images/search.png";
 import { Input, Col, Row, Select } from "antd";
+import "../../styles/ResponsiveNav.css";
 
 const ResponsiveApp = () => {
   const user = useSelector((user) => user.userInfoReducer);
@@ -23,39 +23,25 @@ const ResponsiveApp = () => {
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [age, setAge] = useState("");
+  const [search, setSearch] = useState("");
 
   const dispatch = useDispatch();
   const { Option } = Select;
 
   useEffect(async () => {
     try {
-      if (Number(age) === 50) {
-        await server
-          .get(`post/search?name=${name}&content=${content}`)
-          .then((res) => {
-            dispatch(getAllPostInfo(res.data.data));
-          });
-      } else {
-        await server
-          .get(`post/search?name=${name}&content=${content}&age=${age}`)
-          .then((res) => {
-            dispatch(getAllPostInfo(res.data.data));
-          });
-      }
+      await server
+        .get(`post/search?name=&content=${search}&age=`)
+        .then((res) => {
+          dispatch(getAllPostInfo(res.data.data));
+        });
     } catch (err) {
       throw err;
     }
-  }, [name, content, age]);
+  }, [search]);
 
-  const handleInputValue = (key) => (event) => {
-    console.log(event);
-    if (key === "name") {
-      setName(event.target.value);
-    } else if (key === "conent") {
-      setContent(event.target.value);
-    } else if (key === "age") {
-      setAge(event);
-    }
+  const handleInputValue = (event) => {
+    setSearch(event.target.value);
   };
 
   const handleClicklogout = async () => {
@@ -84,6 +70,22 @@ const ResponsiveApp = () => {
     setClickSignup(bool);
   };
 
+  const inputHandler = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleClickSearchBtn = async () => {
+    try {
+      await server
+        .get(`post/search?name=&content=${search}&age=`)
+        .then((res) => {
+          dispatch(getAllPostInfo(res.data.data));
+        });
+    } catch (err) {
+      throw err;
+    }
+  };
+
   return (
     <>
       {!loading ? (
@@ -95,71 +97,25 @@ const ResponsiveApp = () => {
               </Link>
             </div>
             <div>
-              <Popover
-                className="searchResponsive"
-                placement="bottomRight"
-                trigger="click"
-                content={
-                  <>
-                    <Input.Group>
-                      <Row gutter={8}>
-                        <Col span={21}>
-                          <Input
-                            onChange={handleInputValue("name")}
-                            placeholder="이름"
-                          />
-                        </Col>
-                      </Row>
-                      <Row gutter={8}>
-                        <Col span={21}>
-                          <Input
-                            onChange={handleInputValue("conent")}
-                            placeholder="내용"
-                          />
-                        </Col>
-                      </Row>
-                    </Input.Group>
-                    <Input.Group compact>
-                      <Select
-                        defaultValue="50"
-                        onChange={handleInputValue("age")}
-                      >
-                        <Option value="10" name="age">
-                          ~10대
-                        </Option>
-                        <Option value="20" name="age">
-                          20대
-                        </Option>
-                        <Option value="30" name="age">
-                          30대
-                        </Option>
-                        <Option value="40" name="age">
-                          40대~
-                        </Option>
-                        <Option value="50" name="age">
-                          전체
-                        </Option>
-                      </Select>
-                    </Input.Group>
-                  </>
-                }
-              >
-                <img src={img} className="res-search-img"></img>
-              </Popover>
+              <input
+                className="product-search"
+                value={search}
+                placeholder="  search..."
+                onChange={handleInputValue}
+              ></input>
             </div>
-
             <div className="responsiveAvatar">
               {localStorage.getItem("accessToken") ? (
                 <Popover
-                  overlayClassName="ant-popover"
-                  placement="bottom"
                   content={
-                    <button
-                      onClick={handleClicklogout}
-                      className="nav-btn-logout"
-                    >
-                      로그아웃
-                    </button>
+                    <>
+                      <button
+                        onClick={handleClicklogout}
+                        className="nav-btn-logout"
+                      >
+                        로그아웃
+                      </button>
+                    </>
                   }
                   trigger="click"
                 >
@@ -171,8 +127,6 @@ const ResponsiveApp = () => {
                 </Popover>
               ) : (
                 <Popover
-                  overlayClassName="ant-popover"
-                  placement="bottom"
                   content={
                     <>
                       <button
