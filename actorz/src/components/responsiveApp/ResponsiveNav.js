@@ -19,26 +19,24 @@ const ResponsiveApp = () => {
   const [loading, setLoading] = useState(false);
   const [clickSignin, setClickSignin] = useState(false);
   const [clickSignup, setClickSignup] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
-  const [name, setName] = useState("");
-  const [content, setContent] = useState("");
-  const [age, setAge] = useState("");
   const [search, setSearch] = useState("");
 
   const dispatch = useDispatch();
-  const { Option } = Select;
 
-  useEffect(async () => {
-    try {
-      await server
-        .get(`post/search?name=&content=${search}&age=`)
-        .then((res) => {
-          dispatch(getAllPostInfo(res.data.data));
-        });
-    } catch (err) {
-      throw err;
+  useEffect(() => {
+    const p = async () => {
+      try {
+        await server
+          .get(`post/search?name=&content=${search}&age=`)
+          .then((res) => {
+            dispatch(getAllPostInfo(res.data.data));
+          });
+      } catch (err) {
+        throw err;
+      }
     }
-  }, [search]);
+    p();
+  }, [search])
 
   const handleInputValue = (event) => {
     setSearch(event.target.value);
@@ -107,6 +105,8 @@ const ResponsiveApp = () => {
             <div className="responsiveAvatar">
               {localStorage.getItem("accessToken") ? (
                 <Popover
+                  overlayClassName="ant-popover"
+                  placement="bottom"
                   content={
                     <>
                       <button
@@ -127,6 +127,8 @@ const ResponsiveApp = () => {
                 </Popover>
               ) : (
                 <Popover
+                  overlayClassName="ant-popover"
+                  placement="bottom"
                   content={
                     <>
                       <button

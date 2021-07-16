@@ -51,97 +51,19 @@ const Like = () => {
     }
   };
 
-  useEffect(async () => {
-    await server
-      .get(`like/${user.data.userInfo.id}`)
+  useEffect(() => {
+    const p = async () => {
+      await server
+      .get(`/like/${user.data.userInfo.id}`)
       .then((res) => {
         setLikePost(res.data.data.posts);
       })
       .catch((err) => {
         throw err;
       });
-  }, [clickLike]);
-
-  useEffect(() => {
-    setIsLoading(true);
-    const oauthLogin = async () => {
-      try {
-        const [provider, code] = oauthSignup.split("=");
-        if (!code.includes("@")) {
-          await server
-            .post(`/login/${provider}`, { code })
-            .then(async (res) => {
-              if (res.status === 200) {
-                //로그인 성공
-                localStorage.setItem("accessToken", res.data.data.accessToken);
-                localStorage.setItem("id", res.data.data.id);
-                console.log(res.data.data.accessToken);
-                await server //로그인한 유저의 정보를 state에 저장
-                  .get(`/user/${localStorage.getItem("id")}`)
-                  .then((res) => {
-                    if (res.status === 200) {
-                      setModalSocialSignup(false);
-                      setIsLoading(false);
-                      dispatch(getUserInfo(res.data.data.userInfo));
-                    }
-                  })
-                  .catch((err) => {
-                    setIsLoading(false);
-                    throw err;
-                  });
-              } else if (res.status === 201) {
-                //새로운 유저
-                setIsLoading(false);
-                setModalSocialSignup(true);
-                setOauthSignup(`${provider}=${res.data.data.email}`);
-              } else {
-                setIsLoading(false);
-                Modal.error({
-                  content: "소셜 로그인 중 오류가 발생했습니다.",
-                });
-                // alert("소셜 로그인 중 오류가 발생했습니다.");
-                return;
-              }
-            });
-          setIsLoading(false);
-        }
-      } catch (err) {
-        setIsLoading(false);
-        console.log(err);
-      }
-    };
-
-    const parseQueryString = function () {
-      const str = window.location.search;
-      let objURL = {};
-
-      str.replace(
-        new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-        function ($0, $1, $2, $3) {
-          objURL[$1] = $3;
-        }
-      );
-      return objURL;
-    };
-
-    const getQuery = () => {
-      const query = parseQueryString();
-      if (query.code && !oauthSignup) {
-        if (query.state) {
-          query.provider = "naver";
-        } else if (query.scope) {
-          query.provider = "google";
-        }
-        setOauthSignup(`${query.provider}=${query.code}`);
-      } else {
-        setIsLoading(false);
-      }
-    };
-    getQuery();
-    if (oauthSignup) {
-      oauthLogin();
     }
-  }, [oauthSignup, dispatch]);
+    p();
+  }, [user.data.userInfo.id]);
 
   const handleClickFiltering = () => {
     setIsFilter(!isFilter);

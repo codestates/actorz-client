@@ -1,26 +1,29 @@
+
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
-import '../App.css';
-import 'antd/dist/antd.css';
-import { Button, Carousel } from 'antd';
-import { ArrowDownOutlined } from '@ant-design/icons';
-import IntroNav from "../components/IntroNav";
-//import IntroFooter from "../components/IntroFooter";
-import ResponsiveApp from "../components/responsiveApp/ResponsiveNav"
-import Footer from "../components/Footer";
-import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import Slider from "react-slick";
 import { _Button, Comment, Form, Header, Card, Icon } from 'semantic-ui-react';
+// import gsap from "gsap";
+// import ScrollTrigger from "gsap/ScrollTrigger";
+import { Button, Carousel } from 'antd';
+import { ArrowDownOutlined } from '@ant-design/icons';
+//import IntroFooter from "../components/IntroFooter";
+
+import Footer from "../components/Footer";
+import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import GotoTop from "../components/GotoTop";
-import gsap from "gsap";
-import ScrollTrigger from "gsap/ScrollTrigger";
+import ResponsiveApp from "../components/responsiveApp/ResponsiveNav"
+import IntroNav from "../components/IntroNav";
 
-gsap.registerPlugin(ScrollTrigger);
+import '../App.css';
+import 'antd/dist/antd.css';
 
-const trigger = new ScrollTrigger();
-trigger.add('[data-trigger]');
-trigger.add('[data-triggerAlways]', { once: false })
+// gsap.registerPlugin(ScrollTrigger);
+
+// const trigger = new ScrollTrigger();
+// trigger.add('[data-trigger]');
+// trigger.add('[data-triggerAlways]', { once: false })
 
 
 const Intropage = () => {
