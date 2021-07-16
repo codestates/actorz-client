@@ -765,12 +765,13 @@ const Portfolio = () => {
                                     <div key={post._id}>
                                       <Slider {...settings}>
                                         {post.media.map((data) => data.type === "img" ? 
-                                          <img 
+                                          <img
                                             key={data._id}
                                             className="pf selectImg"
                                             src={data.path}
                                             alt="post img"
-                                          /> : 
+                                          />
+                                          : 
                                           <video
                                             controls
                                             key={data._id}

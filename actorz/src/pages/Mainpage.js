@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-
 import Nav from "../components/Nav";
 import Post from "./Post";
 import { Link } from "react-router-dom";
@@ -20,12 +19,14 @@ import "../mainpage.css";
 import "semantic-ui-css/semantic.min.css";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
-import ResponsiveIconlist from "../components/responsiveApp/ResponsiveIconlist";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
 import "../styles/ResponsiveMainpage.css";
 import Loading from "../components/loading";
-import FileUpload from "../components/file-upload/file-upload.component";
 import { redirectUri } from "../config";
+import failed from "../images/depression.png";
+import { Popover, Button } from "antd";
+
+import "../styles/Search.css";
 
 const Mainpage = () => {
   const [clickupload, setClickUpload] = useState(false);
@@ -208,7 +209,7 @@ const Mainpage = () => {
   };
 
   //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
-  console.log(post);
+  //console.log(post);
   return (
     <>
       {isPc && (
@@ -225,34 +226,36 @@ const Mainpage = () => {
             <div className="middleSpace">
               <div className="midContents2 midContentsReverse">
                 {post.data.data ? (
-                  post.data.data.posts.posts.map((post) => {
-                    return (
-                      <Card centered={true} fluid={true} key={post._id}>
-                        <div className="effecTest">
-                          <div
-                            className="screen"
-                            onClick={() => handleClickPost(true, post._id)}
-                          >
-                            {/* <div className="top"> 이기능쓰긴함?</div> */}
-                            <div className="bottom">
-                              <HeartOutlined className="testIcon" />
-                            </div>
-                            {post.media[0].type === "img" ? (
-                              <Image
-                                src={post.media[0].path}
-                                className="exampleIMG"
-                              />
-                            ) : (
-                              <video
-                                autoPlay="autoplay"
-                                muted="muted"
-                                loop="loop"
-                                className="video"
-                                style={{width:"100%", margin:0}}
-                                >
-                                <source
+                  post.data.data.posts.posts.length !== 0 ? (
+                    post.data.data.posts.posts.map((post) => {
+                      return (
+                        <Card centered={true} fluid={true} key={post._id}>
+                          <div className="effecTest">
+                            <div
+                              className="screen"
+                              onClick={() => handleClickPost(true, post._id)}
+                            >
+                              {/* <div className="top"> 이기능쓰긴함?</div> */}
+                              <div className="bottom">
+                                <HeartOutlined className="testIcon" />
+                              </div>
+                              {post.media[0].type === "img" ? (
+                                <Image
                                   src={post.media[0].path}
                                   className="exampleIMG"
+
+                                />
+                              ) : (
+                                <video
+                                  autoPlay="autoplay"
+                                  muted="muted"
+                                  loop="loop"
+                                  className="video"
+                                  style={{ width: "100%", margin: 0 }}
+                                >
+                                  <source
+                                    src={post.media[0].path}
+                                    className="exampleIMG"
                                 ></source>
                               </video>
                             )}
@@ -261,7 +264,7 @@ const Mainpage = () => {
 
                         <Card.Content>
                           <Card.Header>
-                            <div className="nothing2">
+                            <div className="nothing2" style={{width: "fit-content"}}>
                               <Link
                                 to={{
                                   pathname: `/posts`,
@@ -297,31 +300,39 @@ const Mainpage = () => {
                                   onClick={() =>
                                     handleClickLikeBtn("like", post._id)
                                   }
-                                />
-                              ) : (
-                                <Icon
-                                  name="like"
-                                  className="unlike"
-                                  onClick={() =>
-                                    handleClickLikeBtn("unlike", post._id)
-                                  }
-                                />
-                              )}
-                            </>
-                          ) : (
-                            <Icon
-                              name="like"
-                              className="unlike"
-                              onClick={() =>
-                                handleClickLikeBtn("unlike", post._id)
-                              }
-                            />
-                          )}
-                          {post.likes.length}
-                        </Card.Content>
-                      </Card>
-                    );
-                  })
+                                 />
+                                ) : (
+                                  <Icon
+                                    name="like"
+                                    className="unlike"
+                                    onClick={() =>
+                                      handleClickLikeBtn("unlike", post._id)
+                                    }
+                                  />
+                                )}
+                              </>
+                            ) : (
+                              <Icon
+                                name="like"
+                                className="unlike"
+                                onClick={() =>
+                                  handleClickLikeBtn("unlike", post._id)
+                                }
+                              />
+                            )}
+                            {post.likes.length}
+                          </Card.Content>
+                        </Card>
+                      );
+                    })
+                  ) : (
+                    <center>
+                      <div className="failed-box">
+                        <img src={failed} className="failed-icon"></img>
+                        <span className="failed-span">아무것도 없어요!</span>
+                      </div>
+                    </center>
+                  )
                 ) : (
                   <Loading />
                 )}
@@ -330,17 +341,28 @@ const Mainpage = () => {
             </div>
             <div className="newblockPosition2"> </div>
             <div className="rightSpace">
-              <div className="iconList2">{isFilter ? <Search /> : null}</div>
+              <div className="iconList2">
+                {/* {isFilter ? (
+                  <Popover placement="bottomRight" trigger="click">
+                    <Button>BR</Button>
+                  </Popover>
+                ) : null} */}
+              </div>
             </div>
           </div>
 
-        <Footer />
-        {
-          modalSocialSignup ? (
-            <SocialSignup isMobile={false} oauthSignup={oauthSignup} modalSocialClose={() => {setModalSocialSignup(false)}}></SocialSignup>
-          ) : null
-        }
-      </>)}
+          <Footer />
+          {modalSocialSignup ? (
+            <SocialSignup
+              isMobile={false}
+              oauthSignup={oauthSignup}
+              modalSocialClose={() => {
+                setModalSocialSignup(false);
+              }}
+            ></SocialSignup>
+          ) : null}
+        </>
+      )}
 
       {isTablet && (
         <>
@@ -352,35 +374,36 @@ const Mainpage = () => {
             <div className="middleSpace2">
               {/* <div className="middleSpaceResponsive2"> */}
               <div className="midContentsResponsive midContentsReverse">
-                {post.data.data && post.data.data.posts.posts.length !== 0 ? (
-                  post.data.data.posts.posts.map((post) => {
-                    return (
-                      <Card centered={true} fluid={true} key={post._id}>
-                        <div className="effecTest">
-                          <div
-                            className="screen"
-                            onClick={() => handleClickPost(true, post._id)}
-                          >
-                            {/* <div className="top"> 이기능쓰긴함?</div> */}
-                            <div className="bottom">
-                              <HeartOutlined className="testIcon" />
-                            </div>
-                            {post.media[0].type === "img" ? (
-                              <Image
-                                src={post.media[0].path}
-                                className="exampleIMG"
-                              />
-                            ) : (
-                              <video
-                                autoPlay="autoplay"
-                                muted="muted"
-                                loop="loop"
-                                className="video"
-                                style={{width:"100%", margin:0}}
-                                >
-                                <source
+                {post.data.data ? (
+                  post.data.data.posts.posts.length !== 0 ? (
+                    post.data.data.posts.posts.map((post) => {
+                      return (
+                        <Card centered={true} fluid={true} key={post._id}>
+                          <div className="effecTest">
+                            <div
+                              className="screen"
+                              onClick={() => handleClickPost(true, post._id)}
+                            >
+                              {/* <div className="top"> 이기능쓰긴함?</div> */}
+                              <div className="bottom">
+                                <HeartOutlined className="testIcon" />
+                              </div>
+                              {post.media[0].type === "img" ? (
+                                <Image
                                   src={post.media[0].path}
                                   className="exampleIMG"
+                                />
+                              ) : (
+                                <video
+                                  autoPlay="autoplay"
+                                  muted="muted"
+                                  loop="loop"
+                                  className="video"
+                                  style={{ width: "100%", margin: 0 }}
+                                >
+                                  <source
+                                    src={post.media[0].path}
+                                    className="exampleIMG"
                                 ></source>
                               </video>
                             )}
@@ -390,7 +413,7 @@ const Mainpage = () => {
 
                         <Card.Content>
                           <Card.Header>
-                            <div className="nothing2">
+                            <div className="nothing2" style={{width: "fit-content"}}>
                               <Link
                                 to={{
                                   pathname: `/posts`,
@@ -407,7 +430,8 @@ const Mainpage = () => {
                           </Card.Header>
                           <Card.Meta>
                             <span className="date">
-                              Updated at {post.updatedAt}
+                              Updated at {post.updatedAt.split("T")[0]}{" "}
+                              {post.updatedAt.split("T")[1].slice(0, 8)}
                             </span>
                           </Card.Meta>
                           <Card.Description>{post.content}</Card.Description>
@@ -425,35 +449,41 @@ const Mainpage = () => {
                                   onClick={() =>
                                     handleClickLikeBtn("like", post._id)
                                   }
-                                />
-                              ) : (
-                                <Icon
-                                  name="like"
-                                  className="unlike"
-                                  onClick={() =>
-                                    handleClickLikeBtn("unlike", post._id)
-                                  }
-                                />
-                              )}
-                            </>
-                          ) : (
-                            <Icon
-                              name="like"
-                              className="unlike"
-                              onClick={() =>
-                                handleClickLikeBtn("unlike", post._id)
-                              }
-                            />
-                          )}
-                          {post.likes.length}
-                        </Card.Content>
-                      </Card>
-                    );
-                  })
+                                 />
+                                ) : (
+                                  <Icon
+                                    name="like"
+                                    className="unlike"
+                                    onClick={() =>
+                                      handleClickLikeBtn("unlike", post._id)
+                                    }
+                                  />
+                                )}
+                              </>
+                            ) : (
+                              <Icon
+                                name="like"
+                                className="unlike"
+                                onClick={() =>
+                                  handleClickLikeBtn("unlike", post._id)
+                                }
+                              />
+                            )}
+                            {post.likes.length}
+                          </Card.Content>
+                        </Card>
+                      );
+                    })
+                  ) : (
+                    <center>
+                      <div className="failed-box">
+                        <img src={failed} className="failed-icon"></img>
+                        <span className="failed-span">아무것도 없어요!</span>
+                      </div>
+                    </center>
+                  )
                 ) : (
-                  <center>
-                    <div className="alert">게시물이 없어요</div>
-                  </center>
+                  <Loading />
                 )}
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
@@ -481,26 +511,28 @@ const Mainpage = () => {
             {/* <Nav loading={loading} handleClickFiltering={handleClickFiltering} /> */}
             <ResponsiveNav />
             {/* <Iconlist /> */}
+            <ResponsiveFooter />
 
             <div className="middleSpaceResponsive2">
               <div className="midContentsResponsive2 midContentsReverse">
-                {post.data.data && post.data.data.posts.posts.length !== 0 ? (
-                  post.data.data.posts.posts.map((post) => {
-                    return (
-                      <Card centered={true} fluid={true} key={post._id}>
-                        <div className="effecTest">
-                          <div
-                            className="screen"
-                            onClick={() => handleClickPost(true, post._id)}
-                          >
-                            {/* <div className="top"> 이기능쓰긴함?</div> */}
-                            <div className="bottom">
-                              <HeartOutlined className="testIcon" />
-                            </div>
-                            {post.media[0].type === "img" ? (
-                              <Image
-                                src={post.media[0].path}
-                                className="exampleIMG"
+                {post.data.data ? (
+                  post.data.data.posts.posts.length !== 0 ? (
+                    post.data.data.posts.posts.map((post) => {
+                      return (
+                        <Card centered={true} fluid={true} key={post._id}>
+                          <div className="effecTest">
+                            <div
+                              className="screen"
+                              onClick={() => handleClickPost(true, post._id)}
+                            >
+                              {/* <div className="top"> 이기능쓰긴함?</div> */}
+                              <div className="bottom">
+                                <HeartOutlined className="testIcon" />
+                              </div>
+                              {post.media[0].type === "img" ? (
+                                <Image
+                                  src={post.media[0].path}
+                                  className="exampleIMG"
                               />
                             ) : (
                               <video
@@ -508,7 +540,7 @@ const Mainpage = () => {
                                 muted="muted"
                                 loop="loop"
                                 className="video"
-                                style={{width:"100%", margin:0}}
+                                style={{width:"100%", margin:0, maxHeight:"50rem"}}
                                 >
                                 <source
                                   src={post.media[0].path}
@@ -522,7 +554,7 @@ const Mainpage = () => {
 
                         <Card.Content>
                           <Card.Header>
-                            <div className="nothing2">
+                            <div className="nothing2" style={{width: "fit-content"}}>
                               <Link
                                 to={{
                                   pathname: `/posts`,
@@ -539,7 +571,8 @@ const Mainpage = () => {
                           </Card.Header>
                           <Card.Meta>
                             <span className="date">
-                              Updated at {post.updatedAt}
+                              Updated at {post.updatedAt.split("T")[0]}{" "}
+                              {post.updatedAt.split("T")[1].slice(0, 8)}
                             </span>
                           </Card.Meta>
                           <Card.Description>{post.content}</Card.Description>
@@ -557,35 +590,41 @@ const Mainpage = () => {
                                   onClick={() =>
                                     handleClickLikeBtn("like", post._id)
                                   }
-                                />
-                              ) : (
-                                <Icon
-                                  name="like"
-                                  className="unlike"
-                                  onClick={() =>
-                                    handleClickLikeBtn("unlike", post._id)
-                                  }
-                                />
-                              )}
-                            </>
-                          ) : (
-                            <Icon
-                              name="like"
-                              className="unlike"
-                              onClick={() =>
-                                handleClickLikeBtn("unlike", post._id)
-                              }
-                            />
-                          )}
-                          {post.likes.length}
-                        </Card.Content>
-                      </Card>
-                    );
-                  })
+                                  />
+                                ) : (
+                                  <Icon
+                                    name="like"
+                                    className="unlike"
+                                    onClick={() =>
+                                      handleClickLikeBtn("unlike", post._id)
+                                    }
+                                  />
+                                )}
+                              </>
+                            ) : (
+                              <Icon
+                                name="like"
+                                className="unlike"
+                                onClick={() =>
+                                  handleClickLikeBtn("unlike", post._id)
+                                }
+                              />
+                            )}
+                            {post.likes.length}
+                          </Card.Content>
+                        </Card>
+                      );
+                    })
+                  ) : (
+                    <center>
+                      <div className="failed-box">
+                        <img src={failed} className="failed-icon"></img>
+                        <span className="failed-span">아무것도 없어요!</span>
+                      </div>
+                    </center>
+                  )
                 ) : (
-                  <center>
-                    <div className="alert">게시물이 없어요</div>
-                  </center>
+                  <Loading />
                 )}
                 {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
               </div>
@@ -596,7 +635,6 @@ const Mainpage = () => {
             <div className="iconList2">{isFilter ? <Search /> : null}</div>
           </div> */}
           </div>
-          <ResponsiveFooter />
 
           {modalSocialSignup ? (
             <SocialSignup

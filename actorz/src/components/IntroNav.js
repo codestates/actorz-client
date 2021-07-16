@@ -27,6 +27,12 @@ const IntroNav = () => {
     }
   };
 
+  const mvMainpage = () => {
+    return (
+      window.location = "/mainpage"
+    );
+  }
+
   return (
     <>
       <div id="nav">
@@ -45,6 +51,15 @@ const IntroNav = () => {
             <Button
               variant="outlined"
               className="navSignInBtn"
+              onClick={mvMainpage}
+            >
+              메인페이지 이동
+            </Button>
+          </div> 
+          {/* <div className="signBtnPosition">
+            <Button
+              variant="outlined"
+              className="navSignInBtn"
               onClick={handleClickSignin}
             >
               Sign in
@@ -57,7 +72,7 @@ const IntroNav = () => {
             >
               Sign up
             </Button>
-          </div>
+          </div> */}
         </div>
 
         {clickSignin ? (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
 import '../App.css';
@@ -13,10 +13,13 @@ import Footer from "../components/Footer";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import Slider from "react-slick";
 import { _Button, Comment, Form, Header, Card, Icon } from 'semantic-ui-react';
+import GotoTop from "../components/GotoTop";
 
 
 const trigger = new ScrollTrigger();
 trigger.add('[data-trigger]');
+trigger.add('[data-triggerAlways]', { once: false })
+
 
 const Intropage = () => {
 
@@ -45,43 +48,83 @@ const Intropage = () => {
     arrows: false,
     fade: true,
   };
+  
+  const namecardSettings = {
+    className: "center",
+    centerMode: true,
+    dots: false,
+    infinite: true,
+    speed: 2500,
+    autoplaySpeed: 3500,
+    pauseOnHover: false,
+    autoplay: true,
+    draggable: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    arrows: false,
+
+  };
 
   const extraHeart = (
     <a>
       <Icon name='heart' />
-      15,455 likes
+        15,455 likes
     </a>
   )
 
   const extraHeart2 = (
     <a>
       <Icon name='heart' />
-      132,555 likes
+        132,555 likes
     </a>
   )
 
   const extraHeart3 = (
     <a>
       <Icon name='heart' />
-      92,188 likes
+        92,188 likes
     </a>
   )
 
   const extraHeart4 = (
     <a>
       <Icon name='heart' />
-      999,999 likes
+        220,381 likes
     </a>
   )
 
+  const extraHeart5 = (
+    <a>
+      <Icon name='heart' />
+        1,010,597 likes
+    </a>
+  )
 
+  const extraHeart6 = (
+    <a>
+      <Icon name='heart' />
+       98,113 likes
+    </a>
+  )
 
+  const [position, setPosition] = useState(0);
+
+  const onScroll = () => {
+    setPosition(window.scrollY);
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => {
+        window.removeEventListener("scroll", onScroll);
+    }
+  }, []);
 
   return (
     <>
       {isPc && 
       <>
-      <div className="blockhere"> </div>
+      {/* <div className="blockhere"> </div> */}
       <IntroNav />
         <div>
           <Slider {...settings} className="freeGroup" >
@@ -121,8 +164,10 @@ const Intropage = () => {
                   <img className="setPhotoA" alt="" src="https://media.vlpt.us/images/iooi75/post/f424b957-0755-4407-b24f-01cd5da2c5a3/thumb-2009107696_1eypsHg8_75b78deb1f72d28d204e9c7f8684aa27b44c0cab_370x420.jpg"/>
                 </div>
                 <div className="mainContentsCenterDisplay"> 
-                  <img alt="" src=""/>
-                  <div className="colorTest02"> ACTORZ </div>
+                  <div  className="scrollIMGPosition">
+                    <img alt="" className="introLOGO" src="https://media.vlpt.us/images/iooi75/post/1f61e5e2-18d4-469a-8718-ff6799aadbaf/-1.png"/>
+                  </div>
+                <div className="colorTest02"> ACTORZ </div>
                     <br />
                     <br /><br />
                     <br />
@@ -178,7 +223,9 @@ const Intropage = () => {
                   <img className="setPhotoA" alt="" src="https://media.vlpt.us/images/iooi75/post/f42db9bb-45d9-4602-9b33-8a13e7a37631/thumb-2040665147_LMudibIf_db793839b04dff80f2e2aae0a8d8ffe7a85aa2a9_370x420.jpg"/>
                 </div>
                 <div className="mainContentsCenterDisplay"> 
-                  <img alt="" src=""/>
+                  <div  className="scrollIMGPosition">
+                    <img alt="" className="introLOGO" src="https://media.vlpt.us/images/iooi75/post/1f61e5e2-18d4-469a-8718-ff6799aadbaf/-1.png"/>
+                  </div>
                   <div className="colorTest02"> ACTORZ </div>
                     <br />
                     <br /><br />
@@ -203,8 +250,8 @@ const Intropage = () => {
         </div>
         
         <div className="blockPosition"></div>
-        <div className="startContentsTitle">
-          <h1> Why we made this App?</h1>
+        <div data-trigger className="startContentsTitle" >
+          Why we made this App?
           <br/>
           <br/>
           <br/>
@@ -212,10 +259,17 @@ const Intropage = () => {
         </div>
 
         <div className="blockPosition"></div>
+        <div className="startContentsTitle" style={{backgroundPositionY: position / 2 }}>
+          Why we made this App?
+          <br/>
+        </div>
+
+        <div className="blockPositionDivide"></div>
         <div className="commentsGroup">
           <div className="commentsGroupX"> </div>
           <div className="commentsGroupY">
-          <Comment.Group minimal>
+            
+          {/* <Comment.Group minimal>
             <Header as='h3' dividing>
               포토폴리오를 만드는데 어려움이 있으셨거나 블라블라 블라
             </Header>
@@ -249,7 +303,7 @@ const Intropage = () => {
                 </Comment.Actions>
               </Comment.Content>
 
-              <Comment.Group size="middle">
+              <Comment.Group size='large'>
                 <Comment>
                   <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/91a32cce-61a4-4721-b99e-0354f325ccd2/thumb-2040665147_d6gESnAz_673a0411062e8b6370c76113f987e20ce44474fc_370x420.jpg' />
                   <Comment.Content>
@@ -296,141 +350,89 @@ const Intropage = () => {
             </Comment>
 
         
-          </Comment.Group>
-
-            <Comment.Group threaded>
-              <Header as='h3' dividing>
-                포토폴리오를 만드는데 어려움이 있으셨거나 블라블라 블라
-              </Header>
-
-              <Comment>
-                <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/f424b957-0755-4407-b24f-01cd5da2c5a3/thumb-2009107696_1eypsHg8_75b78deb1f72d28d204e9c7f8684aa27b44c0cab_370x420.jpg' />
-                <Comment.Content>
-                  <Comment.Author as='a'>이준석</Comment.Author>
-                  <Comment.Metadata>
-                    <span>5 days ago</span>
-                  </Comment.Metadata>
-                  <Comment.Text>더 경쟁력있게 포트폴리오를 만드는 방법을 알고 싶습니다.</Comment.Text>
-                  <Comment.Actions>
-                    <a>Reply</a>
-                  </Comment.Actions>
-                </Comment.Content>
-              </Comment>
-
-              <Comment>
-                <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/3c22e9a1-6c10-44fa-b8e2-ecdec3ed2ccd/thumb-2009107696_xPJE0lpT_da11888d84e969f6f85acbdb214582d75c19fd86_370x420.jpg' />
-                <Comment.Content>
-                  <Comment.Author as='a'>김은미</Comment.Author>
-                  <Comment.Metadata>
-                    <span>5 days ago</span>
-                  </Comment.Metadata>
-                  <Comment.Text>
-                    <p>어떻게 해야 강력한 이미지로 부각될까와 이 프로필이 제대로 전해질까의 고민^^;</p>
-                  </Comment.Text>
-                  <Comment.Actions>
-                    <a>Reply</a>
-                  </Comment.Actions>
-                </Comment.Content>
-
-                <Comment.Group>
-                  <Comment>
-                    <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/91a32cce-61a4-4721-b99e-0354f325ccd2/thumb-2040665147_d6gESnAz_673a0411062e8b6370c76113f987e20ce44474fc_370x420.jpg' />
-                    <Comment.Content>
-                      <Comment.Author as='a'>Actorz</Comment.Author>
-                      <Comment.Metadata>
-                        <span>5 days ago</span>
-                      </Comment.Metadata>
-                      <Comment.Text> 저희는  <u>이 기능</u>을 통하여 보다 경쟁력있는 포토폴리오를 만들어드립니다 :)</Comment.Text>
-                      <Comment.Actions>
-                        <a>Reply</a>
-                      </Comment.Actions>
-                    </Comment.Content>
-                  </Comment>
-                </Comment.Group>
-              </Comment>
-
-              <Comment>
-                <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/8358273b-0356-4609-bcaa-c5994e6f8143/thumb-3555495007_UkK1tqyz_9b9162add0597b54c1666643e93f359a985649b9_370x420.jpg' />
-                <Comment.Content>
-                  <Comment.Author as='a'>한혜민</Comment.Author>
-                  <Comment.Metadata>
-                    <span>3 days ago</span>
-                  </Comment.Metadata>
-                  <Comment.Text>여태까지 뽑는 사람/회사 중심으로 만들어진 어플이 대부분이었는데, 배우 중심이면 좋겠습니다. 단순히 예쁘고 잘난 사람들, 또는 멋진 사진을 찍은 사람이 상위권에 오르는 것이 아니라 진짜 배우를 발굴해낼 수 있는 기능을 할 수 있으면 좋겠습니다. 좋은 어플을 만들어주셔서 감사합니다.</Comment.Text>
-                  <Comment.Actions>
-                    <a>Reply</a>
-                  </Comment.Actions>
-                </Comment.Content>
-
-
-                <Comment.Group size='massive'>
-                  <Comment>
-                    <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/91a32cce-61a4-4721-b99e-0354f325ccd2/thumb-2040665147_d6gESnAz_673a0411062e8b6370c76113f987e20ce44474fc_370x420.jpg' />
-                    <Comment.Content>
-                      <Comment.Author as='a'>Actorz</Comment.Author>
-                      <Comment.Metadata>
-                        <span>3 days ago</span>
-                      </Comment.Metadata>
-                      <Comment.Text> Actorz는 100% 배우를 중심으로 하는 어플입니다. 어쩌구저쩌구 :) 크기 조금 더 크게?</Comment.Text>
-                      <Comment.Actions>
-                        <a>Reply</a>
-                      </Comment.Actions>
-                    </Comment.Content>
-                  </Comment>
-                </Comment.Group>
-              </Comment>
-
-            </Comment.Group>
+          </Comment.Group> */}
+          
           </div>
           <div className="commentsGroupX"> </div>
         </div>
         <div className="blockPositionDivide"></div>
 
-        <div className="startContentsTitle">
-          <h1>실제로 어플을 이용한 고객님들의 후기!</h1>
+        <div data-trigger className="startContentsTitle">
+          <h1>실제로 어플을 이용한 사용자의 리뷰!</h1>
           <br/>
         </div>
-        <div className="blockPositionDivide"></div>
-        <div className="cardSlice">
-          <Card
-            className="profileCardList"
-            image='https://media.vlpt.us/images/iooi75/post/4b3c6e85-002a-400b-aeb6-03e8ab10556f/Screen%20Shot%202021-07-15%20at%206.37.56%20AM.png'
-            header='유병재'
-            meta='개그맨'
-            description='안녕하세요. 유병재입니다. 어플에 등록한지 3일만에 영화출연 연락이 왔습니다. 참 신기한 세상이네요 ㅋㅋㅋ'
-            extra={extraHeart}
-          />
-          <Card
-            image='https://media.vlpt.us/images/iooi75/post/9ad5085d-4265-4d91-bdb7-bda8561a6ed2/60497_30779_2227.jpeg'
-            header='신혜선'
-            meta='배우'
-            description='안녕하세요 🖐🏻  신혜선입니다. 요즘 핫한 이 어플 저도 뒤늦게 시작했는데, 간단하게 작성만하면 출연 제의 연락이 오니까 너무너무 편한 것 같아요!'
-            extra={extraHeart2}
-          />
-          <Card
-            image='https://cdnweb01.wikitree.co.kr/webdata/editor/202009/23/img_20200923081643_5ab21941.webp'
-            header='민효린'
-            meta='배우'
-            description='신인 때는 항~~상 두꺼운 포토폴리오를 가지고 직접 발로 뛰어 다녔는데, 무료로 이러한 좋은 어플이 생겨서 너무 좋은 것 같아요. 신인 배우분들 모두 파이팅하세요!'
-            extra={extraHeart3}
-          />
-          <Card
-            image='https://pbs.twimg.com/profile_images/847814355861110787/fdshCpyO.jpg'
-            header='냐옹이'
-            meta='고양이'
-            description='난 냐옹이다옹!'
-            extra={extraHeart4}
-          />
-        </div>
+        {/* <div className="blockPositionDivide2"></div> */}
 
-        <div className="blockPosition"></div>
+        <Slider {...namecardSettings} className="cardlistGroup" >
+            <div className="cardUI">
+              <Card
+                className="profileCardList"
+                image='https://media.vlpt.us/images/iooi75/post/4b3c6e85-002a-400b-aeb6-03e8ab10556f/Screen%20Shot%202021-07-15%20at%206.37.56%20AM.png'
+                header='유병재'
+                meta='개그맨'
+                description='안녕하세요. 유병재입니다. 어플에 등록한지 3일만에 영화출연 연락이 왔습니다. 참 신기한 세상이네요 ㅋㅋㅋ'
+                extra={extraHeart}
+              />
+            </div>
+            <div className="cardUI">
+              <Card
+                image='https://media.vlpt.us/images/iooi75/post/9ad5085d-4265-4d91-bdb7-bda8561a6ed2/60497_30779_2227.jpeg'
+                header='신혜선'
+                meta='배우'
+                description='안녕하세요 🤗  배우 신혜선입니다. 요즘 핫한 이 어플 저도 뒤늦게 시작했는데, 간단하게 작성만하면 출연 제의 연락이 오니까 너무너무 편한 것 같아요!'
+                extra={extraHeart2}
+              />
+            </div>
+            <div className="cardUI">
+              <Card
+                image='https://cdnweb01.wikitree.co.kr/webdata/editor/202009/23/img_20200923081643_5ab21941.webp'
+                header='민효린'
+                meta='배우'
+                description='신인 때는 항~~상 두꺼운 포트폴리오를 가지고 직접 발로 뛰어 다녔는데, 무료로 이러한 좋은 어플이 생겨서 너무 좋은 것 같아요. 신인 배우분들 모두 파이팅하세요!'
+                extra={extraHeart3}
+              />
+            </div>
+            <div className="cardUI">
+              <Card
+                image='https://media.vlpt.us/images/iooi75/post/c65e0d90-4b8b-471f-8306-5b6dd7b754ba/image.png'
+                header='송강'
+                meta='배우'
+                description='요즘 신인배우 사이에서 인기있는 앱! 코로나 때문에 모두가 힘든 시기이지만 모두 좋은 결과 있기를 바랄게요!   🥰 스위트 홈도 많이 사랑해주세요! ㅋㅋㅋㅋ'
+                extra={extraHeart4}
+              />
+            </div>
+            <div className="cardUI">
+              <Card
+                image='https://media.vlpt.us/images/iooi75/post/d1283901-7551-4f9d-96cc-ceafd12194ba/image.png'
+                header='봉준호'
+                meta='영화감독'
+                description='원하는 배우의 나이로 배우를 검색할 수 있는 점이 좋습니다. 또한, 배우들의 다양한 모습을 볼 수 있어서 좋습니다. 차기작을 위하여 열심히 배우들을 검토하고 있습니다. 감독님들께도 추천드리는 앱입니다.'
+                extra={extraHeart5}
+              />
+            </div>
+            <div className="cardUI">
+              <Card
+                image='https://media.vlpt.us/images/iooi75/post/1ab14050-1a26-49e0-b195-3696ab89d6e1/image.png'
+                header='오연서'
+                meta='배우'
+                description='원하는 포트폴리오를 만들 수 있는 점이 정말 좋았어요. 👀 지원하는 역할에 맞는 자신의 경력을 어필하여 유니크한 포트폴리오를 제출할 수 있었습니다 👍🏻'
+                extra={extraHeart6}
+              />
+            </div>
+        </Slider>
 
-        <div className="startContentsTitle">
-          <h1>다음 2022년 시상식의 주인공은 바로 여러분입니다! <br /> Actorz에서 여러분의 미래를 시작하세요.</h1>
-          <br/>
-        </div>
+          <div className="blockPosition"></div>
 
-        <div className="blockPosition"></div>
+          <div data-trigger className="startContentsTitle">
+            <h1>다음 2022년 시상식의 주인공은 바로 여러분입니다! <br />  <br />Actorz에서 여러분의 미래를 시작하세요.</h1>
+            <br/>
+          </div>
+
+          <div className="blockPosition"></div>
+          
+          <a href="#" className="noEffectAtag">
+            <GotoTop />
+          </a>
 
       <Footer />
       </>}
@@ -591,10 +593,10 @@ const Intropage = () => {
         </div>
 
         <div className="lastContents"> 
-          <div className="lastContext">
+          <div data-trigger className="lastContext">
             다음 2022년 시상식의 주인공은 바로 여러분입니다!
           </div>
-          <div className="lastContext">
+          <div data-trigger className="lastContext">
             Acotrz는 여러분의 꿈을 도와 드리겠습니다.
           </div>
           </div>

@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Jua&display=swap");
 body {
   margin: 0px;
   /* -ms-overflow-style: none; */
@@ -132,6 +133,10 @@ font {
   width: 100%;
 }
 
+.mainPageResponsive2 {
+  padding-bottom: 100px;
+}
+
 .middleSpace::-webkit-scrollbar {
   display: none;
 }
@@ -141,6 +146,23 @@ font {
   flex-direction: column-reverse;
 }
 
+div.ui.centered.fluid.card {
+  margin: 0.5rem 0 0.5rem 0;
+}
+.failed-box {
+  margin-top: 10rem;
+}
+
+.failed-span {
+  font-size: 1.5rem;
+  color: rgb(59, 84, 195);
+  font-family: "Jua", sans-serif;
+}
+
+.failed-icon {
+  width: 6rem;
+}
+
 .midContents,
 .midContents2,
 .midContentsResponsive {
@@ -148,15 +170,15 @@ font {
 	display: flex;
 	flex-direction: column;
 	*/
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  /* margin-top: 1rem;
+  margin-bottom: 1rem; */
   border: solid 1px #e0e0e0;
   /* text-align: center; */
   background-color: #fafafa;
 }
 .midContentsResponsive2 {
   /* margin-top: 1rem; */
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
   border: solid 1px #e0e0e0;
   /* text-align: center; */
   background-color: #fafafa;
@@ -167,8 +189,8 @@ font {
 	display: flex;
 	flex-direction: column;
 	*/
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  /* margin-top: 1rem;
+  margin-bottom: 2rem; */
   border: solid 1px #fafafa;
   /* text-align: center; */
   background-color: #fafafa;
@@ -336,6 +358,10 @@ font {
   opacity: 1;
 }
 
+img.ui.image.exampleIMG {
+  max-height: 40rem;
+}
+
 .screen::after {
   content: "";
   display: block;
@@ -349,7 +375,7 @@ font {
   opacity: 0;
   transition: all 0.35s;
   border-radius: 70%;
-  height: -3rem;
+  /* height: -3rem; */
 }
 
 .screen .top {
@@ -372,11 +398,6 @@ font {
   font-size: 30px;
   transition: all 0.35s;
 }
-
-/* .screen img {
-
-  width: 100%;
-} */
 
 i.like.icon.mylike::before {
   color: red;

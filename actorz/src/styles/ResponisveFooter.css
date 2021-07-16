@@ -4,6 +4,8 @@
   bottom:0px; 
   background-color: white;
   width: 100%;
+  height: 75px;
+  z-index: 5;
 }
 
 .ResponsivespaceDirection {
