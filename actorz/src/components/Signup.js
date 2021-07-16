@@ -293,14 +293,15 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                   <div id="modal-section">
                     <div className="modal-title">
                       <div className="title">
-                        <div style={{paddingTop:"1rem"}}>Sign Up </div>
+                        <div style={{paddingTop:"2rem", marginTop: "2rem"}}>Sign Up </div>
                         <CloseOutlined
                           className="closeBtn"
                           onClick={handleClickClose}
+                          style={{paddingBottom: "4rem"}}
                         />
                       </div>
                     </div>
-                    <div className="modal-welcome-message">Welcome to Actorz</div>
+                    <div className="modal-welcome-message" >Welcome to Actorz</div>
                     <div className="modal-group-signup-role">
                       <input
                         type="radio"
@@ -394,7 +395,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                             </div>
                           </div>
                         </div>
-                        <div className="modal-group-signup-gender">
+                        <div className="modal-group-signup-gender" style={{margin: "1rem 0 1rem"}}>
                           <input
                             type="radio"
                             name="gender"
@@ -414,6 +415,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                           className="btn-login"
                           type="submit"
                           onClick={handleClickActorSignupBtn}
+                          style={{marginLeft: "0.4rem"}}
                         >
                           <div className="settingBtn">
                           회원가입
@@ -540,7 +542,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                                 />
                               </div>
                             </div>
-                            <div className="modal-group-signup-gender">
+                            <div className="modal-group-signup-gender" style={{margin: "1rem 0 1rem"}}>
                               <input
                                 type="radio"
                                 name="gender"
@@ -558,6 +560,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                               className="btn-login"
                               type="submit"
                               onClick={handleClickrecruiterSignupBtn}
+                              style={{marginLeft: "0.4rem"}}
                             >
                               <div className="settingBtn">
                                 회원가입

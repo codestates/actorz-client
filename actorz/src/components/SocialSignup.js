@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 import { useDispatch } from "react-redux";
 import { CloseOutlined } from "@ant-design/icons";
@@ -9,10 +10,11 @@ import { getUserInfo } from "../actions/userAction";
 import { redirectUri } from "../config";
 import { DatePicker } from "antd";
 import AddressModal from "./AddressModal";
-
+import 'moment/locale/ko';
+import ko_KR from "antd/lib/date-picker/locale/ko_KR";
 import "../styles/SignupModal.css";
 
-const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
+const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
   const [dob, setDob] = useState("");
   const [addr, setAddr] = useState({
     city:"",
@@ -31,6 +33,13 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
+  const isPcORTablet = useMediaQuery({
+    query: "(min-width:768px)",
+  });
+
+  const isMobile = useMediaQuery({
+    query: "(max-width:767px)",
+  });
 
   const handleInputActorValue = (key) => (event) => {
     setActorSignup({ ...actorSignup, [key]: event.target.value });
@@ -70,14 +79,15 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
           setError("");
           await server
           .post(`/signup`, {
-            email,
             provider,
+            email: email,
             name: name,
             company: company,
             gender: setGender(gender),
             dob: dob,
             role: setrole(role),
-          }).then(async res => {
+          })
+          .then(async res => {
             if(res.status === 201){
               localStorage.setItem("accessToken", res.data.data.accessToken);
               localStorage.setItem("id", res.data.data.id);
@@ -86,7 +96,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
               await server //로그인한 유저의 정보를 state에 저장
               .get(`/user/${localStorage.getItem("id")}`, {
                 headers: {
-                  Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
                 },
               })
               .then((res) => {
@@ -96,48 +106,48 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
                     dob: res.data.data.userInfo.dob.toString().split("T")[0]
                   }));
                   Modal.success({
-                    content: '회원가입 성공!',
-                    onOk(){window.location.href = redirectUri;}
+                    content: '회원가입에 성공하였습니다!',
                   });
+
+                  //alert("회원가입에 성공하였습니다!");
                 }
               })
               .catch((err) => {
                 setLoading(false);
-                setButtonDisable(false);
                 throw err;
               });
               setLoading(false);
-              setButtonDisable(false);
               modalSocialClose();
-            }
-          });
+            }   
+        });
       } else {
-        setLoading(false);
         setButtonDisable(false);
+        setLoading(false);
         setError("필수 항목을 모두 적어주세요");
       }
     } catch (err) {
-      setLoading(false);
       setButtonDisable(false);
+      setLoading(false);
       if (err.message === "Request failed with status code 409") {
         Modal.error({
-          title: '회원가입 실패',
-          content: "이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요",
+          getContainer: document.getElementById("modal-container"),
+          content: '이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요',
         });
+        //alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
       } else {
         Modal.error({
-          title: '회원가입 실패',
-          content: "예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요",
+          getContainer: document.getElementById("modal-container"),
+          content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
         });
-        // alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
+        //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
     }
     setButtonDisable(false);
   };
 
   const handleClickrecruiterSignupBtn = async () => {
-    setLoading(true);
     setButtonDisable(true);
+    setLoading(true);
     const {
       name,
       gender,
@@ -147,6 +157,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
       jobTitle,
     } = recruiterSignup;
 
+    console.log(recruiterSignup)
     try {
       if (
         name !== undefined &&
@@ -158,14 +169,16 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
       ) {
           setError("");
           await server.post(`/signup`, {
+            email: email,
             name: name,
-            email,
             provider,
             gender: setGender(gender),
             dob: dob,
             recruiter: {
               bName: bName,
-              bAddress: addr,
+              bAddress: {
+                ...addr
+              },
               bEmail: bEmail,
               phoneNum: phoneNum,
               jobTitle: jobTitle,
@@ -184,28 +197,31 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
                 },
               })
               .then((res) => {
+                console.log(res.status)
                 if (res.status === 200) {
                   dispatch(getUserInfo({
                     ...res.data.data.userInfo,
                     dob: res.data.data.userInfo.dob.toString().split("T")[0]
                   }));
-                  Modal.success({
-                    content: '회원가입 성공!',
-                    onOk(){window.location.href = redirectUri;}
-                  });
-                  // alert("회원가입에 성공하였습니다!");
                 }
+                modalSocialClose();
+                Modal.success({
+                  content: '회원가입에 성공하였습니다!',
+                });
+                //alert("회원가입에 성공하였습니다!");
               })
               .catch((err) => {
-                setLoading(false);
                 setButtonDisable(false);
+                setLoading(false);
                 throw err;
               });
+              
               setLoading(false);
               setButtonDisable(false);
               modalSocialClose();
             }
-          });
+          })
+        
       } else {
         setButtonDisable(false);
         setLoading(false);
@@ -214,9 +230,9 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
     } catch {
       setButtonDisable(false);
       setLoading(false);
-      Modal.warning({
-        title: '에러',
-        content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
+      Modal.error({
+        getContainer: document.getElementById("modal-container"),
+        content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요.',
       });
       //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
@@ -233,220 +249,486 @@ const SocialSignup = ({ oauthSignup, modalSocialClose, isMobile }) => {
 
   return (
     <>
-      <center>
-      <div id="modal-background" onClick={modalSocialClose}>
-      <form 
-      onSubmit={(e) => e.preventDefault()}
-      onClick={e => e.stopPropagation()}
-      >
-            <div id="modal-container">
-              <div id="modal-header"></div>
-              <div id="modal-section">
-                <div className="modal-title">
-                  <div className="title">
-                    <div>Sign Up </div>
-                    <CloseOutlined
-                      className="closeBtn"
-                      onClick={modalSocialClose}
-                    />
-                  </div>
-                </div>
-                <div className="modal-welcome-message">Welcome to Actorz</div>
-                <div className="modal-group-signup-role">
-                  <input
-                    type="radio"
-                    name="role"
-                    value="배우"
-                    defaultChecked
-                    onClick={handleClickRadio}
-                  />
-                  &nbsp;배우
-                  <input
-                    type="radio"
-                    name="role"
-                    value="리크루터"
-                    onClick={handleClickRadio}
-                  />
-                  &nbsp;리크루터
-                </div>
-
-                {role === "배우" ? (
-                  <>
-                    <div className="modal-group-signup">
-                      <div className="importEffect">*</div>
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="이름"
-                          onChange={handleInputActorValue("name")}
+      {
+        isPcORTablet && (
+          <center>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div id="modal-background" onClick={() => modalSocialClose()}>
+                <div
+                  id="modal-container"
+                  onClick={(event) => event.stopPropagation()}
+                >
+                  <div id="modal-header"></div>
+                  <div id="modal-section">
+                    <div className="modal-title">
+                      <div className="title">
+                        <div style={{paddingTop:"7rem", marginTop: "2rem"}}>Sign Up </div>
+                        <CloseOutlined
+                          className="closeBtn"
+                          onClick={modalSocialClose}
+                          style={{paddingBottom: "8rem"}}
                         />
                       </div>
                     </div>
-                    <div className="modal-group-signup">
-                      <div className="importEffect">&nbsp;&nbsp;</div>
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="소속사"
-                          onChange={handleInputActorValue("company")}
-                        />
-                      </div>
-                    </div>
-                    <div className="modal-group-signup">
-                      <div className="importEffect">*</div>
-                        <div style={{alignItems:"left", maxWidth:"88%"}}>
-                          <DatePicker 
-                          placeholder="생년월일"
-                          popupStyle={{
-                            position:"relative",
-                            top:"10em"
-                          }}
-                          getPopupContainer={(triggerNode) => {
-                            return triggerNode.parentNode;
-                          }}
-                          onChange={(date, dateString) => {setDob(date)}} 
-                          style={{maxWidth:"92%"}}></DatePicker>
-                      </div>
-                    </div>
-
-                    <div className="modal-group-signup-gender">
+                    <div className="modal-welcome-message" >Welcome to Actorz</div>
+                    <div className="modal-group-signup-role">
                       <input
                         type="radio"
-                        name="gender"
+                        name="role"
+                        value="배우"
                         defaultChecked
-                        value="남"
-                        onChange={handleInputActorValue("gender")}
+                        onClick={handleClickRadio}
                       />
-                      &nbsp;남
-                      <input type="radio" name="gender" value="여" />
-                      &nbsp;여
+                      &nbsp;배우
+                      <input
+                        type="radio"
+                        name="role"
+                        value="리크루터"
+                        onClick={handleClickRadio}
+                      />
+                      &nbsp;리크루터
                     </div>
-                    <div>
-                      {err ? <div className="err-message">{err}</div> : null}
-                    </div>
-                    <button
-                      disabled={buttonDisable}
-                      className="btn-login"
-                      type="submit"
-                      onClick={handleClickActorSignupBtn}
-                    >
-                      <div className="settingBtn">
-                        회원가입
-                        <div className="loading">
-                          {loading ? <Loading /> : ""}
-                        </div>
-                      </div>
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <div className="moreInfo">
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="이름"
-                            onChange={handleInputrecruiterValue("name")}
-                          />
-                        </div>
-                      </div>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                          <div style={{alignItems:"left", maxWidth:"88%"}}>
-                          <DatePicker 
-                          placeholder="생년월일"
-                          popupStyle={{
-                            position:"relative",
-                            top:"10em"
-                          }}
-                          getPopupContainer={(triggerNode) => {
-                            return triggerNode.parentNode;
-                          }}
-                          onChange={(date, dateString) => {setDob(date)}} 
-                          style={{maxWidth:"92%"}}></DatePicker>
-                        </div>
-                      </div>
-                      <div className="modal-group-signup">
-                        <div className="importEffect">*</div>
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="회사명"
-                            onChange={handleInputrecruiterValue("bName")}
-                          />
-                        </div>
-                      </div>
 
-                      <AddressModal isMobile={isMobile} setAddr={setAddr} addr={addr}></AddressModal>
-
-                      <div className="modal-group-signup">
-                        <div className="importEffect2">&nbsp;&nbsp;</div>
-                        <div>
-                          <input
-                            type="email"
-                            placeholder="회사 이메일"
-                            onChange={handleInputrecruiterValue("bEmail")}
-                          />
+                    {role === "배우" ? (
+                      <>
+                        <div className="modal-group-signup-align-center">
+                          <div className="modal-group-signup">
+                            <div className="importEffect">*</div>
+                            <div>
+                              <input
+                                type="text"
+                                placeholder="이름"
+                                onChange={handleInputActorValue("name")}
+                              />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-
-                      <div className="modal-group-signup">
-                        <div className="importEffect">&nbsp;&nbsp;</div>
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="회사 전화번호"
-                            onChange={handleInputrecruiterValue("phoneNumber")}
-                          />
+                        <div className="modal-group-signup-align-center">
+                          <div className="modal-group-signup">
+                            <div className="importEffect">&nbsp;&nbsp;</div>
+                            <div>
+                              <input
+                                type="text"
+                                placeholder="소속사"
+                                onChange={handleInputActorValue("company")}
+                              />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-
-                      <div className="modal-group-signup">
-                        <div className="importEffect">&nbsp;&nbsp;</div>
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="직책"
-                            onChange={handleInputrecruiterValue("jobTitle")}
-                          />
+                        <div className="modal-group-signup-align-center">
+                          <div className="modal-group-signup" style={{}}>
+                            <div className="importEffect">*</div>
+                            <div style={{
+                                width: "16rem", 
+                                fontSize: "0.8rem",
+                                }}>
+                              <div style={{alignContent:"start"}}>
+                                <DatePicker 
+                                locale={ko_KR}
+                                placeholder="생년월일"
+                                popupStyle={{
+                                  position:"relative",
+                                  width:"fit-content",
+                                  top:"10em"
+                                }}
+                                getPopupContainer={(triggerNode) => {
+                                  return triggerNode.parentNode;
+                                }}
+                                onChange={(date, dateString) => {setDob(date)}} 
+                                style={{maxWidth:"92%"}}></DatePicker>
+                              </div>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-
-                      <div className="modal-group-signup-gender">
-                        <input
-                          type="radio"
-                          name="gender"
-                          defaultChecked
-                          value="남"
-                          onChange={handleInputrecruiterValue("gender")}
-                        />
-                        &nbsp;남
-                        <input type="radio" name="gender" value="여" />
-                        &nbsp;여
-                      </div>
-                      {err ? <div className="err-message">{err}</div> : null}
-                      <button
-                        disabled={buttonDisable}
-                        className="btn-login"
-                        type="submit"
-                        onClick={handleClickrecruiterSignupBtn}
-                      >
-                        <div className="settingBtn">
+                        <div className="modal-group-signup-gender" style={{margin: "1rem 0 1rem"}}>
+                          <input
+                            type="radio"
+                            name="gender"
+                            defaultChecked
+                            value="남"
+                            onChange={handleInputActorValue("gender")}
+                          />
+                          &nbsp;남
+                          <input type="radio" name="gender" value="여" />
+                          &nbsp;여
+                        </div>
+                        <div>
+                          {err ? <div className="err-message">{err}</div> : null}
+                        </div>
+                        <button
+                          disabled={buttonDisable}
+                          className="btn-login"
+                          type="submit"
+                          onClick={handleClickActorSignupBtn}
+                          style={{marginLeft: "0.4rem", marginTop: "3rem", marginBottom: "10rem"}}
+                        >
+                          <div className="settingBtn">
                           회원가입
                           <div className="loading">
                             {loading ? <Loading /> : ""}
                           </div>
                         </div>
-                      </button>
-                    </div>
-                  </>
-                )}
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="moreInfo">
+                          <div className="modal-group-signup-align-center">
+                            <div className="modal-group-signup">
+                              <div className="importEffect">*</div>
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="이름"
+                                  onChange={handleInputrecruiterValue("name")}
+                                />
+                              </div>
+                            </div>
+                            <div className="modal-group-signup" style={{}}>
+                              <div className="importEffect">*</div>
+                              <div style={{
+                                  width: "16rem", 
+                                  fontSize: "0.8rem",
+                                  }}>
+                                <div style={{alignContent:"start"}}>
+                                  <DatePicker 
+                                  locale={ko_KR}
+                                  placeholder="생년월일"
+                                  popupStyle={{
+                                    position:"relative",
+                                    width:"fit-content",
+                                    top:"10em"
+                                  }}
+                                  getPopupContainer={(triggerNode) => {
+                                    return triggerNode.parentNode;
+                                  }}
+                                  onChange={(date, dateString) => {setDob(date)}} 
+                                  style={{maxWidth:"92%"}}></DatePicker>
+                                </div>
+                              </div>
+                            </div>
+                            <div className="modal-group-signup">
+                              <div className="importEffect">*</div>
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="회사명"
+                                  onChange={handleInputrecruiterValue("bName")}
+                                />
+                              </div>
+                            </div>
+                            <div style={{display:"flex", flexDirection: "column", width: "17.5rem"}}>
+                              <AddressModal isMobile={isMobile} setAddr={setAddr} addr={addr}></AddressModal>
+                            </div>
+                            <div className="modal-group-signup">
+                              <div className="importEffect2">&nbsp;&nbsp;</div>
+                              <div>
+                                <input
+                                  type="email"
+                                  placeholder="회사 이메일"
+                                  onChange={handleInputrecruiterValue("bEmail")}
+                                />
+                              </div>
+                            </div>
+                            <div className="modal-group-signup">
+                              <div className="importEffect">&nbsp;&nbsp;</div>
+                              <div>
+                                <input
+                                  type="tel"
+                                  placeholder="회사 전화번호"
+                                  onChange={handleInputrecruiterValue("phoneNum")}
+                                />
+                              </div>
+                            </div>
+                            <div className="modal-group-signup">
+                              <div className="importEffect">&nbsp;&nbsp;</div>
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="직책"
+                                  onChange={handleInputrecruiterValue("jobTitle")}
+                                />
+                              </div>
+                            </div>
+                            <div className="modal-group-signup-gender" style={{margin: "1rem 0 1rem"}}>
+                              <input
+                                type="radio"
+                                name="gender"
+                                defaultChecked
+                                value="남"
+                                onChange={handleInputrecruiterValue("gender")}
+                              />
+                              &nbsp;남
+                              <input type="radio" name="gender" value="여" />
+                              &nbsp;여
+                            </div>
+                            {err ? <div className="err-message">{err}</div> : null}
+                            <button
+                              disabled={buttonDisable}
+                              className="btn-login"
+                              type="submit"
+                              onClick={handleClickrecruiterSignupBtn}
+                              style={{marginLeft: "0.4rem", marginTop: "2rem", marginBottom: "7rem"}}
+                            >
+                              <div className="settingBtn">
+                              회원가입
+                                <div className="loading">
+                                  {loading ? <Loading /> : ""}
+                                </div>
+                              </div>
+                            </button>
+                          </div>
+                          
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-        </form>
-      </div>
-      </center>
+            </form>
+          </center>
+        )
+      }
+      {
+        isMobile && (
+          <center>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div id="modal-background">
+                <div id="modal-container-mobile2">
+                  <CloseOutlined
+                    className="closeBtn-mobile"
+                    style={{marginTop: 0, marginBottom: "1rem", paddingTop: "1rem"}}
+                    onClick={modalSocialClose}
+                  />
+                    <div
+                      id="modal-container-mobile1"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                    <div id="modal-section">
+                      <div className="modal-title">
+                        <div className="title-mobile">
+                          <div style={{paddingTop:"1rem"}}>Sign Up </div>
+                        </div>
+                      </div>
+                      <div className="modal-welcome-message">Welcome to Actorz</div>
+                      <div className="modal-group-signup-role">
+                        <input
+                          type="radio"
+                          name="role"
+                          value="배우"
+                          defaultChecked
+                          onClick={handleClickRadio}
+                        />
+                        &nbsp;배우
+                        <input
+                          type="radio"
+                          name="role"
+                          value="리크루터"
+                          onClick={handleClickRadio}
+                        />
+                        &nbsp;리크루터
+                      </div>
+
+                      {role === "배우" ? (
+                        <>
+                          <div className="modal-group-signup-align-center">
+                            <div className="modal-group-signup">
+                              <div className="importEffect">*</div>
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="이름"
+                                  onChange={handleInputActorValue("name")}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="modal-group-signup-align-center">
+                            <div className="modal-group-signup">
+                              <div className="importEffect">&nbsp;&nbsp;</div>
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="소속사"
+                                  onChange={handleInputActorValue("company")}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="modal-group-signup-align-center">
+                            <div className="modal-group-signup" style={{}}>
+                              <div className="importEffect">*</div>
+                              <div style={{
+                                  width: "16rem", 
+                                  fontSize: "0.8rem",
+                                  }}>
+                                <div style={{alignContent:"start"}}>
+                                  <DatePicker 
+                                  locale={ko_KR}
+                                  placeholder="생년월일"
+                                  popupStyle={{
+                                    position:"relative",
+                                    width:"100%",
+                                    top:"10em"
+                                  }}
+                                  getPopupContainer={(triggerNode) => {
+                                    return triggerNode.parentNode;
+                                  }}
+                                  onChange={(date, dateString) => {setDob(date)}} 
+                                  style={{maxWidth:"92%"}}></DatePicker>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="modal-group-signup-gender">
+                            <input
+                              type="radio"
+                              name="gender"
+                              defaultChecked
+                              value="남"
+                              onChange={handleInputActorValue("gender")}
+                            />
+                            &nbsp;남
+                            <input type="radio" name="gender" value="여" />
+                            &nbsp;여
+                          </div>
+                          <div>
+                            {err ? <div className="err-message">{err}</div> : null}
+                          </div>
+                          <button
+                            disabled={buttonDisable}
+                            className="btn-login"
+                            type="submit"
+                            onClick={handleClickActorSignupBtn}
+                            style={{marginLeft: "0.4rem", marginTop: "3rem"}}
+                          >
+                            <div className="settingBtn">
+                            회원가입
+                              <div className="loading">
+                                {loading ? <Loading /> : ""}
+                              </div>
+                            </div>
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <div className="moreInfo">
+                            <div className="modal-group-signup-align-center">
+                              <div className="modal-group-signup">
+                                <div className="importEffect">*</div>
+                                <div>
+                                  <input
+                                    type="text"
+                                    placeholder="이름"
+                                    onChange={handleInputrecruiterValue("name")}
+                                  />
+                                </div>
+                              </div>
+                              <div className="modal-group-signup" style={{}}>
+                                <div className="importEffect">*</div>
+                                <div style={{
+                                    width: "16rem", 
+                                    fontSize: "0.8rem",
+                                    }}>
+                                  <div style={{alignContent:"start"}}>
+                                    <DatePicker 
+                                    locale={ko_KR}
+                                    placeholder="생년월일"
+                                    popupStyle={{
+                                      position:"relative",
+                                      width:"fit-content",
+                                      top:"10em"
+                                    }}
+                                    getPopupContainer={(triggerNode) => {
+                                      return triggerNode.parentNode;
+                                    }}
+                                    onChange={(date, dateString) => {setDob(date)}} 
+                                    style={{maxWidth:"92%"}}></DatePicker>
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="modal-group-signup">
+                                <div className="importEffect">*</div>
+                                <div>
+                                  <input
+                                    type="text"
+                                    placeholder="회사명"
+                                    onChange={handleInputrecruiterValue("bName")}
+                                  />
+                                </div>
+                              </div>
+                              <div style={{display:"flex", flexDirection: "column", width: "17.5rem"}}>
+                                <AddressModal isMobile={isMobile} setAddr={setAddr} addr={addr}></AddressModal>
+                              </div>
+                              <div className="modal-group-signup">
+                                <div className="importEffect2">&nbsp;&nbsp;</div>
+                                <div>
+                                  <input
+                                    type="email"
+                                    placeholder="회사 이메일"
+                                    onChange={handleInputrecruiterValue("bEmail")}
+                                  />
+                                </div>
+                              </div>
+                              <div className="modal-group-signup">
+                                <div className="importEffect">&nbsp;&nbsp;</div>
+                                <div>
+                                  <input
+                                    type="tel"
+                                    placeholder="회사 전화번호"
+                                    onChange={handleInputrecruiterValue("phoneNum")}
+                                  />
+                                </div>
+                              </div>
+                              <div className="modal-group-signup">
+                                <div className="importEffect">&nbsp;&nbsp;</div>
+                                <div>
+                                  <input
+                                    type="text"
+                                    placeholder="직책"
+                                    onChange={handleInputrecruiterValue("jobTitle")}
+                                  />
+                                </div>
+                              </div>
+                              <div className="modal-group-signup-gender">
+                                <input
+                                  type="radio"
+                                  name="gender"
+                                  defaultChecked
+                                  value="남"
+                                  onChange={handleInputrecruiterValue("gender")}
+                                />
+                                &nbsp;남
+                                <input type="radio" name="gender" value="여" />
+                                &nbsp;여
+                              </div>
+                              {err ? <div className="err-message">{err}</div> : null}
+                              <button
+                                disabled={buttonDisable}
+                                className="btn-login"
+                                type="submit"
+                                onClick={handleClickrecruiterSignupBtn}
+                                style={{marginLeft: "0.4rem", marginTop: "2rem", marginBottom: "5rem"}}
+                              >
+                                <div className="settingBtn">
+                                회원가입
+                                  <div className="loading">
+                                    {loading ? <Loading /> : ""}
+                                  </div>
+                                </div>
+                              </button>
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </center>
+        )
+      }
     </>
   );
 };

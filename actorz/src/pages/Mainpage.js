@@ -109,7 +109,10 @@ const Mainpage = () => {
                     if (res.status === 200) {
                       setModalSocialSignup(false);
                       // setIsLoading(false);
-                      dispatch(getUserInfo(res.data.data.userInfo));
+                      dispatch(getUserInfo({
+                        ...res.data.data.userInfo,
+                        dob: res.data.data.userInfo.dob.toString().split("T")[0]
+                      }));
                       window.location.href = redirectUri;
                     }
                   })
@@ -124,6 +127,7 @@ const Mainpage = () => {
                 setOauthSignup(`${provider}=${res.data.data.email}`);
               } else {
                 setIsLoading(false);
+                console.log("소셜 로그인 실패")
                 Modal.error({
                   title: "로그인 실패",
                   content: "소셜 로그인 중 오류가 발생했습니다.",

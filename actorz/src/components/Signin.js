@@ -122,7 +122,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                   <div className="modalCancleBtn"></div>
                   <div className="modal-title">
                     <div className="title">
-                      <div>Login</div>
+                      <div id="loginpadding-top">Login</div>
 
                       <CloseOutlined
                         className="closeBtn"
@@ -168,7 +168,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       <div className="loginBtnPosition">
                         <Naver handleClickClose={handleClickClose} />
                       </div>
-                      <div className="signUpbtnPosition">
+                      <div className="signUpbtnPosition" id="loginpadding-bottom">
                         <div>
                           <div className="movetoSignUp">아직 계정이 없으십니까?
                           </div>

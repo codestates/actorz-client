@@ -29,13 +29,13 @@
   /* display: flex;  */
   /* opacity: 0; */
   margin: 0 auto;
-  padding-bottom: 1em;
   transform: translate(-50%, -50%);
   transition: all 1s ease;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 35rem;
+  /* max-width: 35rem; */
   height: fit-content;
   max-width: 100%;
   max-height: 100%;
@@ -44,7 +44,7 @@
   background-color: #fafafa;
   align-content: center;
   transition: 0.5s ease;
-  padding-bottom: 3rem;
+  /* padding: 4rem 0 6rem 0; */
 }
 
 #modal-container-mobile {
@@ -113,6 +113,9 @@
   color: red;
 }
 
+.title {
+  margin-bottom: 1rem;
+}
 
 .modal-title .title {
   display: flex;
@@ -185,7 +188,7 @@ button.btn-login.login {
 }
 
 .modal-welcome-message {
-  /* font-family: Lato; */
+  padding-bottom: 3rem;
 }
 
 input {
@@ -212,7 +215,7 @@ input {
 
 .closeBtn {
   flex: 1;
-  font-size: 1.5rem;
+  font-size: 2rem;
   color: #bdbdbd;
   align-self: flex-end;
 }
@@ -250,17 +253,32 @@ input {
   display: flex;
 }
 
-.title > div,
+#loginpadding-top {
+  padding-top: 3rem;
+}
+
+#loginpadding-bottom {
+  padding-bottom: 3rem;
+}
+
+.title > div {
+  margin-top: 4.5rem;
+  font-size: 2.5rem;
+}
+
 .title-mobile > div {
   font-size: 1.8rem;
 }
-.title-mobile > div,
+.title-mobile > div {
+  padding-bottom: 1rem;
+}
+
 .title > span {
-  padding-bottom: 1.5rem;
+  padding-bottom: 7rem;
 }
 
 .settingBtn {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .loginBtnPosition {
@@ -268,7 +286,8 @@ input {
 
 .signUpbtnPosition {
   width: 100%;
-  margin-top: 2rem;
+  margin-top: 5rem;
+  margin-bottom: 5rem;
   align-content: center;
 }
 
@@ -291,11 +310,11 @@ input {
 }
 
 .movetoSignUp {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
 }
 
 .movetoSignUpBtn {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   margin-left: 0.5rem;
   border-bottom: solid 1px lightgray;
 

@@ -175,7 +175,7 @@ const FileUpload = ({
                               <FileMetaData isMediaFile={isMediaFile}>
                                 <span>{file.name}</span>
                                 <aside>
-                                  <span>{convertBytesToKB(file.size)} kb</span>
+                                  <span style={{paddingTop: "0.8rem"}}>{convertBytesToKB(file.size)} kb</span>
                                   <RemoveFileIcon
                                     className="fas fa-trash-alt"
                                     onClick={() => removeFile(fileName)}
@@ -281,7 +281,11 @@ const FileUpload = ({
           onClick={() => otherProps.handleClickUpload(false)}
         >
           <div
-            id="upload-modal-container"
+            id="upload-modal-container" 
+            style={{
+              height: "100%",
+              padding: "4rem 0 4rem 0"
+            }}
             onClick={(event) => event.stopPropagation()}
           >
             <FileUploadContainer style={{
@@ -309,7 +313,9 @@ const FileUpload = ({
               />
               <FilePreviewContainer>
                 {/* <span>To Upload</span> */}
-                <PreviewList style={{display: "flex", flexDirection: "row"}}>
+                <div style={{width: "100%", alignContent: "center"}}>
+                {/* <PreviewList style={{display: "flex", flexDirection: "row", maxWidth: "20rem"}}> */}
+                <PreviewList style={{display: "flex", flexFlow: "row wrap"}}>
                   {Object.keys(files).length > 4
                     ? handleOverFiles()
                     : Object.keys(files).map((fileName, index) => {
@@ -321,10 +327,13 @@ const FileUpload = ({
                           <PreviewContainer 
                             key={fileName} 
                             style={{
-                              width: "7.3rem", 
-                              height: "7.3rem",
-                              marginLeft: "0.3rem"}}>
-                            <div>
+                              order: index+1,
+                              minWidth: "7.1rem",
+                              minHeight: "7.1rem",
+                              width: "50%",
+                              padding: "0.1rem 0.3rem 0.1rem 0.3rem"
+                              }}>
+                            <div style={{alignContent: "center"}}>
                               {isMediaFile &&
                                 (isImageFile ? (
                                   <ImagePreview
@@ -352,6 +361,7 @@ const FileUpload = ({
                         );
                       })}
                 </PreviewList>
+                </div>
               </FilePreviewContainer>
             </FileUploadContainer>
             <div className="desc-box">

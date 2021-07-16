@@ -10,19 +10,19 @@ const AddressModal = ({ addr, setAddr, isMobile }) => {
   const [boxHeight, setBoxHeight] = useState("30rem");
   const [boxWidth, setBoxWidth] = useState("30rem");
   const [boxPosition, setBoxPosition] = useState("12%");
-  const [boxLeftPosition, setBoxLeftPosition] = useState("5%");
-  const [modalPosition, setModalPosition] = useState("20%");
+  const [boxLeftPosition, setBoxLeftPosition] = useState("0%");
+  const [modalPosition, setModalPosition] = useState("17%");
 
 
   useEffect(() => {
     if(isMobile){
-      setDivHeight("25rem");
+      setDivHeight("28rem");
       setDivWidth("100%");
-      setBoxHeight("30rem");
-      setBoxWidth("11rem");
-      setBoxPosition("2rem");
-      setBoxLeftPosition("-3%");
-      setModalPosition("20%");
+      setBoxHeight("31rem");
+      setBoxWidth("100%");
+      setBoxPosition("3rem");
+      setBoxLeftPosition("0");
+      setModalPosition("103%");
     }else{
       setDivHeight("30rem");
       setDivWidth("30rem");
@@ -30,7 +30,7 @@ const AddressModal = ({ addr, setAddr, isMobile }) => {
       setBoxWidth("30rem");
       setBoxPosition("12%");
       setBoxLeftPosition("0%");
-      setModalPosition("17%");
+      setModalPosition("30rem");
     }
   },[isMobile]);
 
@@ -62,7 +62,7 @@ const AddressModal = ({ addr, setAddr, isMobile }) => {
 
   return (
     <>
-      <div className="modal-group-signup" id="modal-group-signup-address-pop-up">
+      <div className="modal-group-signup">
         <div className="importEffect">*</div>
         <div>
           <button style={{
@@ -80,12 +80,11 @@ const AddressModal = ({ addr, setAddr, isMobile }) => {
       <Modal
         zIndex={10000}
         footer={null}
-        width={divWidth}
-        style={{top:modalPosition}}
+        width={modalPosition}
         visible={addPopUp}
         title="회사 주소 검색"
         onCancel={() => setAddPopUp(false)}
-        getContainer={document.getElementById("modal-group-signup-address-pop-up")}
+        getContainer={document.getElementById("modal-container")}
       >
         <div
           style={{
