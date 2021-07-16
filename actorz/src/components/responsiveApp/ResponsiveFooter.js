@@ -19,7 +19,6 @@ import {
   HeartOutlined,
   SnippetsOutlined,
 } from '@ant-design/icons';
-import 'antd/dist/antd.css';
 import "../../styles/ResponisveFooter.css";
 import { Modal } from 'antd';
 
@@ -157,8 +156,7 @@ const ResponsiveFooter = () => {
       </div>
       <footer id="footer"></footer>
       </div> */}
-
-      <div className="ResponsiveFooter" onClick={e => {e.stopPropagation()}}>
+      <div className="ResponsiveFooter" onClick={(event) => event.stopPropagation()}>
         <div className="ResponsivespaceDirection">
         <div className="responsiveHomeButtonFooter">
             <div className="responsiveHomeButtonIconFooter">
@@ -196,7 +194,7 @@ const ResponsiveFooter = () => {
 
           <div className="responsiveHomeButtonFooter">
             <div className="responsiveHomeButtonIconFooter">
-              <Link className="noEffect" to="/mainpage">
+              <Link className="noEffect" to="/like">
                 <HeartOutlined className="realIcon" />
               </Link>
             </div>
@@ -204,7 +202,7 @@ const ResponsiveFooter = () => {
 
           <div className="responsiveHomeButtonFooter">
             <div className="responsiveHomeButtonIconFooter">
-              <Link className="noEffect" to="/mainpage">
+              <Link className="noEffect" to="/portfolio">
                 <SnippetsOutlined className="realIcon" />
               </Link>
             </div>

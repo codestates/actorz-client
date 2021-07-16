@@ -133,6 +133,10 @@ font {
   width: 100%;
 }
 
+.mainPageResponsive2 {
+  padding-bottom: 100px;
+}
+
 .middleSpace::-webkit-scrollbar {
   display: none;
 }

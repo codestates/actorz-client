@@ -151,6 +151,8 @@ const ResponsiveApp = () => {
             <div className="responsiveAvatar">
               {localStorage.getItem("accessToken") ? (
                 <Popover
+                  overlayClassName="ant-popover"
+                  placement="bottom"
                   content={
                     <button
                       onClick={handleClicklogout}
@@ -169,6 +171,8 @@ const ResponsiveApp = () => {
                 </Popover>
               ) : (
                 <Popover
+                  overlayClassName="ant-popover"
+                  placement="bottom"
                   content={
                     <>
                       <button

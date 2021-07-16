@@ -57,6 +57,10 @@ body {
   z-index: 5;
 }
 
+.ant-popover {
+  position: fixed;
+}
+
 /* .nav-btn {
   border: 0rem;
   border-radius: 0.3rem;
