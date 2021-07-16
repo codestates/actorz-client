@@ -47,7 +47,15 @@ const IntroNav = () => {
             </Link>
           </div>
           <div className="blockPositionNav"> </div>
+          
           <div className="signBtnPosition">
+          <ul>
+             <li class="nav-item"><a href="/mainpage" className="nav-link">메인페이지</a>
+          </li>
+          </ul>
+          </div>
+
+          {/* <div className="signBtnPosition">
             <Button
               variant="outlined"
               className="navSignInBtn"
@@ -55,7 +63,7 @@ const IntroNav = () => {
             >
               메인페이지 이동
             </Button>
-          </div> 
+          </div>  */}
           {/* <div className="signBtnPosition">
             <Button
               variant="outlined"
