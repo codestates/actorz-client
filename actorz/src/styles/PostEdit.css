@@ -1,7 +1,7 @@
-@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
 
 #post-modal-background {
-  /* position: absolute; */
+   position: absolute;
   position: fixed;
   flex-direction: column;
   top: -40vh;
@@ -97,9 +97,9 @@
   font-family: "Nanum Gothic Coding", monospace;
 }
 
-/* .desc {
+.desc {
   margin: 0px 0px 20px 13px;
-} */
+}
 
 .img-box {
   text-align: center;
@@ -143,4 +143,4 @@ img.post-image {
 
 .float-email-title {
   margin-top: 5px;
-}
+} */

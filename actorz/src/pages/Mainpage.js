@@ -243,6 +243,7 @@ const Mainpage = () => {
                                 <Image
                                   src={post.media[0].path}
                                   className="exampleIMG"
+
                                 />
                               ) : (
                                 <video
@@ -255,51 +256,51 @@ const Mainpage = () => {
                                   <source
                                     src={post.media[0].path}
                                     className="exampleIMG"
-                                  ></source>
-                                </video>
-                              )}
-                            </div>
+                                ></source>
+                              </video>
+                            )}
                           </div>
+                        </div>
 
-                          <Card.Content>
-                            <Card.Header>
-                              <div className="nothing2">
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: post.userInfo.user_id,
-                                    },
-                                  }}
-                                >
-                                  <div className="nothing">
-                                    {post.userInfo.name}
-                                  </div>
-                                </Link>
-                              </div>
-                            </Card.Header>
-                            <Card.Meta>
-                              <span className="date">
-                                Updated at {post.updatedAt.split("T")[0]}{" "}
-                                {post.updatedAt.split("T")[1].slice(0, 8)}
-                              </span>
-                            </Card.Meta>
-                            <Card.Description>{post.content}</Card.Description>
-                          </Card.Content>
-                          <Card.Content extra>
-                            {post.likes.length !== 0 &&
-                            localStorage.getItem("accessToken") ? (
-                              <>
-                                {post.likes.findIndex(
-                                  (i) => i.user_id === user.data.userInfo.id
-                                ) !== -1 ? (
-                                  <Icon
-                                    name="like"
-                                    className="mylike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("like", post._id)
-                                    }
-                                  />
+                        <Card.Content>
+                          <Card.Header>
+                            <div className="nothing2" style={{width: "fit-content"}}>
+                              <Link
+                                to={{
+                                  pathname: `/posts`,
+                                  state: {
+                                    id: post.userInfo.user_id,
+                                  },
+                                }}
+                              >
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
+                              </Link>
+                            </div>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className="date">
+                              Updated at {post.updatedAt.split("T")[0]}{" "}
+                              {post.updatedAt.split("T")[1].slice(0, 8)}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{post.content}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          {post.likes.length !== 0 &&
+                          localStorage.getItem("accessToken") ? (
+                            <>
+                              {post.likes.findIndex(
+                                (i) => i.user_id === user.data.userInfo.id
+                              ) !== -1 ? (
+                                <Icon
+                                  name="like"
+                                  className="mylike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("like", post._id)
+                                  }
+                                 />
                                 ) : (
                                   <Icon
                                     name="like"
@@ -403,51 +404,52 @@ const Mainpage = () => {
                                   <source
                                     src={post.media[0].path}
                                     className="exampleIMG"
-                                  ></source>
-                                </video>
-                              )}
-                              {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
-                            </div>
+                                ></source>
+                              </video>
+                            )}
+                            {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                           </div>
+                        </div>
 
-                          <Card.Content>
-                            <Card.Header>
-                              <div className="nothing2">
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: post.userInfo.user_id,
-                                    },
-                                  }}
-                                >
-                                  <div className="nothing">
-                                    {post.userInfo.name}
-                                  </div>
-                                </Link>
-                              </div>
-                            </Card.Header>
-                            <Card.Meta>
-                              <span className="date">
-                                Updated at {post.updatedAt}
-                              </span>
-                            </Card.Meta>
-                            <Card.Description>{post.content}</Card.Description>
-                          </Card.Content>
-                          <Card.Content extra>
-                            {post.likes.length !== 0 &&
-                            localStorage.getItem("accessToken") ? (
-                              <>
-                                {post.likes.findIndex(
-                                  (i) => i.user_id === user.data.userInfo.id
-                                ) !== -1 ? (
-                                  <Icon
-                                    name="like"
-                                    className="mylike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("like", post._id)
-                                    }
-                                  />
+                        <Card.Content>
+                          <Card.Header>
+                            <div className="nothing2" style={{width: "fit-content"}}>
+                              <Link
+                                to={{
+                                  pathname: `/posts`,
+                                  state: {
+                                    id: post.userInfo.user_id,
+                                  },
+                                }}
+                              >
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
+                              </Link>
+                            </div>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className="date">
+                              Updated at {post.updatedAt.split("T")[0]}{" "}
+                              {post.updatedAt.split("T")[1].slice(0, 8)}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{post.content}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          {post.likes.length !== 0 &&
+                          localStorage.getItem("accessToken") ? (
+                            <>
+                              {post.likes.findIndex(
+                                (i) => i.user_id === user.data.userInfo.id
+                              ) !== -1 ? (
+                                <Icon
+                                  name="like"
+                                  className="mylike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("like", post._id)
+                                  }
+                                 />
                                 ) : (
                                   <Icon
                                     name="like"
@@ -531,62 +533,63 @@ const Mainpage = () => {
                                 <Image
                                   src={post.media[0].path}
                                   className="exampleIMG"
-                                />
-                              ) : (
-                                <video
-                                  autoPlay="autoplay"
-                                  muted="muted"
-                                  loop="loop"
-                                  className="video"
-                                  style={{ width: "100%", margin: 0 }}
+                              />
+                            ) : (
+                              <video
+                                autoPlay="autoplay"
+                                muted="muted"
+                                loop="loop"
+                                className="video"
+                                style={{width:"100%", margin:0, maxHeight:"50rem"}}
                                 >
-                                  <source
-                                    src={post.media[0].path}
-                                    className="exampleIMG"
-                                  ></source>
-                                </video>
-                              )}
-                              {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
-                            </div>
+                                <source
+                                  src={post.media[0].path}
+                                  className="exampleIMG"
+                                ></source>
+                              </video>
+                            )}
+                            {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                           </div>
+                        </div>
 
-                          <Card.Content>
-                            <Card.Header>
-                              <div className="nothing2">
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: post.userInfo.user_id,
-                                    },
-                                  }}
-                                >
-                                  <div className="nothing">
-                                    {post.userInfo.name}
-                                  </div>
-                                </Link>
-                              </div>
-                            </Card.Header>
-                            <Card.Meta>
-                              <span className="date">
-                                Updated at {post.updatedAt}
-                              </span>
-                            </Card.Meta>
-                            <Card.Description>{post.content}</Card.Description>
-                          </Card.Content>
-                          <Card.Content extra>
-                            {post.likes.length !== 0 &&
-                            localStorage.getItem("accessToken") ? (
-                              <>
-                                {post.likes.findIndex(
-                                  (i) => i.user_id === user.data.userInfo.id
-                                ) !== -1 ? (
-                                  <Icon
-                                    name="like"
-                                    className="mylike"
-                                    onClick={() =>
-                                      handleClickLikeBtn("like", post._id)
-                                    }
+                        <Card.Content>
+                          <Card.Header>
+                            <div className="nothing2" style={{width: "fit-content"}}>
+                              <Link
+                                to={{
+                                  pathname: `/posts`,
+                                  state: {
+                                    id: post.userInfo.user_id,
+                                  },
+                                }}
+                              >
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
+                              </Link>
+                            </div>
+                          </Card.Header>
+                          <Card.Meta>
+                            <span className="date">
+                              Updated at {post.updatedAt.split("T")[0]}{" "}
+                              {post.updatedAt.split("T")[1].slice(0, 8)}
+                            </span>
+                          </Card.Meta>
+                          <Card.Description>{post.content}</Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          {post.likes.length !== 0 &&
+                          localStorage.getItem("accessToken") ? (
+                            <>
+                              {post.likes.findIndex(
+                                (i) => i.user_id === user.data.userInfo.id
+                              ) !== -1 ? (
+                                <Icon
+                                  name="like"
+                                  className="mylike"
+                                  onClick={() =>
+                                    handleClickLikeBtn("like", post._id)
+                                  }
                                   />
                                 ) : (
                                   <Icon

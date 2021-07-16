@@ -2,16 +2,16 @@ import styled from "styled-components";
 
 export const FileUploadContainer = styled.section`
   position: relative;
-  margin: 25px 0 15px;
+  margin: 4rem 0 3rem;
   border: 2px dotted lightgray;
   max-width: 100%;
-  width: 35rem;
-  padding: 35px;
+  width: 40rem;
+  height: 20rem;
+  padding: 3rem;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: fit-content;
   max-height: 100%;
   background-color: white;
 `;
@@ -36,8 +36,8 @@ export const FormField = styled.input`
 `;
 
 export const InputLabel = styled.label`
-  top: -35px;
-  font-size: 17px;
+  top: -3.3rem;
+  font-size: 1.5rem;
   color: black;
   left: 10;
   position: absolute;
@@ -45,6 +45,7 @@ export const InputLabel = styled.label`
 
 export const DragDropText = styled.p`
   font-weight: bold;
+  font-size: 0.8rem;
   letter-spacing: 2.2px;
   margin-top: 0;
   text-align: center;
@@ -136,7 +137,7 @@ export const UploadFileBtn = styled.button`
 
 export const FilePreviewContainer = styled.article`
   span {
-    font-size: 14px;
+    font-size: 0.9rem;
   }
 `;
 
@@ -144,7 +145,7 @@ export const PreviewList = styled.section`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  margin-top: 30px;
+  margin-top: 1rem;
 
   @media only screen and (max-width: 400px) {
     flex-direction: column;
@@ -195,17 +196,19 @@ export const FileMetaData2 = styled.div`
 
 export const RemoveFileIcon = styled.i`
   cursor: pointer;
-  color: rgb(54, 54, 54);
-  margin-bottom: 5px;
+  color: white;
+  width: 1rem;
+  margin-top: 0.3rem;
+  transform: scale(1.3);
   &:hover {
-    transform: scale(1.3);
+    transform: scale(1.5);
   }
 `;
 
 export const PreviewContainer = styled.section`
   padding: 0.25rem;
-  width: 20%;
-  height: 120px;
+  width: 8rem;
+  height: 8rem;
   border-radius: 6px;
   box-sizing: border-box;
 
