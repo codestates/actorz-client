@@ -262,11 +262,10 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                   <div id="modal-section">
                     <div className="modal-title">
                       <div className="title">
-                        <div style={{paddingTop:"7rem", marginTop: "2rem"}}>Sign Up </div>
+                        <div>Sign Up </div>
                         <CloseOutlined
                           className="closeBtn"
                           onClick={modalSocialClose}
-                          style={{paddingBottom: "8rem"}}
                         />
                       </div>
                     </div>
@@ -360,7 +359,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                           className="btn-login"
                           type="submit"
                           onClick={handleClickActorSignupBtn}
-                          style={{marginLeft: "0.4rem", marginTop: "3rem", marginBottom: "10rem"}}
+                          style={{marginBottom: "5rem"}}
                         >
                           <div className="settingBtn">
                           회원가입
@@ -468,7 +467,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                               className="btn-login"
                               type="submit"
                               onClick={handleClickrecruiterSignupBtn}
-                              style={{marginLeft: "0.4rem", marginTop: "2rem", marginBottom: "7rem"}}
+                              style={{marginBottom: "6rem"}}
                             >
                               <div className="settingBtn">
                               회원가입
@@ -507,7 +506,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                     <div id="modal-section">
                       <div className="modal-title">
                         <div className="title-mobile">
-                          <div style={{paddingTop:"1rem"}}>Sign Up </div>
+                          <div style={{marginTop:"3rem"}}>Sign Up </div>
                         </div>
                       </div>
                       <div className="modal-welcome-message">Welcome to Actorz</div>
