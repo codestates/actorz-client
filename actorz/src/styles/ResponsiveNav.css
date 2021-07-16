@@ -13,18 +13,6 @@ body {
   margin-right: 0.5rem;
 }
 
-.ResponsiveFooter {
-  position: fixed;
-  display: fixed;
-  left: 0;
-  bottom: 0;
-  padding: 0.5rem;
-  width: 100%;
-  text-align: center;
-  color: white;
-  background: blue;
-}
-
 .headerLogoResponsive {
   font-family: Arial, Helvetica, sans-serif;
   color: black;
