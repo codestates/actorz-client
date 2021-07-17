@@ -25,16 +25,16 @@
   left: 50%;
   padding-top: 1.5rem;
   font-size: 2rem;
-  border-radius: 10px;
-  width: 40rem;
+  /* border-radius: 10px; */
+  width: 35rem;
   height: 43rem;
   padding-bottom: 1rem;
   max-height: 102%;
-  max-width: 90%;
+  max-width: 35rem;
   position: absolute;
   background-color: #fff;
   text-align: center;
-  border: 1px solid black;
+  border: none;
 }
 
 .cancel-btn {
@@ -85,7 +85,7 @@ div.genre {
 .upload-btn-position {
   display: absolute;
   align-content: center;
-  margin-top: 5rem;
+  margin-top: 2rem;
   padding-top: 1.5rem;
 }
 

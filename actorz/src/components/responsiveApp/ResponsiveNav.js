@@ -1,31 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import "antd/dist/antd.css";
-import { Link } from "react-router-dom";
+import { getAllPostInfo } from "../../actions/postAction";
 import server from "../../apis/server";
-import { persistor } from "../../store/store";
-import Loading from "../../components/loading";
-import "../../styles/ResponsiveNav.css";
-import { Avatar, Button, Popover } from "antd";
-import { UserOutlined } from "@ant-design/icons";
 import Signin from "../Signin";
 import Signup from "../Signup";
-import { getAllPostInfo } from "../../actions/postAction";
-import img from "../../images/search.png";
+import Loading from "../../components/loading";
+import { Link } from "react-router-dom";
+import { persistor } from "../../store/store";
+import { Avatar, Popover, Button } from "antd";
+import { UserOutlined } from "@ant-design/icons";
+import gear from "../../images/gear.png";
 import { Input, Col, Row, Select } from "antd";
+import "antd/dist/antd.css";
+import "../../styles/ResponsiveNav.css";
+
+const { Option } = Select;
 
 const ResponsiveApp = () => {
   const user = useSelector((user) => user.userInfoReducer);
+  const dispatch = useDispatch();
+
   const [loading, setLoading] = useState(false);
   const [clickSignin, setClickSignin] = useState(false);
   const [clickSignup, setClickSignup] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [search, setSearch] = useState("");
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
   const [age, setAge] = useState("");
-
-  const dispatch = useDispatch();
-  const { Option } = Select;
 
   useEffect(async () => {
     try {
@@ -47,14 +48,16 @@ const ResponsiveApp = () => {
     }
   }, [name, content, age]);
 
-  const handleInputValue = (key) => (event) => {
-    console.log(event);
-    if (key === "name") {
-      setName(event.target.value);
-    } else if (key === "conent") {
-      setContent(event.target.value);
-    } else if (key === "age") {
-      setAge(event);
+  const handleInputSearchValue = async (event) => {
+    setSearch(event.target.value);
+    try {
+      await server
+        .get(`post/search?name=&content=${event.target.value}&age=`)
+        .then((res) => {
+          dispatch(getAllPostInfo(res.data.data));
+        });
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -84,6 +87,17 @@ const ResponsiveApp = () => {
     setClickSignup(bool);
   };
 
+  const handleInputValue = (key) => (event) => {
+    console.log(event);
+    if (key === "name") {
+      setName(event.target.value);
+    } else if (key === "conent") {
+      setContent(event.target.value);
+    } else if (key === "age") {
+      setAge(event);
+    }
+  };
+
   return (
     <>
       {!loading ? (
@@ -91,12 +105,17 @@ const ResponsiveApp = () => {
           <div className="search2">
             <div>
               <Link to="/">
-                <div className="headerLogoResponsive"> Actorz </div>
+                <div className="headerLogoResponsive">Actorz</div>
               </Link>
             </div>
             <div>
+              <input
+                className="product-search"
+                value={search}
+                placeholder="  search..."
+                onChange={handleInputSearchValue}
+              ></input>
               <Popover
-                className="searchResponsive"
                 placement="bottomRight"
                 trigger="click"
                 content={
@@ -144,15 +163,12 @@ const ResponsiveApp = () => {
                   </>
                 }
               >
-                <img src={img} className="res-search-img"></img>
+                <img src={gear} className="gear-img"></img>
               </Popover>
             </div>
-
             <div className="responsiveAvatar">
               {localStorage.getItem("accessToken") ? (
                 <Popover
-                  overlayClassName="ant-popover"
-                  placement="bottom"
                   content={
                     <button
                       onClick={handleClicklogout}
@@ -171,8 +187,6 @@ const ResponsiveApp = () => {
                 </Popover>
               ) : (
                 <Popover
-                  overlayClassName="ant-popover"
-                  placement="bottom"
                   content={
                     <>
                       <button

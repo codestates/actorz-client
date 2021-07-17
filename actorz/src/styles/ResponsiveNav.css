@@ -13,18 +13,6 @@ body {
   margin-right: 0.5rem;
 }
 
-.ResponsiveFooter {
-  position: fixed;
-  display: fixed;
-  left: 0;
-  bottom: 0;
-  padding: 0.5rem;
-  width: 100%;
-  text-align: center;
-  color: white;
-  background: blue;
-}
-
 .headerLogoResponsive {
   font-family: Arial, Helvetica, sans-serif;
   color: black;
@@ -38,9 +26,9 @@ body {
   margin-right: 20rem;
 }
 
-.ResponsiveNavHeader {
-  width: 100%;
-  max-width: 100%;
+#ResponsiveNavHeader {
+  /* width: 100%;
+  max-width: 100%; */
 }
 
 .search2 {
@@ -50,7 +38,7 @@ body {
   position: fixed;
   left: 0;
   top: 0;
-  width: 100vw;
+  width: 100%;
   height: 2.8rem;
   background-color: white;
   border-bottom: 1px solid #e0e0e0;
@@ -94,6 +82,15 @@ body {
   margin-bottom: 0.3rem;
   background-color: rgb(233, 239, 240);
 }
-img.res-search-img {
-  width: 2rem;
+
+input.product-search {
+  width: 70%;
+}
+
+div.responsiveAvatar {
+  float: right;
+}
+
+.gear-img {
+  width: 1rem;
 }

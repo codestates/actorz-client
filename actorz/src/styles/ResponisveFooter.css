@@ -1,4 +1,4 @@
-.ResponsiveFooter {
+/* .ResponsiveFooter {
   display: flex;
   left:0px; 
   bottom:0px; 
@@ -6,6 +6,20 @@
   width: 100%;
   height: 75px;
   z-index: 5;
+} */
+
+.ResponsiveFooter {
+  position: fixed;
+  display: fixed;
+  left: 0;
+  bottom: 0;
+  padding: 0.5rem;
+  width: 100%;
+  text-align: center;
+  height: 4.7rem;
+  background-color: white;
+  z-index: 5;
+  /* background: blue; */
 }
 
 .ResponsivespaceDirection {

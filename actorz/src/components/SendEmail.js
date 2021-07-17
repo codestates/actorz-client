@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
 import { CloseOutlined } from "@ant-design/icons";
 
-import "../styles/SignupModal.css";
+import "../styles/SendEmailModal.css";
 
 import server from "../apis/server";
 import Loading from "../components/loading";
@@ -12,7 +11,14 @@ const SendEmail = ({ handleClickPost, setEmailClick, userInfo, postData }) => {
   console.log(userInfo)
   console.log(postData)
 
-  const [emailContent, setEmailContent] = useState({});
+  const [emailContent, setEmailContent] = useState({
+      name: userInfo.name,
+      bName: userInfo.recruiter.bName,
+      bAddress: userInfo.recruiter.bAddress,
+      phoneNum: userInfo.recruiter.phoneNum,
+      jobTitle: userInfo.recruiter.jobTitle,
+      message: ""
+  });
   const [recruiterEmail, setRecruiterEmail] = useState(userInfo.email);
   const [loading, setLoading] = useState(false);
   const [err, setError] = useState("");
