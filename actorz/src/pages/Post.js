@@ -1,3 +1,4 @@
+//선들님꺼(최신꺼)
 import React, { useEffect, useState } from "react";
 import { editLike } from "../actions/postAction";
 import { useSelector, useDispatch } from "react-redux";
@@ -13,8 +14,6 @@ import "../styles/Fileupload.css";
 import { Modal } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { useMediaQuery } from "react-responsive";
-
-
 
 const Post = ({ closePost }) => {
   const [isEdit, setIsEdit] = useState(false);
@@ -51,7 +50,7 @@ const Post = ({ closePost }) => {
           setPostinfo(res.data.data.post);
           setProfile(res.data.data.userPic);
           setIsLoading(true);
-          console.log(profile)
+          console.log(profile);
         })
         .catch((err) => {
           throw err;
@@ -77,7 +76,6 @@ const Post = ({ closePost }) => {
         });
     };
     f();
-
   }, [dispatch, url]);
 
   const handleClickEditBtn = (boolean) => {
@@ -130,14 +128,14 @@ const Post = ({ closePost }) => {
         }
       )
       .then((res) => {
-        console.log(state)
-        console.log(res)
+        console.log(state);
+        console.log(res);
         dispatch(editLike(url, res.data.data.likes));
       })
       .catch((err) => {
         throw err;
       });
-    }
+  };
 
   return (
     <>
@@ -145,26 +143,26 @@ const Post = ({ closePost }) => {
       {isloading ? (
         <>
           {!isEdit ? ( //Edit 모드가 아닐 때
-          <>
-            {isPcOrTablet && ( // 일반 모드 PC OR TABLET
-              <>
-                <div
-                  id="post-modal-background"
-                  onClick={closePost}
-                >
-                  <div id="post-modal-container">
-                    <div
-                      id="post-container"
-                      onClick={(event) => event.stopPropagation()}
-                    >
-                      {postinfo.genre ? (
-                        <>
-                          <div id="post-container-1">
-                            <div className="post-1-wrap">
-                              {postinfo.userInfo &&
-                                user.data.userInfo.id === postinfo.userInfo.user_id ? (
-                                  <div className="post-1-content post-btn-hover"
-                                  onClick={() => handleClickDeleteBtn(true)}>
+            <>
+              {isPcOrTablet && ( // 일반 모드 PC OR TABLET
+                <>
+                  <div id="post-modal-background" onClick={closePost}>
+                    <div id="post-modal-container">
+                      <div
+                        id="post-container"
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        {postinfo.genre ? (
+                          <>
+                            <div id="post-container-1">
+                              <div className="post-1-wrap">
+                                {postinfo.userInfo &&
+                                user.data.userInfo.id ===
+                                  postinfo.userInfo.user_id ? (
+                                  <div
+                                    className="post-1-content post-btn-hover"
+                                    onClick={() => handleClickDeleteBtn(true)}
+                                  >
                                     <div className="post-1-content-icon-container">
                                       <Icon
                                         name="trash alternate outline"
@@ -173,10 +171,13 @@ const Post = ({ closePost }) => {
                                     </div>
                                   </div>
                                 ) : null}
-                              {postinfo.userInfo &&
-                                user.data.userInfo.id === postinfo.userInfo.user_id ? (
-                                  <div className="post-1-content post-btn-hover"
-                                  onClick={() => handleClickEditBtn(true)}>
+                                {postinfo.userInfo &&
+                                user.data.userInfo.id ===
+                                  postinfo.userInfo.user_id ? (
+                                  <div
+                                    className="post-1-content post-btn-hover"
+                                    onClick={() => handleClickEditBtn(true)}
+                                  >
                                     <div className="post-1-content-icon-container">
                                       <Icon
                                         name="edit outline"
@@ -185,9 +186,9 @@ const Post = ({ closePost }) => {
                                     </div>
                                   </div>
                                 ) : null}
-                              {postinfo.userInfo &&
+                                {postinfo.userInfo &&
                                 user.data.userInfo.role === "recruiter" ? (
-                                  <div 
+                                  <div
                                     className="post-1-content post-btn-hover"
                                     onClick={() => setEmailClick(true)}
                                   >
@@ -199,87 +200,118 @@ const Post = ({ closePost }) => {
                                     </div>
                                   </div>
                                 ) : null}
-                              <div 
-                                className="post-1-content post-btn-hover"
-                              >
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: postinfo.userInfo.user_id,
-                                    },
-                                  }}
+                                <div className="post-1-content post-btn-hover">
+                                  <Link
+                                    to={{
+                                      pathname: `/posts`,
+                                      state: {
+                                        id: postinfo.userInfo.user_id,
+                                      },
+                                    }}
+                                  >
+                                    <img
+                                      alt=""
+                                      src={profile}
+                                      id="post-profile-img"
+                                      // className="post-btn-hover"
+                                    ></img>
+                                  </Link>
+                                </div>
+                                <div
+                                  className="post-1-content post-btn-hover"
+                                  onClick={closePost}
                                 >
-                                  <img
-                                  alt=""
-                                  src={profile}
-                                  id="post-profile-img"
-                                  // className="post-btn-hover"
-                                  ></img>
-                                </Link>
-                              </div>
-                              <div className="post-1-content post-btn-hover"
-                              onClick={closePost}
-                              >
-                                <div className="post-1-content-icon-container">
-                                  <CloseOutlined
-                                    style={{paddingTop: "0.2rem"}}
-                                    name="close"
-                                    className="post-1-content-icon post-1-content-icon-close"
-                                  ></CloseOutlined>
+                                  <div className="post-1-content-icon-container">
+                                    <CloseOutlined
+                                      style={{ paddingTop: "0.2rem" }}
+                                      name="close"
+                                      className="post-1-content-icon post-1-content-icon-close"
+                                    ></CloseOutlined>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                          <div id="post-container-2">
+                            <div id="post-container-2">
                               <div className="post-2-content">
                                 <div className="post-name post-btn-hover">
-                                    <Link
-                                      style={{color: "black"}}
-                                      to={{
-                                        pathname: `/posts`,
-                                        state: {
-                                          id: postinfo.userInfo.user_id,
-                                        },
-                                      }}
-                                    >
-                                      {postinfo.userInfo.name}
-                                    </Link>
+                                  <Link
+                                    style={{ color: "black" }}
+                                    to={{
+                                      pathname: `/posts`,
+                                      state: {
+                                        id: postinfo.userInfo.user_id,
+                                      },
+                                    }}
+                                  >
+                                    {postinfo.userInfo.name}
+                                  </Link>
                                 </div>
-                            </div>
-                            <div className="post-2-content-width-100">
-                              <div id="post-2-wrap">
-                                <div>
-                                  <span className="post-genre">{postinfo.genre}</span>
-                                  <span className="post-desc">{postinfo.content}</span>
-                                </div>
-                                <div>
-                                  {postinfo.likes.length !== 0 &&
-                                  localStorage.getItem("accessToken") ? (
-                                    <>
-                                    {like ? (
+                              </div>
+                              <div className="post-2-content-width-100">
+                                <div id="post-2-wrap">
+                                  <div>
+                                    <span className="post-genre">
+                                      {postinfo.genre}
+                                    </span>
+                                    <span className="post-desc">
+                                      {postinfo.content}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    {postinfo.likes.length !== 0 &&
+                                    localStorage.getItem("accessToken") ? (
                                       <>
-                                        <div 
-                                          className="post-like-box"
-                                          onClick={() =>
-                                            handleClickLikeBtn("like", postinfo._id)
-                                          }
-                                        >
-                                          <Icon
-                                            name="like"
-                                            className="post-like-img"
-                                          />
-                                          <span className="post-like">
-                                            {postinfo.likes.length}
-                                          </span>
-                                        </div>
+                                        {like ? (
+                                          <>
+                                            <div
+                                              className="post-like-box"
+                                              onClick={() =>
+                                                handleClickLikeBtn(
+                                                  "like",
+                                                  postinfo._id
+                                                )
+                                              }
+                                            >
+                                              <Icon
+                                                name="like"
+                                                className="post-like-img"
+                                              />
+                                              <span className="post-like">
+                                                {postinfo.likes.length}
+                                              </span>
+                                            </div>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <div
+                                              className="post-like-box"
+                                              onClick={() =>
+                                                handleClickLikeBtn(
+                                                  "unlike",
+                                                  postinfo._id
+                                                )
+                                              }
+                                            >
+                                              <Icon
+                                                name="like"
+                                                className="post-unlike-img"
+                                              />
+                                              <span className="post-like">
+                                                {postinfo.likes.length}
+                                              </span>
+                                            </div>
+                                          </>
+                                        )}
                                       </>
                                     ) : (
                                       <>
-                                        <div 
+                                        <div
                                           className="post-like-box"
                                           onClick={() =>
-                                            handleClickLikeBtn("unlike", postinfo._id)
+                                            handleClickLikeBtn(
+                                              "unlike",
+                                              postinfo._id
+                                            )
                                           }
                                         >
                                           <Icon
@@ -292,160 +324,155 @@ const Post = ({ closePost }) => {
                                         </div>
                                       </>
                                     )}
-                                    </>
-                                    ) : (
-                                      <>
-                                        <div 
-                                        className="post-like-box" 
-                                        onClick={() => handleClickLikeBtn("unlike", postinfo._id)}>
-                                          <Icon
-                                            name="like"
-                                            className="post-unlike-img"
-                                          />
-                                          <span className="post-like">
-                                            {postinfo.likes.length}
-                                          </span>
-                                        </div>
-                                      </>
-                                  )}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
 
-                            <div className="post-info">
+                              <div className="post-info"></div>
                             </div>
-                          </div>
-                          <div id="post-container-3">
-                            <div className="post-div-img">
-                              {postinfo.media.map((img) => {
-                                if (img.type === "img") {
-                                  return (
-                                    <Card className="post-media-data" centered={true} fluid={true} key={img._id}>
-                                      <img
-                                        key={img._id}
-                                        src={img.path}
-                                        className="post-image"
-                                        alt="이미지"
-                                      ></img>
-                                    </Card>
-                                  );
-                                } else {
-                                  return (
-                                    <Card className="post-media-data" centered={true} fluid={true} key={img._id}>
-                                      <video 
-                                        loop="loop"
-                                        controls 
-                                        className="post-video" 
+                            <div id="post-container-3">
+                              <div className="post-div-img">
+                                {postinfo.media.map((img) => {
+                                  if (img.type === "img") {
+                                    return (
+                                      <Card
+                                        className="post-media-data"
+                                        centered={true}
+                                        fluid={true}
                                         key={img._id}
                                       >
-                                        <source src={img.path}></source>
-                                      </video>
-                                    </Card>
-                                  );
-                                }
-                              })}
-                            </div>
-                          </div>
-                          <div className="mobile"></div>
-                        </>
-                      ) : (
-                        <Loading />
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-            {isMobile && (
-              <>
-              <div
-                id="post-modal-background"
-                onClick={closePost}
-              >
-                <div id="post-modal-container">
-                  <div
-                    id="post-container"
-                    onClick={(event) => event.stopPropagation()}
-                  >
-                    {postinfo.genre ? (
-                      <>
-                        <div id="post-container-1">
-                          <div className="post-1-wrap">
-                            {postinfo.userInfo &&
-                              user.data.userInfo.id === postinfo.userInfo.user_id ? (
-                                <div className="post-1-content post-btn-hover"
-                                onClick={() => handleClickDeleteBtn(true)}>
-                                  <div className="post-1-content-icon-container">
-                                    <Icon
-                                      name="trash alternate outline"
-                                      className="post-1-content-icon"
-                                    ></Icon>
-                                  </div>
-                                </div>
-                              ) : null}
-                            {postinfo.userInfo &&
-                              user.data.userInfo.id === postinfo.userInfo.user_id ? (
-                                <div className="post-1-content post-btn-hover"
-                                onClick={() => handleClickEditBtn(true)}>
-                                  <div className="post-1-content-icon-container">
-                                    <Icon
-                                      name="edit outline"
-                                      className="post-1-content-icon post-icon-btn-config"
-                                    ></Icon>
-                                  </div>
-                                </div>
-                              ) : null}
-                            {postinfo.userInfo &&
-                              user.data.userInfo.role === "recruiter" ? (
-                                <div 
-                                  className="post-1-content post-btn-hover"
-                                  onClick={() => setEmailClick(true)}
-                                >
-                                  <div className="post-1-content-icon-container">
-                                    <Icon
-                                      name="mail outline"
-                                      className="post-1-content-icon"
-                                    ></Icon>
-                                  </div>
-                                </div>
-                              ) : null}
-                            <div 
-                              className="post-1-content post-btn-hover"
-                            >
-                              <Link
-                                to={{
-                                  pathname: `/posts`,
-                                  state: {
-                                    id: postinfo.userInfo.user_id,
-                                  },
-                                }}
-                              >
-                                <img
-                                alt=""
-                                src={profile}
-                                id="post-profile-img"
-                                // className="post-btn-hover"
-                                ></img>
-                              </Link>
-                            </div>
-                            <div className="post-1-content post-btn-hover"
-                            onClick={closePost}
-                            >
-                              <div className="post-1-content-icon-container">
-                                <CloseOutlined
-                                  style={{paddingTop: "0.2rem"}}
-                                  name="close"
-                                  className="post-1-content-icon post-1-content-icon-close"
-                                ></CloseOutlined>
+                                        <img
+                                          key={img._id}
+                                          src={img.path}
+                                          className="post-image"
+                                          alt="이미지"
+                                        ></img>
+                                      </Card>
+                                    );
+                                  } else {
+                                    return (
+                                      <Card
+                                        className="post-media-data"
+                                        centered={true}
+                                        fluid={true}
+                                        key={img._id}
+                                      >
+                                        <video
+                                          loop="loop"
+                                          controls
+                                          className="post-video"
+                                          key={img._id}
+                                        >
+                                          <source src={img.path}></source>
+                                        </video>
+                                      </Card>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
-                          </div>
-                        </div>
-                        <div id="post-container-2">
-                            <div className="post-2-content">
-                              <div className="post-name post-btn-hover">
+                            <div className="mobile"></div>
+                          </>
+                        ) : (
+                          <Loading />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+              {isMobile && (
+                <>
+                  <div id="post-modal-background" onClick={closePost}>
+                    <div id="post-modal-container">
+                      <div
+                        id="post-container"
+                        onClick={(event) => event.stopPropagation()}
+                      >
+                        {postinfo.genre ? (
+                          <>
+                            <div id="post-container-1">
+                              <div className="post-1-wrap">
+                                {postinfo.userInfo &&
+                                user.data.userInfo.id ===
+                                  postinfo.userInfo.user_id ? (
+                                  <div
+                                    className="post-1-content post-btn-hover"
+                                    onClick={() => handleClickDeleteBtn(true)}
+                                  >
+                                    <div className="post-1-content-icon-container">
+                                      <Icon
+                                        name="trash alternate outline"
+                                        className="post-1-content-icon"
+                                      ></Icon>
+                                    </div>
+                                  </div>
+                                ) : null}
+                                {postinfo.userInfo &&
+                                user.data.userInfo.id ===
+                                  postinfo.userInfo.user_id ? (
+                                  <div
+                                    className="post-1-content post-btn-hover"
+                                    onClick={() => handleClickEditBtn(true)}
+                                  >
+                                    <div className="post-1-content-icon-container">
+                                      <Icon
+                                        name="edit outline"
+                                        className="post-1-content-icon post-icon-btn-config"
+                                      ></Icon>
+                                    </div>
+                                  </div>
+                                ) : null}
+                                {postinfo.userInfo &&
+                                user.data.userInfo.role === "recruiter" ? (
+                                  <div
+                                    className="post-1-content post-btn-hover"
+                                    onClick={() => setEmailClick(true)}
+                                  >
+                                    <div className="post-1-content-icon-container">
+                                      <Icon
+                                        name="mail outline"
+                                        className="post-1-content-icon"
+                                      ></Icon>
+                                    </div>
+                                  </div>
+                                ) : null}
+                                <div className="post-1-content post-btn-hover">
                                   <Link
-                                    style={{color: "black"}}
+                                    to={{
+                                      pathname: `/posts`,
+                                      state: {
+                                        id: postinfo.userInfo.user_id,
+                                      },
+                                    }}
+                                  >
+                                    <img
+                                      alt=""
+                                      src={profile}
+                                      id="post-profile-img"
+                                      // className="post-btn-hover"
+                                    ></img>
+                                  </Link>
+                                </div>
+                                <div
+                                  className="post-1-content post-btn-hover"
+                                  onClick={closePost}
+                                >
+                                  <div className="post-1-content-icon-container">
+                                    <CloseOutlined
+                                      style={{ paddingTop: "0.2rem" }}
+                                      name="close"
+                                      className="post-1-content-icon post-1-content-icon-close"
+                                    ></CloseOutlined>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div id="post-container-2">
+                              <div className="post-2-content">
+                                <div className="post-name post-btn-hover">
+                                  <Link
+                                    style={{ color: "black" }}
                                     to={{
                                       pathname: `/posts`,
                                       state: {
@@ -455,119 +482,145 @@ const Post = ({ closePost }) => {
                                   >
                                     {postinfo.userInfo.name}
                                   </Link>
+                                </div>
                               </div>
-                          </div>
-                          <div className="post-2-content-width-100">
-                            <div id="post-2-wrap">
-                              <div>
-                                <span className="post-genre">{postinfo.genre}</span>
-                                <span className="post-desc">{postinfo.content}</span>
+                              <div className="post-2-content-width-100">
+                                <div id="post-2-wrap">
+                                  <div>
+                                    <span className="post-genre">
+                                      {postinfo.genre}
+                                    </span>
+                                    <span className="post-desc">
+                                      {postinfo.content}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    {postinfo.likes.length !== 0 &&
+                                    localStorage.getItem("accessToken") ? (
+                                      <>
+                                        {like ? (
+                                          <>
+                                            <div
+                                              className="post-like-box"
+                                              onClick={() =>
+                                                handleClickLikeBtn(
+                                                  "like",
+                                                  postinfo._id
+                                                )
+                                              }
+                                            >
+                                              <Icon
+                                                name="like"
+                                                className="post-like-img"
+                                              />
+                                              <span className="post-like">
+                                                {postinfo.likes.length}
+                                              </span>
+                                            </div>
+                                          </>
+                                        ) : (
+                                          <>
+                                            <div
+                                              className="post-like-box"
+                                              onClick={() =>
+                                                handleClickLikeBtn(
+                                                  "unlike",
+                                                  postinfo._id
+                                                )
+                                              }
+                                            >
+                                              <Icon
+                                                name="like"
+                                                className="post-unlike-img"
+                                              />
+                                              <span className="post-like">
+                                                {postinfo.likes.length}
+                                              </span>
+                                            </div>
+                                          </>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <>
+                                        <div
+                                          className="post-like-box"
+                                          onClick={() =>
+                                            handleClickLikeBtn(
+                                              "unlike",
+                                              postinfo._id
+                                            )
+                                          }
+                                        >
+                                          <Icon
+                                            name="like"
+                                            className="post-unlike-img"
+                                          />
+                                          <span className="post-like">
+                                            {postinfo.likes.length}
+                                          </span>
+                                        </div>
+                                      </>
+                                    )}
+                                  </div>
+                                </div>
                               </div>
-                              <div>
-                                {postinfo.likes.length !== 0 &&
-                                localStorage.getItem("accessToken") ? (
-                                  <>
-                                  {like ? (
-                                    <>
-                                      <div 
-                                        className="post-like-box"
-                                        onClick={() =>
-                                          handleClickLikeBtn("like", postinfo._id)
-                                        }
+
+                              <div className="post-info"></div>
+                            </div>
+                            <div id="post-container-3">
+                              <div className="post-div-img">
+                                {postinfo.media.map((img) => {
+                                  if (img.type === "img") {
+                                    return (
+                                      <Card
+                                        className="post-media-data"
+                                        centered={true}
+                                        fluid={true}
+                                        key={img._id}
                                       >
-                                        <Icon
-                                          name="like"
-                                          className="post-like-img"
-                                        />
-                                        <span className="post-like">
-                                          {postinfo.likes.length}
-                                        </span>
-                                      </div>
-                                    </>
-                                  ) : (
-                                    <>
-                                      <div 
-                                        className="post-like-box"
-                                        onClick={() =>
-                                          handleClickLikeBtn("unlike", postinfo._id)
-                                        }
+                                        <img
+                                          key={img._id}
+                                          src={img.path}
+                                          className="post-image"
+                                          alt="이미지"
+                                        ></img>
+                                      </Card>
+                                    );
+                                  } else {
+                                    return (
+                                      <Card
+                                        className="post-media-data"
+                                        centered={true}
+                                        fluid={true}
+                                        key={img._id}
                                       >
-                                        <Icon
-                                          name="like"
-                                          className="post-unlike-img"
-                                        />
-                                        <span className="post-like">
-                                          {postinfo.likes.length}
-                                        </span>
-                                      </div>
-                                    </>
-                                  )}
-                                  </>
-                                  ) : (
-                                    <>
-                                      <div 
-                                      className="post-like-box" 
-                                      onClick={() => handleClickLikeBtn("unlike", postinfo._id)}>
-                                        <Icon
-                                          name="like"
-                                          className="post-unlike-img"
-                                        />
-                                        <span className="post-like">
-                                          {postinfo.likes.length}
-                                        </span>
-                                      </div>
-                                    </>
-                                )}
+                                        <video
+                                          loop="loop"
+                                          controls
+                                          className="post-video"
+                                          key={img._id}
+                                        >
+                                          <source src={img.path}></source>
+                                        </video>
+                                      </Card>
+                                    );
+                                  }
+                                })}
                               </div>
                             </div>
-                          </div>
-
-                          <div className="post-info">
-                          </div>
-                        </div>
-                        <div id="post-container-3">
-                          <div className="post-div-img">
-                            {postinfo.media.map((img) => {
-                              if (img.type === "img") {
-                                return (
-                                  <Card className="post-media-data" centered={true} fluid={true} key={img._id}>
-                                    <img
-                                      key={img._id}
-                                      src={img.path}
-                                      className="post-image"
-                                      alt="이미지"
-                                    ></img>
-                                  </Card>
-                                );
-                              } else {
-                                return (
-                                  <Card className="post-media-data" centered={true} fluid={true} key={img._id}>
-                                    <video 
-                                      loop="loop"
-                                      controls 
-                                      className="post-video" 
-                                      key={img._id}
-                                    >
-                                      <source src={img.path}></source>
-                                    </video>
-                                  </Card>
-                                );
-                              }
-                            })}
-                          </div>
-                        </div>
-                        <div className="mobile"></div>
-                      </>
-                    ) : (
-                      <Loading />
-                    )}
+                            <div className="mobile"></div>
+                          </>
+                        ) : (
+                          <Loading />
+                        )}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </>
+              )}
             </>
-            )}
-          </>
-          ) : ( // 일반모드 끝. Edit 모드 시작
+          ) : (
+            // 일반모드 끝. Edit 모드 시작
             <PostEdit
               closePost={closePost}
               handleClickEditBtn={handleClickEditBtn}
