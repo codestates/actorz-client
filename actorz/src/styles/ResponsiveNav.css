@@ -84,9 +84,13 @@ body {
 }
 
 input.product-search {
-  width: 90%;
+  width: 70%;
 }
 
 div.responsiveAvatar {
   float: right;
+}
+
+.gear-img {
+  width: 1rem;
 }

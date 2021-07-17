@@ -10,7 +10,6 @@ import { getAllPostInfo, editPostInfo } from "../actions/postAction";
 import { getUserInfo } from "../actions/userAction";
 import SocialSignup from "../components/SocialSignup";
 import Footer from "../components/Footer";
-import Search from "../components/Search";
 import { HeartOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import { Card, Icon, Image } from "semantic-ui-react";
@@ -24,7 +23,6 @@ import "../styles/ResponsiveMainpage.css";
 import Loading from "../components/loading";
 import { redirectUri } from "../config";
 import failed from "../images/depression.png";
-import { Popover, Button } from "antd";
 
 import "../styles/Search.css";
 
@@ -109,10 +107,14 @@ const Mainpage = () => {
                     if (res.status === 200) {
                       setModalSocialSignup(false);
                       // setIsLoading(false);
-                      dispatch(getUserInfo({
-                        ...res.data.data.userInfo,
-                        dob: res.data.data.userInfo.dob.toString().split("T")[0]
-                      }));
+                      dispatch(
+                        getUserInfo({
+                          ...res.data.data.userInfo,
+                          dob: res.data.data.userInfo.dob
+                            .toString()
+                            .split("T")[0],
+                        })
+                      );
                       window.location.href = redirectUri;
                     }
                   })
@@ -127,7 +129,7 @@ const Mainpage = () => {
                 setOauthSignup(`${provider}=${res.data.data.email}`);
               } else {
                 setIsLoading(false);
-                console.log("소셜 로그인 실패")
+                console.log("소셜 로그인 실패");
                 Modal.error({
                   title: "로그인 실패",
                   content: "소셜 로그인 중 오류가 발생했습니다.",

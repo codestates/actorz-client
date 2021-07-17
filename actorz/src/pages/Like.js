@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserInfo } from "../actions/userAction";
 import { Link } from "react-router-dom";
 import Nav from "../components/Nav";
 import Post from "./Post";
 import SocialSignup from "../components/SocialSignup";
 import server from "../apis/server";
 import Footer from "../components/Footer";
-import Search from "../components/Search";
 import Iconlist from "../components/Iconlist";
 import { HeartOutlined } from "@ant-design/icons";
 import { Card, Icon, Image } from "semantic-ui-react";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
-import ResponsiveIconlist from "../components/responsiveApp/ResponsiveIconlist";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
 import Loading from "../components/loading";
 import failed from "../images/depression.png";
@@ -31,7 +28,7 @@ const Like = () => {
   const [modalSocialSignup, setModalSocialSignup] = useState(false);
   const [isFilter, setIsFilter] = useState(false);
   const [clickLike, setClickLike] = useState(false);
-  const [likePost, setLikePost] = useState([]);
+  const [likePost, setLikePost] = useState(null);
 
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
@@ -54,16 +51,16 @@ const Like = () => {
   useEffect(() => {
     const p = async () => {
       await server
-      .get(`/like/${user.data.userInfo.id}`)
-      .then((res) => {
-        setLikePost(res.data.data.posts);
-      })
-      .catch((err) => {
-        throw err;
-      });
-    }
+        .get(`/like/${user.data.userInfo.id}`)
+        .then((res) => {
+          setLikePost(res.data.data.posts);
+        })
+        .catch((err) => {
+          throw err;
+        });
+    };
     p();
-  }, [user.data.userInfo.id]);
+  }, [clickLike]);
 
   const handleClickFiltering = () => {
     setIsFilter(!isFilter);
@@ -90,7 +87,6 @@ const Like = () => {
       )
       .then((res) => {
         setClickLike(!clickLike);
-        console.log(post);
       })
       .catch((err) => {
         throw err;
@@ -105,8 +101,6 @@ const Like = () => {
         window.location = "/mainpage";
       },
     });
-    // alert("로그인 후 이용 가능합니다.");
-    // window.location = "/mainpage";
   };
 
   const isPc = useMediaQuery({
@@ -120,7 +114,9 @@ const Like = () => {
   const isMobile = useMediaQuery({
     query: "(max-width:767px)",
   });
-  //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
+  console.log(likePost);
+  console.log(post);
+  console.log(user);
 
   return (
     <>
@@ -140,7 +136,7 @@ const Like = () => {
 
                 <div className="middleSpace">
                   <div className="midContents2 midContentsReverse">
-                    {post.data.data ? (
+                    {likePost ? (
                       likePost.length !== 0 ? (
                         likePost.map((post) => {
                           return (
@@ -206,10 +202,11 @@ const Like = () => {
                               <Card.Content extra>
                                 {post.likes.length !== 0 ? (
                                   <>
-                                    {post.likes.map((like) => {
+                                    {post.likes.map((like, index) => {
                                       return like.user_id ===
                                         user.data.userInfo.id ? (
                                         <Icon
+                                          key={index}
                                           name="like"
                                           className="mylike"
                                           onClick={() =>
@@ -256,7 +253,7 @@ const Like = () => {
 
                 <div className="rightSpace">
                   <div className="iconList2">
-                    {isFilter ? <Search /> : null}
+                    {/* {isFilter ? <Search /> : null} */}
                   </div>
                 </div>
               </div>
@@ -362,6 +359,7 @@ const Like = () => {
                                       return like.user_id ===
                                         user.data.userInfo.id ? (
                                         <Icon
+                                          key={like._id}
                                           name="like"
                                           className="mylike"
                                           onClick={() =>
@@ -407,9 +405,7 @@ const Like = () => {
                 <div className="newblockPosition2"> </div>
 
                 <div className="rightSpace">
-                  <div className="iconList2">
-                    {isFilter ? <Search /> : null}
-                  </div>
+                  <div className="iconList2"></div>
                 </div>
               </div>
               <Footer />
@@ -510,6 +506,7 @@ const Like = () => {
                                       return like.user_id ===
                                         user.data.userInfo.id ? (
                                         <Icon
+                                          key={like._id}
                                           name="like"
                                           className="mylike"
                                           onClick={() =>
