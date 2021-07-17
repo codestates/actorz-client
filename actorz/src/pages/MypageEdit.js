@@ -266,6 +266,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
+      setDeleteUserModal(false);
   };
 
   const isPc = useMediaQuery({
@@ -705,6 +706,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                             <div className="img-container">
                                               {post.media[0].type === "img" ? (
                                                 <img
+                                                  alt=""
                                                   className="postGallery-img"
                                                   key={post._id}
                                                   src={post.media[0].path}
@@ -903,6 +905,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                             <div className="img-container">
                                               {post.media[0].type === "img" ? (
                                                 <img
+                                                  alt=""
                                                   className="postGallery-img"
                                                   key={post._id}
                                                   src={post.media[0].path}
@@ -975,8 +978,23 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     />
                     <DeleteOutlined
                       className="deleteButton"
-                      onClick={() => handleDeleteAccount()}
+                      onClick={() => setDeleteUserModal(true)}
                     />
+                    <Modal
+                      title="계정 삭제"
+                      visible={deleteUserModal}
+                      onOk={() => handleDeleteAccount()}
+                      onCancel={() => setDeleteUserModal(false)}
+                      okText="계정 삭제"
+                      cancelText="계정 유지"
+                    >
+                      계정이 삭제되면 업로드 되었던 사진 및 동영상 또한 함께
+                      삭제됩니다.
+                      <br />
+                      <strong>삭제된 모든 정보들은 복구되지 않습니다.</strong>
+                      <br />
+                      정말로 계정을 삭제하시겠습니까?
+                    </Modal>
                   </div>
                 </div>
                 <div className="midContentDownPart">
@@ -1446,8 +1464,23 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                     />
                     <DeleteOutlined
                       className="deleteButton"
-                      onClick={() => handleDeleteAccount()}
+                      onClick={() => setDeleteUserModal(true)}
                     />
+                    <Modal
+                      title="계정 삭제"
+                      visible={deleteUserModal}
+                      onOk={() => handleDeleteAccount()}
+                      onCancel={() => setDeleteUserModal(false)}
+                      okText="계정 삭제"
+                      cancelText="계정 유지"
+                    >
+                      계정이 삭제되면 업로드 되었던 사진 및 동영상 또한 함께
+                      삭제됩니다.
+                      <br />
+                      <strong>삭제된 모든 정보들은 복구되지 않습니다.</strong>
+                      <br />
+                      정말로 계정을 삭제하시겠습니까?
+                    </Modal>
                   </div>
                 </div>
                 <div className="midContentDownPart2">

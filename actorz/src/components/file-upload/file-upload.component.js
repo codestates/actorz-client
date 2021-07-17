@@ -36,7 +36,7 @@ const FileUpload = ({
 }) => {
   const fileInputField = useRef(null);
   const [files, setFiles] = useState({});
-  const [genre, setGenre] = useState("");
+  const [genre, setGenre] = useState("기타");
   const [desc, setDesc] = useState("");
   const [modalClassName, setModalClassName] = useState("upload-modal-container");
 

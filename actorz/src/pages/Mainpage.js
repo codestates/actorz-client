@@ -67,7 +67,7 @@ const Mainpage = () => {
         });
       } catch (err) {
         setIsLoading(false);
-        Modal.error({
+        Modal.warning({
           title: "실패",
           content:
             "게시물 정보를 가져오는 중에 예상치 못한 오류가 발생했습니다  \n 잠시 후 다시 이용해주세요",
@@ -128,7 +128,7 @@ const Mainpage = () => {
               } else {
                 setIsLoading(false);
                 console.log("소셜 로그인 실패")
-                Modal.error({
+                Modal.warning({
                   title: "로그인 실패",
                   content: "소셜 로그인 중 오류가 발생했습니다.",
                 });
@@ -342,7 +342,7 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
               </div>
             </div>
             <div className="newblockPosition2"> </div>
@@ -486,7 +486,7 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
               </div>
             </div>
             <div className="responsiveNewblockPosition"> </div>
@@ -634,7 +634,7 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post handleClickPost={handleClickPost} /> : null}
+                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
               </div>
             </div>
             {/* <div className="newblockPosition2"> </div>

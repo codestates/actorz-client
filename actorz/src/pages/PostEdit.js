@@ -10,6 +10,7 @@ import love from "../images/thumb-up.png";
 import email from "../images/email.png";
 import heart from "../images/heart.png";
 import "../styles/PostEdit.css";
+import { useMediaQuery } from "react-responsive";
 
 const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const post = useSelector((post) => post.postInfoReducer);
@@ -18,6 +19,14 @@ const PostEdit = ({ userPostinfo, handleClickPost, handleClickEditBtn }) => {
   const [postinfo, setPostinfo] = useState(userPostinfo);
   const dispatch = useDispatch();
   //console.log(postinfo);
+
+  const isPcOrTablet = useMediaQuery({
+    query: "(min-width:768px)",
+  });
+
+  const isMobile = useMediaQuery({
+    query: "(max-width:767px)",
+  });
 
   let s3Url = null;
   let result = null;

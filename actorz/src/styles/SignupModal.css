@@ -2,6 +2,11 @@
   margin-left: 0.5rem;
 }
 
+.ant-scrolling-effect::-webkit-scrollbar,
+.ant-scrolling-effect {
+  width: 0;
+}
+
 #modal-container-mobile2::-webkit-scrollbar,
 #modal-container::-webkit-scrollbar {
   width: 0.4rem;
@@ -145,6 +150,7 @@
 
 #modal-section {
   display: block;
+  max-width: 23rem;
 }
 
 .gender input {
