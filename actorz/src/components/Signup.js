@@ -82,24 +82,49 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
     const { email, password, name, company, gender } = actorSignup;
     try {
       if (
-        email !== undefined &&
-        password !== undefined &&
-        name !== undefined &&
-        dob !== undefined
+        email &&
+        password &&
+        name &&
+        dob
       ) {
           if(!isValidEmail(email)){
-            Modal.error({
-              getContainer: document.getElementById("modal-container"),
-              content: "이메일 형식이 맞지 않습니다. \n 다시 시도해주세요.",
+            Modal.warning({
+              maskStyle: {width: "200%", height: "200%"},
+              style: {maxWidth: "20rem",top: "3rem",},
+              content: (
+              <>
+                <div style={{textAlign: "left"}}>
+                  이메일 형식이 맞지 않습니다.
+                </div>
+                <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+                  다시 시도해주세요.
+                </div>
+              </>
+              ),
+              getContainer: document.getElementsByClassName("modal-get-container")[0],
             });
             setLoading(false);
+            setButtonDisable(false);
             return;
           }else if(password.length < 9 || password.length > 20){
             setLoading(false);
-            Modal.error({
-              getContainer: document.getElementById("modal-container"),
-              content: "비밀번호 자리수는 9 ~ 20 사이로 맞춰주세요 \n 다시 시도해주세요.",
+            Modal.warning({
+              maskStyle: {width: "200%", height: "200%"},
+              style: {maxWidth: "20rem", top: "3rem",},
+              content: (
+              <>
+                <div style={{textAlign: "left"}}>
+                  비밀번호 자리수는 9 ~ 20 사이로 맞춰주세요.
+                </div>
+                <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+                  다시 시도해주세요.
+                </div>
+              </>
+              ),
+              getContainer: document.getElementsByClassName("modal-get-container")[0],
             });
+            setButtonDisable(false);
+            setLoading(false);
             return;
           }
           setError("");
@@ -156,15 +181,37 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       setButtonDisable(false);
       setLoading(false);
       if (err.message === "Request failed with status code 409") {
-        Modal.error({
-          getContainer: document.getElementById("modal-container"),
-          content: '이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요',
+        Modal.warning({
+          maskStyle: {width: "200%", height: "200%"},
+          style: {maxWidth: "20rem", top: "3rem",},
+          content: (
+          <>
+            <div style={{textAlign: "left"}}>
+              이미 존재하는 이메일 입니다.
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              다른 이메일로 시도해주세요.
+            </div>
+          </>
+          ),
+          getContainer: document.getElementsByClassName("modal-get-container")[0],
         });
         //alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
       } else {
-        Modal.error({
-          getContainer: document.getElementById("modal-container"),
-          content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
+        Modal.warning({
+          maskStyle: {width: "200%", height: "200%"},
+          style: {maxWidth: "20rem", top: "3rem",},
+          content: (
+          <>
+            <div style={{textAlign: "left"}}>
+              예상치 못한 오류가 발생했습니다.
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              잠시 후 다시 이용해주세요
+            </div>
+          </>
+          ),
+          getContainer: document.getElementsByClassName("modal-get-container")[0],
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
@@ -189,15 +236,58 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
     console.log(recruiterSignup)
     try {
       if (
-        email !== undefined &&
-        password !== undefined &&
-        name !== undefined &&
-        dob !== undefined &&
-        bName !== undefined &&
-        addr.city !== undefined &&
-        addr.street !== undefined &&
-        addr.zipCode !== undefined
+        email &&
+        password &&
+        name &&
+        dob &&
+        bName &&
+        addr.city &&
+        addr.street &&
+        addr.zipCode
       ) {
+          if(!isValidEmail(email)){
+            Modal.warning({
+              maskStyle: {width: "200%", height: "200%"},
+              style: {
+                maxWidth: "20rem",
+                top: "3rem",
+              },
+              content: (
+              <>
+                <div style={{textAlign: "left"}}>
+                  이메일 형식이 맞지 않습니다.
+                </div>
+                <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+                  다시 시도해주세요.
+                </div>
+              </>
+              ),
+              getContainer: document.getElementsByClassName("modal-get-container")[0],
+            });
+            setLoading(false);
+            setButtonDisable(false);
+            return;
+          }else if(password.length < 9 || password.length > 20){
+            setLoading(false);
+            Modal.warning({
+              maskStyle: {width: "200%", height: "200%"},
+              style: {maxWidth: "20rem", top: "3rem",},
+              content: (
+              <>
+                <div style={{textAlign: "left"}}>
+                  비밀번호 자리수는 9 ~ 20 사이로 맞춰주세요.
+                </div>
+                <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+                  다시 시도해주세요.
+                </div>
+              </>
+              ),
+              getContainer: document.getElementsByClassName("modal-get-container")[0],
+            });
+            setLoading(false);
+            setButtonDisable(false);
+            return;
+          }
           setError("");
           await server.post(`/signup`, {
             email: email,
@@ -261,9 +351,20 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
     } catch {
       setButtonDisable(false);
       setLoading(false);
-      Modal.error({
-        getContainer: document.getElementById("modal-container"),
-        content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요.',
+      Modal.warning({
+        maskStyle: {width: "200%", height: "200%"},
+        style: {maxWidth: "20rem", top: "3rem",},
+        content: (
+        <>
+          <div style={{textAlign: "left"}}>
+            예상치 못한 오류가 발생했습니다.
+          </div>
+          <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+            잠시 후 다시 이용해주세요
+          </div>
+        </>
+        ),
+        getContainer: document.getElementsByClassName("modal-get-container")[0],
       });
       //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
@@ -287,6 +388,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               <div id="modal-background" onClick={() => handleClickClose()}>
                 <div
                   id="modal-container"
+                  className="modal-get-container"
                   onClick={(event) => event.stopPropagation()}
                 >
                   <div id="modal-header"></div>
@@ -560,7 +662,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                               className="btn-login"
                               type="submit"
                               onClick={handleClickrecruiterSignupBtn}
-                              style={{marginLeft: "0.4rem"}}
+                              style={{margin: "1rem 0 1.5rem 0.4rem"}}
                             >
                               <div className="settingBtn">
                                 회원가입
@@ -570,7 +672,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                               </div>
                             </button>
                           </div>
-                          <div className="signUpbtnPosition2">
+                          <div className="signUpbtnPosition2" style={{marginBottom: "1rem"}}>
                             <div>
                               <div className="movetoSignUp">
                                 {" "}
@@ -602,13 +704,15 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
           <center>
             <form onSubmit={(e) => e.preventDefault()}>
               <div id="modal-background">
-                <div id="modal-container-mobile2">
+                <div id="modal-container-mobile2"
+                >
                   <CloseOutlined
                     className="closeBtn-mobile"
                     onClick={handleClickClose}
-                  />
+                    />
                     <div
                       id="modal-container-mobile1"
+                      className="modal-get-container"
                       onClick={(event) => event.stopPropagation()}
                     >
                     <div id="modal-section">

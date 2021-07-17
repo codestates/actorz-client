@@ -65,6 +65,7 @@
 }
 
 #modal-container-mobile2 {
+  z-index: inherit;
   overflow-y: auto;
   position: absolute;
   display: flex;
@@ -78,7 +79,7 @@
 }
 
 #modal-container-mobile1 {
-  margin-top: 3rem;
+  padding-top: 3rem;
   padding-bottom: 1em;
   transform: translate(-50%, -50%);
   transition: all 1s ease;
@@ -92,6 +93,7 @@
   align-content: center;
   transition: 0.5s ease;
 }
+
 /*
 .modalCancleBtn {
   background-color: red;

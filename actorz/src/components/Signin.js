@@ -85,25 +85,42 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
       }
     } catch (err) {
       setLoading(false);
-      let node;
-      if (isMobile) {
-        node = document.getElementById("modal-container-mobile");
-      } else {
-        node = document.getElementById("modal-container");
-      }
       if (err.message === "Request failed with status code 401") {
         Modal.warning({
-          getContainer: node,
-          content: "등록되지 않은 회원이거나 잘못된 비밀번호 입니다.",
-          mask: false,
-          maskClosable: true,
+          maskStyle: {width: "200%", height: "200%"},
+          getContainer: document.getElementsByClassName("modal-get-container")[0],
+          style: {maxWidth: "20rem", top: "3rem"},
+          content: (
+          <>
+            <div style={{textAlign: "left"}}>
+              존재하지 않는 이메일 혹은 잘못된
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              비밀번호 입니다.
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              확인 후 다시 시도해주세요.
+            </div>
+          </>
+          ),
+          maskClosable: true
         });
         //alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
       } else {
-        Modal.error({
-          getContainer: node,
-          content: "예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요",
-          mask: false,
+        Modal.warning({
+          maskStyle: {width: "200%", height: "200%"},
+          getContainer: document.getElementsByClassName("modal-get-container")[0],
+          style: {maxWidth: "20rem", top: "3rem"},
+          content: (
+          <>
+            <div style={{textAlign: "left"}}>
+              예상치 못한 오류가 발생했습니다.
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              잠시 후 다시 이용해주세요
+            </div>
+          </>
+          ),
           maskClosable: true,
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
@@ -119,6 +136,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
               <div id="modal-background" onClick={() => handleClickClose()}>
                 <div
                   id="modal-container"
+                  className="modal-get-container"
                   onClick={(event) => event.stopPropagation()}
                 >
                   <div className="modalCancleBtn"></div>
@@ -202,34 +220,36 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           </center>
         </>
       )}
-      {isMobile && (
-        <>
-          <center>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div id="modal-background">
-                <div id="modal-container-mobile2">
-                  <CloseOutlined
-                    className="closeBtn-mobile"
-                    onClick={handleClickClose}
-                  />
-                  <div
-                    id="modal-container-mobile"
-                    onClick={(event) => event.stopPropagation()}
+      {
+        isMobile && (
+          <>
+            <center>
+              <form onSubmit={(e) => e.preventDefault()}>
+                <div id="modal-background">
+                  <div id="modal-container-mobile2"
                   >
-                    <div className="modal-title">
-                      <div className="title-mobile">
-                        <div>Login</div>
-                      </div>
-                    </div>
-                    <div className="modal-welcome-message">
-                      Welcome to Actorz
-                    </div>
-                    <div className="modal-group">
-                      <input
-                        type="email"
-                        placeholder=" 이메일"
-                        onChange={handleInputValue("email")}
+                    <CloseOutlined
+                      className="closeBtn-mobile"
+                      onClick={handleClickClose}
                       />
+                    <div
+                      id="modal-container-mobile"
+                      className="modal-get-container"
+                      onClick={(event) => event.stopPropagation()}
+                    >
+                      <div className="modal-title">
+                        <div className="title-mobile">
+                          <div>Login</div>
+
+                        </div>
+                      </div>
+                      <div className="modal-welcome-message">Welcome to Actorz</div>
+                      <div className="modal-group">
+                        <input
+                          type="email"
+                          placeholder=" 이메일"
+                          onChange={handleInputValue("email")}
+                        />
                     </div>
                     <div className="modal-group">
                       <input

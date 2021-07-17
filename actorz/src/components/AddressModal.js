@@ -20,17 +20,17 @@ const AddressModal = ({ addr, setAddr, isMobile }) => {
       setDivWidth("100%");
       setBoxHeight("31rem");
       setBoxWidth("100%");
-      setBoxPosition("3rem");
-      setBoxLeftPosition("0");
-      setModalPosition("103%");
+      setBoxPosition("3.5rem");
+      setBoxLeftPosition("0rem");
+      setModalPosition("4rem");
     }else{
       setDivHeight("30rem");
-      setDivWidth("30rem");
+      setDivWidth("20rem");
       setBoxHeight("30rem");
       setBoxWidth("30rem");
       setBoxPosition("12%");
       setBoxLeftPosition("0%");
-      setModalPosition("30rem");
+      setModalPosition("6rem");
     }
   },[isMobile]);
 
@@ -78,13 +78,16 @@ const AddressModal = ({ addr, setAddr, isMobile }) => {
         </div>
       </div>
       <Modal
-        zIndex={10000}
+        maskStyle={{height:"200%", width: "200%", backgroundColor: "white"}}
+        // mask={false}
         footer={null}
-        width={modalPosition}
+        width={setBoxWidth}
+        style={{maxWidth: "23rem", maxHeight: "100%", top: modalPosition}}
         visible={addPopUp}
+        maskClosable={true}
         title="회사 주소 검색"
         onCancel={() => setAddPopUp(false)}
-        getContainer={document.getElementById("modal-container")}
+        getContainer={".modal-get-container"}
       >
         <div
           style={{
@@ -99,6 +102,8 @@ const AddressModal = ({ addr, setAddr, isMobile }) => {
           left: boxLeftPosition,
           width: boxWidth,
           height: boxHeight,
+          maxHeight: "100%",
+          maxWidth: "23rem",
           padding: "0.7em",
         }}
         onComplete={handleAddressComplete}

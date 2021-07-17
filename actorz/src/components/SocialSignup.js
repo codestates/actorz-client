@@ -73,8 +73,8 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     const { name, company, gender } = actorSignup;
     try {
       if (
-        name !== undefined &&
-        dob !== undefined
+        name &&
+        dob
       ) {
           setError("");
           await server
@@ -128,16 +128,21 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     } catch (err) {
       setButtonDisable(false);
       setLoading(false);
-      if (err.message === "Request failed with status code 409") {
-        Modal.error({
-          getContainer: document.getElementById("modal-container"),
-          content: '이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요',
-        });
-        //alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
-      } else {
-        Modal.error({
-          getContainer: document.getElementById("modal-container"),
-          content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
+      if (err) {
+        Modal.warning({
+          maskStyle: {width: "200%", height: "200%"},
+          style: {maxWidth: "20rem", top: "3rem"},
+          content: (
+          <>
+            <div style={{textAlign: "left"}}>
+              예상치 못한 오류가 발생했습니다.
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              잠시 후 다시 이용해주세요
+            </div>
+          </>
+          ),
+          getContainer: document.getElementsByClassName("modal-get-container")[0],
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
@@ -160,12 +165,12 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     console.log(recruiterSignup)
     try {
       if (
-        name !== undefined &&
-        dob !== undefined &&
-        bName !== undefined &&
-        addr.city !== undefined &&
-        addr.street !== undefined &&
-        addr.zipCode !== undefined
+        name &&
+        dob &&
+        bName &&
+        addr.city &&
+        addr.street &&
+        addr.zipCode
       ) {
           setError("");
           await server.post(`/signup`, {
@@ -230,9 +235,20 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
     } catch {
       setButtonDisable(false);
       setLoading(false);
-      Modal.error({
-        getContainer: document.getElementById("modal-container"),
-        content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요.',
+      Modal.warning({
+        maskStyle: {width: "200%", height: "200%"},
+        style: {maxWidth: "20rem", top: "3rem"},
+          content: (
+          <>
+            <div style={{textAlign: "left"}}>
+              예상치 못한 오류가 발생했습니다.
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              잠시 후 다시 이용해주세요
+            </div>
+          </>
+          ),
+        getContainer: document.getElementsByClassName("modal-get-container")[0],
       });
       //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }
@@ -256,16 +272,18 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
               <div id="modal-background" onClick={() => modalSocialClose()}>
                 <div
                   id="modal-container"
+                  className="modal-get-container"
                   onClick={(event) => event.stopPropagation()}
                 >
                   <div id="modal-header"></div>
                   <div id="modal-section">
                     <div className="modal-title">
                       <div className="title">
-                        <div>Sign Up </div>
+                        <div style={{paddingTop: "3rem"}}>Sign Up </div>
                         <CloseOutlined
                           className="closeBtn"
                           onClick={modalSocialClose}
+                          style={{paddingBottom: "9rem"}}
                         />
                       </div>
                     </div>
@@ -462,20 +480,23 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                               &nbsp;여
                             </div>
                             {err ? <div className="err-message">{err}</div> : null}
-                            <button
-                              disabled={buttonDisable}
-                              className="btn-login"
-                              type="submit"
-                              onClick={handleClickrecruiterSignupBtn}
-                              style={{marginBottom: "6rem"}}
+                            <div
+                            style={{paddingBottom: "6rem", paddingTop: "2rem"}}
                             >
-                              <div className="settingBtn">
-                              회원가입
-                                <div className="loading">
-                                  {loading ? <Loading /> : ""}
+                              <button
+                                disabled={buttonDisable}
+                                className="btn-login"
+                                type="submit"
+                                onClick={handleClickrecruiterSignupBtn}
+                              >
+                                <div className="settingBtn">
+                                회원가입
+                                  <div className="loading">
+                                    {loading ? <Loading /> : ""}
+                                  </div>
                                 </div>
-                              </div>
-                            </button>
+                              </button>
+                            </div>
                           </div>
                           
                         </div>
@@ -493,14 +514,16 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
           <center>
             <form onSubmit={(e) => e.preventDefault()}>
               <div id="modal-background">
-                <div id="modal-container-mobile2">
+                <div id="modal-container-mobile2"
+                >
                   <CloseOutlined
                     className="closeBtn-mobile"
                     style={{marginTop: 0, marginBottom: "1rem", paddingTop: "1rem"}}
                     onClick={modalSocialClose}
-                  />
+                    />
                     <div
                       id="modal-container-mobile1"
+                      className="modal-get-container"
                       onClick={(event) => event.stopPropagation()}
                     >
                     <div id="modal-section">
