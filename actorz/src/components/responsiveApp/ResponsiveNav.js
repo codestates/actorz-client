@@ -116,7 +116,7 @@ const ResponsiveApp = () => {
                 onChange={handleInputSearchValue}
               ></input>
               <Popover
-                placement="bottomRight"
+                placement="bottom"
                 trigger="click"
                 content={
                   <>
@@ -169,7 +169,7 @@ const ResponsiveApp = () => {
             <div className="responsiveAvatar">
               {localStorage.getItem("accessToken") ? (
                 <Popover
-                  placement="bottom"
+                  placement="bottomRight"
                   content={
                     <button
                       onClick={handleClicklogout}
@@ -188,7 +188,7 @@ const ResponsiveApp = () => {
                 </Popover>
               ) : (
                 <Popover
-                  placement="bottom"
+                  placement="bottomRight"
                   content={
                     <>
                       <button
