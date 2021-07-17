@@ -7,7 +7,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import Naver from "../components/Naverlogin";
 import Loading from "../components/loading";
 import "../styles/SigninModal.css";
-import { Modal } from 'antd';
+import { Modal } from "antd";
 import { useMediaQuery } from "react-responsive";
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
@@ -66,11 +66,13 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              console.log(res.data.data.userInfo)
-              dispatch(getUserInfo({
-                ...res.data.data.userInfo,
-                dob: res.data.data.userInfo.dob.toString().split("T")[0]
-              }));
+              console.log(res.data.data.userInfo);
+              dispatch(
+                getUserInfo({
+                  ...res.data.data.userInfo,
+                  dob: res.data.data.userInfo.dob.toString().split("T")[0],
+                })
+              );
             }
           })
           .catch((err) => {
@@ -119,8 +121,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             </div>
           </>
           ),
-          mask: false,
-          maskClosable: true
+          maskClosable: true,
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
@@ -164,7 +165,9 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       onChange={handleInputValue("password")}
                     />
                   </div>
-                  <div>{err ? <div className="err-message">{err}</div> : null}</div>
+                  <div>
+                    {err ? <div className="err-message">{err}</div> : null}
+                  </div>
                   <div className="modalButtonPosition">
                     <div className="loginBtnPosition">
                       <button
@@ -172,7 +175,10 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                         type="submit"
                         onClick={handleClickSigninBtn}
                       >
-                        <div className="settingBtn" style={{marginLeft:"0.8rem"}}>
+                        <div
+                          className="settingBtn"
+                          style={{ marginLeft: "0.8rem" }}
+                        >
                           로그인
                           <div className="loading">
                             {loading ? <Loading /> : ""}
@@ -187,9 +193,13 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       <div className="loginBtnPosition">
                         <Naver handleClickClose={handleClickClose} />
                       </div>
-                      <div className="signUpbtnPosition" id="loginpadding-bottom">
+                      <div
+                        className="signUpbtnPosition"
+                        id="loginpadding-bottom"
+                      >
                         <div>
-                          <div className="movetoSignUp">아직 계정이 없으십니까?
+                          <div className="movetoSignUp">
+                            아직 계정이 없으십니까?
                           </div>
                           <div
                             className="movetoSignUpBtn"
@@ -240,50 +250,55 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                           placeholder=" 이메일"
                           onChange={handleInputValue("email")}
                         />
+                    </div>
+                    <div className="modal-group">
+                      <input
+                        type="password"
+                        placeholder=" 비밀번호"
+                        onChange={handleInputValue("password")}
+                      />
+                    </div>
+                    <div>
+                      {err ? <div className="err-message">{err}</div> : null}
+                    </div>
+                    <div className="modalButtonPosition">
+                      <div className="loginBtnPosition">
+                        <button
+                          className="btn-login login"
+                          type="submit"
+                          onClick={handleClickSigninBtn}
+                        >
+                          <div
+                            className="settingBtn"
+                            style={{ marginLeft: "0.8rem" }}
+                          >
+                            로그인
+                            <div className="loading">
+                              {loading ? <Loading /> : ""}
+                            </div>
+                          </div>
+                        </button>
                       </div>
-                      <div className="modal-group">
-                        <input
-                          type="password"
-                          placeholder=" 비밀번호"
-                          onChange={handleInputValue("password")}
-                        />
-                      </div>
-                      <div>{err ? <div className="err-message">{err}</div> : null}</div>
                       <div className="modalButtonPosition">
                         <div className="loginBtnPosition">
-                          <button
-                            className="btn-login login"
-                            type="submit"
-                            onClick={handleClickSigninBtn}
-                          >
-                            <div className="settingBtn" style={{marginLeft:"0.8rem"}}>
-                              로그인
-                              <div className="loading">
-                                {loading ? <Loading /> : ""}
-                              </div>
-                            </div>
-                          </button>
+                          <Google handleClickClose={handleClickClose} />
                         </div>
-                        <div className="modalButtonPosition">
-                          <div className="loginBtnPosition">
-                            <Google handleClickClose={handleClickClose} />
-                          </div>
-                          <div className="loginBtnPosition">
-                            <Naver handleClickClose={handleClickClose} />
-                          </div>
-                          <div className="signUpbtnPosition">
-                            <div>
-                              <div className="movetoSignUp">아직 계정이 없으십니까?
-                              </div>
-                              <div
-                                className="movetoSignUpBtn"
-                                onClick={() => {
-                                  handleClickSignin(false);
-                                  handleClickSignup(true);
-                                }}
-                              >
-                                회원가입 하러 하기
-                              </div>
+                        <div className="loginBtnPosition">
+                          <Naver handleClickClose={handleClickClose} />
+                        </div>
+                        <div className="signUpbtnPosition">
+                          <div>
+                            <div className="movetoSignUp">
+                              아직 계정이 없으십니까?
+                            </div>
+                            <div
+                              className="movetoSignUpBtn"
+                              onClick={() => {
+                                handleClickSignin(false);
+                                handleClickSignup(true);
+                              }}
+                            >
+                              회원가입 하러 하기
                             </div>
                           </div>
                         </div>
@@ -291,11 +306,11 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     </div>
                   </div>
                 </div>
-              </form>
-            </center>
-          </>
-        )
-      }
+              </div>
+            </form>
+          </center>
+        </>
+      )}
     </>
   );
 };

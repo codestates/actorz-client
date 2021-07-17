@@ -2,6 +2,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 
 
+.pf.headerSection {
+  height: 2rem;
+  font-size: 1.5rem;
+}
+
 .pf.fixedSize {
   height: auto;
 }
@@ -38,4 +43,90 @@
 
 .portFolioEdit > button {
   margin: auto;
+}
+
+.pf.previewHeader {
+  font-size: 1rem;
+}
+
+.pf.postsSection {
+  height: 300px;
+  margin-top: 15px;
+  border: 2px dotted lightgray;
+}
+
+.pf.postImg {
+  height: 250px;
+  object-fit: cover;
+  margin-top: 10px;
+  flex: 1, 1, auto;
+}
+
+.pf.postVideo {
+  height: 250px;
+  object-fit: cover;
+  margin-top: 10px;
+  flex: 1, 1, auto;
+}
+
+.pf-slick {
+  display: flex;
+  max-height: 100%;
+}
+
+.pf.fas { 
+  font-size: 25px;
+  color: gray;
+  margin-top: 120px;
+}
+
+.pf.selectSection {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  min-height: 10rem;
+  align-items: center;
+}
+
+.pf.cancel-or-post-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.pf.cancel-btn {
+  margin: 0 10%;
+}
+
+.pf.upload-btn {
+  margin: 0 10%;
+}
+
+.pf-select-slick {
+  height: 400px;
+}
+
+.pf.selectImg {
+  height: 400px;
+  object-fit: cover;
+}
+
+.pf.selectVideo {
+  height: 100%;
+}
+
+.pf.postHeader {
+  /* height: 50px; */
+  line-height: 40px;
+  padding: 0 10px;
+  border: 1px solid lightgray;
+  margin-bottom: 10px;
+}
+
+
+.slick-list {
+  width: 100%;
+}
+
+.slick-track {
+  max-height: 100%;
 }

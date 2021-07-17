@@ -60,7 +60,6 @@ const Nav = () => {
   };
 
   useEffect(async () => {
-    console.log(name, content, age);
     try {
       if (Number(age) === 50) {
         await server
@@ -101,6 +100,7 @@ const Nav = () => {
     } catch (err) {
       throw err;
     }
+    setSearch("");
   };
 
   return (
