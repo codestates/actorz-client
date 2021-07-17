@@ -101,7 +101,7 @@ const FileUpload = ({
 
   const handleOverFiles = () => {
     Modal.error({
-      getContainer: "upload-modal-container",
+      getContainer: "#upload-modal-container",
       title: "업로드 실패",
       content: "파일이 4개를 초과 할 수 없습니다.",
     });
