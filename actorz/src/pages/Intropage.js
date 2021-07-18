@@ -1,39 +1,36 @@
-
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
-import Slider from "react-slick";
-import { _Button, Comment, Form, Header, Card, Icon } from 'semantic-ui-react';
-// import gsap from "gsap";
-// import ScrollTrigger from "gsap/ScrollTrigger";
-import { Button, Carousel } from 'antd';
-import { ArrowDownOutlined } from '@ant-design/icons';
-//import IntroFooter from "../components/IntroFooter";
-
-import Footer from "../components/Footer";
-import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
-import GotoTop from "../components/GotoTop";
-import ResponsiveApp from "../components/responsiveApp/ResponsiveNav"
-import IntroNav from "../components/IntroNav";
-
 import '../App.css';
 import 'antd/dist/antd.css';
-
-// gsap.registerPlugin(ScrollTrigger);
-
-// const trigger = new ScrollTrigger();
-// trigger.add('[data-trigger]');
-// trigger.add('[data-triggerAlways]', { once: false })
-
+import { Button, Carousel } from 'antd';
+import { ArrowDownOutlined } from '@ant-design/icons';
+import IntroNav from "../components/IntroNav";
+import ResponsiveApp from "../components/responsiveApp/ResponsiveNav"
+import Footer from "../components/Footer";
+import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
+import Slider from "react-slick";
+import { _Button, Comment, Form, Header, Card, Icon } from 'semantic-ui-react';
+import GotoTop from "../components/GotoTop";
+import ScrollTrigger from '@terwanerik/scrolltrigger'
+import iphoneG from "../images/iphoneGifcontent.gif";
+import ipadG from "../images/ipadGifcontent.gif";
 
 const Intropage = () => {
 
+  const trigger = new ScrollTrigger();
+  trigger.add('[data-trigger]');
+  trigger.add('[feedback-trigger]');
+  trigger.add('[data-triggerAlways]', { once: false })
+
   const isPc = useMediaQuery({
+    //query : "(min-width:1600px)"
     query : "(min-width:1024px)"
   });
 
   const isTablet = useMediaQuery({
     query: "(min-width:768px) and (max-width:1023px)",
+    //query: "(min-width:768px) and (max-width:1599px)",
   });
 
   const isMobile = useMediaQuery({
@@ -179,6 +176,11 @@ const Intropage = () => {
                   <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 나만의 특별한 포트폴리오에 사진과 영상을 담아 남들과 다른 포트폴리오를 만들어 드리겠습니다 </div>
                     <br />
                     <br />
+                    <div className="btnPosTop">
+                      <Link to="/mainpage">
+                        <Button type="primary" className="startButton1" danger>시작하기</Button>
+                      </Link>
+                    </div>
                     <br />
                     <br />
                     <br />
@@ -238,6 +240,11 @@ const Intropage = () => {
                   <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 나만의 특별한 포트폴리오에 사진과 영상을 담아 남들과 다른 포트폴리오를 만들어 드리겠습니다 </div>
                     <br />
                     <br />
+                    <div className="btnPosTop">
+                      <Link to="/mainpage">
+                        <Button type="primary" className="startButton1" danger>시작하기</Button>
+                      </Link>
+                    </div>
                     <br />
                     <br />
                     <br />
@@ -253,122 +260,386 @@ const Intropage = () => {
           </Slider>
           
         </div>
-        
+
         <div className="blockPosition"></div>
         <div data-trigger className="startContentsTitle" >
-          Why we made this App?
+          포트폴리오에 사진과 영상을 담을 수 있다면 어떨까?
           <br/>
           <br/>
           <br/>
           {/* <h4> * 실제 한국예술종합학교 학생들의 설문 조사를 바탕으로 작성하였습니다. </h4> */}
         </div>
 
+        <div className="blockPosition"></div>
         <div className="blockPositionDivide"></div>
-        <div className="startContentsTitle2" style={{transform: `translateX(${-position}px)` }}>
-          포트플리오에 사진과 영상을 담을 수 있다면 어떨까?
-          <br/>
+
+        <div data-trigger className="startContentsTitle" >
+          그렇다면 어떠한 고객이 사용하면 좋을까?
+        </div>
+
+        <div className="blockPosition"></div>
+        <div className="blockPositionDivide"></div>
+
+        <div data-trigger className="startContentsTitle" >
+          답은 
+        </div>
+
+        <div className="blockPosition"></div>
+
+         <div data-trigger className="startContentsTitle" >
+          <img className="mainActorPic" src="https://media.vlpt.us/images/iooi75/post/ebbbb9d9-784d-4210-b961-2f1d833423b5/Screen%20Shot%202021-07-17%20at%202.16.19%20AM.png" alt="" />
+          
+        <div className="blockPositionDivide"></div>
+        <div data-trigger className="contentsPositionWhere"> 배우 </div>
         </div>
 
         <div className="blockPositionDivide"></div>
-        <div className="commentsGroup">
-          <div className="commentsGroupX"> </div>
-          <div className="commentsGroupY">
-            
-          {/* <Comment.Group minimal>
-            <Header as='h3' dividing>
-              포토폴리오를 만드는데 어려움이 있으셨거나 블라블라 블라
-            </Header>
+        <div className="blockPosition"></div>
 
+        <div data-trigger className="startContentsTitle" >
+          실제 한국예술종합학교 학생들의 피드백을 종합
+        </div>
+
+        <div className="blockPosition"></div>
+      <div className="profilesEffectTest">
+        <Comment.Group className="profilePos" style={{transform: `translateX(${-position+5400}px)`}} size='massive'>
             <Comment>
-              <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/f424b957-0755-4407-b24f-01cd5da2c5a3/thumb-2009107696_1eypsHg8_75b78deb1f72d28d204e9c7f8684aa27b44c0cab_370x420.jpg' />
+              <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/91a32cce-61a4-4721-b99e-0354f325ccd2/thumb-2040665147_d6gESnAz_673a0411062e8b6370c76113f987e20ce44474fc_370x420.jpg' />
               <Comment.Content>
-                <Comment.Author as='a'>이준석</Comment.Author>
+                <Comment.Author as='a'>임정국</Comment.Author>
                 <Comment.Metadata>
                   <span>5 days ago</span>
                 </Comment.Metadata>
-                <Comment.Text>더 경쟁력있게 포트폴리오를 만드는 방법을 알고 싶습니다.</Comment.Text>
+                <Comment.Text>역할에 따라 다른 포토폴리오를 제출하고 싶습니다.</Comment.Text>
                 <Comment.Actions>
                   <a>Reply</a>
                 </Comment.Actions>
               </Comment.Content>
             </Comment>
+         </Comment.Group>
 
-            <Comment>
-              <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/3c22e9a1-6c10-44fa-b8e2-ecdec3ed2ccd/thumb-2009107696_xPJE0lpT_da11888d84e969f6f85acbdb214582d75c19fd86_370x420.jpg' />
-              <Comment.Content>
-                <Comment.Author as='a'>김은미</Comment.Author>
-                <Comment.Metadata>
-                  <span>5 days ago</span>
-                </Comment.Metadata>
-                <Comment.Text>
-                  <p>어떻게 해야 강력한 이미지로 부각될까와 이 프로필이 제대로 전해질까의 고민^^;</p>
-                </Comment.Text>
-                <Comment.Actions>
-                  <a>Reply</a>
-                </Comment.Actions>
-              </Comment.Content>
+         <Comment.Group style={{transform: `translateX(${-position+6350}px)`}} size='small'>
+          <Comment>
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/8358273b-0356-4609-bcaa-c5994e6f8143/thumb-3555495007_UkK1tqyz_9b9162add0597b54c1666643e93f359a985649b9_370x420.jpg' />
+            <Comment.Content>
+              <Comment.Author as='a'>한혜민</Comment.Author>
+              <Comment.Metadata>
+                <span>8 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>여태까지 뽑는 사람/회사 중심으로 만들어진 어플이 대부분이었는데, 배우 중심이면 좋겠습니다. 단순히 예쁘고 잘난 사람들, 또는 멋진 사진을 찍은 사람이 상위권에 오르는 것이 아니라 진짜 배우를 발굴해낼 수 있는 기능을 할 수 있으면 좋겠습니다. 좋은 어플을 만들어주셔서 감사합니다.</Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
 
-              <Comment.Group size='large'>
-                <Comment>
-                  <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/91a32cce-61a4-4721-b99e-0354f325ccd2/thumb-2040665147_d6gESnAz_673a0411062e8b6370c76113f987e20ce44474fc_370x420.jpg' />
-                  <Comment.Content>
-                    <Comment.Author as='a'>Actorz</Comment.Author>
-                    <Comment.Metadata>
-                      <span>5 days ago</span>
-                    </Comment.Metadata>
-                    <Comment.Text>저희는  <u>이 기능</u>을 통하여 보다 경쟁력있는 포토폴리오를 만들어드립니다 :)</Comment.Text>
-                    <Comment.Actions>
-                      <a>Reply</a>
-                    </Comment.Actions>
-                  </Comment.Content>
-                </Comment>
-              </Comment.Group>
-            </Comment>
+        <Comment.Group className="profilePos" style={{transform: `translateX(${-position+6600}px)`}} size='massive'>
+          <Comment>
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/5fb05e93-a32a-4283-a28f-1a3f05b150db/image.png' />
+            <Comment.Content>
+              <Comment.Author as='a'>이하나</Comment.Author>
+              <Comment.Metadata>
+                <span>6 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>남들과 다르게 어필하고 싶어요</Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
 
-            <Comment>
-              <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/8358273b-0356-4609-bcaa-c5994e6f8143/thumb-3555495007_UkK1tqyz_9b9162add0597b54c1666643e93f359a985649b9_370x420.jpg' />
-              <Comment.Content>
-                <Comment.Author as='a'>한혜민</Comment.Author>
-                <Comment.Metadata>
-                  <span>3 days ago</span>
-                </Comment.Metadata>
-                <Comment.Text>여태까지 뽑는 사람/회사 중심으로 만들어진 어플이 대부분이었는데, 배우 중심이면 좋겠습니다. 단순히 예쁘고 잘난 사람들, 또는 멋진 사진을 찍은 사람이 상위권에 오르는 것이 아니라 진짜 배우를 발굴해낼 수 있는 기능을 할 수 있으면 좋겠습니다. 좋은 어플을 만들어주셔서 감사합니다.</Comment.Text>
-                <Comment.Actions>
-                  <a>Reply</a>
-                </Comment.Actions>
-              </Comment.Content>
-              <Comment.Group size="middle">
-                <Comment>
-                  <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/91a32cce-61a4-4721-b99e-0354f325ccd2/thumb-2040665147_d6gESnAz_673a0411062e8b6370c76113f987e20ce44474fc_370x420.jpg' />
-                  <Comment.Content>
-                    <Comment.Author as='a'>Actorz</Comment.Author>
-                    <Comment.Metadata>
-                      <span>3 days ago</span>
-                    </Comment.Metadata>
-                    <Comment.Text>Actorz는 100% 배우를 중심으로 하는 어플입니다. 어쩌구저쩌구 :) 크기 조금 더 크게?</Comment.Text>
-                    <Comment.Actions>
-                      <a>Reply</a>
-                    </Comment.Actions>
-                  </Comment.Content>
-                </Comment>
-              </Comment.Group>
-            </Comment>
+        <Comment.Group className="profilePos" style={{transform: `translateX(${-position+7400}px)`}} size='massive'>
+          <Comment>
+            <Comment.Avatar as='a' src='' />
+            <Comment.Content>
+              <Comment.Author as='a'>이빛나</Comment.Author>
+              <Comment.Metadata>
+                <span>6 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>현재는 개인유튜브를 개설하여 그곳에 출연영상들을 올리고 있는데, 간혹 저작권 등의 문제로 본인의 출연영상을 유튜브에 못 올릴 때도 있었기 때문에. [저작권 문제]
+              </Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+
+
+        <Comment.Group style={{transform: `translateX(${-position+5670}px)`}} size='massive'>
+          <Comment>
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/f424b957-0755-4407-b24f-01cd5da2c5a3/thumb-2009107696_1eypsHg8_75b78deb1f72d28d204e9c7f8684aa27b44c0cab_370x420.jpg' />
+            <Comment.Content>
+              <Comment.Author as='a'>이준석</Comment.Author>
+              <Comment.Metadata>
+                <span>4 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>더 경쟁력있게 포트폴리오를 만드는 방법을 알고 싶습니다.</Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+        <Comment.Group className="profilePos" style={{transform: `translateX(${-position+7200}px)`}} size='large'>
+          <Comment>
+            <Comment.Avatar as='a' src='' />
+            <Comment.Content>
+              <Comment.Author as='a'>이강인</Comment.Author>
+              <Comment.Metadata>
+                <span>6 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text> 어플을 통해 여러 에이전시들에 프로필을 간편하게 보낼 수 있다면 좋을 것 같습니다
+              </Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
 
         
-          </Comment.Group> */}
+
+        <Comment.Group className="profilePos" style={{transform: `translateX(${-position+6800}px)`}} size='large'>
+          <Comment>
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/a0e76905-5ec8-4bcc-8d64-2db0a6e6e168/image.png' />
+            <Comment.Content>
+              <Comment.Author as='a'>이윤아</Comment.Author>
+              <Comment.Metadata>
+                <span>7 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>카카오나 인스타와 연동이 되었으면 좋겠습니다.</Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+        <Comment.Group style={{transform: `translateX(${-position+5950}px)`}} size='large'>
+          <Comment>
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/3c22e9a1-6c10-44fa-b8e2-ecdec3ed2ccd/thumb-2009107696_xPJE0lpT_da11888d84e969f6f85acbdb214582d75c19fd86_370x420.jpg' />
+            <Comment.Content>
+              <Comment.Author as='a'>김은미</Comment.Author>
+              <Comment.Metadata>
+                <span>2 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>어떻게 해야 강력한 이미지로 부각될까와 이 프로필이 제대로 전해질까의 고민^^;</Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+        <Comment.Group style={{transform: `translateX(${-position+5690}px)`}} size='large'>
+          <Comment>
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/a061751c-9e73-4344-9ff4-8edd9fc70dfa/image.png' />
+            <Comment.Content>
+              <Comment.Author as='a'>이하늘</Comment.Author>
+              <Comment.Metadata>
+                <span>2 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>이미 존재하는 에이전시, 캐스팅디비 어라운드어스 등의 어플과 차이점이 있을까요</Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+        <Comment.Group style={{transform: `translateX(${-position+7350}px)`}} size='large'>
+          <Comment>
+            <Comment.Avatar as='a' src='' />
+            <Comment.Content>
+              <Comment.Author as='a'>이규진</Comment.Author>
+              <Comment.Metadata>
+                <span>2 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>만드는 플랫폼이나 형식이 뚜렷하지 않아 어려운 것같습니다. </Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+
+
+        <Comment.Group style={{transform: `translateX(${-position+6400}px)`}} size='massive'>
+          <Comment>
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/73c77929-5399-4190-92ee-e5b7f3ed137f/image.png' />
+            <Comment.Content>
+              <Comment.Author as='a'>최춘하</Comment.Author>
+              <Comment.Metadata>
+                <span>11 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>매니저를 통하는 방법보다 편한 방법을 알고싶네요... </Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+
+         <Comment.Group style={{transform: `translateX(${-position+7300}px)`}} size='small'>
+          <Comment>
+            <Comment.Avatar as='a' src='' />
+            <Comment.Content>
+              <Comment.Author as='a'>최수빈</Comment.Author>
+              <Comment.Metadata>
+                <span>11 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>사진만으로 배우의 매력을 다 알 수 없다고 생각하기 때문에 다른 무언가가 필요해요 </Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+        <Comment.Group style={{transform: `translateX(${-position+7900}px)`}} size='massive'>
+          <Comment>
+            <Comment.Avatar as='a' src='' />
+            <Comment.Content>
+              <Comment.Author as='a'>우지원</Comment.Author>
+              <Comment.Metadata>
+                <span>11 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>올리고 싶지 않은 경력은 제외하면 좋겠습니다. </Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+        <Comment.Group className="rePositioning" style={{transform: `translateX(${-position+6800}px)`}} size='massive'>
+          <Comment>
+            <Comment.Avatar as='a' src='' />
+            <Comment.Content>
+              <Comment.Author as='a'>이람</Comment.Author>
+              <Comment.Metadata>
+                <span>8 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>배우들끼리 사진수업을 듣고 서로 찍어줄 수 있는 플랫폼, 협력자가 되면 좋겠단 생각이 듭니다.
+              </Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+
+
+
+
+        <Comment.Group style={{transform: `translateX(${-position+6100}px)`}} size='massive'>
+          <Comment>
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/9763ba86-5501-426f-ada9-a43206c5e68d/image.png' />
+            <Comment.Content>
+              <Comment.Author as='a'>윤나라</Comment.Author>
+              <Comment.Metadata>
+                <span>9 days ago</span>
+              </Comment.Metadata>
+              <Comment.Text>타 사이트와의 명백한 차이점?
+                            배우들은 개개인의 작품활동을 하기위해 사이트에 등록을 합니다.. 본인에게 작품이 캐스팅이 되고, 활동을 할 수 있어야하는데
+                            어떠한 작품에 어떤 경로로 어떤 제작진이 살펴보는지에 대한 정보공유(?)가 있으면 좋을것 같아요
+              </Comment.Text>
+              <Comment.Actions>
+                <a>Reply</a>
+              </Comment.Actions>
+            </Comment.Content>
+          </Comment>
+        </Comment.Group>
+
+        
+      </div>
+
+        <div className="blockPositionDivide"></div>
+        
+
+        <div className="blockPositionDivide"></div>
+
+        <div className="gifContetsDivider">
+
+          <div className="gifContents" data-trigger>
+            <img src="https://media.vlpt.us/images/iooi75/post/61f023dd-ca12-46f7-843b-70b108ca17f1/Jul-16-2021%2022-02-30.gif" alt="" />
+            <div data-trigger className="blockPosition30">
+              사진도
+            </div>
+          </div>
+          
+
+          <div className="blockPositionDivider">
+            <div data-trigger className="blockPosition20"> 
+              영상도
+            </div>
+            <div data-trigger className="positionYellow"> 
+              <img src="https://media.vlpt.us/images/iooi75/post/566f2ed8-e8ff-4a59-b33f-4afc2a23fd79/Screen%20Shot%202021-07-16%20at%2010.39.54%20PM.png" alt="" />
+            </div>
+          </div>
+        </div>
+
+        <div className="blockPositionDivide"></div>
+        <div className="blockPositionDivide"></div>
+
+        <div data-trigger className="startContentsTitle" >
+          어떠한 기기에서도
+           <div className="blockPositionDivide"></div>
+          <div className="deviceDevider">
+            <div className="device1"> 
+              <div data-trigger>
+                <img alt="" className="iphonePic" src="https://media.vlpt.us/images/iooi75/post/f7b1069c-b36c-41a8-9bd7-725fbb01940d/iphone-1845808_1280.png" />
+                
+                <img alt="" className="iphoneGif" src ={iphoneG} />
+              </div>
+            </div>
+            <div className="device2">
+              <div data-trigger>
+                <img alt="" className="ipadPic" src="https://media.vlpt.us/images/iooi75/post/11d9594f-fd05-4245-a804-9c78addaab02/image.png" />
+                <img alt="" className="ipadGif" src ={ipadG} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div className="blockPositionDivide"></div>
+
+        <div data-trigger className="startContentsTitle" >
+          자유롭게
+        </div>
+
+
+        <div className="commentsGroup">
+
+          <div className="commentsGroupX"> </div>
+          <div className="commentsGroupY">   
           
           </div>
           <div className="commentsGroupX"> </div>
         </div>
         <div className="blockPositionDivide"></div>
 
-        <div data-trigger className="startContentsTitle">
-          <h1>실제로 어플을 이용한 사용자의 리뷰!</h1>
-          <br/>
+        <div className="blockPositionDivide"></div>
+        <div className="blockPositionDivide"></div>
+        <div data-trigger className="startContentsTitle" >
+          이미 증명 되었으니까
         </div>
         {/* <div className="blockPositionDivide2"></div> */}
 
-        <Slider {...namecardSettings} className="cardlistGroup" >
+        <div className="blockPositionDivide"></div>
+
+        
+        <div data-trigger>
+         <Slider {...namecardSettings} className="cardlistGroup" >
             <div className="cardUI">
               <Card
                 className="profileCardList"
@@ -424,45 +695,34 @@ const Intropage = () => {
                 extra={extraHeart6}
               />
             </div>
-        </Slider>
-
-          <div className="blockPosition"></div>
-
-          <div data-trigger className="startContentsTitle">
-            <h1>다음 2022년 시상식의 주인공은 바로 여러분입니다! <br />  <br />Actorz에서 여러분의 미래를 시작하세요.</h1>
-            <br/>
-          </div>
-
-          <div className="blockPosition"></div>
+          </Slider>
+        </div>
+        <div className="blockPosition"></div>
           
-
-          {/* <section class="panel">
-            <div class="container">
-              <div class="grid-item">
-                <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/590856/512.jpg" class="panel-image" />
-              </div>
-              <div class="grid-item">
-                <p class="panel-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Blanditiis quisquam facilis beatae molestias qui impedit,
-                  accusamus eius pariatur inventore expedita minima necessitatibus iste labore quibusdam neque adipisci sequi voluptatem iusto dignissimos!
-                  Commodi mollitia doloribus reprehenderit rem sunt? Ea quis numquam consectetur esse nostrum eveniet totam laborum? Deserunt fugiat aliquam assumenda
-                  qui sit vero vitae id laudantium nostrum quae sapiente temporibus quaerat dolorem culpa quos,
-                  aspernatur quo maiores voluptatem incidunt autem, repudiandae iste aperiam. Culpa sunt nulla accusamus, maxime voluptatum molestias?</p>
-                <button class="btn">Read more</button>
-              </div>
+        <div data-trigger className="introLastContents">
+          <div className="lastContentsTitle">
+            <div className="lastContentsTitlePosition" >
+             다음 2022년 시상식의 주인공은 바로 여러분입니다!  <br />  <br /><br />  <br /> <br />Actorz에서 여러분의 미래를 시작하세요.
             </div>
-          </section> */}
+            <br/>
+            <div className="button2PositionResponsive">
+              <Link to="/mainpage">
+                <Button type="primary" className="startButton2" danger>시작하기</Button>
+              </Link>
+            </div>
+          </div>
+         
+          <img className="introLastContents2" alt="" src="https://media.vlpt.us/images/iooi75/post/f682088c-ca53-4303-b9d0-e7b13bfa06f4/3_2.png" />
+        </div>
 
-          <a href="#" className="noEffectAtag">
-            <GotoTop />
-          </a>
-
+        <GotoTop />
       <Footer />
       </>}
       
       {isTablet && 
         <>
       <div className="blockhere"> </div>
-      <IntroNav />
+        <IntroNav />
         <div>
           <Slider {...settings} className="freeGroup" >
             <div className="free">
@@ -613,6 +873,8 @@ const Intropage = () => {
               <div className="blackSpace02">  </div>
           </div>
         </div>
+
+        
 
         <div className="lastContents"> 
           <div data-trigger className="lastContext">

@@ -41,8 +41,10 @@ import {
 } from "../actions/userAction";
 import {
   RemoveFileIcon,
+  RemoveFileIcon2,
   FileMetaData2,
   PreviewContainer,
+  PreviewContainer2,
 } from "../components/file-upload/file-upload.styles";
 
 import { persistor } from "../store/store";
@@ -201,7 +203,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     }
   };
 
-  const onCalChange = (dateString) => {
+  const onCalChange = (date, dateString) => {
+    console.log(dateString)
+    console.log(typeof dateString)
+
     setYear({ year: dateString });
   };
 
@@ -266,7 +271,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
-      setDeleteUserModal(false);
+    setDeleteUserModal(false);
   };
 
   const isPc = useMediaQuery({
@@ -559,6 +564,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   onChange={(date, dateString) => {
                                     setDob(dateString);
                                   }}
+                                  style={{}}
                                 ></DatePicker>
                               </li>
 
@@ -720,7 +726,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                               )}
                                               <FileMetaData2>
                                                 <aside>
-                                                  <RemoveFileIcon
+                                                  <RemoveFileIcon2
                                                     className="fas fa-trash-alt"
                                                     onClick={() =>
                                                       handleClickDeleteBtn(
@@ -789,7 +795,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%",  }}
                                           />
                                         </Form.Item>
                                         <Form.Item
@@ -1061,6 +1067,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   onChange={(date, dateString) => {
                                     setDob(dateString);
                                   }}
+                                  style={{}}
                                 ></DatePicker>
                               </li>
                               <strong>이메일</strong>
@@ -1281,7 +1288,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%",  }}
                                           />
                                         </Form.Item>
                                         <Form.Item
@@ -1547,6 +1554,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   onChange={(date, dateString) => {
                                     setDob(dateString);
                                   }}
+                                  style={{}}
                                 ></DatePicker>
                               </li>
                               <strong>이메일</strong>
@@ -1767,7 +1775,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%",  }}
                                           />
                                         </Form.Item>
                                         <Form.Item

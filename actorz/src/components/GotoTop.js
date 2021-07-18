@@ -5,9 +5,11 @@ import "../App.css"
 const GotoTop = () => {
   return (
     <>
-      <div className="gotoTopBtnPosition">
-        <UpOutlined className="gotoTopBtn"/>
-      </div>
+      <a href="#" className="noEffectAtag">
+        <div className="gotoTopBtnPosition">
+          <UpOutlined className="gotoTopBtn"/>
+        </div>
+      </a>
     </>
   );
 }

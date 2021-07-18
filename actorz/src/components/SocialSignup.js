@@ -352,7 +352,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                                   return triggerNode.parentNode;
                                 }}
                                 onChange={(date, dateString) => {setDob(date)}} 
-                                style={{maxWidth:"92%"}}></DatePicker>
+                                style={{maxWidth:"92%", }}></DatePicker>
                               </div>
                             </div>
                           </div>
@@ -420,7 +420,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                                     return triggerNode.parentNode;
                                   }}
                                   onChange={(date, dateString) => {setDob(date)}} 
-                                  style={{maxWidth:"92%"}}></DatePicker>
+                                  style={{maxWidth:"92%", }}></DatePicker>
                                 </div>
                               </div>
                             </div>
@@ -597,7 +597,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                                     return triggerNode.parentNode;
                                   }}
                                   onChange={(date, dateString) => {setDob(date)}} 
-                                  style={{maxWidth:"92%"}}></DatePicker>
+                                  style={{maxWidth:"92%", }}></DatePicker>
                                 </div>
                               </div>
                             </div>
@@ -665,7 +665,7 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                                       return triggerNode.parentNode;
                                     }}
                                     onChange={(date, dateString) => {setDob(date)}} 
-                                    style={{maxWidth:"92%"}}></DatePicker>
+                                    style={{maxWidth:"92%", }}></DatePicker>
                                   </div>
                                 </div>
                               </div>

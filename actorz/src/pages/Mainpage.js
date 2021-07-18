@@ -38,6 +38,7 @@ const Mainpage = () => {
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
+  console.log(post);
 
   const loading = (boolean) => {
     setIsLoading(!boolean);
@@ -130,7 +131,7 @@ const Mainpage = () => {
               } else {
                 setIsLoading(false);
 
-                console.log("소셜 로그인 실패")
+                console.log("소셜 로그인 실패");
                 Modal.warning({
                   title: "로그인 실패",
                   content: "소셜 로그인 중 오류가 발생했습니다.",
@@ -246,25 +247,27 @@ const Mainpage = () => {
                               <div className="bottom">
                                 <HeartOutlined className="testIcon" />
                               </div>
-                              {post.media[0].type === "img" ? (
-                                <Image
-                                  src={post.media[0].path}
-                                  className="exampleIMG"
-                                />
-                              ) : (
-                                <video
-                                  autoPlay="autoplay"
-                                  muted="muted"
-                                  loop="loop"
-                                  className="video"
-                                  style={{ width: "100%", margin: 0 }}
-                                >
-                                  <source
+                              {post.media.length !== 0 ? (
+                                post.media[0].type === "img" ? (
+                                  <Image
                                     src={post.media[0].path}
                                     className="exampleIMG"
-                                  ></source>
-                                </video>
-                              )}
+                                  />
+                                ) : (
+                                  <video
+                                    autoPlay="autoplay"
+                                    muted="muted"
+                                    loop="loop"
+                                    className="video"
+                                    style={{ width: "100%", margin: 0 }}
+                                  >
+                                    <source
+                                      src={post.media[0].path}
+                                      className="exampleIMG"
+                                    ></source>
+                                  </video>
+                                )
+                              ) : null}
                             </div>
                           </div>
 
@@ -345,7 +348,9 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
+               
+                {clickModal ? <Post clickModal={clickModal} closePost={() => handleClickPost(false)} /> : null}
+
               </div>
             </div>
             <div className="newblockPosition2"> </div>
@@ -489,7 +494,11 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
+
+                {clickModal ? (
+                  <Post closePost={() => handleClickPost(false)} />
+                ) : null}
+
               </div>
             </div>
             <div className="responsiveNewblockPosition"> </div>
@@ -637,7 +646,11 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
+
+                {clickModal ? (
+                  <Post closePost={() => handleClickPost(false)} />
+                ) : null}
+
               </div>
             </div>
             {/* <div className="newblockPosition2"> </div>
