@@ -20,6 +20,7 @@ const Post = ({ clickModal, closePost }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [postinfo, setPostinfo] = useState({});
+  const [likebtnclick, setlikebtnclick] = useState(false);
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
   const [like, setIsLike] = useState(false);
@@ -78,7 +79,7 @@ const Post = ({ clickModal, closePost }) => {
     };
     f();
 
-  }, [postinfo]);
+  }, [url, likebtnclick]);
 
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
@@ -152,6 +153,12 @@ const Post = ({ clickModal, closePost }) => {
         .catch((err) => {
           throw err;
         });
+        
+        if(likebtnclick === true) {
+          setlikebtnclick(false);
+        }else{
+          setlikebtnclick(true)
+        }
       }
     }
 
