@@ -696,9 +696,12 @@ body {
 
 .ipadPic {
   position: absolute;
-  margin-left: -5rem;
-  height: 40rem;
-  width: 35rem;
+  margin-left: -20rem;
+  margin-top: -1.5rem;
+  width: 64rem;
+  height: 52rem;
+  
+  
 }
 
 .iphoneGif {
@@ -711,9 +714,9 @@ body {
 }
 
 .ipadGif {
-  width: 20rem;
-  height: 30rem;
-  margin-left: 2.2rem;
+  width: 37rem;
+  height: 40rem;
+  margin-left: -7rem;
   margin-top: 5rem;
 }
 
