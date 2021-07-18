@@ -64,7 +64,7 @@
   max-width: 100%;
   margin: 0 1rem 0 1rem;
   padding: 0 1rem 1rem 1rem;
-  /* border-bottom: dotted lightgray 1px; */
+  /* border-bottom: solid lightgray 1px; */
 }
 
 #post-2-wrap {
@@ -81,13 +81,15 @@
 }
 
 #post-container-3 {
+  background-color: rgb(242, 242, 242);
   overflow-y: auto;
   position: relative;
   max-width: 100%;
   /* max-height: 35rem; */
   flex: 100%;
   margin-bottom: 0.8rem;
-  padding-top: 0.2rem;
+  border-top: dotted lightgray 1px;
+  border-bottom: dotted lightgray 1px;
 }
 
 .post-1-content {
@@ -139,7 +141,8 @@
   transform: scale(2.2);
 } */
 
-.post-like-box {
+.post-like-box,
+.post-like-box-mobile {
   display: flex;
   height: fit-content;
 }
@@ -162,7 +165,6 @@
   /* position: relative; */
   margin-left: 0.5rem;
   font-size: 1.5rem;
-  font-weight: bold;
   text-align: left;
 }
 
@@ -202,6 +204,7 @@ i.like.icon.post-unlike-img {
 .post-name {
   font-size: 2rem;
   padding: 1rem 0rem 1rem 0;
+  margin-bottom: 1rem;
 }
 
 .post-genre {
@@ -257,17 +260,31 @@ div.ui.centered.fluid.card.post-media-data2 {
   margin: 0rem 0 1rem 0;
 }
 
-.post-div-img {
-  border-radius: 10px;
+.post-div-img-vertical-center{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  height: 100%;
+  max-width: 100%;
+  justify-content: center;
   align-items: center;
-  margin: 0 0.8rem 0 0.8rem;
+}
+
+.post-div-img {
+  overflow-y: auto;
+  width: 99%;
+  border-radius: 10px;
+  height: fit-content;
+  padding: 0.8rem 0.8rem 0 0.8rem;
+  /* margin: 0rem 0rem 0rem 0.8rem; */
 }
 
 .post-media-data img {
   /* margin: 2rem 0 2rem 0; */
   max-width: 100%;
   max-height: 40rem;
-  min-height: 100%;
+  object-fit: contain;
 }
 
 .post-media-data2 img {
@@ -277,10 +294,12 @@ div.ui.centered.fluid.card.post-media-data2 {
   min-height: 100%;
 }
 
+.post-media-data-mobile,
 .post-media-data video {
   /* margin: 0rem 0 2rem 0; */
-  max-width: 100%;
-  max-height: 40rem;
+  /* max-width: 100%;
+  max-height: 40rem; */
+  object-fit: contain;
 }
 
 .post-video {
@@ -348,7 +367,7 @@ div.ui.centered.fluid.card.post-media-data2 {
   height: 6rem;
   max-width: 100%;
   margin: 0 1rem 1rem 1rem;
-  /* border-bottom: dotted lightgray 1px; */
+  /* border-bottom: dotted rgb(104, 104, 104) 2px; */
 }
 
 i.dropdown.icon {
@@ -386,12 +405,13 @@ div.menu.transition.visible {
   /* margin: 0rem 0 2rem 0; */
   max-width: 100%;
   max-height: 100%;
+  min-height: 100%;
 }
 
 .post-video-mobile {
   width: 100%;
   max-width: 100%;
-  max-height: 100%;
+  max-height: 24.5rem;
 }
 
 /* .desc {

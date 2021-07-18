@@ -45,6 +45,7 @@ const Post = ({ clickModal, closePost }) => {
   let url = window.location.pathname.slice(index + 1);
 
   useEffect(() => {
+    console.log(clickModal)
     const f = async () => {
       await server
         .get(`/post/${url}`)
@@ -55,7 +56,7 @@ const Post = ({ clickModal, closePost }) => {
           console.log(profile)
         })
         .catch((err) => {
-          throw err;
+          console.log(err)
         });
 
       await server
@@ -74,7 +75,7 @@ const Post = ({ clickModal, closePost }) => {
           }
         })
         .catch((err) => {
-          throw err;
+          console.log(err)
         });
     };
     f();
@@ -151,7 +152,7 @@ const Post = ({ clickModal, closePost }) => {
           dispatch(editLike(url, res.data.data.likes));
         })
         .catch((err) => {
-          throw err;
+          console.log(err)
         });
         
         if(likebtnclick === true) {
@@ -340,34 +341,36 @@ const Post = ({ clickModal, closePost }) => {
                             </div>
                           </div>
                           <div id="post-container-3">
-                            <div className="post-div-img">
-                              {postinfo.media.map((img) => {
-                                if (img.type === "img") {
-                                  return (
-                                    <Card className="post-media-data" centered={true} fluid={true} key={img._id}>
-                                      <img
-                                        key={img._id}
-                                        src={img.path}
-                                        className="post-image"
-                                        alt="이미지"
-                                      ></img>
-                                    </Card>
-                                  );
-                                } else {
-                                  return (
-                                    <Card className="post-media-data" centered={true} fluid={true} key={img._id}>
-                                      <video 
-                                        loop="loop"
-                                        controls 
-                                        className="post-video" 
-                                        key={img._id}
-                                      >
-                                        <source src={img.path}></source>
-                                      </video>
-                                    </Card>
-                                  );
-                                }
-                              })}
+                            <div className="post-div-img-vertical-center">
+                              <div className="post-div-img">
+                                {postinfo.media.map((img) => {
+                                  if (img.type === "img") {
+                                    return (
+                                      <Card className="post-media-data" centered={true} fluid={true} key={img._id}>
+                                        <img
+                                          key={img._id}
+                                          src={img.path}
+                                          className="post-image"
+                                          alt="이미지"
+                                        ></img>
+                                      </Card>
+                                    );
+                                  } else {
+                                    return (
+                                      <Card className="post-media-data" centered={true} fluid={true} key={img._id}>
+                                        <video 
+                                          loop="loop"
+                                          controls 
+                                          className="post-video" 
+                                          key={img._id}
+                                        >
+                                          <source src={img.path}></source>
+                                        </video>
+                                      </Card>
+                                    );
+                                  }
+                                })}
+                              </div>
                             </div>
                           </div>
                           <div className="mobile"></div>
@@ -441,7 +444,7 @@ const Post = ({ clickModal, closePost }) => {
                                 ) : null}
                             </Dropdown.Menu>
                           </Dropdown>
-                          <div className="post-1-content post-btn-hover"
+                          <div className="post-1-content"
                           onClick={closePostChecker}
                           >
                             <div className="post-1-content-icon-container">
@@ -455,7 +458,7 @@ const Post = ({ clickModal, closePost }) => {
                         </div>
                         <div id="post-container-2-mobile">
                             <div className="post-2-content">
-                              <div className="post-name post-btn-hover">
+                              <div className="post-name">
                                   {postinfo.userInfo.name}
                               </div>
                           </div>
@@ -472,7 +475,7 @@ const Post = ({ clickModal, closePost }) => {
                                   {like ? (
                                     <>
                                       <div 
-                                        className="post-like-box"
+                                        className="post-like-box-mobile"
                                         onClick={() =>
                                           handleClickLikeBtn("like", postinfo._id)
                                         }
@@ -489,7 +492,7 @@ const Post = ({ clickModal, closePost }) => {
                                   ) : (
                                     <>
                                       <div 
-                                        className="post-like-box"
+                                        className="post-like-box-mobile"
                                         onClick={() =>
                                           handleClickLikeBtn("unlike", postinfo._id)
                                         }
@@ -508,7 +511,7 @@ const Post = ({ clickModal, closePost }) => {
                                   ) : (
                                     <>
                                       <div 
-                                      className="post-like-box" 
+                                      className="post-like-box-mobile" 
                                       onClick={() => handleClickLikeBtn("unlike", postinfo._id)}>
                                         <Icon
                                           name="like"
@@ -528,36 +531,38 @@ const Post = ({ clickModal, closePost }) => {
                           </div>
                         </div>
                         <div id="post-container-3">
-                          <div className="post-div-img">
-                            {postinfo.media.map((img) => {
-                              if (img.type === "img") {
-                                return (
-                                  <Card className="post-media-data-mobile" centered={true} fluid={true} key={img._id}>
-                                    <img
-                                      key={img._id}
-                                      src={img.path}
-                                      className="post-image-mobile"
-                                      alt="이미지"
-                                    ></img>
-                                  </Card>
-                                );
-                              } else {
-                                return (
-                                  <Card className="post-media-data-mobile" centered={true} fluid={true} key={img._id}>
-                                    <video 
-                                      loop="loop"
-                                      controls 
-                                      className="post-video-mobile" 
-                                      key={img._id}
-                                    >
-                                      <source src={img.path}></source>
-                                    </video>
-                                  </Card>
-                                );
-                              }
-                            })}
+                            <div className="post-div-img-vertical-center">
+                              <div className="post-div-img">
+                                {postinfo.media.map((img) => {
+                                  if (img.type === "img") {
+                                    return (
+                                      <Card className="post-media-data-mobile" centered={true} fluid={true} key={img._id}>
+                                        <img
+                                          key={img._id}
+                                          src={img.path}
+                                          className="post-image-mobile-mobile"
+                                          alt="이미지"
+                                        ></img>
+                                      </Card>
+                                    );
+                                  } else {
+                                    return (
+                                      <Card className="post-media-data-mobile" centered={true} fluid={true} key={img._id}>
+                                        <video 
+                                          loop="loop"
+                                          controls 
+                                          className="post-video-mobile" 
+                                          key={img._id}
+                                        >
+                                          <source src={img.path}></source>
+                                        </video>
+                                      </Card>
+                                    );
+                                  }
+                                })}
+                              </div>
+                            </div>
                           </div>
-                        </div>
                         <div className="mobile"></div>
                       </>
                     ) : (
