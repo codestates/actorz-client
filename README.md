@@ -21,29 +21,29 @@
 
 GIT & INIT SET <br>
 
-<img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=black"/></a> &nbsp;
-<img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/></a> &nbsp;
-<img src="https://img.shields.io/badge/GitBook-3884FF?style=flat-square&logo=GitBook&logoColor=white"/></a> &nbsp;
+<img src="https://img.shields.io/badge/Git-F05032?style=flat-square&logo=Git&logoColor=black"/> &nbsp;
+<img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/> &nbsp;
+<img src="https://img.shields.io/badge/GitBook-3884FF?style=flat-square&logo=GitBook&logoColor=white"/> &nbsp;
 
 FRONT-END <br>
-<img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/></a> &nbsp;
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/></a> &nbsp;
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black"/></a> &nbsp; 
-<img src="https://img.shields.io/badge/ReactHooks-B7178C?style=flat-square&logo=React&logoColor=pink"/></a> &nbsp;
-<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/></a> &nbsp; 
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/></a> &nbsp; 
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/></a> &nbsp;
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black"/> &nbsp; 
+<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/> &nbsp; 
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white"/> &nbsp; 
+<img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> &nbsp;
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=black"/> &nbsp;
+<img src="https://img.shields.io/badge/ReactHooks-B7178C?style=flat-square&logo=React&logoColor=pink"/> &nbsp;
+<img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/> &nbsp;
   
 BACK-END <br>
-<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat-square&logo=Amazon%20AWS&logoColor=white"/></a> &nbsp; 
-<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/></a> &nbsp;
-<img src="https://img.shields.io/badge/express-1572B6?style=flat-square&logo=EXPRESS&logoColor=red"/></a> &nbsp;
-<img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white"/></a> &nbsp;
-<img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat-square&logo=Amazon%20S3&logoColor=white"/></a> &nbsp;
-<img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=NGINX&logoColor=white"/></a> &nbsp;
-<img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat-square&logo=JSON%20Web%20Tokens&logoColor=white"/></a> &nbsp;
-<img src="https://img.shields.io/badge/Chai-A30701?style=flat-square&logo=Chai&logoColor=white">
-<img src="https://img.shields.io/badge/Mocha-8D6748?style=flat-square&logo=Mocha&logoColor=white">
+<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat-square&logo=Amazon%20AWS&logoColor=white"/> &nbsp; 
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat-square&logo=Amazon%20S3&logoColor=white"/> &nbsp;
+<img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=NGINX&logoColor=white"/> &nbsp;
+<img src="https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=Node.js&logoColor=white"/> &nbsp;
+<img src="https://img.shields.io/badge/express-1572B6?style=flat-square&logo=EXPRESS&logoColor=red"/> &nbsp;
+<img src="https://img.shields.io/badge/JSON Web Tokens-000000?style=flat-square&logo=JSON%20Web%20Tokens&logoColor=white"/> &nbsp;
+<img src="https://img.shields.io/badge/Chai-A30701?style=flat-square&logo=Chai&logoColor=white"/> &nbsp;
+<img src="https://img.shields.io/badge/Mocha-8D6748?style=flat-square&logo=Mocha&logoColor=white"/> &nbsp;
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=MongoDB&logoColor=white"/> &nbsp;
 
 
 ------------------------------------------------------------------------------------------------------------
