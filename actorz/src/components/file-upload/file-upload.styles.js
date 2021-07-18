@@ -265,13 +265,13 @@ export const PreviewContainer = styled.section`
 
 export const PreviewContainer2 = styled.section`
   padding: 0.25rem;
-  width: 60rem;
+  width: 62.5rem;
   height: 8rem;
   border-radius: 6px;
   box-sizing: border-box;
 
   &:hover {
-    ${FileMetaData} {
+    ${FileMetaData2} {
       display: flex;
     }
   }

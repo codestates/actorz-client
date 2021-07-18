@@ -204,8 +204,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const onCalChange = (date, dateString) => {
-    console.log(dateString)
-    console.log(typeof dateString)
+    console.log(dateString);
+    console.log(typeof dateString);
 
     setYear({ year: dateString });
   };
@@ -514,7 +514,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <input
                           type="file"
                           id="ex_file"
-                          accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
+                          accept="*"
                           onChange={handleprofileButton}
                         />
                       </div>
@@ -795,7 +795,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%",  }}
+                                            style={{ width: "100%" }}
                                           />
                                         </Form.Item>
                                         <Form.Item
@@ -1017,7 +1017,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <input
                           type="file"
                           id="ex_file"
-                          accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
+                          accept="*"
                           onChange={handleprofileButton}
                         />
                       </div>
@@ -1288,7 +1288,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%",  }}
+                                            style={{ width: "100%" }}
                                           />
                                         </Form.Item>
                                         <Form.Item
@@ -1504,7 +1504,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                         <input
                           type="file"
                           id="ex_file"
-                          accept="image/jpeg, image/jpg, image/JPG, image/JPEG, image/img, image/png, image/IMG, image/PNG"
+                          accept="*"
                           onChange={handleprofileButton}
                         />
                       </div>
@@ -1775,7 +1775,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%",  }}
+                                            style={{ width: "100%" }}
                                           />
                                         </Form.Item>
                                         <Form.Item

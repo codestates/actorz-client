@@ -209,7 +209,7 @@ const ResponsiveFooter = () => {
             <form onSubmit={handleSubmit}>
               <FileUpload
                 isMobile={true}
-                accept=".jpg,.png,.jpeg, .mp4"
+                accept="*"
                 multiple
                 updateFilesCb={updateUploadedFiles}
                 updateContentCb={updateUploadedContents}
