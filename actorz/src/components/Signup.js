@@ -89,8 +89,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       ) {
           if(!isValidEmail(email)){
             Modal.warning({
+              maskClosable: true,
+              mask: false,
               maskStyle: {width: "200%", height: "200%"},
-              style: {maxWidth: "20rem",top: "4rem",},
+              style: {maxWidth: "20rem",top: "35%",},
               content: (
               <>
                 <div style={{textAlign: "left"}}>
@@ -109,8 +111,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
           }else if(password.length < 9 || password.length > 20){
             setLoading(false);
             Modal.warning({
+              maskClosable: true,
+              mask: false,
               maskStyle: {width: "200%", height: "200%"},
-              style: {maxWidth: "20rem", top: "4rem",},
+              style: {maxWidth: "20rem", top: "35%",},
               content: (
               <>
                 <div style={{textAlign: "left"}}>
@@ -182,8 +186,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       setLoading(false);
       if (err.message === "Request failed with status code 409") {
         Modal.warning({
+          maskClosable: true,
+          mask: false,
           maskStyle: {width: "200%", height: "200%"},
-          style: {maxWidth: "20rem", top: "4rem",},
+          style: {maxWidth: "20rem", top: "35%",},
           content: (
           <>
             <div style={{textAlign: "left"}}>
@@ -199,8 +205,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
         //alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
       } else {
         Modal.warning({
+          maskClosable: true,
+          mask: false,
           maskStyle: {width: "200%", height: "200%"},
-          style: {maxWidth: "20rem", top: "4rem",},
+          style: {maxWidth: "20rem", top: "35%",},
           content: (
           <>
             <div style={{textAlign: "left"}}>
@@ -247,10 +255,13 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       ) {
           if(!isValidEmail(email)){
             Modal.warning({
+              maskClosable: true,
+              mask: false,
+              className: "modal-warning-signup-position",
               maskStyle: {width: "200%", height: "200%"},
               style: {
+                top: "35%",
                 maxWidth: "20rem",
-                top: "4rem",
               },
               content: (
               <>
@@ -268,10 +279,14 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
             setButtonDisable(false);
             return;
           }else if(password.length < 9 || password.length > 20){
+            <Modal className></Modal>
             setLoading(false);
             Modal.warning({
+              maskClosable: true,
+              mask: false,
+              className: "modal-warning-signup-position",
               maskStyle: {width: "200%", height: "200%"},
-              style: {maxWidth: "20rem", top: "3rem",},
+              style: {maxWidth: "20rem", top: "35%",},
               content: (
               <>
                 <div style={{textAlign: "left"}}>
@@ -352,8 +367,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       setButtonDisable(false);
       setLoading(false);
       Modal.warning({
+        maskClosable: true,
+        mask: false,
         maskStyle: {width: "200%", height: "200%"},
-        style: {maxWidth: "20rem", top: "3rem",},
+        style: {maxWidth: "20rem", top: "35%",},
         content: (
         <>
           <div style={{textAlign: "left"}}>

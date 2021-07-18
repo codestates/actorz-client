@@ -5,20 +5,24 @@ import "../styles/SendEmailModal.css";
 
 import server from "../apis/server";
 import Loading from "../components/loading";
+import DaumPostcode from "react-daum-postcode";
+import { Modal, Button } from "antd";
 
-
-const SendEmail = ({ handleClickPost, setEmailClick, userInfo, postData }) => {
+const SendEmail = ({ closePost, setEmailClick, userInfo, postData }) => {
   console.log(userInfo)
   console.log(postData)
 
   const [emailContent, setEmailContent] = useState({
       name: userInfo.name,
       bName: userInfo.recruiter.bName,
-      bAddress: userInfo.recruiter.bAddress,
       phoneNum: userInfo.recruiter.phoneNum,
       jobTitle: userInfo.recruiter.jobTitle,
       message: ""
   });
+
+  const [addressModalVisible, setAddressModalVisible] = useState(false);
+  const [buttonDisable, setButtonDisable] = useState(false);
+  const [bAddress, setbAddress] = useState(userInfo.recruiter.bAddress);
   const [recruiterEmail, setRecruiterEmail] = useState(userInfo.email);
   const [loading, setLoading] = useState(false);
   const [err, setError] = useState("");
@@ -37,7 +41,6 @@ const SendEmail = ({ handleClickPost, setEmailClick, userInfo, postData }) => {
     const {
       name,
       bName,
-      bAddress,
       phoneNum,
       jobTitle,
       message,
@@ -62,7 +65,8 @@ const SendEmail = ({ handleClickPost, setEmailClick, userInfo, postData }) => {
       server.post("/email", {
         recruiter: {
           ...emailContent,
-          email: recruiterEmail
+          email: recruiterEmail,
+          bAddress: `${bAddress.zipCode}/${bAddress.city}/${bAddress.street}`
         },
         actor_id: postData.userInfo.user_id
       },{
@@ -75,7 +79,7 @@ const SendEmail = ({ handleClickPost, setEmailClick, userInfo, postData }) => {
         if(res.status === 200){
           alert("명함을 성공적으로 보냈습니다.");
           setEmailClick(false);
-          handleClickPost(false);
+          closePost();
         }else{
           alert("이메일을 보내던 중 오류가 발생하였습니다. 다시 시도해보시기 바랍니다.");
           setEmailClick(false);
@@ -84,6 +88,27 @@ const SendEmail = ({ handleClickPost, setEmailClick, userInfo, postData }) => {
     }
   };
 
+  const handleAddressComplete = (data) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+    setbAddress({
+      ...bAddress,
+      zipCode: data.zonecode,
+      city: fullAddress,
+    });
+    setAddressModalVisible(false);
+  };
 
   return (
     <>
@@ -169,18 +194,43 @@ const SendEmail = ({ handleClickPost, setEmailClick, userInfo, postData }) => {
                   <div className="modal-send-email-label">
                     주소
                   </div>
+                  <Button
+                    variant="outlined"
+                    className="passwordModifyBtn"
+                    onClick={() => setAddressModalVisible(true)}
+                  >
+                    주소 변경
+                  </Button>
+                  <Modal
+                    title="회사 주소 변경"
+                    visible={addressModalVisible}
+                    getContainer="#modal-container"
+                    onCancel={() => setAddressModalVisible(false)}
+                    footer={null}
+                  >
+                    <DaumPostcode
+                      onComplete={handleAddressComplete}
+                    />
+                  </Modal>
+                  <div>
+                    {bAddress.zipCode}
+                    <br/>
+                    {bAddress.city}
+                    <br/>
+                  </div>
                   <input 
                     type="text" 
                     name="bAddress" 
-                    onChange={handleInputValue("bAddress")}
-                    defaultValue={
-                      userInfo.recruiter.bAddress.city 
-                      + "/" 
-                      + userInfo.recruiter.bAddress.street 
-                      + "/"
-                      + userInfo.recruiter.bAddress.zipCode
-                  }
+                    onChange={(e) => {
+                      setbAddress({
+                        ...bAddress,
+                        street: e.target.value
+                      })
+                    }}
+                    defaultValue={ bAddress.street }
                   />
+
+
                 </div>
                 <div className="modal-group-email">
                   <div className="modal-send-email-label">
