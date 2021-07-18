@@ -104,6 +104,11 @@ div.postsGallery {
   position: relative;
 }
 
+.ant-calendar-input-wrap {
+  display: none;
+}
+
+
 .profileImgContainer:hover .profileImgEdit {
   opacity: 0.7;
 }

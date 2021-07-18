@@ -203,7 +203,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     }
   };
 
-  const onCalChange = (dateString) => {
+  const onCalChange = (date, dateString) => {
+    console.log(dateString)
+    console.log(typeof dateString)
+
     setYear({ year: dateString });
   };
 
@@ -561,6 +564,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   onChange={(date, dateString) => {
                                     setDob(dateString);
                                   }}
+                                  style={{}}
                                 ></DatePicker>
                               </li>
 
@@ -791,7 +795,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%",  }}
                                           />
                                         </Form.Item>
                                         <Form.Item
@@ -1063,6 +1067,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   onChange={(date, dateString) => {
                                     setDob(dateString);
                                   }}
+                                  style={{}}
                                 ></DatePicker>
                               </li>
                               <strong>이메일</strong>
@@ -1283,7 +1288,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%",  }}
                                           />
                                         </Form.Item>
                                         <Form.Item
@@ -1549,6 +1554,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   onChange={(date, dateString) => {
                                     setDob(dateString);
                                   }}
+                                  style={{}}
                                 ></DatePicker>
                               </li>
                               <strong>이메일</strong>
@@ -1769,7 +1775,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                         >
                                           <DatePicker
                                             onChange={onCalChange}
-                                            style={{ width: "100%" }}
+                                            style={{ width: "100%",  }}
                                           />
                                         </Form.Item>
                                         <Form.Item

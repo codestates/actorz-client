@@ -266,8 +266,8 @@ div.ui.centered.fluid.card.post-media-data2 {
 .post-media-data img {
   /* margin: 2rem 0 2rem 0; */
   max-width: 100%;
-  max-height: inherit;
-  min-height: inherit;
+  max-height: 100%;
+  min-height: 100%;
 }
 
 .post-media-data2 img {
@@ -280,13 +280,13 @@ div.ui.centered.fluid.card.post-media-data2 {
 .post-media-data video {
   /* margin: 0rem 0 2rem 0; */
   max-width: 100%;
-  max-height: inherit;
+  max-height: 100%;
 }
 
 .post-video {
   width: 100%;
   max-width: 100%;
-  max-height: inherit;
+  max-height: 100%;
 }
 
 /* .desc {
@@ -294,6 +294,111 @@ div.ui.centered.fluid.card.post-media-data2 {
 } */
 
 .post-image {
+  text-align: center;
+}
+
+
+/* MOBILE */
+#post-modal-container-mobile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  position: absolute;
+  background-color: white;
+  border: none;
+}
+
+#post-container-mobile {
+  flex: 1;
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0 0 0;
+}
+
+#post-container-1-mobile {
+  height: 3rem;
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 0 1rem 0 1rem;
+  max-width: 100%;
+}
+
+.post-no-padding {
+  padding: 0;
+}
+
+#post-container-2-mobile {
+  display: flex;
+  flex-direction: column;
+  height: 6rem;
+  max-width: 100%;
+  margin: 0 1rem 1rem 1rem;
+  /* border-bottom: dotted lightgray 1px; */
+}
+
+i.dropdown.icon {
+  transform: scale(1.3);
+}
+
+div.menu.transition.visible {
+  margin: 0.5rem 1rem 0 -0.19rem;
+  padding: 0.5rem 1rem 0 0;
+}
+
+.ui.centered.fluid.card.post-media-data-mobile {
+  min-height: 24.5rem;
+  max-height: 24.5rem;
+  max-width: 100%;
+  margin: 0rem 0 1rem 0;
+}
+
+.post-media-data-mobile {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  align-items: center;
+  max-height: 24.5rem;
+}
+
+.post-media-data-mobile img {
+  /* margin: 2rem 0 2rem 0; */
+  max-width: 100%;
+  max-height: 100%;
+  min-height: 100%;
+}
+
+.post-media-data-mobile video {
+  /* margin: 0rem 0 2rem 0; */
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.post-video-mobile {
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/* .desc {
+  margin: 0px 0px 20px 13px;
+} */
+
+.post-image-mobile {
   text-align: center;
 }
 
