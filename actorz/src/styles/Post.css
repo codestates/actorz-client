@@ -266,27 +266,27 @@ div.ui.centered.fluid.card.post-media-data2 {
 .post-media-data img {
   /* margin: 2rem 0 2rem 0; */
   max-width: 100%;
-  max-height: 100%;
+  max-height: 40rem;
   min-height: 100%;
 }
 
 .post-media-data2 img {
   /* margin: 2rem 0 2rem 0; */
   max-width: 100%;
-  max-height: inherit;
-  min-height: inherit;
+  max-height: 40rem;
+  min-height: 100%;
 }
 
 .post-media-data video {
   /* margin: 0rem 0 2rem 0; */
   max-width: 100%;
-  max-height: 100%;
+  max-height: 40rem;
 }
 
 .post-video {
   width: 100%;
   max-width: 100%;
-  max-height: 100%;
+  max-height: 40rem;
 }
 
 /* .desc {
