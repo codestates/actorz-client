@@ -6,16 +6,12 @@ import 'antd/dist/antd.css';
 import { Button, Carousel } from 'antd';
 import { ArrowDownOutlined } from '@ant-design/icons';
 import IntroNav from "../components/IntroNav";
-//import IntroFooter from "../components/IntroFooter";
 import ResponsiveApp from "../components/responsiveApp/ResponsiveNav"
 import Footer from "../components/Footer";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import Slider from "react-slick";
 import { _Button, Comment, Form, Header, Card, Icon } from 'semantic-ui-react';
 import GotoTop from "../components/GotoTop";
-// import gsap from "gsap";
-// import ScrollTrigger from "gsap/ScrollTrigger";
-// gsap.registerPlugin(ScrollTrigger);
 import ScrollTrigger from '@terwanerik/scrolltrigger'
 import iphoneG from "../images/iphoneGifcontent.gif";
 import ipadG from "../images/ipadGifcontent.gif";

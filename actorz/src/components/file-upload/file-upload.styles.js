@@ -2,12 +2,12 @@ import styled from "styled-components";
 
 export const FileUploadContainer = styled.section`
   position: relative;
-  margin: 4rem 0 3rem;
+  margin: 4rem 0 1.5rem;
   border: 2px dotted lightgray;
   max-width: 100%;
   width: 40rem;
   height: 20rem;
-  padding: 3rem;
+  padding: 2.2rem 0 3rem;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
@@ -199,9 +199,9 @@ export const RemoveFileIcon = styled.i`
   color: white;
   width: 1rem;
   margin-top: 0.3rem;
-  transform: scale(1.3);
+  transform: scale(0.5);
   &:hover {
-    transform: scale(1.5);
+    transform: scale(0.7);
   }
 `;
 

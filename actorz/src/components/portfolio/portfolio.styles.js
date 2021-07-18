@@ -9,12 +9,14 @@ export const PfUploadContainer = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 125px;
+  height: 100%;
   background-color: white;
 `;
 
 export const ImagePreview = styled.img`
   border-radius: 6px;
+  max-width: 110px;
+  max-height: 110px;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -39,6 +41,9 @@ border-radius: 6px;
 color: white;
 font-weight: bold;
 background-color: rgba(5, 5, 5, 0.55);
+font-size: 1rem;
+max-width: 110px;
+max-height: 110px;
 
 aside {
   margin-top: auto;
@@ -67,14 +72,6 @@ box-sizing: border-box;
   position: relative;
 }
 
-@media only screen and (max-width: 750px) {
-  width: 25%;
-}
-
-@media only screen and (max-width: 500px) {
-  width: 50%;
-}
-
 @media only screen and (max-width: 110px) {
   width: 100%;
   padding: 0 0 0.4em;
@@ -82,14 +79,14 @@ box-sizing: border-box;
 `;
 
 export const PreviewList = styled.section`
-width: 100%;
+width: auto;
+align-items: center;
 display: flex;
 flex-wrap: wrap;
 margin: auto;
 margin-top: 5px;
 margin-left: 10px;
 margin-right: 10px;
-overflow-x: scroll;
 
 @media only screen and (max-width: 400px) {
   flex-direction: column;

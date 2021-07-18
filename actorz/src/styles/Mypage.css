@@ -36,15 +36,15 @@ li {
   background-color: #fafafa;
   margin-top: -1.5rem;
   /* margin-left: 2rem; */
-
-  /* margin-bottom: 3rem; */
+  margin-top: 1rem;
+  margin-bottom: 3rem;
 }
 
 .middleSpace5 {
   /* 태블릿 반응형 */
   flex: auto;
   background-color: #fafafa;
-  margin-top: -1.5rem;
+  margin-top: 1rem;
   margin-left: 1rem;
   margin-bottom: 3rem;
 }

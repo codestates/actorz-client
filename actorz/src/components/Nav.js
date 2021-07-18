@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Signin from "./Signin";
 import Signup from "./Signup";
-import "antd/dist/antd.css";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { Button, Popover } from "antd";
@@ -10,21 +9,20 @@ import server from "../apis/server";
 import { persistor } from "../store/store";
 import Loading from "../components/loading";
 import { getAllPostInfo } from "../actions/postAction";
-import img from "../images/search.png";
 import { Input, Col, Row, Select } from "antd";
-
+import "antd/dist/antd.css";
+import "../styles/Nav.css";
 import "../styles/Search.css";
 
 const { Option } = Select;
 
-const Nav = ({ handleClickFiltering }) => {
+const Nav = () => {
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
 
   const [search, setSearch] = useState("");
   const [clickSignin, setClickSignin] = useState(false);
   const [clickSignup, setClickSignup] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [name, setName] = useState("");
   const [content, setContent] = useState("");
@@ -62,7 +60,6 @@ const Nav = ({ handleClickFiltering }) => {
   };
 
   useEffect(async () => {
-    console.log(name, content, age);
     try {
       if (Number(age) === 50) {
         await server
@@ -93,11 +90,18 @@ const Nav = ({ handleClickFiltering }) => {
     }
   };
 
-  // useEffect( async () => {
-  //   //console.log('새로고침');
-  //   setLoading(true);
-
-  // })
+  const handleClickSearchBtn = async () => {
+    try {
+      await server
+        .get(`post/search?name=&content=${search}&age=`)
+        .then((res) => {
+          dispatch(getAllPostInfo(res.data.data));
+        });
+    } catch (err) {
+      throw err;
+    }
+    setSearch("");
+  };
 
   return (
     <>
@@ -122,62 +126,68 @@ const Nav = ({ handleClickFiltering }) => {
                 placeholder="  search..."
                 onChange={(e) => inputHandler(e)}
               ></input>
-              <Button variant="outlined" className="product-search-btn">
+              <Button
+                variant="outlined"
+                className="product-search-btn"
+                onClick={handleClickSearchBtn}
+              >
                 검색
               </Button>
+              <Popover
+                placement="bottomLeft"
+                trigger="click"
+                content={
+                  <>
+                    <Input.Group>
+                      <Row gutter={8}>
+                        <Col span={21}>
+                          <Input
+                            onChange={handleInputValue("name")}
+                            placeholder="이름"
+                          />
+                        </Col>
+                      </Row>
+                      <Row gutter={8}>
+                        <Col span={21}>
+                          <Input
+                            onChange={handleInputValue("conent")}
+                            placeholder="내용"
+                          />
+                        </Col>
+                      </Row>
+                    </Input.Group>
+                    <Input.Group compact>
+                      <Select
+                        defaultValue="50"
+                        onChange={handleInputValue("age")}
+                      >
+                        <Option value="10" name="age">
+                          ~10대
+                        </Option>
+                        <Option value="20" name="age">
+                          20대
+                        </Option>
+                        <Option value="30" name="age">
+                          30대
+                        </Option>
+                        <Option value="40" name="age">
+                          40대~
+                        </Option>
+                        <Option value="50" name="age">
+                          전체
+                        </Option>
+                      </Select>
+                    </Input.Group>
+                  </>
+                }
+              >
+                <Button variant="outlined" className="product-search-btn">
+                  조건검색
+                </Button>
+              </Popover>
             </div>
 
             <div className="blackNav2"> </div>
-            <Popover
-              placement="bottomRight"
-              trigger="click"
-              content={
-                <>
-                  <Input.Group>
-                    <Row gutter={8}>
-                      <Col span={21}>
-                        <Input
-                          onChange={handleInputValue("name")}
-                          placeholder="이름"
-                        />
-                      </Col>
-                    </Row>
-                    <Row gutter={8}>
-                      <Col span={21}>
-                        <Input
-                          onChange={handleInputValue("conent")}
-                          placeholder="내용"
-                        />
-                      </Col>
-                    </Row>
-                  </Input.Group>
-                  <Input.Group compact>
-                    <Select
-                      defaultValue="50"
-                      onChange={handleInputValue("age")}
-                    >
-                      <Option value="10" name="age">
-                        ~10대
-                      </Option>
-                      <Option value="20" name="age">
-                        20대
-                      </Option>
-                      <Option value="30" name="age">
-                        30대
-                      </Option>
-                      <Option value="40" name="age">
-                        40대~
-                      </Option>
-                      <Option value="50" name="age">
-                        전체
-                      </Option>
-                    </Select>
-                  </Input.Group>
-                </>
-              }
-            >
-              <img src={img} className="search-img"></img>
-            </Popover>
 
             {user.isLogin ? (
               <div className="signBtnPosition">

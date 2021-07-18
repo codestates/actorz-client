@@ -7,7 +7,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import Naver from "../components/Naverlogin";
 import Loading from "../components/loading";
 import "../styles/SigninModal.css";
-import { Modal } from 'antd';
+import { Modal } from "antd";
 import { useMediaQuery } from "react-responsive";
 
 const Signin = ({ handleClickSignin, handleClickSignup }) => {
@@ -66,11 +66,13 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              console.log(res.data.data.userInfo)
-              dispatch(getUserInfo({
-                ...res.data.data.userInfo,
-                dob: res.data.data.userInfo.dob.toString().split("T")[0]
-              }));
+              console.log(res.data.data.userInfo);
+              dispatch(
+                getUserInfo({
+                  ...res.data.data.userInfo,
+                  dob: res.data.data.userInfo.dob.toString().split("T")[0],
+                })
+              );
             }
           })
           .catch((err) => {
@@ -83,26 +85,43 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
       }
     } catch (err) {
       setLoading(false);
-      let node;
-      if(isMobile){
-        node = document.getElementById("modal-container-mobile");
-      }else{
-        node = document.getElementById("modal-container");
-      }
       if (err.message === "Request failed with status code 401") {
         Modal.warning({
-          getContainer: node,
-          content: '등록되지 않은 회원이거나 잘못된 비밀번호 입니다.',
-          mask: false,
+          maskStyle: {width: "200%", height: "200%"},
+          getContainer: document.getElementsByClassName("modal-get-container")[0],
+          style: {maxWidth: "20rem", top: "3rem"},
+          content: (
+          <>
+            <div style={{textAlign: "left"}}>
+              존재하지 않는 이메일 혹은 잘못된
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              비밀번호 입니다.
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              확인 후 다시 시도해주세요.
+            </div>
+          </>
+          ),
           maskClosable: true
         });
         //alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
       } else {
-        Modal.error({
-          getContainer: node,
-          content: '예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요',
-          mask: false,
-          maskClosable: true
+        Modal.warning({
+          maskStyle: {width: "200%", height: "200%"},
+          getContainer: document.getElementsByClassName("modal-get-container")[0],
+          style: {maxWidth: "20rem", top: "3rem"},
+          content: (
+          <>
+            <div style={{textAlign: "left"}}>
+              예상치 못한 오류가 발생했습니다.
+            </div>
+            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
+              잠시 후 다시 이용해주세요
+            </div>
+          </>
+          ),
+          maskClosable: true,
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
@@ -117,12 +136,13 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
               <div id="modal-background" onClick={() => handleClickClose()}>
                 <div
                   id="modal-container"
+                  className="modal-get-container"
                   onClick={(event) => event.stopPropagation()}
                 >
                   <div className="modalCancleBtn"></div>
                   <div className="modal-title">
                     <div className="title">
-                      <div>Login</div>
+                      <div id="loginpadding-top">Login</div>
 
                       <CloseOutlined
                         className="closeBtn"
@@ -145,7 +165,9 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       onChange={handleInputValue("password")}
                     />
                   </div>
-                  <div>{err ? <div className="err-message">{err}</div> : null}</div>
+                  <div>
+                    {err ? <div className="err-message">{err}</div> : null}
+                  </div>
                   <div className="modalButtonPosition">
                     <div className="loginBtnPosition">
                       <button
@@ -153,7 +175,10 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                         type="submit"
                         onClick={handleClickSigninBtn}
                       >
-                        <div className="settingBtn" style={{marginLeft:"0.8rem"}}>
+                        <div
+                          className="settingBtn"
+                          style={{ marginLeft: "0.8rem" }}
+                        >
                           로그인
                           <div className="loading">
                             {loading ? <Loading /> : ""}
@@ -168,9 +193,13 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                       <div className="loginBtnPosition">
                         <Naver handleClickClose={handleClickClose} />
                       </div>
-                      <div className="signUpbtnPosition">
+                      <div
+                        className="signUpbtnPosition"
+                        id="loginpadding-bottom"
+                      >
                         <div>
-                          <div className="movetoSignUp">아직 계정이 없으십니까?
+                          <div className="movetoSignUp">
+                            아직 계정이 없으십니까?
                           </div>
                           <div
                             className="movetoSignUpBtn"
@@ -197,13 +226,15 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             <center>
               <form onSubmit={(e) => e.preventDefault()}>
                 <div id="modal-background">
-                  <div id="modal-container-mobile2">
+                  <div id="modal-container-mobile2"
+                  >
                     <CloseOutlined
                       className="closeBtn-mobile"
                       onClick={handleClickClose}
-                    />
+                      />
                     <div
                       id="modal-container-mobile"
+                      className="modal-get-container"
                       onClick={(event) => event.stopPropagation()}
                     >
                       <div className="modal-title">
@@ -219,50 +250,55 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                           placeholder=" 이메일"
                           onChange={handleInputValue("email")}
                         />
+                    </div>
+                    <div className="modal-group">
+                      <input
+                        type="password"
+                        placeholder=" 비밀번호"
+                        onChange={handleInputValue("password")}
+                      />
+                    </div>
+                    <div>
+                      {err ? <div className="err-message">{err}</div> : null}
+                    </div>
+                    <div className="modalButtonPosition">
+                      <div className="loginBtnPosition">
+                        <button
+                          className="btn-login login"
+                          type="submit"
+                          onClick={handleClickSigninBtn}
+                        >
+                          <div
+                            className="settingBtn"
+                            style={{ marginLeft: "0.8rem" }}
+                          >
+                            로그인
+                            <div className="loading">
+                              {loading ? <Loading /> : ""}
+                            </div>
+                          </div>
+                        </button>
                       </div>
-                      <div className="modal-group">
-                        <input
-                          type="password"
-                          placeholder=" 비밀번호"
-                          onChange={handleInputValue("password")}
-                        />
-                      </div>
-                      <div>{err ? <div className="err-message">{err}</div> : null}</div>
                       <div className="modalButtonPosition">
                         <div className="loginBtnPosition">
-                          <button
-                            className="btn-login login"
-                            type="submit"
-                            onClick={handleClickSigninBtn}
-                          >
-                            <div className="settingBtn" style={{marginLeft:"0.8rem"}}>
-                              로그인
-                              <div className="loading">
-                                {loading ? <Loading /> : ""}
-                              </div>
-                            </div>
-                          </button>
+                          <Google handleClickClose={handleClickClose} />
                         </div>
-                        <div className="modalButtonPosition">
-                          <div className="loginBtnPosition">
-                            <Google handleClickClose={handleClickClose} />
-                          </div>
-                          <div className="loginBtnPosition">
-                            <Naver handleClickClose={handleClickClose} />
-                          </div>
-                          <div className="signUpbtnPosition">
-                            <div>
-                              <div className="movetoSignUp">아직 계정이 없으십니까?
-                              </div>
-                              <div
-                                className="movetoSignUpBtn"
-                                onClick={() => {
-                                  handleClickSignin(false);
-                                  handleClickSignup(true);
-                                }}
-                              >
-                                회원가입 하러 하기
-                              </div>
+                        <div className="loginBtnPosition">
+                          <Naver handleClickClose={handleClickClose} />
+                        </div>
+                        <div className="signUpbtnPosition">
+                          <div>
+                            <div className="movetoSignUp">
+                              아직 계정이 없으십니까?
+                            </div>
+                            <div
+                              className="movetoSignUpBtn"
+                              onClick={() => {
+                                handleClickSignin(false);
+                                handleClickSignup(true);
+                              }}
+                            >
+                              회원가입 하러 하기
                             </div>
                           </div>
                         </div>
@@ -270,11 +306,11 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
                     </div>
                   </div>
                 </div>
-              </form>
-            </center>
-          </>
-        )
-      }
+              </div>
+            </form>
+          </center>
+        </>
+      )}
     </>
   );
 };
