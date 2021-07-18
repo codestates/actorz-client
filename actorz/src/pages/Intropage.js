@@ -24,13 +24,13 @@ const Intropage = () => {
   trigger.add('[data-triggerAlways]', { once: false })
 
   const isPc = useMediaQuery({
-    //query : "(min-width:1600px)"
-    query : "(min-width:1024px)"
+    query : "(min-width:1600px)"
+    // query : "(min-width:1024px)"
   });
 
   const isTablet = useMediaQuery({
-    query: "(min-width:768px) and (max-width:1023px)",
-    //query: "(min-width:768px) and (max-width:1599px)",
+    // query: "(min-width:768px) and (max-width:1023px)",
+    query: "(min-width:768px) and (max-width:1599px)",
   });
 
   const isMobile = useMediaQuery({
@@ -352,7 +352,7 @@ const Intropage = () => {
 
         <Comment.Group className="profilePos" style={{transform: `translateX(${-position+7400}px)`}} size='massive'>
           <Comment>
-            <Comment.Avatar as='a' src='' />
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/69939f54-8a86-4301-a6be-19ae12f09d7e/image.png' />
             <Comment.Content>
               <Comment.Author as='a'>이빛나</Comment.Author>
               <Comment.Metadata>
@@ -387,7 +387,7 @@ const Intropage = () => {
 
         <Comment.Group className="profilePos" style={{transform: `translateX(${-position+7200}px)`}} size='large'>
           <Comment>
-            <Comment.Avatar as='a' src='' />
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/902642ff-9b2d-404a-9116-82a42e44642b/image.png' />
             <Comment.Content>
               <Comment.Author as='a'>이강인</Comment.Author>
               <Comment.Metadata>
@@ -454,7 +454,7 @@ const Intropage = () => {
 
         <Comment.Group style={{transform: `translateX(${-position+7350}px)`}} size='large'>
           <Comment>
-            <Comment.Avatar as='a' src='' />
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/68b1c9d4-5bca-4b69-bf4f-b0f7f9063b69/image.png' />
             <Comment.Content>
               <Comment.Author as='a'>이규진</Comment.Author>
               <Comment.Metadata>
@@ -489,7 +489,7 @@ const Intropage = () => {
 
          <Comment.Group style={{transform: `translateX(${-position+7300}px)`}} size='small'>
           <Comment>
-            <Comment.Avatar as='a' src='' />
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/c59e08f7-2ec0-496a-b276-1252bf46e6e6/image.png' />
             <Comment.Content>
               <Comment.Author as='a'>최수빈</Comment.Author>
               <Comment.Metadata>
@@ -505,7 +505,7 @@ const Intropage = () => {
 
         <Comment.Group style={{transform: `translateX(${-position+7900}px)`}} size='massive'>
           <Comment>
-            <Comment.Avatar as='a' src='' />
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/5533a9b7-f895-402b-8ca8-fb9b69f5a3b9/image.png' />
             <Comment.Content>
               <Comment.Author as='a'>우지원</Comment.Author>
               <Comment.Metadata>
@@ -521,7 +521,7 @@ const Intropage = () => {
 
         <Comment.Group className="rePositioning" style={{transform: `translateX(${-position+6800}px)`}} size='massive'>
           <Comment>
-            <Comment.Avatar as='a' src='' />
+            <Comment.Avatar as='a' src='https://media.vlpt.us/images/iooi75/post/ecaed6e9-6e2a-4027-87dd-ab705e9ffec0/image.png' />
             <Comment.Content>
               <Comment.Author as='a'>이람</Comment.Author>
               <Comment.Metadata>
