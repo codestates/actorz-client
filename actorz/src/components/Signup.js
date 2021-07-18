@@ -90,7 +90,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
           if(!isValidEmail(email)){
             Modal.warning({
               maskStyle: {width: "200%", height: "200%"},
-              style: {maxWidth: "20rem",top: "3rem",},
+              style: {maxWidth: "20rem",top: "4rem",},
               content: (
               <>
                 <div style={{textAlign: "left"}}>
@@ -110,7 +110,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
             setLoading(false);
             Modal.warning({
               maskStyle: {width: "200%", height: "200%"},
-              style: {maxWidth: "20rem", top: "3rem",},
+              style: {maxWidth: "20rem", top: "4rem",},
               content: (
               <>
                 <div style={{textAlign: "left"}}>
@@ -183,7 +183,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       if (err.message === "Request failed with status code 409") {
         Modal.warning({
           maskStyle: {width: "200%", height: "200%"},
-          style: {maxWidth: "20rem", top: "3rem",},
+          style: {maxWidth: "20rem", top: "4rem",},
           content: (
           <>
             <div style={{textAlign: "left"}}>
@@ -200,7 +200,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       } else {
         Modal.warning({
           maskStyle: {width: "200%", height: "200%"},
-          style: {maxWidth: "20rem", top: "3rem",},
+          style: {maxWidth: "20rem", top: "4rem",},
           content: (
           <>
             <div style={{textAlign: "left"}}>
@@ -250,7 +250,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
               maskStyle: {width: "200%", height: "200%"},
               style: {
                 maxWidth: "20rem",
-                top: "3rem",
+                top: "4rem",
               },
               content: (
               <>
@@ -492,7 +492,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                                   return triggerNode.parentNode;
                                 }}
                                 onChange={(date, dateString) => {setDob(date)}} 
-                                style={{maxWidth:"92%"}}></DatePicker>
+                                style={{maxWidth:"92%", }}></DatePicker>
                               </div>
                             </div>
                           </div>
@@ -597,7 +597,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                                     return triggerNode.parentNode;
                                   }}
                                   onChange={(date, dateString) => {setDob(date)}} 
-                                  style={{maxWidth:"92%"}}></DatePicker>
+                                  style={{maxWidth:"92%", }}></DatePicker>
                                 </div>
                               </div>
                             </div>
@@ -810,7 +810,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                                     return triggerNode.parentNode;
                                   }}
                                   onChange={(date, dateString) => {setDob(date)}} 
-                                  style={{maxWidth:"92%"}}></DatePicker>
+                                  style={{maxWidth:"92%", }}></DatePicker>
                                 </div>
                               </div>
                             </div>
@@ -914,7 +914,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                                       return triggerNode.parentNode;
                                     }}
                                     onChange={(date, dateString) => {setDob(date)}} 
-                                    style={{maxWidth:"92%"}}></DatePicker>
+                                    style={{maxWidth:"92%", }}></DatePicker>
                                   </div>
                                 </div>
                               </div>

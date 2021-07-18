@@ -345,7 +345,7 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
+                {clickModal ? <Post clickModal={clickModal} closePost={() => handleClickPost(false)} /> : null}
               </div>
             </div>
             <div className="newblockPosition2"> </div>
@@ -489,7 +489,7 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
+                {clickModal ? <Post clickModal={clickModal} closePost={() => handleClickPost(false)} /> : null}
               </div>
             </div>
             <div className="responsiveNewblockPosition"> </div>
@@ -637,7 +637,7 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-                {clickModal ? <Post closePost={() => handleClickPost(false)} /> : null}
+                {clickModal ? <Post clickModal={clickModal} closePost={() => handleClickPost(false)} /> : null}
               </div>
             </div>
             {/* <div className="newblockPosition2"> </div>
