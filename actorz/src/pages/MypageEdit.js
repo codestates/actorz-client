@@ -41,8 +41,10 @@ import {
 } from "../actions/userAction";
 import {
   RemoveFileIcon,
+  RemoveFileIcon2,
   FileMetaData2,
   PreviewContainer,
+  PreviewContainer2,
 } from "../components/file-upload/file-upload.styles";
 
 import { persistor } from "../store/store";
@@ -266,7 +268,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       .catch((err) => {
         throw err;
       });
-      setDeleteUserModal(false);
+    setDeleteUserModal(false);
   };
 
   const isPc = useMediaQuery({
@@ -720,7 +722,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                               )}
                                               <FileMetaData2>
                                                 <aside>
-                                                  <RemoveFileIcon
+                                                  <RemoveFileIcon2
                                                     className="fas fa-trash-alt"
                                                     onClick={() =>
                                                       handleClickDeleteBtn(

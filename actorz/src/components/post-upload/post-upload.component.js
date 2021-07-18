@@ -66,7 +66,9 @@ const Postupload = ({
   return (
     <>
       <FileUploadContainer>
-        <DragDropText>Drag and drop your files anywhere</DragDropText>
+        <DragDropText>
+          게시물에 추가하고 싶은 사진이 있으면 클릭해주세요!
+        </DragDropText>
         {/* <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
           <i className="fas fa-file-upload" />
           <span> Upload {otherProps.multiple ? "files" : "a file"}</span>

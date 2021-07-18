@@ -205,6 +205,30 @@ export const RemoveFileIcon = styled.i`
   }
 `;
 
+export const RemoveFileIcon2 = styled.i`
+  cursor: pointer;
+  color: black;
+  margin-top: 0.3rem;
+  margin-left: 10rem;
+  transform: scale(0.5);
+  &:hover {
+    transform: scale(0.7);
+  }
+`;
+
+export const RemoveFileIcon3 = styled.i`
+cursor: pointer;
+color: black;
+margin-top: 3rem;
+margin-left: 56rem;
+margin-bottom: 10rem;
+transform: scale(2.0);
+&:hover {
+  transform: scale(2.1);
+}
+  }
+`;
+
 export const PreviewContainer = styled.section`
   padding: 0.25rem;
   width: 8rem;
@@ -215,6 +239,38 @@ export const PreviewContainer = styled.section`
   &:hover {
     opacity: 0.55;
 
+    ${FileMetaData} {
+      display: flex;
+    }
+  }
+
+  & > div:first-of-type {
+    height: 100%;
+    position: relative;
+  }
+
+  @media only screen and (max-width: 750px) {
+    width: 25%;
+  }
+
+  @media only screen and (max-width: 500px) {
+    width: 50%;
+  }
+
+  @media only screen and (max-width: 400px) {
+    width: 100%;
+    padding: 0 0 0.4em;
+  }
+`;
+
+export const PreviewContainer2 = styled.section`
+  padding: 0.25rem;
+  width: 60rem;
+  height: 8rem;
+  border-radius: 6px;
+  box-sizing: border-box;
+
+  &:hover {
     ${FileMetaData} {
       display: flex;
     }
