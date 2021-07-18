@@ -12,6 +12,10 @@
   width: 0.4rem;
 }
 
+.ant-calendar-input-wrap {
+  display: none;
+}
+
 .modal-group-signup-align-center {
   align-content: center;
 }

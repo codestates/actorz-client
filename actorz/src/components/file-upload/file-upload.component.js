@@ -193,7 +193,7 @@ const FileUpload = ({
               <input
                 type="text"
                 placeholder="간단한 설명글을 적어주세요"
-                className="post-desc"
+                className="post-add-desc"
                 onChange={handleInputValue("desc")}
               />
 
@@ -284,6 +284,8 @@ const FileUpload = ({
             id="upload-modal-container" 
             style={{
               height: "100%",
+              minWidth: "100%",
+              maxWidth: "100%",
               padding: "4rem 0 4rem 0"
             }}
             onClick={(event) => event.stopPropagation()}
@@ -368,7 +370,7 @@ const FileUpload = ({
               <input
                 type="text"
                 placeholder="간단한 설명글을 적어주세요"
-                className="post-desc"
+                className="post-add-desc"
                 onChange={handleInputValue("desc")}
               />
 
