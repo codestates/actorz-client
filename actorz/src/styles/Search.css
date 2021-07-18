@@ -11,16 +11,12 @@ div.search-box {
   padding: 0.5rem 1.5rem 1.5rem 1.5rem;
 }
 
-div.ant-row {
+div.ant-row.row {
   margin-top: 1rem;
   margin-bottom: 1rem;
   width: 15rem;
 }
 
-input.ant-input {
-  width: 10rem;
-}
-
-div.ant-col.ant-col-8 {
+div.ant-input.input {
   width: 10rem;
 }
