@@ -2,7 +2,7 @@
 
 #post-modal-background {
   position: fixed;
-  top:0;
+  top: 0;
   left: 0;
   width: 100%;
   height: 100%;
@@ -74,6 +74,12 @@
   align-items: center;
 }
 
+#post-2-wrap2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 #post-container-3 {
   overflow-y: auto;
   position: relative;
@@ -141,14 +147,14 @@
 .post-like-img {
   /* position: relative; */
   padding: 0;
-  color:rgb(255, 63, 63);
+  color: rgb(255, 63, 63);
   transform: scale(1.5);
 }
 
 .post-unlike-img {
   /* position: relative; */
   padding: 0;
-  color:rgb(174, 174, 174);
+  color: rgb(174, 174, 174);
   transform: scale(1.5);
 }
 
@@ -167,7 +173,7 @@
   border-radius: 70%;
   object-fit: cover;
   /* margin: 0 0.5rem 0 0.5rem; */
-  
+
   /* border: lightgray dotted 1px; */
 }
 
@@ -176,25 +182,22 @@ i.trash.alternate.outline.icon.post-1-content-icon,
 i.mail.outline.icon.post-1-content-icon,
 i.edit.outline.icon.post-1-content-icon,
 i.like.icon.post-like-img,
-i.like.icon.post-unlike-img{
-  margin: 0
+i.like.icon.post-unlike-img {
+  margin: 0;
 }
-
 
 #post-container-3::-webkit-scrollbar {
   width: 0.4rem;
   background-color: whilte;
 }
 
-
-.icon-like-unlike-img{
-  color:rgb(174, 174, 174);
+.icon-like-unlike-img {
+  color: rgb(174, 174, 174);
 }
 
-.icon-like-like-img{
-  color:lightcoral
+.icon-like-like-img {
+  color: lightcoral;
 }
-
 
 .post-name {
   font-size: 2rem;
@@ -220,14 +223,11 @@ i.like.icon.post-unlike-img{
   border-left: solid lightgray 2px;
 }
 
-
 .post-btn-hover:hover,
 .post-like-box:hover {
   cursor: pointer;
   transform: scale(1.2);
 }
-
-
 
 .post-media-data {
   display: flex;
@@ -237,7 +237,21 @@ i.like.icon.post-unlike-img{
   max-height: 40rem;
 }
 
+.post-media-data2 {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  align-items: center;
+  max-height: 40rem;
+}
+
 .ui.centered.fluid.card.post-media-data {
+  max-width: 100%;
+  min-height: 40rem;
+  margin: 0rem 0 1rem 0;
+}
+
+div.ui.centered.fluid.card.post-media-data2 {
   max-width: 100%;
   min-height: 40rem;
   margin: 0rem 0 1rem 0;
@@ -254,6 +268,13 @@ i.like.icon.post-unlike-img{
   max-width: 100%;
   max-height: 100%;
   min-height: 100%;
+}
+
+.post-media-data2 img {
+  /* margin: 2rem 0 2rem 0; */
+  max-width: 100%;
+  max-height: inherit;
+  min-height: inherit;
 }
 
 .post-media-data video {
@@ -275,9 +296,6 @@ i.like.icon.post-unlike-img{
 .post-image {
   text-align: center;
 }
-
-
-
 
 
 /* MOBILE */
@@ -382,4 +400,8 @@ div.menu.transition.visible {
 
 .post-image-mobile {
   text-align: center;
+}
+
+span.ant-input-group.ant-input-group-compact {
+  width: 5rem;
 }

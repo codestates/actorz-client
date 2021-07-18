@@ -18,6 +18,7 @@ const postInfoReducer = (state = postInitState, action) => {
       const filteredPost = state.data.data.posts.posts.filter((post) => {
         return post._id === action.payload.post_id;
       });
+      console.log(filteredPost);
       const filteredPhoto = Object.assign({}, filteredPost[0], {
         media: filteredPost[0].media.filter((el) => {
           return el._id !== action.payload.img_id;
