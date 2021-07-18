@@ -491,9 +491,6 @@ body {
   /* transition-delay: 1s; */
 }
 
-.feedback:
-
-
 /* 다시 사라지는 이벤트 넣기 */
 
 [feedback-trigger] {
