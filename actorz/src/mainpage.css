@@ -14,16 +14,22 @@ p {
   font-family: Lato;
 }
 
+.nav-item {
+  margin-top: 0.5rem;
+   text-decoration: none;
+}
 /* ul,
 li {
   text-decoration: none;
   list-style-type: none;
   display: inline-block;
 }
+
 ul {
   text-decoration: none;
   padding-left: 0px;
 }
+
 li {
   text-decoration: none;
   margin: 8px 16px;
@@ -34,6 +40,7 @@ li {
   text-decoration: none;
   color: #fff;
 }
+
 .nav-link:before {
   text-decoration: none;
   content: "";

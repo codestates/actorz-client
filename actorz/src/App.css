@@ -19,19 +19,12 @@ body {
 .alinkEffect { 
   text-decoration: none;
   color: white;
-
 }
 
 .setOrder {
   display: flex;
 }
 
-/* .free2  .free3 {
-  height: 50rem;
-  width: 50rem;
-  color: #d6d6d6;
-  background-color: rgb(217, 255, 0);
-} */
 
 .freeGroup {
   position: relative;
@@ -81,6 +74,10 @@ body {
   text-align: center;
 }
 
+.btnPosTop {
+  text-align: center;
+}
+
 .colorTest02 {
   color: #ffffff;
   font-size: 5rem;
@@ -97,20 +94,15 @@ body {
   text-align: center;
 }
 
-.startContentsTitle {
-  font-family: lato;
-  font-size: 5rem;
-  text-align: center;
-}
-
 .startContentsTitle2 {
-  width: 100%;
+  width: 100vw; 
   display: flex;
 
   font-family: lato;
-  font-size: 4rem;
-  text-align: right;
-  margin-left: 75rem;
+  font-size: 3rem;
+  text-align: center;
+  justify-content: center;
+  /* margin-left: 75rem; */
 }
 
 .commentsGroup {
@@ -136,10 +128,6 @@ body {
   justify-content: center;
   /* margin-top: -1rem; */
 }
-
-/* .div, svg {
-  position: absolute;
-} */
 
 .container {
   perspective: 10rem;
@@ -203,6 +191,7 @@ body {
 .blockPositionNav {
   width: 85%
 }
+
 .signBtnPosition {
   /*
   display: flex;
@@ -354,8 +343,7 @@ body {
 }
 .startButton2 {
   /*position: relative;*/
-  width:120px;
-  height: 40px;
+  width: 7.5rem;
   background-color: #ff4d4f;
   /*box-shadow: 0 4px 16px rgb(255, 255, 255);*/
   color: rgb(255, 255, 255);
@@ -397,14 +385,14 @@ body {
   position: absolute;
   opacity: 0;
   /*right: -30px;*/
-  bottom: -40px;
-  right: 10px;
+  bottom: -2.5rem;
+  right: 0.625rem;
   transition: 0.5s;
 }
  
 .startButton2:hover::after {
   opacity: 1;
-  bottom: 10px;
+  bottom: 0.25rem;
 }
 
 .mainIntro1 {
@@ -422,6 +410,11 @@ body {
   margin-top: 50px;
   text-align: center;
   height: 0px;
+}
+
+.button2PositionResponsive {
+  text-align: center;
+  margin-top: 8rem;
 }
   
 /* new css */
@@ -482,39 +475,41 @@ body {
 
 /* ******************* */
 
-/* [data-trigger] {
+[data-trigger] {
   opacity: 0;
   position: relative;
-  top: 16rem;
-  transition: 1s ease-out;
+  top: 10rem;
+  transition: 0.8s ease;
 }
 
 [data-trigger].visible {
   opacity: 1;
-  top: 0;
-} */
+  top: 0rem;
+  /* transition-duration: 0.5s;
+  opacity: 0; */
+  /* transition-duration: 0.5s; */
+  /* transition-delay: 1s; */
+}
+
+.feedback:
 
 
-.invisible {
+/* 다시 사라지는 이벤트 넣기 */
+
+[feedback-trigger] {
   opacity: 0;
   position: relative;
-  top: 16rem;
-  transition: 0.5s ease-in;
+  right: 10rem;
+  transition: 0.8s ease-out;
 }
 
-.visible {
+[feedback-trigger].visible {
   opacity: 1;
-  top: 0;
-  transition: 1s;
+  right: 0;
 }
 
-/* .visible, .invisible {
-  opacity: 0.0;
-  transition: opacity 1.3s ease;
-}
-.visible {
-  opacity: 1.0;
-} */
+/*//////////////////////*/
+
 
 .gotoTopBtnPosition {
   position: fixed;
@@ -557,3 +552,179 @@ body {
   color: white;
 }
 
+.gifContents {
+  flex: 1;
+  text-align: center;
+}
+
+.gifContetsDivider {
+  display: flex;
+  /* background-color: yellow; */
+  flex: 1;
+}
+
+.blockPosition20 {
+  height: 40rem;
+  width: auto;
+  /* background-color: green; */
+  color: black;
+  font-size: 8rem;
+  text-align: center;
+  padding: 10rem;
+}
+
+.blockPosition30 {
+  width: auto;
+  /* background-color: green; */
+  color: black;
+  font-size: 8rem;
+  text-align: center;
+  margin-top: 7rem;
+}
+
+.blockPositionDivider {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.positionYellow {
+  text-align: center;
+}
+
+.mainActorPic {
+  /* width: 50rem;
+  height: 40rem; */
+  /* -webkit-filter: grayscale(100%);
+  filter: gray; */
+  mix-blend-mode: normal;
+  
+}
+
+.mainActorPic:hover {
+  /* -webkit-filter: grayscale(0%);
+  filter: none; */
+  /* mix-blend-mode: luminosity; */
+}
+
+.contentsPositionWhere {
+  margin-top: 3rem;
+}
+
+.profilePos {
+  position: absolute;
+}
+
+
+.introLastContents {
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.introLastContents2 {
+  width: 90vw;
+  height: 95vh;
+  opacity: 0.2;
+}
+
+.startContentsTitle {
+  font-family: lato;
+  font-size: 5em;
+  min-width: 1500px;
+  text-align: center;
+}
+
+
+.lastContentsTitlePosition {
+  text-align: center;
+}
+
+.lastContentsTitle {
+  position: absolute;
+  font-family: lato;
+  font-size: 3rem;
+  text-align: center;
+  z-index: 1;
+  width: 100%;
+  margin-top: 15rem;
+  /* left: 25rem;
+  top: 10rem; */
+
+}
+
+.lastContentsTitle div {
+  text-align: center;
+}
+
+.deviceDevider {
+  display: flex;
+  height: 100vh;
+}
+
+.device1 {
+  flex: 1;
+  text-align: center;
+}
+
+.device1 div {
+  height: 33rem;
+  width: 20rem;
+  margin-left: 15rem;
+  margin-top: 2.5rem;
+
+}
+
+.device2 {
+  flex: 1;
+  text-align: center;
+}
+
+.device2 div {
+  height: 40rem;
+  width: 30rem;
+  margin-left: 14rem;
+  margin-top: 2.5rem;
+
+}
+
+.iphonePic {
+  position: absolute;
+  height: 55rem;
+  width: 40rem;
+  margin-top: -7rem;
+  margin-left: -4.5rem;
+  /* margin-left: -15rem; */
+}
+
+.ipadPic {
+  position: absolute;
+  margin-left: -5rem;
+  height: 40rem;
+  width: 35rem;
+}
+
+.iphoneGif {
+  /* position: relative; */
+  background-color: pink;
+  width: 18rem;
+  height: 30rem;
+  margin-left: 7.3rem;
+  margin-top: 5.5rem;
+}
+
+.ipadGif {
+  width: 20rem;
+  height: 30rem;
+  margin-left: 2.2rem;
+  margin-top: 5rem;
+}
+
+.profilesEffectTest {
+  position: relative;
+}
+
+.rePositioning {
+  position: relative;
+  margin-top: -10rem;
+}
