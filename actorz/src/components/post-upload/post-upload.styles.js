@@ -139,7 +139,7 @@ export const FilePreviewContainer = styled.article`
 export const PreviewList = styled.section`
   width: 550px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-wrap: wrap;
   margin-top: 30px;
   margin-left: 100px;
