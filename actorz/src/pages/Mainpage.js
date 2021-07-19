@@ -237,8 +237,11 @@ const Mainpage = () => {
                   post.data.data.posts.posts.length !== 0 ? (
                     post.data.data.posts.posts.map((post) => {
                       return (
-                        <Card centered={true} fluid={true} key={post._id} onClick={() => handleClickPost(true, post._id)}>
-                          <div className="effecTest">
+                        <Card 
+                          centered={true} 
+                          fluid={true} 
+                          key={post._id}>
+                          <div className="effecTest" onClick={() => handleClickPost(true, post._id)}>
                             <div
                               className="screen"
                             >
@@ -270,24 +273,15 @@ const Mainpage = () => {
                             </div>
                           </div>
 
-                          <Card.Content>
+                          <Card.Content onClick={() => handleClickPost(true, post._id)}>
                             <Card.Header>
                               <div
                                 className="nothing2"
                                 style={{ width: "fit-content" }}
                               >
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: post.userInfo.user_id,
-                                    },
-                                  }}
-                                >
-                                  <div className="nothing">
-                                    {post.userInfo.name}
-                                  </div>
-                                </Link>
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
                               </div>
                             </Card.Header>
                             <Card.Meta>
@@ -298,7 +292,7 @@ const Mainpage = () => {
                             </Card.Meta>
                             <Card.Description>{post.content}</Card.Description>
                           </Card.Content>
-                          <Card.Content extra onClick={(e) => e.stopPropagation()}>
+                          <Card.Content extra>
                             {post.likes.length !== 0 &&
                             localStorage.getItem("accessToken") ? (
                               <>
@@ -308,9 +302,9 @@ const Mainpage = () => {
                                   <Icon
                                     name="like"
                                     className="mylike"
-                                    onClick={() =>
+                                    onClick={(e) => {
                                       handleClickLikeBtn("like", post._id)
-                                    }
+                                    }}
                                   />
                                 ) : (
                                   <Icon
@@ -384,7 +378,7 @@ const Mainpage = () => {
                     post.data.data.posts.posts.map((post) => {
                       return (
                         <Card centered={true} fluid={true} key={post._id}>
-                          <div className="effecTest">
+                          <div className="effecTest" onClick={() => handleClickPost(true, post._id)}>
                             <div
                               className="screen"
                               onClick={() => handleClickPost(true, post._id)}
@@ -418,24 +412,15 @@ const Mainpage = () => {
                             </div>
                           </div>
 
-                          <Card.Content>
+                          <Card.Content onClick={() => handleClickPost(true, post._id)}>
                             <Card.Header>
                               <div
                                 className="nothing2"
                                 style={{ width: "fit-content" }}
                               >
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: post.userInfo.user_id,
-                                    },
-                                  }}
-                                >
-                                  <div className="nothing">
-                                    {post.userInfo.name}
-                                  </div>
-                                </Link>
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
                               </div>
                             </Card.Header>
                             <Card.Meta>
@@ -446,7 +431,7 @@ const Mainpage = () => {
                             </Card.Meta>
                             <Card.Description>{post.content}</Card.Description>
                           </Card.Content>
-                          <Card.Content extra>
+                          <Card.Content extra onClick={() => handleClickPost(true, post._id)}>
                             {post.likes.length !== 0 &&
                             localStorage.getItem("accessToken") ? (
                               <>
@@ -534,7 +519,7 @@ const Mainpage = () => {
                     post.data.data.posts.posts.map((post) => {
                       return (
                         <Card centered={true} fluid={true} key={post._id}>
-                          <div className="effecTest">
+                          <div className="effecTest" onClick={() => handleClickPost(true, post._id)}>
                             <div
                               className="screen"
                               onClick={() => handleClickPost(true, post._id)}
@@ -568,24 +553,15 @@ const Mainpage = () => {
                             </div>
                           </div>
 
-                          <Card.Content>
+                          <Card.Content onClick={() => handleClickPost(true, post._id)}>
                             <Card.Header>
                               <div
                                 className="nothing2"
                                 style={{ width: "fit-content" }}
                               >
-                                <Link
-                                  to={{
-                                    pathname: `/posts`,
-                                    state: {
-                                      id: post.userInfo.user_id,
-                                    },
-                                  }}
-                                >
-                                  <div className="nothing">
-                                    {post.userInfo.name}
-                                  </div>
-                                </Link>
+                                <div className="nothing">
+                                  {post.userInfo.name}
+                                </div>
                               </div>
                             </Card.Header>
                             <Card.Meta>
@@ -596,7 +572,7 @@ const Mainpage = () => {
                             </Card.Meta>
                             <Card.Description>{post.content}</Card.Description>
                           </Card.Content>
-                          <Card.Content extra>
+                          <Card.Content extra onClick={() => handleClickPost(true, post._id)}>
                             {post.likes.length !== 0 &&
                             localStorage.getItem("accessToken") ? (
                               <>

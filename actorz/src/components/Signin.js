@@ -88,7 +88,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
       if (err.message === "Request failed with status code 401") {
         Modal.warning({
           maskStyle: {width: "200%", height: "200%"},
-          getContainer: document.getElementsByClassName("modal-get-container")[0],
+          getContainer: "#modal-container",
           style: {maxWidth: "20rem", top: "4rem"},
           content: (
           <>
@@ -104,13 +104,12 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           </>
           ),
           maskClosable: true,
-          mask: false
         });
         //alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
       } else {
         Modal.warning({
           maskStyle: {width: "200%", height: "200%"},
-          getContainer: document.getElementsByClassName("modal-get-container")[0],
+          getContainer: "#modal-container",
           style: {maxWidth: "20rem", top: "4rem"},
           content: (
           <>
@@ -123,7 +122,6 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           </>
           ),
           maskClosable: true,
-          mask: false,
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }

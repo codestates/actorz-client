@@ -90,8 +90,9 @@ const Post = ({ clickModal, closePost }) => {
     }
   };
 
-  const handleClickDeleteBtn = async () => {
-    await server
+  const handleClickDeleteBtn = () => {
+    const postDeleteProcess = async () => {
+      await server
       .post(
         `/post/${url}/delete`,
         {},
@@ -109,6 +110,24 @@ const Post = ({ clickModal, closePost }) => {
       .catch((err) => {
         throw err;
       });
+    }
+
+    let node = null;
+    
+    if(isMobile) {
+      node = "#post-container-mobile";
+    } else {
+      node = "#post-container";
+    }
+    Modal.confirm({
+      title: "포스트 삭제",
+      content: "정말로 포스트를 삭제하시겠습니까?",
+      getContainer: node,
+      cancelText: "삭제하지 않겠습니다",
+      okText: "삭제",
+      onOk: postDeleteProcess,
+      maskClosable: true
+    });      
   };
 
   const closePostChecker = () => {
