@@ -37,6 +37,10 @@
   border: none;
 }
 
+#upload-modal-container::-webkit-scrollbar {
+  width: 0.4rem;
+}
+
 .cancel-btn {
   font-size: 1.5rem;
   color: rgb(75, 68, 68);

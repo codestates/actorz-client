@@ -23,8 +23,9 @@ import Slider from "react-slick";
 
 const settings = {
   className: "pf-select-slick",
+  // autoplay: true,
   infinite: true,
-  speed: 500,
+  speed: 1000,
   slidesToShow: 1,
   slidesToScroll: 1,
   dots: true,
@@ -295,7 +296,7 @@ const Portfolio = () => {
                             {selectData[0] ? 
                               selectData.map((post) => {
                                 return (
-                                  <div key={post._id}>
+                                  <div key={post._id} className="pf pf-post-container">
                                     <Slider {...settings}>
                                       {post.media.map((data) => data.type === "img" ? 
                                         <img 
@@ -321,7 +322,7 @@ const Portfolio = () => {
                               postsData[0] ?
                                 postsData.map((post) => {
                                   return (
-                                    <div key={post._id}>
+                                    <div key={post._id} className="pf pf-post-container">
                                       <Slider {...settings}>
                                         {post.media.map((data) => data.type === "img" ? 
                                           <img 
@@ -339,7 +340,7 @@ const Portfolio = () => {
                                         )}
                                       </Slider>
                                       <div className="pf postHeader">
-                                        <label>{post.content}</label>
+                                        <label> {post.content}</label>
                                       </div>
                                     </div> 
                                   )
@@ -396,9 +397,9 @@ const Portfolio = () => {
                     <Nav />
                     <ResponsiveIconlistTablet />
 
-                    <div className="newblockPosition"> </div>
+                    <div className="pf newblockPosition"> </div>
 
-                    <div className="middleSpace2">
+                    <div className="pf middleSpace2">
                       <div className="midContents">
                         <div className="buttonHeader">
                           <div className="profileTitleName">
@@ -579,7 +580,7 @@ const Portfolio = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="newblockPosition2"> </div>
+                    <div className="pf newblockPosition2"> </div>
                   </div>
                   <div>
                     {clickPfEdit ? (

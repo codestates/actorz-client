@@ -54,11 +54,56 @@ const PostEdit = ({
     setPostinfo(post.data.data.posts.posts[index]);
     setNewFile(post.data.data.posts.posts[index].media);
   }, [post, index]);
+  
+  const handleClickCloseBtn = () => {
+    closePost();
+  };
 
   const handleClickDeleteBtn = (post_id, img_id) => {
+
     console.log(post_id, img_id);
     dispatch(removePostPhoto(post_id, img_id));
   };
+
+  // const handleClickDeleteBtn = (post_id, img_id) => {
+  //   const postDeleteProcess = async () => {
+  //     await server
+  //     .post(
+  //       `/post/${url}/delete`,
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+  //         },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       if (res.status === 200) {
+  //         window.location = "/mainpage";
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       throw err;
+  //     });
+  //   }
+
+  //   let node = null;
+    
+  //   if(isMobile) {
+  //     node = "#post-container-mobile";
+  //   } else {
+  //     node = "#post-container";
+  //   }
+  //   Modal.confirm({
+  //     title: "포스트 삭제",
+  //     content: "정말로 포스트를 삭제하시겠습니까?",
+  //     getContainer: node,
+  //     cancelText: "삭제하지 않겠습니다",
+  //     okText: "삭제",
+  //     onOk: postDeleteProcess,
+  //     maskClosable: true
+  //   });      
+  // };
 
   const handleInputValue = (key) => (event) => {
     if (key === "desc") {
@@ -85,7 +130,7 @@ const PostEdit = ({
       )
       .then((res) => {
         console.log(res);
-        window.location = "/mainpage";
+        handleClickCloseBtn();
       })
       .catch((err) => {
         console.log(err);
@@ -139,10 +184,6 @@ const PostEdit = ({
     }
   };
 
-  const handleClickCloseBtn = () => {
-    closePost();
-    window.location = "/mainpage";
-  };
   return (
     <>
       <Nav />
@@ -168,9 +209,7 @@ const PostEdit = ({
                                   <Icon
                                     name="trash alternate outline"
                                     className="post-1-content-icon"
-                                    onClick={() =>
-                                      handleClickDeleteButton(true)
-                                    }
+                                    onClick={handleClickDeleteButton}
                                   ></Icon>
                                 </div>
                               </div>
@@ -252,8 +291,15 @@ const PostEdit = ({
                         <div className="post-info"></div>
                       </div>
                       <div id="post-container-3">
-                        <div className="post-div-img">
-                          <PreviewContainer2>
+                        <div className="post-div-img2">
+                          <PreviewContainer2 className="post-edit-upload-container">
+                            <form className="post-edit-drag-and-drop">
+                              <Postupload
+                                accept="*"
+                                multiple
+                                updateFilesCb={updateUploadedFiles}
+                              />
+                            </form>
                             {postinfo.media.map((img) => {
                               if (img.type === "img") {
                                 return (
@@ -290,7 +336,6 @@ const PostEdit = ({
                               } else {
                                 return (
                                   <>
-                                    <PreviewContainer2>
                                       <Card
                                         className="post-media-data"
                                         centered={true}
@@ -305,7 +350,6 @@ const PostEdit = ({
                                         >
                                           <source src={img.path}></source>
                                         </video>
-                                      </Card>
                                       <FileMetaData2>
                                         <aside>
                                           <RemoveFileIcon3
@@ -314,23 +358,16 @@ const PostEdit = ({
                                               handleClickDeleteBtn(
                                                 postinfo._id,
                                                 img._id
-                                              )
-                                            }
-                                          />
+                                                )
+                                              }
+                                              />
                                         </aside>
                                       </FileMetaData2>
-                                    </PreviewContainer2>
+                                    </Card>
                                   </>
                                 );
                               }
                             })}
-                            <form>
-                              <Postupload
-                                accept="*"
-                                multiple
-                                updateFilesCb={updateUploadedFiles}
-                              />
-                            </form>
                           </PreviewContainer2>
                         </div>
                       </div>
@@ -344,39 +381,35 @@ const PostEdit = ({
             </div>
           </>
         )}
-        {/* {isMobile && (
+        {isMobile && (
           <>
-            <div id="post-modal-background" onClick={closePost}>
-              <div id="post-modal-container">
-                <div
-                  id="post-container"
-                  onClick={(event) => event.stopPropagation()}
-                >
-                  {postinfo.genre ? (
-                    <>
-                      <div id="post-container-1">
-                        <div className="post-1-wrap">
-                          {postinfo.userInfo &&
-                          user.data.userInfo.id ===
-                            postinfo.userInfo.user_id ? (
-                            <div
-                              className="post-1-content post-btn-hover"
-                              onClick={() => handleClickDeleteBtn(true)}
-                            >
+          <div id="post-modal-background" onClick={handleClickCloseBtn}>
+            <div id="post-modal-container-mobile">
+              <div
+                id="post-container-mobile"
+                onClick={(event) => event.stopPropagation()}
+              >
+                {postinfo.genre ? (
+                  <>
+                    <div id="post-container-1">
+                      <div className="post-1-wrap">
+                        {postinfo.userInfo &&
+                        user.data.userInfo.id ===
+                          postinfo.userInfo.user_id ? (
+                          <>
+                            <div className="post-1-content">
                               <div className="post-1-content-icon-container">
                                 <Icon
                                   name="trash alternate outline"
                                   className="post-1-content-icon"
+                                  onClick={handleClickDeleteButton}
                                 ></Icon>
                               </div>
                             </div>
-                          ) : null}
-                          {postinfo.userInfo &&
-                          user.data.userInfo.id ===
-                            postinfo.userInfo.user_id ? (
                             <div
-                              className="post-1-content post-btn-hover"
-                              onClick={() => handleClickEditBtn(true)}
+                              className="post-1-content"
+                              onClick={() => handleClickEditBtn(false)}
+                              onClick={handleClickSaveBtn}
                             >
                               <div className="post-1-content-icon-container">
                                 <Icon
@@ -385,144 +418,163 @@ const PostEdit = ({
                                 ></Icon>
                               </div>
                             </div>
-                          ) : null}
-                          {postinfo.userInfo &&
-                          user.data.userInfo.role === "recruiter" ? (
-                            <div className="post-1-content post-btn-hover">
-                              <div className="post-1-content-icon-container">
-                                <Icon
-                                  name="mail outline"
-                                  className="post-1-content-icon"
-                                ></Icon>
-                              </div>
-                            </div>
-                          ) : null}
-                          <div className="post-1-content post-btn-hover">
-                            <Link
-                              to={{
-                                pathname: `/posts`,
-                                state: {
-                                  id: postinfo.userInfo.user_id,
-                                },
-                              }}
-                            >
-                              <img
-                                alt=""
-                                src={profile}
-                                id="post-profile-img"
-                                // className="post-btn-hover"
-                              ></img>
-                            </Link>
-                          </div>
-                          <div
-                            className="post-1-content post-btn-hover"
-                            onClick={closePost}
-                          >
-                            <div className="post-1-content-icon-container">
-                              <CloseOutlined
-                                style={{ paddingTop: "0.2rem" }}
-                                name="close"
-                                className="post-1-content-icon post-1-content-icon-close"
-                              ></CloseOutlined>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div id="post-container-2">
-                        <div className="post-2-content">
-                          <div className="post-name post-btn-hover">
-                            <Link
-                              style={{ color: "black" }}
-                              to={{
-                                pathname: `/posts`,
-                                state: {
-                                  id: postinfo.userInfo.user_id,
-                                },
-                              }}
-                            >
-                              {postinfo.userInfo.name}
-                            </Link>
-                          </div>
-                        </div>
-                        <div className="post-2-content-width-100">
-                          <div id="post-2-wrap">
-                            <div>
-                              <span className="post-genre">
-                                {postinfo.genre}
-                              </span>
-                              <span className="post-desc">
-                                {postinfo.content}
-                              </span>
-                            </div>
-                            <span className="like">
-                              {postinfo.likes.length}
-                            </span>
-                          </div>
-                        </div>
+                          </>
+                        ) : null}
 
-                        <div className="post-info"></div>
+                        <div
+                          className="post-1-content post-btn-hover"
+                          onClick={handleClickCloseBtn}
+                        >
+                          <div className="post-1-content-icon-container">
+                            <CloseOutlined
+                              style={{ paddingTop: "0.2rem" }}
+                              name="close"
+                              className="post-1-content-icon post-1-content-icon-close"
+                            ></CloseOutlined>
+                          </div>
+                        </div>
                       </div>
-                      <div id="post-container-3">
-                        <div className="post-div-img">
+                    </div>
+                    <div id="post-container-2-mobile">
+                      <div className="post-2-content">
+                        <div className="post-name">
+                          {postinfo.userInfo.name}
+                        </div>
+                      </div>
+                      <div className="post-2-content-width-100">
+                        <div id="post-2-wrap2">
+                          <Dropdown text={genre}>
+                            <Dropdown.Menu className="post-2-genre-dropdown">
+                              <Dropdown.Item
+                                text="액션"
+                                onClick={() => setGenre("액션")}
+                              />
+                              <Dropdown.Item
+                                text="공포"
+                                onClick={() => setGenre("공포")}
+                              />
+                              <Dropdown.Item
+                                text="코미디"
+                                onClick={() => setGenre("코미디")}
+                              />
+                              <Dropdown.Item
+                                text="드라마"
+                                onClick={() => setGenre("드라마")}
+                              />
+                              <Dropdown.Item
+                                text="판타지"
+                                onClick={() => setGenre("판타지")}
+                              />
+                              <Dropdown.Item
+                                text="기타"
+                                onClick={() => setGenre("기타")}
+                              />
+                            </Dropdown.Menu>
+                          </Dropdown>
+
+                          <input
+                            type="text"
+                            defaultValue={postinfo.content}
+                            className="post-edit-desc"
+                            onChange={handleInputValue("desc")}
+                          ></input>
+                        </div>
+                      </div>
+
+                      <div className="post-info"></div>
+                    </div>
+                    <div id="post-container-3">
+                      <div className="post-div-img2">
+                        <PreviewContainer2 className="post-edit-upload-container-mobile">
+                          <form className="post-edit-drag-and-drop">
+                            <Postupload
+                              accept="*"
+                              multiple
+                              updateFilesCb={updateUploadedFiles}
+                            />
+                          </form>
                           {postinfo.media.map((img) => {
                             if (img.type === "img") {
                               return (
-                                <Card
-                                  className="post-media-data"
-                                  centered={true}
-                                  fluid={true}
-                                  key={img._id}
-                                >
-                                  <img
+                                <>
+                                  <Card
+                                    className="post-media-data"
+                                    centered={true}
+                                    fluid={true}
                                     key={img._id}
-                                    src={img.path}
-                                    className="post-image"
-                                    alt="이미지"
-                                  ></img>
-                                </Card>
+                                  >
+                                    <img
+                                      key={img._id}
+                                      src={img.path}
+                                      className="post-image"
+                                      alt="이미지"
+                                    ></img>
+
+                                    <FileMetaData2>
+                                      <aside>
+                                        <RemoveFileIcon3
+                                          className="fas fa-trash-alt"
+                                          onClick={() =>
+                                            handleClickDeleteBtn(
+                                              postinfo._id,
+                                              img._id
+                                            )
+                                          }
+                                        />
+                                      </aside>
+                                    </FileMetaData2>
+                                  </Card>
+                                </>
                               );
                             } else {
                               return (
-                                <Card
-                                  className="post-media-data"
-                                  centered={true}
-                                  fluid={true}
-                                  key={img._id}
-                                >
-                                  <video
-                                    loop="loop"
-                                    controls
-                                    className="post-video"
-                                    key={img._id}
-                                  >
-                                    <source src={img.path}></source>
-                                  </video>
-                                </Card>
+                                <>
+                                    <Card
+                                      className="post-media-data-mobile"
+                                      centered={true}
+                                      fluid={true}
+                                      key={img._id}
+                                    >
+                                      <video
+                                        loop="loop"
+                                        controls
+                                        className="post-video-mobile"
+                                        key={img._id}
+                                      >
+                                        <source src={img.path}></source>
+                                      </video>
+                                    <FileMetaData2>
+                                      <aside>
+                                        <RemoveFileIcon3
+                                          className="fas fa-trash-alt"
+                                          onClick={() =>
+                                            handleClickDeleteBtn(
+                                              postinfo._id,
+                                              img._id
+                                              )
+                                            }
+                                            />
+                                      </aside>
+                                    </FileMetaData2>
+                                  </Card>
+                                </>
                               );
                             }
                           })}
-                        </div>
+                        </PreviewContainer2>
                       </div>
-                      <div className="mobile"></div>
-                    </>
-                  ) : (
-                    <Loading />
-                  )}
-                </div>
+                    </div>
+                    <div className="mobile"></div>
+                  </>
+                ) : (
+                  <Loading />
+                )}
               </div>
             </div>
-          </>
-        )} */}
+          </div>
+        </>
+        )}
       </>
-
-      {/* {emailClick ? (
-        <SendEmail
-          closePost={closePost}
-          setEmailClick={setEmailClick}
-          postData={postinfo}
-          userInfo={user.data.userInfo}
-        ></SendEmail>
-      ) : null} */}
     </>
   );
 };

@@ -117,11 +117,10 @@ const Nav = () => {
                 />
               </Link>
             </div>
-            <div className="blackNav"> </div>
 
             <div className="searchTotalNav">
               <input
-                className="product-search"
+                className="product-search-pc"
                 value={search}
                 placeholder="  search..."
                 onChange={(e) => inputHandler(e)}
@@ -188,8 +187,6 @@ const Nav = () => {
                 </Button>
               </Popover>
             </div>
-
-            <div className="blackNav2"> </div>
 
             {user.isLogin ? (
               <div className="signBtnPosition">

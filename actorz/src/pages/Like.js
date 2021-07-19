@@ -289,7 +289,7 @@ const Like = () => {
 
                 <div className="middleSpace2">
                   <div className="midContentsResponsive midContentsReverse">
-                    {post.data.data ? (
+                    {likePost ? (
                       likePost.length !== 0 ? (
                         likePost.map((post) => {
                           return (
@@ -436,7 +436,7 @@ const Like = () => {
 
                 <div className="middleSpaceResponsive2">
                   <div className="midContentsResponsive2 midContentsReverse">
-                    {post.data.data ? (
+                    {likePost ? (
                       likePost.length !== 0 ? (
                         likePost.map((post) => {
                           return (

@@ -79,6 +79,8 @@ font {
 
 .search {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding: 0.375rem;
   position: fixed;
   left: 0;
@@ -92,6 +94,13 @@ font {
 .product-search {
   height: 31.09px;
   width: 250px;
+  border: solid 0.5px #e0e0e0;
+}
+
+input.product-search-pc {
+  height: 31.09px;
+  width: 16rem;
+  margin-left: 11rem;
   border: solid 0.5px #e0e0e0;
 }
 
@@ -125,6 +134,7 @@ font {
   display: flex;
   width: 100vw;
   height: 3rem;
+  margin-bottom: 0.5rem;
 }
 
 .leftSpace {
@@ -142,7 +152,7 @@ font {
   width: 11rem;
   height: 15.27rem;
   display: inline-block;
-  margin-top: 2.8rem;
+  margin-top: 0.6rem;
   margin-left: -2rem;
   border-radius: 0.5rem;
   margin-right: 0.5rem;
