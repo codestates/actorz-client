@@ -366,6 +366,7 @@ const Mypage = () => {
                                                     index < post_maxIndex && (
                                                       <>
                                                         <div
+                                                          key={index}
                                                           className="galleryComponents"
                                                           onClick={() =>
                                                             handleClickPost(
@@ -451,6 +452,7 @@ const Mypage = () => {
                                                   index < like_maxIndex && (
                                                     <>
                                                       <div
+                                                        key={index}
                                                         className="galleryComponents"
                                                         onClick={() =>
                                                           handleClickPost(
@@ -719,6 +721,7 @@ const Mypage = () => {
                                                     index < post_maxIndex && (
                                                       <>
                                                         <div
+                                                          key={index}
                                                           className="galleryComponents"
                                                           onClick={() =>
                                                             handleClickPost(
@@ -804,6 +807,7 @@ const Mypage = () => {
                                                   index < like_maxIndex && (
                                                     <>
                                                       <div
+                                                        key={index}
                                                         className="galleryComponents"
                                                         onClick={() =>
                                                           handleClickPost(
@@ -1072,6 +1076,7 @@ const Mypage = () => {
                                                     index < post_maxIndex && (
                                                       <>
                                                         <div
+                                                          key={index}
                                                           className="galleryComponents"
                                                           onClick={() =>
                                                             handleClickPost(
@@ -1157,6 +1162,7 @@ const Mypage = () => {
                                                   index < like_maxIndex && (
                                                     <>
                                                       <div
+                                                        key={index}
                                                         className="galleryComponents"
                                                         onClick={() =>
                                                           handleClickPost(
