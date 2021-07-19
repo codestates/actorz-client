@@ -46,13 +46,13 @@ const IntroNav = () => {
               />
             </Link>
           </div>
-          <div className="blockPositionNav"> </div>
+          {/* <div className="blockPositionNav"> </div> */}
           
           <div className="signBtnPosition">
-          <ul>
-             <li className="nav-item"><a href="/mainpage" className="nav-link">메인페이지</a>
-          </li>
-          </ul>
+            <ul>
+              <li className="nav-item"><a href="/mainpage" className="nav-link">메인페이지</a>
+            </li>
+            </ul>
           </div>
 
           {/* <div className="signBtnPosition">
