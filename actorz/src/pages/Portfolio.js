@@ -296,7 +296,7 @@ const Portfolio = () => {
                             {selectData[0] ? 
                               selectData.map((post) => {
                                 return (
-                                  <div key={post._id}>
+                                  <div key={post._id} className="pf pf-post-container">
                                     <Slider {...settings}>
                                       {post.media.map((data) => data.type === "img" ? 
                                         <img 
@@ -322,7 +322,7 @@ const Portfolio = () => {
                               postsData[0] ?
                                 postsData.map((post) => {
                                   return (
-                                    <div key={post._id}>
+                                    <div key={post._id} className="pf pf-post-container">
                                       <Slider {...settings}>
                                         {post.media.map((data) => data.type === "img" ? 
                                           <img 
