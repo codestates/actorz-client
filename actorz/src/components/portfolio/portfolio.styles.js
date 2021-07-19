@@ -19,13 +19,16 @@ export const ImagePreview = styled.img`
   max-height: 110px;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 `;
 
 export const VideoPreview = styled.video`
   border-radius: 6px;
+  max-width: 110px;
+  max-height: 110px;
   width: 100%;
   height: 100%;
+  object-fit: contain;
 `;
 
 export const PostMetaData = styled.div`
