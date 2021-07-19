@@ -1,6 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Merienda&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 
+::-webkit-scrollbar {
+  width: 0.35rem; 
+} 
+
+::-webkit-scrollbar-thumb { 
+ background-color: #d6d6d6;
+} 
+
+::-webkit-scrollbar-track { 
+ background-color: rgb(255, 255, 255);
+}
+
+.pf.middleSpace2 {
+  max-width: 70%;
+}
 
 .pf.headerSection {
   height: 2rem;
@@ -38,7 +53,16 @@
 
 .portFolioEdit {
   /* position: absolute; */
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
   margin: 2rem 0;
+  max-width: 100%;
+}
+
+.portFolioEdit > div {
+  max-width: 100%;
 }
 
 .portFolioEdit > button {
@@ -107,10 +131,11 @@
 
 .pf.selectImg {
   height: 400px;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .pf.selectVideo {
+  object-fit: contain;
   height: 100%;
 }
 
@@ -122,9 +147,10 @@
   margin-bottom: 10px;
 }
 
-
 .slick-list {
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  border: lightgray 1px solid;
 }
 
 .slick-track {

@@ -336,7 +336,6 @@ const PostEdit = ({
                               } else {
                                 return (
                                   <>
-                                    <PreviewContainer2>
                                       <Card
                                         className="post-media-data"
                                         centered={true}
@@ -351,7 +350,6 @@ const PostEdit = ({
                                         >
                                           <source src={img.path}></source>
                                         </video>
-                                      </Card>
                                       <FileMetaData2>
                                         <aside>
                                           <RemoveFileIcon3
@@ -360,12 +358,12 @@ const PostEdit = ({
                                               handleClickDeleteBtn(
                                                 postinfo._id,
                                                 img._id
-                                              )
-                                            }
-                                          />
+                                                )
+                                              }
+                                              />
                                         </aside>
                                       </FileMetaData2>
-                                    </PreviewContainer2>
+                                    </Card>
                                   </>
                                 );
                               }
@@ -531,7 +529,6 @@ const PostEdit = ({
                             } else {
                               return (
                                 <>
-                                  <PreviewContainer2>
                                     <Card
                                       className="post-media-data-mobile"
                                       centered={true}
@@ -546,7 +543,6 @@ const PostEdit = ({
                                       >
                                         <source src={img.path}></source>
                                       </video>
-                                    </Card>
                                     <FileMetaData2>
                                       <aside>
                                         <RemoveFileIcon3
@@ -555,12 +551,12 @@ const PostEdit = ({
                                             handleClickDeleteBtn(
                                               postinfo._id,
                                               img._id
-                                            )
-                                          }
-                                        />
+                                              )
+                                            }
+                                            />
                                       </aside>
                                     </FileMetaData2>
-                                  </PreviewContainer2>
+                                  </Card>
                                 </>
                               );
                             }

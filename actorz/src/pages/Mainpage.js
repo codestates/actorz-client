@@ -223,14 +223,14 @@ const Mainpage = () => {
       {isPc && (
         <>
           <div className="blockhere"> </div>
+          <Nav
+            loading={loading}
+            handleClickFiltering={handleClickFiltering}
+          />
           <div className="mainPage">
-            <Nav
-              loading={loading}
-              handleClickFiltering={handleClickFiltering}
-            />
+            <div></div>
             <Iconlist />
 
-            <div className="newblockPosition"> </div>
             <div className="middleSpace">
               <div className="midContents2 midContentsReverse">
                 {post.data.data ? (
@@ -346,8 +346,8 @@ const Mainpage = () => {
 
               </div>
             </div>
-            <div className="newblockPosition2"> </div>
             <div className="rightSpace"></div>
+            <div></div>
           </div>
 
           <Footer />

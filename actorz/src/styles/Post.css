@@ -1,5 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap");
 
+::-webkit-scrollbar {
+  width: 0.35rem; 
+} 
+
+::-webkit-scrollbar-thumb { 
+ background-color: #d6d6d6;
+} 
+
+::-webkit-scrollbar-track { 
+ background-color: rgb(255, 255, 255);
+}
+
 #post-modal-background {
   position: fixed;
   top: 0;

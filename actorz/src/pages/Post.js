@@ -80,7 +80,7 @@ const Post = ({ clickModal, closePost }) => {
     };
     f();
 
-  }, [url, likebtnclick]);
+  }, [dispatch, likebtnclick, isEdit]);
 
   const handleClickEditBtn = (boolean) => {
     if (boolean) {
