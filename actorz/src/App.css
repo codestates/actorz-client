@@ -9,7 +9,7 @@ body {
 } 
 
 ::-webkit-scrollbar-thumb { 
-  background-color: #d6d6d6; /*스크롤바의 색상*/ 
+  background-color: #000000; /*스크롤바의 색상*/ 
 } 
 
 ::-webkit-scrollbar-track { 
@@ -581,7 +581,7 @@ body {
   opacity: 0;
   position: relative;
   top: 10rem;
-  transition: 0.8s ease;
+  transition: 0.5s ease;
 }
 
 [data-trigger].visible {
