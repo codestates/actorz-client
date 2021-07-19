@@ -81,7 +81,7 @@ const Intropage = () => {
   };
 
   const mobileNamecardSettings = {
-
+    // hello
     // dots: true,
     // infinite: true,
     // speed: 500,
