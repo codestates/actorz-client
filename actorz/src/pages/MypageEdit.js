@@ -128,6 +128,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     }
     setRecruiter({
+      ...recruiter,
       bAddress: {
         ...recruiter.bAddress,
         zipCode: data.zonecode,
@@ -221,7 +222,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     } else if (key === "password") {
       setPassword({ [key]: event.target.value });
     } else if (key === "bName") {
-      setRecruiter({ [key]: event.target.value });
+      setRecruiter({ 
+        ...recruiter,
+        [key]: event.target.value 
+      });
     } else if (key === "jobTitle") {
       setRecruiter({
         ...recruiter,
@@ -661,13 +665,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                               </div>
                             )}
                             <div className="passwordModifyButton">
-                              <Button
-                                variant="outlined"
-                                className="passwordModifyBtn"
-                                onClick={showModal}
-                              >
-                                비밀번호 변경
-                              </Button>
+                              {
+                                user.provider === "local" ? (
+                                <Button
+                                  variant="outlined"
+                                  className="passwordModifyBtn"
+                                  onClick={showModal}
+                                >
+                                  비밀번호 변경
+                                </Button>
+                                ) : null
+                              }
                               <Modal
                                 title="비밀번호 변경"
                                 visible={isModalVisible}
@@ -1163,13 +1171,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                               </div>
                             )}
                             <div className="passwordModifyButton">
-                              <Button
-                                variant="outlined"
-                                className="passwordModifyBtn"
-                                onClick={showModal}
-                              >
-                                비밀번호 변경
-                              </Button>
+                              {
+                                user.provider === "local" ? (
+                                <Button
+                                  variant="outlined"
+                                  className="passwordModifyBtn"
+                                  onClick={showModal}
+                                >
+                                  비밀번호 변경
+                                </Button>
+                                ) : null
+                              }
                               <Modal
                                 title="비밀번호 변경"
                                 visible={isModalVisible}
@@ -1213,6 +1225,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                           <PreviewContainer>
                                             <div className="img-container">
                                               <img
+                                                alt=""
                                                 className="postGallery-img"
                                                 key={post._id}
                                                 src={post.media[0].path}
@@ -1403,6 +1416,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                             <div className="img-container">
                                               {post.media[0].type === "img" ? (
                                                 <img
+                                                  alt=""
                                                   className="postGallery-img"
                                                   key={post._id}
                                                   src={post.media[0].path}
@@ -1650,13 +1664,17 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                               </div>
                             )}
                             <div className="passwordModifyButton">
-                              <Button
-                                variant="outlined"
-                                className="passwordModifyBtn"
-                                onClick={showModal}
-                              >
-                                비밀번호 변경
-                              </Button>
+                              {
+                                user.provider === "local" ? (
+                                <Button
+                                  variant="outlined"
+                                  className="passwordModifyBtn"
+                                  onClick={showModal}
+                                >
+                                  비밀번호 변경
+                                </Button>
+                                ) : null
+                              }
                               <Modal
                                 title="비밀번호 변경"
                                 visible={isModalVisible}
@@ -1700,6 +1718,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                           <PreviewContainer>
                                             <div className="img-container">
                                               <img
+                                                alt=""
                                                 className="postGallery-img"
                                                 key={post._id}
                                                 src={post.media[0].path}
@@ -1890,6 +1909,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                             <div className="img-container">
                                               {post.media[0].type === "img" ? (
                                                 <img
+                                                  alt=""
                                                   className="postGallery-img"
                                                   key={post._id}
                                                   src={post.media[0].path}
