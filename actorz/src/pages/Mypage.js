@@ -237,9 +237,7 @@ const Mypage = () => {
                                     ) : (
                                       <>
                                         <strong>회사</strong>
-                                        <li className="company">
-                                          {user.data.userInfo.company}
-                                        </li>
+                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
                                       </>
                                     )}
                                   </ul>
@@ -584,10 +582,19 @@ const Mypage = () => {
                                     <li className="email">
                                       {user.data.userInfo.email}
                                     </li>
-                                    <strong>소속사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.company}
-                                    </li>
+                                    {user.data.userInfo.role === "actor" ? (
+                                      <>
+                                        <strong>소속사</strong>
+                                        <li className="company">
+                                          {user.data.userInfo.company}
+                                        </li>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <strong>회사</strong>
+                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                      </>
+                                    )}
                                   </ul>
                                 </div>
                               </div>
@@ -629,12 +636,10 @@ const Mypage = () => {
                                           ) : (
                                             <>
                                               <strong>회사</strong>
-                                              {user.data.userInfo.recruiter
-                                                .bName ? (
+                                              {user.data.userInfo.recruiter.bName ? (
                                                 <li className="bName">
                                                   {
-                                                    user.data.userInfo.recruiter
-                                                      .bName
+                                                    user.data.userInfo.recruiter.bName
                                                   }
                                                 </li>
                                               ) : (
@@ -927,10 +932,19 @@ const Mypage = () => {
                                     <li className="email">
                                       {user.data.userInfo.email}
                                     </li>
-                                    <strong>소속사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.company}
-                                    </li>
+                                    {user.data.userInfo.role === "actor" ? (
+                                      <>
+                                        <strong>소속사</strong>
+                                        <li className="company">
+                                          {user.data.userInfo.company}
+                                        </li>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <strong>회사</strong>
+                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                      </>
+                                    )}
                                   </ul>
                                 </div>
                               </div>
