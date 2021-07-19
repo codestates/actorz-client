@@ -118,7 +118,7 @@ const Posts = (props) => {
                         <p className="name">{userinfo.userInfo.name}</p>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{userinfo.userInfo.dob}</li>
+                          <li className="dob">{userinfo.userInfo.dob.toString().split("T")[0]}</li>
                           <strong>이메일</strong>
                           <li className="email">{userinfo.userInfo.email}</li>
                           {userinfo.userInfo.role === "actor" ? (
@@ -170,6 +170,7 @@ const Posts = (props) => {
                                     >
                                       {post.media[0].type === "img" ? (
                                         <img
+                                          alt=""
                                           className="postGallery-img"
                                           key={post._id}
                                           src={post.media[0].path}
@@ -254,7 +255,7 @@ const Posts = (props) => {
                         <p className="name">{userinfo.userInfo.name}</p>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{userinfo.userInfo.dob}</li>
+                          <li className="dob">{userinfo.userInfo.dob.toString().split("T")[0]}</li>
                           <strong>이메일</strong>
                           <li className="email">{userinfo.userInfo.email}</li>
                           {userinfo.userInfo.role === "actor" ? (
@@ -306,6 +307,7 @@ const Posts = (props) => {
                                     >
                                       {post.media[0].type === "img" ? (
                                         <img
+                                          alt=""
                                           className="postGallery-img"
                                           key={post._id}
                                           src={post.media[0].path}
@@ -390,7 +392,7 @@ const Posts = (props) => {
                         <p className="name">{userinfo.userInfo.name}</p>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{userinfo.userInfo.dob}</li>
+                          <li className="dob">{userinfo.userInfo.dob.toString().split("T")[0]}</li>
                           <strong>이메일</strong>
                           <li className="email">{userinfo.userInfo.email}</li>
                           {userinfo.userInfo.role === "actor" ? (
@@ -442,6 +444,7 @@ const Posts = (props) => {
                                     >
                                       {post.media[0].type === "img" ? (
                                         <img
+                                          alt=""
                                           className="postGallery-img"
                                           key={post._id}
                                           src={post.media[0].path}

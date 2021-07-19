@@ -237,9 +237,7 @@ const Mypage = () => {
                                     ) : (
                                       <>
                                         <strong>회사</strong>
-                                        <li className="company">
-                                          {user.data.userInfo.company}
-                                        </li>
+                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
                                       </>
                                     )}
                                   </ul>
@@ -285,55 +283,55 @@ const Mypage = () => {
                                               <strong>회사</strong>
                                               {user.data.userInfo.recruiter
                                                 .bName ? (
-                                                <li className="bName">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .bName
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bName"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>직책</strong>
                                               {user.data.userInfo.recruiter
                                                 .jobTitle ? (
-                                                <li className="jobTitle">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .jobTitle
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="jobTitle"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 이메일</strong>
                                               {user.data.userInfo.recruiter
                                                 .bEmail ? (
-                                                <li className="bEmail">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .bEmail
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bEmail"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 전화번호</strong>
                                               {user.data.userInfo.recruiter
                                                 .phoneNum ? (
-                                                <li className="phoneNum">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .phoneNum
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="phoneNum"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 주소</strong>
                                               {user.data.userInfo.recruiter
                                                 .bAddress.city ? (
-                                                <li className="bAddress">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .bAddress.city
@@ -350,7 +348,7 @@ const Mypage = () => {
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bAddress"></li>
+                                                <li className="email"></li>
                                               )}
                                             </>
                                           )}
@@ -584,10 +582,19 @@ const Mypage = () => {
                                     <li className="email">
                                       {user.data.userInfo.email}
                                     </li>
-                                    <strong>소속사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.company}
-                                    </li>
+                                    {user.data.userInfo.role === "actor" ? (
+                                      <>
+                                        <strong>소속사</strong>
+                                        <li className="company">
+                                          {user.data.userInfo.company}
+                                        </li>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <strong>회사</strong>
+                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                      </>
+                                    )}
                                   </ul>
                                 </div>
                               </div>
@@ -629,57 +636,55 @@ const Mypage = () => {
                                           ) : (
                                             <>
                                               <strong>회사</strong>
-                                              {user.data.userInfo.recruiter
-                                                .bName ? (
-                                                <li className="bName">
+                                              {user.data.userInfo.recruiter.bName ? (
+                                                <li className="email">
                                                   {
-                                                    user.data.userInfo.recruiter
-                                                      .bName
+                                                    user.data.userInfo.recruiter.bName
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bName"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>직책</strong>
                                               {user.data.userInfo.recruiter
                                                 .jobTitle ? (
-                                                <li className="jobTitle">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .jobTitle
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="jobTitle"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 이메일</strong>
                                               {user.data.userInfo.recruiter
                                                 .bEmail ? (
-                                                <li className="bEmail">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .bEmail
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bEmail"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 전화번호</strong>
                                               {user.data.userInfo.recruiter
                                                 .phoneNum ? (
-                                                <li className="phoneNum">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .phoneNum
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="phoneNum"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 주소</strong>
                                               {user.data.userInfo.recruiter
                                                 .bAddress.city ? (
-                                                <li className="bAddress">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .bAddress.city
@@ -696,7 +701,7 @@ const Mypage = () => {
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bAddress"></li>
+                                                <li className="email"></li>
                                               )}
                                             </>
                                           )}
@@ -927,10 +932,19 @@ const Mypage = () => {
                                     <li className="email">
                                       {user.data.userInfo.email}
                                     </li>
-                                    <strong>소속사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.company}
-                                    </li>
+                                    {user.data.userInfo.role === "actor" ? (
+                                      <>
+                                        <strong>소속사</strong>
+                                        <li className="company">
+                                          {user.data.userInfo.company}
+                                        </li>
+                                      </>
+                                    ) : (
+                                      <>
+                                        <strong>회사</strong>
+                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                      </>
+                                    )}
                                   </ul>
                                 </div>
                               </div>
@@ -975,55 +989,55 @@ const Mypage = () => {
                                               <strong>회사</strong>
                                               {user.data.userInfo.recruiter
                                                 .bName ? (
-                                                <li className="bName">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .bName
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bName"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>직책</strong>
                                               {user.data.userInfo.recruiter
                                                 .jobTitle ? (
-                                                <li className="jobTitle">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .jobTitle
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="jobTitle"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 이메일</strong>
                                               {user.data.userInfo.recruiter
                                                 .bEmail ? (
-                                                <li className="bEmail">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .bEmail
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bEmail"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 전화번호</strong>
                                               {user.data.userInfo.recruiter
                                                 .phoneNum ? (
-                                                <li className="phoneNum">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .phoneNum
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="phoneNum"></li>
+                                                <li className="email"></li>
                                               )}
                                               <strong>회사 주소</strong>
                                               {user.data.userInfo.recruiter
                                                 .bAddress.city ? (
-                                                <li className="bAddress">
+                                                <li className="email">
                                                   {
                                                     user.data.userInfo.recruiter
                                                       .bAddress.city
@@ -1040,7 +1054,7 @@ const Mypage = () => {
                                                   }
                                                 </li>
                                               ) : (
-                                                <li className="bAddress"></li>
+                                                <li className="email"></li>
                                               )}
                                             </>
                                           )}
