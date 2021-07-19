@@ -81,6 +81,13 @@ const Intropage = () => {
   };
 
   const mobileNamecardSettings = {
+
+    // dots: true,
+    // infinite: true,
+    // speed: 500,
+    // slidesToShow: 1,
+    // slidesToScroll: 1
+    
     className: "center",
     centerMode: true,
     dots: true,
@@ -88,7 +95,7 @@ const Intropage = () => {
     speed: 2500,
     autoplaySpeed: 3500,
     pauseOnHover: false,
-    // autoplay: true,
+    autoplay: true,
     draggable: true,
     slidesToShow: 1,
     slidesToScroll: 1,
@@ -308,14 +315,14 @@ const Intropage = () => {
           </div>
 
           <div className="blockPosition"></div>
-          <div className="blockPositionDivide"></div>
+          {/* <div className="blockPositionDivide"></div> */}
 
           <div data-trigger className="startContentsTitle" >
             그렇다면 어떠한 고객이 사용하면 좋을까?
           </div>
 
           <div className="blockPosition"></div>
-          <div className="blockPositionDivide"></div>
+          {/* <div className="blockPositionDivide"></div> */}
 
           <div data-trigger className="startContentsTitle" >
             답은 
@@ -763,9 +770,9 @@ const Intropage = () => {
           <div className="blockPosition"></div>
             
           <div data-trigger className="introLastContents">
-            <div className="lastContentsTitle">
+            <div className="lastContentsTitleDD">
               <div className="lastContentsTitlePosition" >
-              다음 2022년 시상식의 주인공은 바로 여러분입니다!  <br />  <br /><br />  <br /> <br />Actorz에서 여러분의 미래를 시작하세요.
+               다음 2022년 시상식의 주인공은 바로 여러분입니다!  <br />  <br /><br />  <br /> <br />Actorz에서 여러분의 미래를 시작하세요.
               </div>
               <br/>
               <div className="button2PositionResponsive">
@@ -1401,7 +1408,7 @@ const Intropage = () => {
           <div data-trigger className="introLastContents">
             <div className="lastContentsTitleT">
               <div className="lastContentsTitlePosition" >
-              다음 2022년 시상식의 주인공은 바로 여러분입니다!  <br />  <br /><br />  <br /> <br />Actorz에서 여러분의 미래를 시작하세요.
+                다음 2022년 시상식의 주인공은 바로 여러분입니다!  <br />  <br /><br />  <br /> <br />Actorz에서 여러분의 미래를 시작하세요.
               </div>
               <br/>
               <div className="button2PositionResponsive">
@@ -1532,8 +1539,6 @@ const Intropage = () => {
                 <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div> 
-
-                <br/><br/><br/> 
 
                 <div className="scrollIMGPositionM">
                   <img alt="" className="scrollIMG" src="https://media.vlpt.us/images/iooi75/post/29cab61f-6111-4348-8e65-049fa80dbeeb/scroll_down.png"/>
@@ -1715,7 +1720,7 @@ const Intropage = () => {
           <div className="blockPosition"></div>
 
           <div data-trigger className="startContentsTitleM" >
-            <img className="mainActorPic" src="https://media.vlpt.us/images/iooi75/post/ebbbb9d9-784d-4210-b961-2f1d833423b5/Screen%20Shot%202021-07-17%20at%202.16.19%20AM.png" alt="" />
+            <img className="mainActorPicM" src="https://media.vlpt.us/images/iooi75/post/ebbbb9d9-784d-4210-b961-2f1d833423b5/Screen%20Shot%202021-07-17%20at%202.16.19%20AM.png" alt="" />
             
           <div className="blockPositionDivide"></div>
           <div data-trigger className="contentsPositionWhereStrong"> 배우 </div>
@@ -2045,7 +2050,7 @@ const Intropage = () => {
           <div className="blockPositionDivide"></div>
 
           <div className="gifContents" data-trigger>
-            <img src="https://media.vlpt.us/images/iooi75/post/566f2ed8-e8ff-4a59-b33f-4afc2a23fd79/Screen%20Shot%202021-07-16%20at%2010.39.54%20PM.png" alt="" />
+            <img className="pictureReposition" src="https://media.vlpt.us/images/iooi75/post/566f2ed8-e8ff-4a59-b33f-4afc2a23fd79/Screen%20Shot%202021-07-16%20at%2010.39.54%20PM.png" alt="" />
           </div>
 
           <div className="blockPositionDivide"></div>
@@ -2058,9 +2063,10 @@ const Intropage = () => {
           <div className="blockPositionDivide"></div>
           <div className="blockPositionDivide"></div>
 
+          
           <div className="device1M"> 
             <div data-trigger>
-              <img alt="" className="iphonePicM" src="https://media.vlpt.us/images/iooi75/post/f7b1069c-b36c-41a8-9bd7-725fbb01940d/iphone-1845808_1280.png" />
+              {/* <img alt="" className="iphonePicM" src="https://media.vlpt.us/images/iooi75/post/f7b1069c-b36c-41a8-9bd7-725fbb01940d/iphone-1845808_1280.png" /> */}
               
               <img alt="" className="iphoneGifM" src ={iphoneG} />
             </div>
@@ -2071,7 +2077,7 @@ const Intropage = () => {
 
           <div className="device2T">
             <div data-trigger>
-              <img alt="" className="ipadPicM" src="https://media.vlpt.us/images/iooi75/post/11d9594f-fd05-4245-a804-9c78addaab02/image.png" />
+              {/* <img alt="" className="ipadPicM" src="https://media.vlpt.us/images/iooi75/post/f656e516-00ee-4d13-8df1-83daf1a79b64/image-removebg-preview.png" /> */}
               <img alt="" className="ipadGifM" src ={ipadG} />
             </div>
           </div>
@@ -2093,7 +2099,25 @@ const Intropage = () => {
 
           <div data-trigger>
           <Slider {...mobileNamecardSettings} className="cardlistGroupM" >
-              <div className="cardUI">
+              <div className="cardUIM">
+                <Card
+                  image='https://media.vlpt.us/images/iooi75/post/9ad5085d-4265-4d91-bdb7-bda8561a6ed2/60497_30779_2227.jpeg'
+                  header='신혜선'
+                  meta='배우'
+                  description='안녕하세요 🤗  배우 신혜선입니다. 요즘 핫한 이 어플 저도 뒤늦게 시작했는데, 간단하게 작성만하면 출연 제의 연락이 오니까 너무너무 편한 것 같아요!'
+                  extra={extraHeart2}
+                />
+              </div>
+              <div className="cardUIM">
+                <Card
+                  image='https://media.vlpt.us/images/iooi75/post/c65e0d90-4b8b-471f-8306-5b6dd7b754ba/image.png'
+                  header='송강'
+                  meta='배우'
+                  description='요즘 신인배우 사이에서 인기있는 앱! 코로나 때문에 모두가 힘든 시기이지만 모두 좋은 결과 있기를 바랄게요!   🥰 스위트 홈도 많이 사랑해주세요! ㅋㅋㅋㅋ'
+                  extra={extraHeart4}
+                />
+              </div>
+              <div className="cardUIM">
                 <Card
                   className="profileCardList"
                   image='https://media.vlpt.us/images/iooi75/post/4b3c6e85-002a-400b-aeb6-03e8ab10556f/Screen%20Shot%202021-07-15%20at%206.37.56%20AM.png'
@@ -2103,16 +2127,7 @@ const Intropage = () => {
                   extra={extraHeart}
                 />
               </div>
-              <div className="cardUI">
-                <Card
-                  image='https://media.vlpt.us/images/iooi75/post/9ad5085d-4265-4d91-bdb7-bda8561a6ed2/60497_30779_2227.jpeg'
-                  header='신혜선'
-                  meta='배우'
-                  description='안녕하세요 🤗  배우 신혜선입니다. 요즘 핫한 이 어플 저도 뒤늦게 시작했는데, 간단하게 작성만하면 출연 제의 연락이 오니까 너무너무 편한 것 같아요!'
-                  extra={extraHeart2}
-                />
-              </div>
-              <div className="cardUI">
+              <div className="cardUIM">
                 <Card
                   image='https://cdnweb01.wikitree.co.kr/webdata/editor/202009/23/img_20200923081643_5ab21941.webp'
                   header='민효린'
@@ -2121,16 +2136,7 @@ const Intropage = () => {
                   extra={extraHeart3}
                 />
               </div>
-              <div className="cardUI">
-                <Card
-                  image='https://media.vlpt.us/images/iooi75/post/c65e0d90-4b8b-471f-8306-5b6dd7b754ba/image.png'
-                  header='송강'
-                  meta='배우'
-                  description='요즘 신인배우 사이에서 인기있는 앱! 코로나 때문에 모두가 힘든 시기이지만 모두 좋은 결과 있기를 바랄게요!   🥰 스위트 홈도 많이 사랑해주세요! ㅋㅋㅋㅋ'
-                  extra={extraHeart4}
-                />
-              </div>
-              <div className="cardUI">
+              <div className="cardUIM">
                 <Card
                   image='https://media.vlpt.us/images/iooi75/post/d1283901-7551-4f9d-96cc-ceafd12194ba/image.png'
                   header='봉준호'
@@ -2139,7 +2145,7 @@ const Intropage = () => {
                   extra={extraHeart5}
                 />
               </div>
-              <div className="cardUI">
+              <div className="cardUIM">
                 <Card
                   image='https://media.vlpt.us/images/iooi75/post/1ab14050-1a26-49e0-b195-3696ab89d6e1/image.png'
                   header='오연서'
@@ -2164,23 +2170,22 @@ const Intropage = () => {
             </Link>
           </div> */}
         
-
+        <div data-trigger className="introLastContents">
+          <div className="lastContentsTitleM">
+            <div className="lastContext" >
+              다음 2022년 시상식의 주인공은 바로 여러분입니다!  <br />  <br /><br />  <br /> <br />Actorz에서 여러분의 미래를 시작하세요.
+            </div>
+            <br/>
+            <div className="button2PositionResponsive">
+              <Link to="/mainpage">
+                <button className="startButton2T">시작하기</button>
+              </Link>
+            </div>
+          </div>
         
-        <div className="lastContents"> 
-          <div data-trigger className="lastContext">
-            다음 2022년 시상식의 주인공은 바로 여러분입니다!
-          </div>
-          <div data-trigger className="lastContext">
-            Acotrz는 여러분의 꿈을 도와 드리겠습니다.
-          </div>
-          </div>
-
-        <div className="button2Position">
-          <Link to="/mainpage">
-            <Button type="primary" className="startButton2" danger>시작하기</Button>
-          </Link>
+          <img className="introLastContents2" alt="" src="https://media.vlpt.us/images/iooi75/post/f682088c-ca53-4303-b9d0-e7b13bfa06f4/3_2.png" />
         </div>
-        <br></br><br></br><br></br><br></br>
+        <GotoTopTablet />
       </>}  
     </>
   )
