@@ -282,11 +282,11 @@ export const PreviewContainer2 = styled.section`
   }
 
   @media only screen and (max-width: 750px) {
-    width: 25%;
+    width: 100%;
   }
 
   @media only screen and (max-width: 500px) {
-    width: 50%;
+    width: 100%;
   }
 
   @media only screen and (max-width: 400px) {

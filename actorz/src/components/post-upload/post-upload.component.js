@@ -69,6 +69,8 @@ const Postupload = ({
       <FileUploadContainer>
         <DragDropText>
           게시물에 추가하고 싶은 사진이 있으면 클릭해주세요!
+          <br></br>
+          <span>Click Here!</span>
         </DragDropText>
         {/* <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
           <i className="fas fa-file-upload" />
@@ -84,7 +86,7 @@ const Postupload = ({
         />
         <FilePreviewContainer>
           {/* <span>To Upload</span> */}
-          <PreviewList>
+          <PreviewList className="post-edit-preview-container-mobile">
             {Object.keys(files).map((fileName, index) => {
               let file = files[fileName];
               let isImageFile = file.type.split("/")[0] === "image";
