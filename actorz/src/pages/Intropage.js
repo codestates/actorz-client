@@ -81,7 +81,7 @@ const Intropage = () => {
   };
 
   const mobileNamecardSettings = {
-
+    // hello
     // dots: true,
     // infinite: true,
     // speed: 500,
@@ -680,7 +680,7 @@ const Intropage = () => {
             </div>
           </div>
 
-
+          <div className="blockPositionDivide"></div>
           <div className="blockPositionDivide"></div>
 
           <div data-trigger className="startContentsTitle" >
