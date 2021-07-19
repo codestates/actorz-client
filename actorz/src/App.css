@@ -21,15 +21,37 @@ body {
   color: white;
 }
 
-.setOrder {
-  display: flex;
+.mainContentsEffectP {
+  width: 100%;
+  height: 120rem;
 }
 
+.setOrder {
+  display: flex;
+  overflow: visible;
+}
+
+.setPhotoA {
+
+}
+
+
+.mobileCommentsCenterPosition {
+  display: flex;
+  
+}
+
+.mobileCommentsBlockLeft {
+  flex: 1;
+}
+
+.mobileCommentsBlockRight {
+  flex: 1;
+}
 
 .freeGroup {
   position: relative;
   margin-top: -0.5rem;
-  /* height: 100%; */
   background-color: rgb(0, 0, 0);
 }
 
@@ -38,13 +60,13 @@ body {
 }
 
 .cardlistGroupM {
-  position: relative; 
+  /* position: relative; 
   width: 95vw;
-  color: black;
+  color: black; */
 }
 
 .slick-track {
-  height: 50rem ;
+  height: 55rem ;
 }
 
 .set1,
@@ -52,10 +74,10 @@ body {
 .set3,
 .set4,
 .set5 {
+  /* overflow: hidden; */
   padding: 0.5rem;
   margin: 0;
   width: 100%;
-  height: auto; 
   opacity: 0.25;
   background-color: rgb(0, 0, 0);
 
@@ -67,8 +89,8 @@ body {
 .set3 .img,
 .set4 .img,
 .set5 .img{
-  /* object-fit: cover;
-  position: absolute; top:0; left: 0; */
+  object-fit: cover;
+  /* position: absolute; top:0; left: 0; */
   background-color: rgb(0, 0, 0);
 }
 
@@ -156,21 +178,22 @@ body {
   margin-right: 3rem;
 }
 
+
 .cardUIM {
   position: relative;
   margin-top: 5rem;
-  /* object-fit: cover; */
-  margin-bottom: 1rem;
-  margin-left: 5rem;
-  /* margin-right: 13rem; */
+  margin-left: 3.1rem;
   transition: 0.5s;
 }
 
+
+
 .cardUIM:hover {
-  transform: scale(1.2);
+  transform: scale(1.1);
   transition: 0.5s;
   z-index: 9999;
-}
+} 
+
 
 
 
@@ -620,7 +643,7 @@ body {
 .gotoTopBtnPositionM {
   position: fixed;
   top: 83%;
-  left: 79%;
+  left: 72%;
   z-index: 9999;
 }
 
@@ -660,10 +683,10 @@ body {
 }
 
 .gotoTopBtnM {
-  width: 4rem;
-  height: 4rem;
+  width: 3.3rem;
+  height: 3.3rem;
   border-radius: 70%;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: rgb(0, 0, 0);
   background-color: rgb(151, 190, 241);
   transition: 0.6s;
@@ -676,7 +699,10 @@ body {
   transform: scale(1.1);
 }
 
-
+/* .gotoTopBtnM:hover:after {
+  background-color: rgb(151, 190, 241);
+  transition: 0.6s;
+} */
 
 .noEffectAtag {
   text-decoration: none;
@@ -685,6 +711,13 @@ body {
 
 .gifContents {
   flex: 1;
+  text-align: center;
+}
+
+.gifContentsM {
+  width: 100%;
+  display: flex;
+  justify-content: center;
   text-align: center;
 }
 
@@ -857,6 +890,7 @@ body {
   z-index: 1;
   width: 100%;
   margin-top: -2rem;
+  padding-bottom: 2rem;
 }
 
 .startContentsTitleTT {
@@ -907,7 +941,10 @@ body {
   width: 30rem;
   margin-left: 14rem;
   margin-top: 2.5rem;
+}
 
+.device2M {
+  width: 100%;
 }
 
 .iphonePic {
@@ -935,6 +972,7 @@ body {
   height: 52rem;
 }
 
+
 .ipadPicM {
   /* position: absolute; */
   /* object-fit: cover; */
@@ -954,7 +992,9 @@ body {
 
 
 .device1M {
-  /* width: 100vw; */
+  width: 100vw;
+  display: flex;
+  justify-content: center;
   text-align: center;
 }
 
@@ -976,13 +1016,23 @@ body {
   border: solid 4px black;
 }
 
-.ipadGifT {
-  width: 37rem;
-  height: 40rem;
-  margin-left: -1rem;
-  margin-top: 5rem;
+.ipadPicT {
+  position: absolute;
+  width: 50rem;
+  height: 50rem;
+  margin-left: -13rem;
 }
 
+.ipadGifT {
+  width: 29rem;
+  height: 38rem;
+  margin-left: -2.5rem;
+  margin-top: 7rem;
+
+}
+
+
+/**/
 .ipadGif {
   width: 37rem;
   height: 40rem;
@@ -991,9 +1041,9 @@ body {
 }
 
 .ipadGifM {
-  width: 25rem;
+  width: 100%;
+  /* width: 22rem; */
   /* height: 40rem; */
-  /* margin-left: 2rem; */
   margin-top: 5rem;
   border: 6px solid black;
 }
@@ -1038,7 +1088,7 @@ body {
   text-align: center;
   z-index: 1;
   width: 100%;
-  margin-top: 15rem;
+  margin-top: 2rem;
 }
 
 .scrollIMGPositionM {
@@ -1076,6 +1126,7 @@ body {
 }
 
 .mobileCommentsPosition {
+  flex: 2;
   width:100%;
   display: flex;
   flex-direction: column;
@@ -1144,6 +1195,7 @@ body {
 
 .pictureReposition {
   width: 100vw;
+  /* object-fit: cover; */
 }
 
 .pictureRepositionM {

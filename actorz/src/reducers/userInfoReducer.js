@@ -33,9 +33,7 @@ const userInfoReducer = (state = userInfoInitState, action) => {
 
     case REMOVE_USER_CAREER:
       const filteredCareer = Object.assign({}, state.data.userInfo, {
-        careers: state.data.userInfo.careers.filter(
-          (el) => el._id !== action.payload.itemId
-        ),
+        careers: [...state.data.userInfo.careers.slice(0, action.payload.itemId), ...state.data.userInfo.careers.slice(action.payload.itemId + 1)],
       });
       return { 
         data: { userInfo: filteredCareer },

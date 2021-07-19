@@ -38,6 +38,7 @@ import {
   editUserInfo,
   addUserCareer,
   removeUserCareer,
+  getUserInfo,
 } from "../actions/userAction";
 import {
   RemoveFileIcon,
@@ -112,6 +113,26 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     };
     p();
   }, [post, clickLike]);
+
+  // const handleAddUserCareer = () => {
+  //   if (title.title && year.year && tag) {
+  //     setUserCareer([...userCareer, {
+  //       year: year.year,
+  //       title: title.title,
+  //       type: tag
+  //     }]);
+
+  //   }else{
+  //     Modal.warning({
+  //       content: "모든 항목을 기입 후 추가하시기 바랍니다. 상단의 저장 아이콘을 눌러야 최종 저장됩니다."
+  //     })
+  //   }
+  // }
+
+  // const handleDeleteUserCareer = (id) => {
+  //   setUserCareer(userCareer.splice(id,1));
+  //   console.log(userCareer);
+  // }
 
   const handleAddressComplete = (data) => {
     let fullAddress = data.address;
@@ -251,11 +272,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       });
     }
   };
-
   const handleDeleteBtn = (id) => {
     dispatch(removeUserCareer(id));
   };
-
   const handleDeleteAccount = async () => {
     await server
       .get(`/user/${localStorage.getItem("id")}/delete`, {
@@ -309,13 +328,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     if (user.data.userInfo.role === "recruiter") {
       newUserInfo.recruiter = recruiter;
     }
-
-    dispatch(
-      editUserInfo({
-        ...newUserInfo,
-        dob,
-      })
-    );
+    // dispatch(
+    //   editUserInfo({
+    //     ...newUserInfo,
+    //     dob,
+    //   })
+    // );
     await server
       .post(`/user/${newUserInfo.id}/update`, newUserInfo, {
         headers: {
@@ -323,13 +341,29 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         },
       })
       .then((res) => {
-        Modal.success({
-          content: "회원정보가 성공적으로 변경되었습니다",
-        });
+        if(res.status === 200){
+          console.log(user.data.userInfo.careers)
+          dispatch(
+            editUserInfo({
+              ...res.data.data.userInfo,
+              dob: dob.toString().split("T")[0]
+            })
+          );
+  
+          Modal.success({
+            content: "회원정보가 성공적으로 변경되었습니다",
+          });
+        }else{
+          Modal.error({
+            content: "불투명한 원인으로 회원정보가 변경되지 않았습니다. 다시 시도하시기 바랍니다.",
+          });
+        }
       })
       .catch((err) => {
         throw err;
       });
+
+    
   };
 
   const handleprofileButton = async (event) => {
@@ -378,14 +412,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     if (user.data.userInfo.role === "actor") {
       newUserInfo.recruiter = recruiter;
     }
-
     dispatch(
       editUserInfo({
         ...newUserInfo,
         dob,
       })
     );
-
     await server
       .post(`/user/${newUserInfo.id}/update`, newUserInfo, {
         headers: {
@@ -397,12 +429,10 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         throw err;
       });
   };
-
   const handleClickConfirmBtn = () => {
     if (title.title !== undefined && year.year !== undefined) {
       dispatch(
         addUserCareer({
-          id: null,
           title: title.title,
           year: year.year,
           type: tag,
@@ -410,7 +440,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       );
     }
   };
-
   const handleClickDeleteBtn = async (post_id) => {
     await server
       .post(
@@ -423,8 +452,20 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         }
       )
       .then((res) => {
-        if (res.status === 200) {
-          dispatch(removePost(post_id));
+        if(res.statusCode === 200){
+          console.log(res.data.userInfo)
+          dispatch(
+            editUserInfo({
+              ...res.data.userInfo
+            })
+          );
+          Modal.success({
+            content: "포스트가 성공적으로 삭제되었습니다",
+          });
+        }else{
+          Modal.error({
+            content: "포스트 삭제에 실패했습니다. 다시 시도해주세요.",
+          });
         }
       })
       .catch((err) => {
@@ -666,7 +707,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                             )}
                             <div className="passwordModifyButton">
                               {
-                                user.provider === "local" ? (
+                                user.data.userInfo.provider === "local" ? (
                                 <Button
                                   variant="outlined"
                                   className="passwordModifyBtn"
@@ -676,6 +717,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                 </Button>
                                 ) : null
                               }
+                              
                               <Modal
                                 title="비밀번호 변경"
                                 visible={isModalVisible}
@@ -810,7 +852,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                           {...restField}
                                           name={[name, "tag"]}
                                           fieldKey={[fieldKey, "tag"]}
-                                          rules={[{ required: false }]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message: "연도를 입력해야합니다",
+                                            },
+                                          ]}
                                         >
                                           <Select
                                             style={{ width: 110 }}
@@ -870,16 +917,16 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   initInputBox();
                                 }}
                               >
-                                저장하기
+                                추가하기
                               </Button>
                             </Form.Item>
                           </Form>
 
                           <span className="career-box">
-                            {user.data.userInfo.careers.map((career) => {
+                            {user.data.userInfo.careers.map((career, idx) => {
                               return (
                                 <>
-                                  <li className="career-li">
+                                  <li className="career-li" key={idx}>
                                     <div className="careerDivide">
                                       <div className="career-title">
                                         제목:{career.title}
@@ -891,7 +938,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                       <CloseOutlined
                                         className="career-delete-btn"
                                         onClick={() => {
-                                          handleDeleteBtn(career._id);
+                                          handleDeleteBtn(idx);
                                         }}
                                       />
                                     </div>
@@ -1172,7 +1219,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                             )}
                             <div className="passwordModifyButton">
                               {
-                                user.provider === "local" ? (
+                                user.data.userInfo.provider === "local" ? (
                                 <Button
                                   variant="outlined"
                                   className="passwordModifyBtn"
@@ -1308,7 +1355,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                           {...restField}
                                           name={[name, "tag"]}
                                           fieldKey={[fieldKey, "tag"]}
-                                          rules={[{ required: false }]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message: "연도를 입력해야합니다",
+                                            },
+                                          ]}
                                         >
                                           <Select
                                             style={{ width: 110 }}
@@ -1367,16 +1419,16 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   initInputBox();
                                 }}
                               >
-                                저장하기
+                                추가하기
                               </Button>
                             </Form.Item>
                           </Form>
 
                           <span className="career-box">
-                            {user.data.userInfo.careers.map((career) => {
+                            {user.data.userInfo.careers.map((career, idx) => {
                               return (
                                 <>
-                                  <li className="career-li">
+                                  <li className="career-li" key={idx}>
                                     <div className="careerDivide">
                                       <div className="career-title">
                                         제목:{career.title}
@@ -1388,7 +1440,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                       <CloseOutlined
                                         className="career-delete-btn"
                                         onClick={() => {
-                                          handleDeleteBtn(career._id);
+                                          handleDeleteBtn(idx);
                                         }}
                                       />
                                     </div>
@@ -1665,7 +1717,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                             )}
                             <div className="passwordModifyButton">
                               {
-                                user.provider === "local" ? (
+                                user.data.userInfo.provider === "local" ? (
                                 <Button
                                   variant="outlined"
                                   className="passwordModifyBtn"
@@ -1801,7 +1853,12 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                           {...restField}
                                           name={[name, "tag"]}
                                           fieldKey={[fieldKey, "tag"]}
-                                          rules={[{ required: false }]}
+                                          rules={[
+                                            {
+                                              required: true,
+                                              message: "연도를 입력해야합니다",
+                                            },
+                                          ]}
                                         >
                                           <Select
                                             style={{ width: 110 }}
@@ -1861,15 +1918,15 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                   initInputBox();
                                 }}
                               >
-                                저장하기
+                                추가하기
                               </Button>
                             </Form.Item>
                           </Form>
                           <span className="career-box">
-                            {user.data.userInfo.careers.map((career) => {
+                            {user.data.userInfo.careers.map((career, idx) => {
                               return (
                                 <>
-                                  <li className="career-li">
+                                  <li className="career-li" key={idx}>
                                     <div className="careerDivide5">
                                       <div className="career-title2">
                                         제목: &nbsp; {career.title}
