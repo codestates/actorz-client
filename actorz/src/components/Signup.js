@@ -89,8 +89,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       ) {
           if(!isValidEmail(email)){
             Modal.warning({
+              maskClosable: true,
+              mask: true,
               maskStyle: {width: "200%", height: "200%"},
-              style: {maxWidth: "20rem",top: "4rem",},
+              style: {maxWidth: "20rem",top: "35%",},
               content: (
               <>
                 <div style={{textAlign: "left"}}>
@@ -101,7 +103,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                 </div>
               </>
               ),
-              getContainer: document.getElementsByClassName("modal-get-container")[0],
+              getContainer: "#modal-container",
             });
             setLoading(false);
             setButtonDisable(false);
@@ -109,8 +111,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
           }else if(password.length < 9 || password.length > 20){
             setLoading(false);
             Modal.warning({
+              maskClosable: true,
+              mask: true,
               maskStyle: {width: "200%", height: "200%"},
-              style: {maxWidth: "20rem", top: "4rem",},
+              style: {maxWidth: "20rem", top: "35%",},
               content: (
               <>
                 <div style={{textAlign: "left"}}>
@@ -121,7 +125,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                 </div>
               </>
               ),
-              getContainer: document.getElementsByClassName("modal-get-container")[0],
+              getContainer: "#modal-container",
             });
             setButtonDisable(false);
             setLoading(false);
@@ -182,8 +186,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       setLoading(false);
       if (err.message === "Request failed with status code 409") {
         Modal.warning({
+          maskClosable: true,
+          mask: true,
           maskStyle: {width: "200%", height: "200%"},
-          style: {maxWidth: "20rem", top: "4rem",},
+          style: {maxWidth: "20rem", top: "35%",},
           content: (
           <>
             <div style={{textAlign: "left"}}>
@@ -194,13 +200,15 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
             </div>
           </>
           ),
-          getContainer: document.getElementsByClassName("modal-get-container")[0],
+          getContainer: "#modal-container",
         });
         //alert("이미 존재하는 이메일입니다 \n 다른 계정으로 시도해주세요");
       } else {
         Modal.warning({
+          maskClosable: true,
+          mask: true,
           maskStyle: {width: "200%", height: "200%"},
-          style: {maxWidth: "20rem", top: "4rem",},
+          style: {maxWidth: "20rem", top: "35%",},
           content: (
           <>
             <div style={{textAlign: "left"}}>
@@ -211,7 +219,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
             </div>
           </>
           ),
-          getContainer: document.getElementsByClassName("modal-get-container")[0],
+          getContainer: "#modal-container",
         });
         //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
@@ -247,10 +255,13 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       ) {
           if(!isValidEmail(email)){
             Modal.warning({
+              maskClosable: true,
+              mask: true,
+              className: "modal-warning-signup-position",
               maskStyle: {width: "200%", height: "200%"},
               style: {
+                top: "35%",
                 maxWidth: "20rem",
-                top: "4rem",
               },
               content: (
               <>
@@ -262,16 +273,20 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                 </div>
               </>
               ),
-              getContainer: document.getElementsByClassName("modal-get-container")[0],
+              getContainer: "#modal-container",
             });
             setLoading(false);
             setButtonDisable(false);
             return;
           }else if(password.length < 9 || password.length > 20){
+            <Modal className></Modal>
             setLoading(false);
             Modal.warning({
+              maskClosable: true,
+              mask: true,
+              className: "modal-warning-signup-position",
               maskStyle: {width: "200%", height: "200%"},
-              style: {maxWidth: "20rem", top: "3rem",},
+              style: {maxWidth: "20rem", top: "35%",},
               content: (
               <>
                 <div style={{textAlign: "left"}}>
@@ -282,7 +297,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
                 </div>
               </>
               ),
-              getContainer: document.getElementsByClassName("modal-get-container")[0],
+              getContainer: "#modal-container",
             });
             setLoading(false);
             setButtonDisable(false);
@@ -352,8 +367,10 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
       setButtonDisable(false);
       setLoading(false);
       Modal.warning({
+        maskClosable: true,
+        mask: true,
         maskStyle: {width: "200%", height: "200%"},
-        style: {maxWidth: "20rem", top: "3rem",},
+        style: {maxWidth: "20rem", top: "35%",},
         content: (
         <>
           <div style={{textAlign: "left"}}>
@@ -364,7 +381,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
           </div>
         </>
         ),
-        getContainer: document.getElementsByClassName("modal-get-container")[0],
+        getContainer: "#modal-container",
       });
       //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
     }

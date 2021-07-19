@@ -1,0 +1,254 @@
+#email-modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: 0.5s linear;
+}
+
+#email-modal-container {
+  /* overflow-y: auto; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  top: 50%;
+  left: 50%;
+  width: 35rem;
+  height: fit-content;
+  max-height: 95%;
+  max-width: 80%;
+  position: absolute;
+  background-color: white;
+  border: none;
+  padding: 1rem;
+}
+
+#email-container {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  padding: 1rem 1rem 2rem 1rem;
+}
+
+#email-modal-header {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+  margin: 0.3rem;
+  padding-top: 1rem;
+}
+
+#email-modal-header-content {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: dotted lightgray 1px;
+  border-radius: 70%;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0rem 0 0;
+}
+
+.email-close {
+  transform: scale(1.5);
+}
+
+.email-modal-title {
+  font-family: cursive;
+  font-size: 1.8rem;
+  margin: 0.8rem 0 1.2rem 0;
+}
+
+.email-welcome-message {
+  margin-bottom: 3rem;
+  font-size: 1rem;
+}
+
+.email-modal-row-content {
+  display: flex;
+  flex-direction: row;
+  width: 85%;
+  margin: 0.1rem 2rem 0.5rem 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.email-modal-row-label {
+  font-size: 1rem;
+  flex: 3;
+  width: 100%;
+  margin-right: 1rem;
+  text-align: right;
+}
+
+.email-modal-row-value {
+  font-size: 1rem;
+  flex: 7;
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.email-modal-row-value-long {
+  padding-left: 0.4rem;
+  width: 75%;
+}
+
+.email-modal-row-value-short {
+  padding-left: 0.4rem;
+  margin-bottom: 0.5rem;
+  max-width: 7rem;
+}
+
+.email-form-radio {
+  margin: 0.2rem 0 0 0.6rem;
+}
+
+.email-form-radio-input{
+  background-color: rgb(236, 248, 255);
+  border-bottom: dotted lightgray 1px;
+}
+
+.email-form-address-preview {
+  margin: 0 0 0 0.8rem;
+}
+
+.email-form-change-address {
+  background-color: white;
+  border: lightgray 1px solid;
+  height: 1.5rem;
+  padding: 0 0.5rem 0 0.5rem;
+  margin: 0.5rem 0.8rem 0.5rem 0;
+}
+
+.email-send-btn {
+  background-color: white;
+  border: lightgray 1px solid;
+  width: 9.5rem;
+  padding: 0.8rem 0.5rem 0.8rem 0.5rem;
+  margin: 0.5rem 0.8rem 1rem 0;
+}
+
+.email-send-btn-position {
+  width: 100%;
+  margin: 2rem 0 0rem 0;
+  /* display: flex;
+  flex-direction: row-reverse; */
+}
+
+.email-form-textArea {
+  margin: 0.8rem 0 0 0.5rem;
+  width: 14rem;
+}
+
+.email-err-message {
+  padding-right: 0.5rem;
+  color: red;
+  padding-bottom: 1.5rem;
+}
+
+/* MOBILE */
+#email-modal-container-mobile {
+  overflow-y: auto;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  z-index: 10000;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+  background-color: white;
+  border: none;
+  padding: 3rem 0 0rem 0;
+}
+
+#email-modal-container-mobile::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
+#email-container-mobile {
+  position: relative;
+  padding-top: 4rem;
+  padding-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: fit-content;
+}
+
+ #email-modal-header-content-mobile {
+  display: flex;
+  width: 2.5rem;
+  height: 2.5rem;
+  border: dotted lightgray 1px;
+  border-radius: 70%;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0.5rem 0 0;
+}
+.email-mobile-vertical-align {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 90%
+}
+.email-welcome-message-mobile {
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem 0;
+}
+
+.email-form-label-mobile {
+  align-items: center;
+  text-align: center;
+  font-size: 0.9rem;
+  width: 95%;
+}
+
+.email-form-value-mobile {
+  font-size: 1rem;
+  align-items: center;
+  text-align: center;
+  width: 95%;
+  margin: 0.5rem 0 0.5rem 0;
+  background-color: rgb(236, 248, 255);
+  border-bottom: lightgray dotted 1px;
+}
+
+.email-form-value-mobile-short {
+  width: 33%;
+}
+
+.email-form-value-mobile-medium {
+  width: 57%;
+}
+
+.email-form-textArea-mobile {
+  margin: 1.5rem 0 1.5rem 0rem;
+  width: 95%;
+}
+
+.email-send-btn-mobile {
+  margin-top: 0.4rem;
+}

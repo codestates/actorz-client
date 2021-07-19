@@ -2,35 +2,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { editPostInfo, removePostPhoto } from "../actions/postAction";
+import { removePostPhoto } from "../actions/postAction";
 import Nav from "../components/Nav";
 import Postupload from "../components/post-upload/post-upload.component";
 import server from "../apis/server";
-import profile from "../images/profile.png";
-import love from "../images/thumb-up.png";
-import email from "../images/email.png";
-import heart from "../images/heart.png";
-import { Link } from "react-router-dom";
 import { CloseOutlined } from "@ant-design/icons";
 import Loading from "../components/loading";
-import { Input, Col, Row, Select } from "antd";
-
-import { Icon, Card } from "semantic-ui-react";
+import { Select, Modal } from "antd";
+import { Icon, Card, Dropdown } from "semantic-ui-react";
 
 import "../styles/PostEdit.css";
 import { useMediaQuery } from "react-responsive";
 import {
-  RemoveFileIcon,
-  RemoveFileIcon2,
   RemoveFileIcon3,
-  FileMetaData,
   FileMetaData2,
-  PreviewContainer,
   PreviewContainer2,
 } from "../components/file-upload/file-upload.styles";
 const { Option } = Select;
 
-const PostEdit = ({ closePost, userPostinfo, handleClickEditBtn }) => {
+const PostEdit = ({
+  handleClickDeleteButton,
+  closePost,
+  userPostinfo,
+  handleClickEditBtn,
+}) => {
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
   const [desc, setDesc] = useState("");
@@ -38,7 +33,6 @@ const PostEdit = ({ closePost, userPostinfo, handleClickEditBtn }) => {
   const [postinfo, setPostinfo] = useState(userPostinfo);
   const [genre, setGenre] = useState(postinfo.genre);
   const dispatch = useDispatch();
-  //console.log(postinfo);
 
   const isPcOrTablet = useMediaQuery({
     query: "(min-width:768px)",
@@ -74,14 +68,6 @@ const PostEdit = ({ closePost, userPostinfo, handleClickEditBtn }) => {
     }
   };
   const handleClickSaveBtn = async () => {
-    dispatch(
-      editPostInfo({
-        ...postinfo,
-        content: desc.desc,
-        media: newfile,
-      })
-    );
-
     await server
       .post(
         `/post/${postinfo._id}/update`,
@@ -110,42 +96,52 @@ const PostEdit = ({ closePost, userPostinfo, handleClickEditBtn }) => {
 
   const updateUploadedFiles = async (files) => {
     console.log(files);
-    await server
-      .get(`/upload`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        },
-      })
-      .then((res) => {
-        if (res.status === 201) {
-          s3Url = res.data.data;
-        }
-      })
-      .catch((err) => {
-        throw err;
-      });
-    let fileData = files[0];
+    //newfile이랑 files랑 비교해서
+    if (files.length !== 0) {
+      await server
+        .get(`/upload`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        })
+        .then((res) => {
+          if (res.status === 201) {
+            s3Url = res.data.data;
+          }
+        })
+        .catch((err) => {
+          throw err;
+        });
+      let fileData = files[files.length - 1];
 
-    await axios
-      .put(s3Url, fileData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-      .then((res) => {
-        result = res.config.url.split("?")[0];
-      })
-      .catch((err) => {
-        throw err;
-      });
-    var fileExt = files[0].name.substring(files[0].name.lastIndexOf(".") + 1);
+      await axios
+        .put(s3Url, fileData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((res) => {
+          result = res.config.url.split("?")[0];
+        })
+        .catch((err) => {
+          throw err;
+        });
+      var fileExt = files[files.length - 1].name.substring(
+        files[files.length - 1].name.lastIndexOf(".") + 1
+      );
 
-    if (fileExt === "mp4") {
-      setNewFile([...newfile, { path: result, type: "video" }]);
-    } else {
-      setNewFile([...newfile, { path: result, type: "img" }]);
-      console.log(newfile);
+      if (fileExt === "mp4") {
+        setNewFile([...newfile, { path: result, type: "video" }]);
+      } else {
+        setNewFile([...newfile, { path: result, type: "img" }]);
+        //console.log(newfile);
+      }
     }
+  };
+
+  const handleClickCloseBtn = () => {
+    closePost();
+    window.location = "/mainpage";
   };
   return (
     <>
@@ -153,7 +149,7 @@ const PostEdit = ({ closePost, userPostinfo, handleClickEditBtn }) => {
       <>
         {isPcOrTablet && ( // 일반 모드 PC OR TABLET
           <>
-            <div id="post-modal-background" onClick={closePost}>
+            <div id="post-modal-background" onClick={handleClickCloseBtn}>
               <div id="post-modal-container">
                 <div
                   id="post-container"
@@ -166,23 +162,36 @@ const PostEdit = ({ closePost, userPostinfo, handleClickEditBtn }) => {
                           {postinfo.userInfo &&
                           user.data.userInfo.id ===
                             postinfo.userInfo.user_id ? (
-                            <div
-                              className="post-1-content post-btn-hover"
-                              onClick={() => handleClickEditBtn(false)}
-                              onClick={handleClickSaveBtn}
-                            >
-                              <div className="post-1-content-icon-container">
-                                <Icon
-                                  name="edit outline"
-                                  className="post-1-content-icon post-icon-btn-config"
-                                ></Icon>
+                            <>
+                              <div className="post-1-content post-btn-hover">
+                                <div className="post-1-content-icon-container">
+                                  <Icon
+                                    name="trash alternate outline"
+                                    className="post-1-content-icon"
+                                    onClick={() =>
+                                      handleClickDeleteButton(true)
+                                    }
+                                  ></Icon>
+                                </div>
                               </div>
-                            </div>
+                              <div
+                                className="post-1-content post-btn-hover"
+                                onClick={() => handleClickEditBtn(false)}
+                                onClick={handleClickSaveBtn}
+                              >
+                                <div className="post-1-content-icon-container">
+                                  <Icon
+                                    name="edit outline"
+                                    className="post-1-content-icon post-icon-btn-config"
+                                  ></Icon>
+                                </div>
+                              </div>
+                            </>
                           ) : null}
 
                           <div
                             className="post-1-content post-btn-hover"
-                            onClick={closePost}
+                            onClick={handleClickCloseBtn}
                           >
                             <div className="post-1-content-icon-container">
                               <CloseOutlined
@@ -202,31 +211,34 @@ const PostEdit = ({ closePost, userPostinfo, handleClickEditBtn }) => {
                         </div>
                         <div className="post-2-content-width-100">
                           <div id="post-2-wrap2">
-                            <Input.Group compact>
-                              <Select
-                                defaultValue={postinfo.genre}
-                                onChange={handleInputValue("genre")}
-                              >
-                                <Option value="action" name="genre">
-                                  액션
-                                </Option>
-                                <Option value="horror" name="genre">
-                                  공포
-                                </Option>
-                                <Option value="comedy" name="genre">
-                                  코미디
-                                </Option>
-                                <Option value="drama" name="genre">
-                                  드라마
-                                </Option>
-                                <Option value="fantasy" name="genre">
-                                  판타지
-                                </Option>
-                                <Option value="etc" name="genre">
-                                  기타
-                                </Option>
-                              </Select>
-                            </Input.Group>
+                            <Dropdown text={genre}>
+                              <Dropdown.Menu>
+                                <Dropdown.Item
+                                  text="액션"
+                                  onClick={() => setGenre("액션")}
+                                />
+                                <Dropdown.Item
+                                  text="공포"
+                                  onClick={() => setGenre("공포")}
+                                />
+                                <Dropdown.Item
+                                  text="코미디"
+                                  onClick={() => setGenre("코미디")}
+                                />
+                                <Dropdown.Item
+                                  text="드라마"
+                                  onClick={() => setGenre("드라마")}
+                                />
+                                <Dropdown.Item
+                                  text="판타지"
+                                  onClick={() => setGenre("판타지")}
+                                />
+                                <Dropdown.Item
+                                  text="기타"
+                                  onClick={() => setGenre("기타")}
+                                />
+                              </Dropdown.Menu>
+                            </Dropdown>
 
                             <input
                               type="text"
@@ -314,7 +326,7 @@ const PostEdit = ({ closePost, userPostinfo, handleClickEditBtn }) => {
                             })}
                             <form>
                               <Postupload
-                                accept=".jpg,.png,.jpeg, .mp4"
+                                accept="*"
                                 multiple
                                 updateFilesCb={updateUploadedFiles}
                               />

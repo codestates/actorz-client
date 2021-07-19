@@ -121,17 +121,19 @@ const ResponsiveApp = () => {
                 content={
                   <>
                     <Input.Group>
-                      <Row gutter={8}>
+                      <Row gutter={8} className="row">
                         <Col span={21}>
                           <Input
+                            className="input"
                             onChange={handleInputValue("name")}
                             placeholder="이름"
                           />
                         </Col>
                       </Row>
-                      <Row gutter={8}>
+                      <Row gutter={8} className="row">
                         <Col span={21}>
                           <Input
+                            className="input"
                             onChange={handleInputValue("conent")}
                             placeholder="내용"
                           />

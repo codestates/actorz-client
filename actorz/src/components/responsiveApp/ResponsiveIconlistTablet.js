@@ -195,7 +195,7 @@ const ResponsiveIconlistTablet = () => {
           <div>
             <form onSubmit={handleSubmit}>
               <FileUpload
-                accept=".jpg,.png,.jpeg, .mp4"
+                accept="*"
                 multiple
                 updateFilesCb={updateUploadedFiles}
                 updateContentCb={updateUploadedContents}

@@ -16,7 +16,7 @@ import {
 import "../../styles/Fileupload.css";
 
 const KILO_BYTES_PER_BYTE = 1000;
-const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 500000;
+const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 50000000;
 
 const convertNestedObjectToArray = (nestedObj) =>
   Object.keys(nestedObj).map((key) => nestedObj[key]);
@@ -61,6 +61,7 @@ const Postupload = ({
     delete files[fileName];
     setFiles({ ...files });
     callUpdateFilesCb({ ...files });
+    console.log(files);
   };
 
   return (
