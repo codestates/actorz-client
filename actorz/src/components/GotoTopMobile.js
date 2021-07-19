@@ -1,17 +1,17 @@
 import React from 'react'
-import {UpOutlined } from '@ant-design/icons';
+import { UpOutlined } from '@ant-design/icons';
 import "../App.css"
 
-const GotoTopTablet = () => {
+const GotoTopMobile = () => {
   return (
     <>
       <a href="#" className="noEffectAtag">
-        <div className="gotoTopBtnPositionT">
-          <UpOutlined className="gotoTopBtn"/>
+        <div className="gotoTopBtnPositionM">
+          <UpOutlined className="gotoTopBtnM"/>
         </div>
       </a>
     </>
   );
 }
 
-export default GotoTopTablet;
+export default GotoTopMobile;

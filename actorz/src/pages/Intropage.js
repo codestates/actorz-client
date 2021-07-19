@@ -12,6 +12,7 @@ import Slider from "react-slick";
 import { _Button, Comment, Form, Header, Card, Icon } from 'semantic-ui-react';
 import GotoTop from "../components/GotoTop";
 import GotoTopTablet from "../components/GotoTopTablet";
+import GotoTopMobile from "../components/GotoTopMobile";
 import ScrollTrigger from '@terwanerik/scrolltrigger'
 import iphoneG from "../images/iphoneGifcontent.gif";
 import ipadG from "../images/ipadGifcontent.gif";
@@ -81,7 +82,6 @@ const Intropage = () => {
   };
 
   const mobileNamecardSettings = {
-    // hello
     // dots: true,
     // infinite: true,
     // speed: 500,
@@ -2185,7 +2185,7 @@ const Intropage = () => {
         
           <img className="introLastContents2" alt="" src="https://media.vlpt.us/images/iooi75/post/f682088c-ca53-4303-b9d0-e7b13bfa06f4/3_2.png" />
         </div>
-        <GotoTopTablet />
+        <GotoTopMobile />
       </>}  
     </>
   )
