@@ -595,8 +595,9 @@ const Post = ({ clickModal, closePost }) => {
           </>
           ) : ( // 일반모드 끝. Edit 모드 시작
             <PostEdit
-              closePost={closePostChecker}
+              closePost={() => setIsEdit(false)}
               handleClickEditBtn={handleClickEditBtn}
+              handleClickDeleteButton={handleClickDeleteBtn}
               userPostinfo={postinfo}
             />
           )}

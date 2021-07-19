@@ -366,140 +366,142 @@ const SendEmail = ({ closePost, setEmailClick, userInfo, postData }) => {
                   id="email-modal-container-mobile"
                   onClick={(event) => event.stopPropagation()}
                 >
-                  <div id="email-container-mobile">
-                    <div id="email-modal-header">
-                      <div id="email-modal-header-content-mobile">
-                        <CloseOutlined
-                          className="email-close"
-                          onClick={() => setEmailClick(false)}
-                        />
+                  <div id="email-container-mobile-vertical-center">
+                    <div id="email-container-mobile">
+                      <div id="email-modal-header">
+                        <div id="email-modal-header-content-mobile">
+                          <CloseOutlined
+                            className="email-close"
+                            onClick={() => setEmailClick(false)}
+                          />
+                        </div>
                       </div>
-                    </div>
-                    <div className="email-modal-title">
-                        <div>Send Email</div>
-                    </div>
-                    <div className="email-welcome-message-mobile">배우 [&nbsp;<b>{postData.userInfo.name}</b>&nbsp;] 에게 명함을 보냅니다</div>
-                    <div className="email-form-label-mobile">보내는 사람</div>
-                    <div className ="email-mobile-vertical-align">
-                      <div>
-                      <input 
-                        type="text" 
-                        name="jobTitle" 
-                        className="email-form-value-mobile-short email-form-value-mobile"
-                        placeholder="직책"
-                        defaultValue={userInfo.recruiter.jobTitle}
-                        onChange={handleInputValue("jobTitle")}
-                      />
-                      &nbsp; /
-                      <input 
-                        type="text" 
-                        name="name" 
-                        className="email-form-value-mobile-medium email-form-value-mobile"
-                        placeholder="이름"
-                        defaultValue={userInfo.name}
-                        onChange={handleInputValue("name")}
-                      />
+                      <div className="email-modal-title">
+                          <div>Send Email</div>
                       </div>
-                      <input
-                        onChange={handleInputValue("bName")}
-                        type="text" 
-                        placeholder="소속기관"
-                        className="email-form-value-mobile"
-                        name="bName" 
-                        defaultValue={userInfo.recruiter.bName}
-                      />
-                      <input 
-                        type="text" 
-                        name="phoneNum" 
-                        placeholder="전화번호"
-                        className="email-form-value-mobile"
-                        defaultValue={userInfo.recruiter.phoneNum}
-                        onChange={handleInputValue("phoneNum")}
-                      />
-                      <div cclassName="email-form-label-mobile">
-                        <Radio.Group onChange={handleRecruiterEmailValue} value={recruiterEmail}>
-                          <Space direction="vertical" style={{margin: "0.5rem 0 0.5rem 0"}} >
-                            <Radio value={userInfo.email}>{userInfo.email}</Radio>
-                            {userInfo.recruiter.bEmail ? (
-                              <>
-                                <Radio value={userInfo.recruiter.bEmail}>{userInfo.recruiter.bEmail}</Radio>
-                              </>
-                            ):(
-                              <Radio value={1}>
-                                Others...
-                                {recruiterEmail === 1 ?
-                                  <input 
-                                    type="text" 
-                                    name="recruiterEmail" 
-                                    className="email-form-radio-input"
-                                    placeholder="이메일"
-                                    defaultValue={userInfo.recruiter.phoneNum}
-                                    onChange={handleRecruiterNewEmailValue}
-                                    style={{width:"95%", margin:0}}
-                                  />
-                                : null}
-                              </Radio>
-                            )}
-                          </Space>
-                        </Radio.Group>
-                      </div>
-                      <div className="email-form-value-mobile">
-                        {bAddress.zipCode}
-                        <br/>
-                        {bAddress.city}
-                        <br/>
-                      </div>
-                      <input 
-                        type="text" 
-                        name="street" 
-                        className="email-form-value-mobile email-form-radio-input"
-                        placeholder="나머지 주소"
-                        onChange={(e) => {
-                          setbAddress({
-                            ...bAddress,
-                            street: e.target.value
-                          })
-                        }}
-                        defaultValue={ bAddress.street }
-                      />
-                      <Button
-                        variant="outlined"
-                        className="email-form-label-mobile"
-                        onClick={() => setAddressModalVisible(true)}
-                      >
-                        주소 변경 
-                      </Button>
-                        <TextArea
-                          className="email-form-textArea-mobile"
-                          onChange={handleInputValue("message")}
+                      <div className="email-welcome-message-mobile">배우 [&nbsp;<b>{postData.userInfo.name}</b>&nbsp;] 에게 명함을 보냅니다</div>
+                      <div className="email-form-label-mobile">보내는 사람</div>
+                      <div className ="email-mobile-vertical-align">
+                        <div>
+                        <input 
                           type="text" 
-                          name="message" 
-                          placeholder="전달하고자 하는 메시지를 입력해주세요"
-                          autoSize={{ minRows: 3, maxRows: 10 }}
+                          name="jobTitle" 
+                          className="email-form-value-mobile-short email-form-value-mobile"
+                          placeholder="직책"
+                          defaultValue={userInfo.recruiter.jobTitle}
+                          onChange={handleInputValue("jobTitle")}
                         />
-                      {err ? <div className="email-err-message">{err}</div> : null}
-                      <div className="email-send-btn-position email-send-btn-mobile">
-                        <button 
-                          className="email-send-btn"
-                          onClick={send}
-                          disabled={buttonDisable}
+                        &nbsp; /
+                        <input 
+                          type="text" 
+                          name="name" 
+                          className="email-form-value-mobile-medium email-form-value-mobile"
+                          placeholder="이름"
+                          defaultValue={userInfo.name}
+                          onChange={handleInputValue("name")}
+                        />
+                        </div>
+                        <input
+                          onChange={handleInputValue("bName")}
+                          type="text" 
+                          placeholder="소속기관"
+                          className="email-form-value-mobile"
+                          name="bName" 
+                          defaultValue={userInfo.recruiter.bName}
+                        />
+                        <input 
+                          type="text" 
+                          name="phoneNum" 
+                          placeholder="전화번호"
+                          className="email-form-value-mobile"
+                          defaultValue={userInfo.recruiter.phoneNum}
+                          onChange={handleInputValue("phoneNum")}
+                        />
+                        <div className="email-form-label-mobile">
+                          <Radio.Group onChange={handleRecruiterEmailValue} value={recruiterEmail}>
+                            <Space direction="vertical" style={{margin: "0.5rem 0 0.5rem 0"}} >
+                              <Radio value={userInfo.email}>{userInfo.email}</Radio>
+                              {userInfo.recruiter.bEmail ? (
+                                <>
+                                  <Radio value={userInfo.recruiter.bEmail}>{userInfo.recruiter.bEmail}</Radio>
+                                </>
+                              ):(
+                                <Radio value={1}>
+                                  Others...
+                                  {recruiterEmail === 1 ?
+                                    <input 
+                                      type="text" 
+                                      name="recruiterEmail" 
+                                      className="email-form-radio-input"
+                                      placeholder="이메일"
+                                      defaultValue={userInfo.recruiter.phoneNum}
+                                      onChange={handleRecruiterNewEmailValue}
+                                      style={{width:"95%", margin:0}}
+                                    />
+                                  : null}
+                                </Radio>
+                              )}
+                            </Space>
+                          </Radio.Group>
+                        </div>
+                        <div className="email-form-value-mobile">
+                          {bAddress.zipCode}
+                          <br/>
+                          {bAddress.city}
+                          <br/>
+                        </div>
+                        <input 
+                          type="text" 
+                          name="street" 
+                          className="email-form-value-mobile email-form-radio-input"
+                          placeholder="나머지 주소"
+                          onChange={(e) => {
+                            setbAddress({
+                              ...bAddress,
+                              street: e.target.value
+                            })
+                          }}
+                          defaultValue={ bAddress.street }
+                        />
+                        <Button
+                          variant="outlined"
+                          className="email-form-label-mobile"
+                          onClick={() => setAddressModalVisible(true)}
                         >
-                            이메일 보내기
-                        </button>
+                          주소 변경 
+                        </Button>
+                          <TextArea
+                            className="email-form-textArea-mobile"
+                            onChange={handleInputValue("message")}
+                            type="text" 
+                            name="message" 
+                            placeholder="전달하고자 하는 메시지를 입력해주세요"
+                            autoSize={{ minRows: 3, maxRows: 10 }}
+                          />
+                        {err ? <div className="email-err-message">{err}</div> : null}
+                        <div className="email-send-btn-position email-send-btn-mobile">
+                          <button 
+                            className="email-send-btn"
+                            onClick={send}
+                            disabled={buttonDisable}
+                          >
+                              이메일 보내기
+                          </button>
+                        </div>
                       </div>
+                      <Modal
+                        title="회사 주소 변경"
+                        visible={addressModalVisible}
+                        getContainer="#email-modal-container-mobile"
+                        onCancel={() => setAddressModalVisible(false)}
+                        footer={null}
+                      >
+                        <DaumPostcode
+                          onComplete={handleAddressComplete}
+                        />
+                      </Modal>
+                      {isLoading ? <Loading /> : null}
                     </div>
-                    <Modal
-                      title="회사 주소 변경"
-                      visible={addressModalVisible}
-                      getContainer="#email-modal-container-mobile"
-                      onCancel={() => setAddressModalVisible(false)}
-                      footer={null}
-                    >
-                      <DaumPostcode
-                        onComplete={handleAddressComplete}
-                      />
-                    </Modal>
-                    {isLoading ? <Loading /> : null}
                   </div>
                 </div>
               </div>

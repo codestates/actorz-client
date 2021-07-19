@@ -41,6 +41,10 @@
   padding: 1rem 1rem 2rem 1rem;
 }
 
+#email-modal-container::-webkit-scrollbar {
+  width: 0.3rem;
+}
+
 #email-modal-header {
   display: flex;
   flex-direction: row-reverse;
@@ -79,7 +83,7 @@
   display: flex;
   flex-direction: row;
   width: 85%;
-  margin: 0.1rem 2rem 0.5rem 0;
+  margin: 0.1rem 1.5rem 0.5rem 0;
   align-items: center;
   justify-content: center;
 }
@@ -161,7 +165,7 @@
 
 /* MOBILE */
 #email-modal-container-mobile {
-  overflow-y: auto;
+  /* overflow-y: auto; */
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -176,23 +180,28 @@
   max-width: 100%;
   background-color: white;
   border: none;
-  padding: 3rem 0 0rem 0;
 }
 
-#email-modal-container-mobile::-webkit-scrollbar {
+#email-container-mobile-vertical-center::-webkit-scrollbar {
   width: 0.3rem;
+}
+
+#email-container-mobile-vertical-center {
+  overflow-y: auto;
+  height: 100%;
+  width: 100%;
 }
 
 #email-container-mobile {
   position: relative;
-  padding-top: 4rem;
-  padding-bottom: 1rem;
+  padding-top: 0rem;
+  padding-bottom: 4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: fit-content;
   max-width: 100%;
   max-height: fit-content;
 }

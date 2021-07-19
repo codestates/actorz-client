@@ -137,12 +137,10 @@ export const FilePreviewContainer = styled.article`
 `;
 
 export const PreviewList = styled.section`
-  width: 550px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-top: 30px;
-  margin-left: 100px;
 
   @media only screen and (max-width: 400px) {
     flex-direction: column;
@@ -166,13 +164,13 @@ export const FileMetaData = styled.div`
   aside {
     margin-top: auto;
     display: flex;
-    justify-content: space-between;
+    flex-direction: row-reverse;
   }
 `;
 
 export const RemoveFileIcon = styled.i`
   cursor: pointer;
-
+  margin-right: 50%;
   &:hover {
     transform: scale(1.3);
   }
@@ -180,18 +178,15 @@ export const RemoveFileIcon = styled.i`
 
 export const PreviewContainer = styled.section`
   padding: 0.25rem;
-  width: 20%;
+  width: 7rem;
   height: 120px;
   border-radius: 6px;
   box-sizing: border-box;
-
-  &:hover {
-    opacity: 0.55;
-
-    ${FileMetaData} {
-      display: flex;
-    }
+  opacity: 0.8;
+  ${FileMetaData} {
+    display: flex;
   }
+ 
 
   & > div:first-of-type {
     height: 100%;
@@ -199,11 +194,11 @@ export const PreviewContainer = styled.section`
   }
 
   @media only screen and (max-width: 750px) {
-    width: 25%;
+    width: 100%;
   }
 
   @media only screen and (max-width: 500px) {
-    width: 50%;
+    width: 100%;
   }
 
   @media only screen and (max-width: 400px) {
