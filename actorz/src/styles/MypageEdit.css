@@ -20,6 +20,20 @@ div.postsGallery {
   border: 1px solid rgb(207, 207, 207);
 }
 
+.galleryComponents > section > div > div > aside > i {
+  transform: scale(1.5);
+  margin-left: 8.9rem;
+  margin-bottom: 1rem;
+  color: #000000;
+  background-color: #ffffffc1;
+  border-radius: 70%;
+  border: 2.5px solid #ffffff00
+}
+
+.galleryComponents > section > div > div > aside > i:hover {
+  transform: scale(1.8);
+}
+
 .galleryComponents {
   width: 10rem;
   height: 8rem;
