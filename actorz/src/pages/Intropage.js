@@ -1733,7 +1733,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div>
                 <div className="scrollIMGPositionM">
@@ -1791,7 +1791,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                   <div className="colorTest02M"> ACTORZ </div>
-                  <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                  <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                     나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                   </div>
                   <div className="scrollIMGPositionM">
@@ -1805,7 +1805,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div>
                 <div className="scrollIMGPositionM">
@@ -1819,7 +1819,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div>
                 <div className="scrollIMGPositionM">
@@ -1834,7 +1834,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div> 
 
@@ -1849,7 +1849,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div> 
                 <div className="scrollIMGPositionM">
@@ -1863,7 +1863,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div>
                 <div className="scrollIMGPositionM">
@@ -1878,7 +1878,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div>
                 <div className="scrollIMGPositionM">
@@ -1892,7 +1892,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div>
                 <div className="scrollIMGPositionM">
@@ -1906,7 +1906,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div>
                 <div className="scrollIMGPositionM">
@@ -1920,7 +1920,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div>
                 <div className="scrollIMGPositionM">
@@ -1933,7 +1933,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div> 
                 <div className="scrollIMGPositionM">
@@ -1947,7 +1947,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div> 
                 <div className="scrollIMGPositionM">
@@ -1961,7 +1961,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div> 
                 <div className="scrollIMGPositionM">
@@ -1975,7 +1975,7 @@ const Intropage = () => {
             <div className="mobileSlider">
               <div className="mobileText">
                 <div className="colorTest02M"> ACTORZ </div>
-                <div className="colorTest01"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
+                <div className="colorTest01M"> 매번 똑같은 포트폴리오 양식 <br/><br/><br/> 
                   나만의 특별한 포트폴리오에 사진과 영상을 담아 <br/><br/><br/>  남들과 다른 포트폴리오를 만들어 드리겠습니다 
                 </div> 
                 <div className="scrollIMGPositionM">
