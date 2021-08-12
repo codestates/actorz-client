@@ -14,6 +14,7 @@ import FileUpload from "../components/file-upload/file-upload.component";
 import server from "../apis/server";
 import axios from "axios";
 import { Modal } from "antd";
+import Alert from "./Alert";
 
 const Iconlist = () => {
   const [clickupload, setClickUpload] = useState(false);
@@ -53,19 +54,11 @@ const Iconlist = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // login유무 확인
-    if (!localStorage.getItem("accessToken")) {
-      Modal.error({
-        getContainer: document.getElementById("upload-modal-container"),
-        content: "로그인 후 이용 가능합니다",
-      });
-      //alert("로그인 후 이용 가능합니다");
-    } else if (!content.genre) {
+    if (!content.genre) {
       Modal.warning({
         getContainer: document.getElementById("upload-modal-container"),
         content: "장르를 선택해 주세요",
       });
-      //return alert("장르를 선택해 주세요");
     } else {
       // loading 중...
       setIsLoading(true);

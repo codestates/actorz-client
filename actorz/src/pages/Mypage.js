@@ -18,6 +18,7 @@ import { StickyContainer, Sticky } from "react-sticky";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import "../styles/Mypage.css";
 import "antd/dist/antd.css";
+import Alert from "../components/Alert";
 
 const { TabPane } = Tabs;
 
@@ -126,18 +127,8 @@ const Mypage = () => {
     }
   };
 
-  const windowLocation = () => {
-    return (window.location = "/mainpage");
-  };
-
   const redirectPage = () => {
-    Modal.warning({
-      title: "접근 실패",
-      content: "로그인 후 이용 가능합니다.",
-      onOk() {
-        windowLocation();
-      },
-    });
+    return <Alert content="로그인 후 이용 가능합니다." />;
   };
 
   const handleClickPost = (boolean, id) => {
@@ -237,7 +228,9 @@ const Mypage = () => {
                                     ) : (
                                       <>
                                         <strong>회사</strong>
-                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                        <li className="company">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
                                       </>
                                     )}
                                   </ul>
@@ -594,7 +587,9 @@ const Mypage = () => {
                                     ) : (
                                       <>
                                         <strong>회사</strong>
-                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                        <li className="company">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
                                       </>
                                     )}
                                   </ul>
@@ -638,10 +633,12 @@ const Mypage = () => {
                                           ) : (
                                             <>
                                               <strong>회사</strong>
-                                              {user.data.userInfo.recruiter.bName ? (
+                                              {user.data.userInfo.recruiter
+                                                .bName ? (
                                                 <li className="email">
                                                   {
-                                                    user.data.userInfo.recruiter.bName
+                                                    user.data.userInfo.recruiter
+                                                      .bName
                                                   }
                                                 </li>
                                               ) : (
@@ -946,7 +943,9 @@ const Mypage = () => {
                                     ) : (
                                       <>
                                         <strong>회사</strong>
-                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                        <li className="company">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
                                       </>
                                     )}
                                   </ul>

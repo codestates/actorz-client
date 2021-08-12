@@ -18,6 +18,7 @@ import "../../styles/Fileupload.css";
 import Loading from "../loading";
 import { Modal } from "antd";
 import { useMediaQuery } from "react-responsive";
+import Alert from "../Alert";
 
 const KILO_BYTES_PER_BYTE = 1000;
 const DEFAULT_MAX_FILE_SIZE_IN_BYTES = 50000000;
@@ -38,7 +39,10 @@ const FileUpload = ({
   const [files, setFiles] = useState({});
   const [genre, setGenre] = useState("기타");
   const [desc, setDesc] = useState("");
-  const [modalClassName, setModalClassName] = useState("upload-modal-container");
+  const [modalClassName, setModalClassName] = useState(
+    "upload-modal-container"
+  );
+  const [upload, setUpload] = useState(false);
 
   const isPcOrTablet = useMediaQuery({
     query: "(min-width:768px)",
@@ -108,6 +112,10 @@ const FileUpload = ({
     setFiles({});
   };
 
+  const handleClickUploadBtn = () => {
+    setUpload(true);
+  };
+
   useEffect(() => {
     updateContentCb(desc, "content");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -120,8 +128,7 @@ const FileUpload = ({
 
   return (
     <>
-    {
-      isPcOrTablet && (
+      {isPcOrTablet && (
         <div
           id="upload-modal-background"
           onClick={() => otherProps.handleClickUpload(false)}
@@ -131,10 +138,10 @@ const FileUpload = ({
             onClick={(event) => event.stopPropagation()}
           >
             <FileUploadContainer>
-              <InputLabel>
-                사진 또는 동영상을 선택해주세요
-              </InputLabel>
-              <DragDropText>최대 4개까지 업로드 가능합니다 <br/> <br/> Drag and Drop </DragDropText>
+              <InputLabel>사진 또는 동영상을 선택해주세요</InputLabel>
+              <DragDropText>
+                최대 4개까지 업로드 가능합니다 <br /> <br /> Drag and Drop{" "}
+              </DragDropText>
               <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
                 <i className="fas fa-file-upload" />
                 <span> 업로드하기! 클릭!</span>
@@ -175,7 +182,9 @@ const FileUpload = ({
                               <FileMetaData isMediaFile={isMediaFile}>
                                 <span>{file.name}</span>
                                 <aside>
-                                  <span style={{paddingTop: "0.8rem"}}>{convertBytesToKB(file.size)} kb</span>
+                                  <span style={{ paddingTop: "0.8rem" }}>
+                                    {convertBytesToKB(file.size)} kb
+                                  </span>
                                   <RemoveFileIcon
                                     className="fas fa-trash-alt"
                                     onClick={() => removeFile(fileName)}
@@ -197,7 +206,10 @@ const FileUpload = ({
                 onChange={handleInputValue("desc")}
               />
 
-              <div className="genre" style={{maxWidth:"100%", paddingRight:"1rem"}}>
+              <div
+                className="genre"
+                style={{ maxWidth: "100%", paddingRight: "1rem" }}
+              >
                 <label>
                   <input
                     type="radio"
@@ -234,8 +246,8 @@ const FileUpload = ({
                   />
                   드라마
                 </label>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <label>
                   <input
                     type="radio"
@@ -265,41 +277,49 @@ const FileUpload = ({
               >
                 cancel
               </button>
-              <button type="submit" className="upload-btn">
+
+              <button
+                type="submit"
+                className="upload-btn"
+                onClick={handleClickUploadBtn}
+              >
                 upload
               </button>
+              {upload ? <Alert content="로그인 후 이용 가능합니다." /> : null}
             </div>
             {otherProps.isLoading ? <Loading /> : null}
           </div>
         </div>
-      )
-    } 
-    {
-      isMobile && (
+      )}
+      {isMobile && (
         <div
           id="upload-modal-background"
           onClick={() => otherProps.handleClickUpload(false)}
         >
           <div
-            id="upload-modal-container" 
+            id="upload-modal-container"
             style={{
               height: "100%",
               minWidth: "100%",
               maxWidth: "100%",
-              padding: "4rem 0 4rem 0"
+              padding: "4rem 0 4rem 0",
             }}
             onClick={(event) => event.stopPropagation()}
           >
-            <FileUploadContainer style={{
-              margin: "2rem 0 1rem 0", 
-              height: "fit-content", 
-              padding: "2rem",
-              // overflowY: "auto"
-            }}>
-              <InputLabel style={{fontSize: "1.3rem", top: "-2rem"}}>
+            <FileUploadContainer
+              style={{
+                margin: "2rem 0 1rem 0",
+                height: "fit-content",
+                padding: "2rem",
+                // overflowY: "auto"
+              }}
+            >
+              <InputLabel style={{ fontSize: "1.3rem", top: "-2rem" }}>
                 사진 또는 동영상을 선택해주세요
               </InputLabel>
-              <DragDropText style={{fontSize:"0.9rem"}}>사진/동영상은 최대 네 개 까지 <br/> 업로드 가능합니다</DragDropText>
+              <DragDropText style={{ fontSize: "0.9rem" }}>
+                사진/동영상은 최대 네 개 까지 <br /> 업로드 가능합니다
+              </DragDropText>
               <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
                 <i className="fas fa-file-upload" />
                 {/* <span> Upload {otherProps.multiple ? "files" : "a file"}</span> */}
@@ -315,54 +335,59 @@ const FileUpload = ({
               />
               <FilePreviewContainer>
                 {/* <span>To Upload</span> */}
-                <div style={{width: "100%", alignContent: "center"}}>
-                {/* <PreviewList style={{display: "flex", flexDirection: "row", maxWidth: "20rem"}}> */}
-                <PreviewList style={{display: "flex", flexFlow: "row wrap"}}>
-                  {Object.keys(files).length > 4
-                    ? handleOverFiles()
-                    : Object.keys(files).map((fileName, index) => {
-                        let file = files[fileName];
-                        let isMediaFile =
-                          file.type.split("/")[0] === "image" || "video";
-                        let isImageFile = file.type.split("/")[0] === "image";
-                        return (
-                          <PreviewContainer 
-                            key={fileName} 
-                            style={{
-                              order: index+1,
-                              minWidth: "7.1rem",
-                              minHeight: "7.1rem",
-                              width: "50%",
-                              padding: "0.1rem 0.3rem 0.1rem 0.3rem"
-                              }}>
-                            <div style={{alignContent: "center"}}>
-                              {isMediaFile &&
-                                (isImageFile ? (
-                                  <ImagePreview
-                                    src={URL.createObjectURL(file)}
-                                    alt={`file preview ${index}`}
-                                  />
-                                ) : (
-                                  <VideoPreview
-                                    src={URL.createObjectURL(file)}
-                                    alt={`file preview ${index}`}
-                                  />
-                                ))}
-                              <FileMetaData isMediaFile={isMediaFile}>
-                                <span>{file.name}</span>
-                                <aside>
-                                  <span>{convertBytesToKB(file.size)} kb</span>
-                                  <RemoveFileIcon
-                                    className="fas fa-trash-alt"
-                                    onClick={() => removeFile(fileName)}
-                                  />
-                                </aside>
-                              </FileMetaData>
-                            </div>
-                          </PreviewContainer>
-                        );
-                      })}
-                </PreviewList>
+                <div style={{ width: "100%", alignContent: "center" }}>
+                  {/* <PreviewList style={{display: "flex", flexDirection: "row", maxWidth: "20rem"}}> */}
+                  <PreviewList
+                    style={{ display: "flex", flexFlow: "row wrap" }}
+                  >
+                    {Object.keys(files).length > 4
+                      ? handleOverFiles()
+                      : Object.keys(files).map((fileName, index) => {
+                          let file = files[fileName];
+                          let isMediaFile =
+                            file.type.split("/")[0] === "image" || "video";
+                          let isImageFile = file.type.split("/")[0] === "image";
+                          return (
+                            <PreviewContainer
+                              key={fileName}
+                              style={{
+                                order: index + 1,
+                                minWidth: "7.1rem",
+                                minHeight: "7.1rem",
+                                width: "50%",
+                                padding: "0.1rem 0.3rem 0.1rem 0.3rem",
+                              }}
+                            >
+                              <div style={{ alignContent: "center" }}>
+                                {isMediaFile &&
+                                  (isImageFile ? (
+                                    <ImagePreview
+                                      src={URL.createObjectURL(file)}
+                                      alt={`file preview ${index}`}
+                                    />
+                                  ) : (
+                                    <VideoPreview
+                                      src={URL.createObjectURL(file)}
+                                      alt={`file preview ${index}`}
+                                    />
+                                  ))}
+                                <FileMetaData isMediaFile={isMediaFile}>
+                                  <span>{file.name}</span>
+                                  <aside>
+                                    <span>
+                                      {convertBytesToKB(file.size)} kb
+                                    </span>
+                                    <RemoveFileIcon
+                                      className="fas fa-trash-alt"
+                                      onClick={() => removeFile(fileName)}
+                                    />
+                                  </aside>
+                                </FileMetaData>
+                              </div>
+                            </PreviewContainer>
+                          );
+                        })}
+                  </PreviewList>
                 </div>
               </FilePreviewContainer>
             </FileUploadContainer>
@@ -374,7 +399,10 @@ const FileUpload = ({
                 onChange={handleInputValue("desc")}
               />
 
-              <div className="genre" style={{maxWidth:"100%", paddingRight:"1rem"}}>
+              <div
+                className="genre"
+                style={{ maxWidth: "100%", paddingRight: "1rem" }}
+              >
                 <label>
                   <input
                     type="radio"
@@ -411,8 +439,8 @@ const FileUpload = ({
                   />
                   드라마
                 </label>
-                <br/>
-                <br/>
+                <br />
+                <br />
                 <label>
                   <input
                     type="radio"
@@ -434,8 +462,7 @@ const FileUpload = ({
                 </label>
               </div>
             </div>
-            <div 
-              className="upload-btn-position">
+            <div className="upload-btn-position">
               <button
                 className="cancel-btn"
                 onClick={() => otherProps.handleClickUpload(false)}
@@ -449,8 +476,7 @@ const FileUpload = ({
             {otherProps.isLoading ? <Loading /> : null}
           </div>
         </div>
-      )
-    } 
+      )}
     </>
   );
 };

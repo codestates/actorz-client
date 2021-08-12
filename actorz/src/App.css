@@ -5,18 +5,18 @@ body {
 }
 
 ::-webkit-scrollbar {
-   width: 0.35rem; /*스크롤바의 너비*/ 
-} 
-
-::-webkit-scrollbar-thumb { 
-  background-color: #000000; /*스크롤바의 색상*/ 
-} 
-
-::-webkit-scrollbar-track { 
-  background-color: rgb(255, 255, 255); /*스크롤바 트랙 색상*/ 
+  width: 0.35rem; /*스크롤바의 너비*/
 }
 
-.alinkEffect { 
+::-webkit-scrollbar-thumb {
+  background-color: #000000; /*스크롤바의 색상*/
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255); /*스크롤바 트랙 색상*/
+}
+
+.alinkEffect {
   text-decoration: none;
   color: white;
 }
@@ -32,13 +32,10 @@ body {
 }
 
 .setPhotoA {
-
 }
-
 
 .mobileCommentsCenterPosition {
   display: flex;
-  
 }
 
 .mobileCommentsBlockLeft {
@@ -56,7 +53,7 @@ body {
 }
 
 .cardlistGroup {
-  position: relative; 
+  position: relative;
 }
 
 .cardlistGroupM {
@@ -66,11 +63,11 @@ body {
 }
 
 .slick-track {
-  height: 55rem ;
+  height: 55rem;
 }
 
 .set1,
-.set2, 
+.set2,
 .set3,
 .set4,
 .set5 {
@@ -85,10 +82,10 @@ body {
 }
 
 .set1 .img,
-.set2 .img, 
+.set2 .img,
 .set3 .img,
 .set4 .img,
-.set5 .img{
+.set5 .img {
   object-fit: cover;
   /* position: absolute; top:0; left: 0; */
   background-color: rgb(0, 0, 0);
@@ -103,9 +100,8 @@ body {
 .colorTest01M {
   color: #ffffff;
   font-size: 1rem;
-  text-align: center; 
+  text-align: center;
 }
-
 
 .btnPosTop {
   text-align: center;
@@ -128,7 +124,7 @@ body {
 }
 
 .startContentsTitle2 {
-  width: 100vw; 
+  width: 100vw;
   display: flex;
 
   font-family: lato;
@@ -152,7 +148,7 @@ body {
 }
 
 .mainContentsCenterDisplay {
-  position: absolute; 
+  position: absolute;
   width: 100%;
   margin-top: -25rem;
   /* transform: translate(-50%, -50%); */
@@ -184,7 +180,6 @@ body {
   margin-right: 3rem;
 }
 
-
 .cardUIM {
   position: relative;
   margin-top: 5rem;
@@ -192,16 +187,11 @@ body {
   transition: 0.5s;
 }
 
-
-
 .cardUIM:hover {
   transform: scale(1.1);
   transition: 0.5s;
   z-index: 9999;
-} 
-
-
-
+}
 
 .cardUI:hover {
   transform: scale(1.2);
@@ -240,8 +230,7 @@ body {
   z-index: 4;
 }
 
-
-.headerLogo{
+.headerLogo {
   width: 3.125rem;
   height: 1.875rem;
   margin-left: 0.2rem;
@@ -259,8 +248,6 @@ body {
   */
 
   margin-right: 1rem;
-  
-  
 }
 
 .blockPosition {
@@ -292,7 +279,7 @@ body {
   padding: 0;
   margin: 0;
   border-color: black;
-  background:#000000; 
+  background: #000000;
   background: -webkit-linear-gradient(to top, #ffffff, #000000);
   background: linear-gradient(to top, #ffffff, #000000);
 }
@@ -301,8 +288,12 @@ body {
   *intro page contents edit here
 */
 @keyframes introContentsEffectDisplay {
-  from { margin-top:500px; }
-  to  { margin-top:-550px; }
+  from {
+    margin-top: 500px;
+  }
+  to {
+    margin-top: -550px;
+  }
 }
 
 .introContainer {
@@ -319,34 +310,36 @@ body {
   /*margin-top: 200px;*/
   font-size: 2rem;
   color: rgb(255, 255, 255);
-} 
+}
 
 @keyframes scrollEffectDisplay {
-  from { margin-bottom:0px; }
-  to  { margin-bottom:100px; }
+  from {
+    margin-bottom: 0px;
+  }
+  to {
+    margin-bottom: 100px;
+  }
 }
 .scrollEffect {
   animation: scrollEffectDisplay 1s 1s normal infinite linear none;
   font-size: 0.2rem;
   padding: 10px;
-  color:rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
   margin-top: 160px;
 }
 
 .backgroundImage {
   width: 100vw;
   /*height: 11000px;*/
-  height:100vh;
+  height: 100vh;
   padding: 0;
   margin: 0;
   background: black;
 }
 
-
 .footerIcon {
   font-size: 1rem;
-  padding: 0.5rem
-
+  padding: 0.5rem;
 }
 
 .footerName {
@@ -359,7 +352,6 @@ body {
   padding: 0.25rem;
   margin-top: -0.3rem;
   /* border-right: 1px solid #e0e0e0; */
-
 }
 
 .footerUser2 {
@@ -381,22 +373,22 @@ body {
 }
 
 .startButton1 {
-    /*transform: translate(0vw, 20vh);*/
-    /*
+  /*transform: translate(0vw, 20vh);*/
+  /*
     position: absolute;
     top: 50%;
     left: 50%;
     */
-    cursor: pointer;
-    width: 7.5rem;
-    height: 2.5rem;
-    background-color: #ff4c5b;
-    /*box-shadow: 0px 0px 13px #ff4c5b;*/
-    color: rgb(255, 255, 255);
-    font-size: 1rem;
-    /*font-weight: bold;*/
-    /* border-radius: 0.5rem; */
-    outline: 0;
+  cursor: pointer;
+  width: 7.5rem;
+  height: 2.5rem;
+  background-color: #ff4c5b;
+  /*box-shadow: 0px 0px 13px #ff4c5b;*/
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  /*font-weight: bold;*/
+  /* border-radius: 0.5rem; */
+  outline: 0;
 }
 
 .startButton1:hover {
@@ -404,10 +396,13 @@ body {
   background-color: #ff919c;
 }
 
-
 @keyframes redCarpetEffect {
-  0% { margin-left:0px; }
-  100%  { margin-left:100px; }
+  0% {
+    margin-left: 0px;
+  }
+  100% {
+    margin-left: 100px;
+  }
 }
 .startButton2 {
   /*position: relative;*/
@@ -424,15 +419,15 @@ body {
 
 .startButton2T {
   cursor: pointer;
-    width: 7.5rem;
-    height: 2.5rem;
-    background-color: #ff4c5b;
-    /*box-shadow: 0px 0px 13px #ff4c5b;*/
-    color: rgb(255, 255, 255);
-    font-size: 1rem;
-    /*font-weight: bold;*/
-    /* border-radius: 0.5rem; */
-    outline: 0;
+  width: 7.5rem;
+  height: 2.5rem;
+  background-color: #ff4c5b;
+  /*box-shadow: 0px 0px 13px #ff4c5b;*/
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  /*font-weight: bold;*/
+  /* border-radius: 0.5rem; */
+  outline: 0;
 }
 
 .startButton2T:hover {
@@ -445,7 +440,7 @@ body {
 }
 
 .startButton1:after {
-  content: '\00bb';
+  content: "\00bb";
   position: absolute;
   opacity: 0;
   left: 6rem;
@@ -460,12 +455,12 @@ body {
 
 .startButton1T {
   cursor: pointer;
-    width: 7.5rem;
-    height: 2.5rem;
-    background-color: #ff4c5b;
-    color: rgb(255, 255, 255);
-    font-size: 1rem;
-    outline: 0;
+  width: 7.5rem;
+  height: 2.5rem;
+  background-color: #ff4c5b;
+  color: rgb(255, 255, 255);
+  font-size: 1rem;
+  outline: 0;
 }
 
 .startButton1T:hover {
@@ -474,7 +469,7 @@ body {
 }
 
 .startButton1T:after {
-  content: '\00bb';
+  content: "\00bb";
   position: absolute;
   opacity: 0;
   right: 1.25rem;
@@ -488,15 +483,13 @@ body {
   right: 0.625rem;
 }
 
-
-
 .startButton2:hover {
   /* animation: redCarpetEffect 1s 1s normal infinite ease none;*/
   background-color: #ff7172;
 }
 
 .startButton2:after {
-  content: '🏆';
+  content: "🏆";
   position: absolute;
   opacity: 0;
   /*right: -30px;*/
@@ -504,14 +497,14 @@ body {
   right: 0.625rem;
   transition: 0.5s;
 }
- 
+
 .startButton2:hover::after {
   opacity: 1;
   bottom: 0.25rem;
 }
 
 .startButton2T:after {
-  content: '🏆';
+  content: "🏆";
   position: absolute;
   opacity: 0;
   /*right: -30px;*/
@@ -527,12 +520,12 @@ body {
 }
 
 .mainIntro1 {
-  color:rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
   font-size: large;
 }
 
-.mainIntro2{
-  color:rgb(255, 255, 255);
+.mainIntro2 {
+  color: rgb(255, 255, 255);
   font-size: large;
 }
 
@@ -547,7 +540,7 @@ body {
   text-align: center;
   margin-top: 3rem;
 }
-  
+
 /* new css */
 .middleContents {
   background-color: brown;
@@ -574,15 +567,14 @@ body {
 }
 
 .lastContext {
-  color:rgb(0, 0, 0);
+  color: rgb(0, 0, 0);
   text-align: center;
   /*margin-top: 200px;*/
   font-size: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   font-weight: bold;
   margin-top: 50px;
 }
-
 
 /* *************************** */
 .actorCardposition {
@@ -591,18 +583,15 @@ body {
 }
 
 .blackSpace01 {
-  
-  /*background-color: green; *//* ! 표시임 지워야함 */
-  
+  /*background-color: green; */ /* ! 표시임 지워야함 */
+
   width: 20%;
 }
 
 .blackSpace02 {
-  /*background-color: yellow; *//* ! 표시임 지워야함 */
+  /*background-color: yellow; */ /* ! 표시임 지워야함 */
   width: 20%;
 }
-
-
 
 /* ******************* */
 
@@ -637,7 +626,6 @@ body {
 }
 
 /*//////////////////////*/
-
 
 .gotoTopBtnPosition {
   position: fixed;
@@ -752,7 +740,6 @@ body {
   margin-top: 20rem;
 }
 
-
 .blockPosition200 {
   height: 40rem;
   width: auto;
@@ -772,8 +759,6 @@ body {
   margin-top: 7rem;
 }
 
-
-
 .blockPositionDivider {
   display: flex;
   flex-direction: column;
@@ -792,7 +777,6 @@ body {
   /* -webkit-filter: grayscale(100%);
   filter: gray; */
   mix-blend-mode: normal;
-  
 }
 
 .mainActorPicM {
@@ -824,7 +808,6 @@ body {
   width: 100vw;
   /* height: 95vh; */
   opacity: 0.2;
-
 }
 
 .startContentsTitle {
@@ -843,14 +826,11 @@ body {
   text-align: center;
 }
 
-
-
 .startContentsTitleTStrong {
   font-family: lato;
   font-size: 5em;
   text-align: center;
 }
-
 
 .lastContentsTitlePosition {
   text-align: center;
@@ -875,8 +855,6 @@ body {
   width: 100%;
   margin-top: 25rem;
 }
-
-
 
 .lastContentsTitleT {
   position: absolute;
@@ -905,8 +883,6 @@ body {
   text-align: center;
 }
 
-
-
 .lastContentsTitle div {
   text-align: center;
 }
@@ -926,7 +902,6 @@ body {
   width: 20rem;
   margin-left: 15rem;
   margin-top: 2.5rem;
-
 }
 
 .device1T {
@@ -978,7 +953,6 @@ body {
   height: 52rem;
 }
 
-
 .ipadPicM {
   /* position: absolute; */
   /* object-fit: cover; */
@@ -996,14 +970,12 @@ body {
   height: 52rem;
 } */
 
-
 .device1M {
   width: 100vw;
   display: flex;
   justify-content: center;
   text-align: center;
 }
-
 
 .iphoneGif {
   background-color: pink;
@@ -1034,9 +1006,7 @@ body {
   height: 38rem;
   margin-left: -2.5rem;
   margin-top: 7rem;
-
 }
-
 
 /**/
 .ipadGif {
@@ -1053,7 +1023,6 @@ body {
   margin-top: 5rem;
   border: 6px solid black;
 }
-
 
 .profilesEffectTest {
   position: relative;
@@ -1133,7 +1102,7 @@ body {
 
 .mobileCommentsPosition {
   flex: 2;
-  width:100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1205,5 +1174,4 @@ body {
 }
 
 .pictureRepositionM {
-
 }
