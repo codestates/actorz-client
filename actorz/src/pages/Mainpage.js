@@ -38,7 +38,6 @@ const Mainpage = () => {
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
-  console.log(post);
 
   const loading = (boolean) => {
     setIsLoading(!boolean);
@@ -98,16 +97,13 @@ const Mainpage = () => {
             .post(`/login/${provider}`, { code })
             .then(async (res) => {
               if (res.status === 200) {
-                //로그인 성공
                 localStorage.setItem("accessToken", res.data.data.accessToken);
                 localStorage.setItem("id", res.data.data.id);
-                // console.log(res.data.data.accessToken);
-                await server //로그인한 유저의 정보를 state에 저장
+                await server
                   .get(`/user/${localStorage.getItem("id")}`)
                   .then((res) => {
                     if (res.status === 200) {
                       setModalSocialSignup(false);
-                      // setIsLoading(false);
                       dispatch(
                         getUserInfo({
                           ...res.data.data.userInfo,
@@ -124,14 +120,12 @@ const Mainpage = () => {
                     throw err;
                   });
               } else if (res.status === 201) {
-                //새로운 유저
                 setIsLoading(false);
                 setModalSocialSignup(true);
                 setOauthSignup(`${provider}=${res.data.data.email}`);
               } else {
                 setIsLoading(false);
 
-                console.log("소셜 로그인 실패");
                 Modal.warning({
                   title: "로그인 실패",
                   content: "소셜 로그인 중 오류가 발생했습니다.",
@@ -143,7 +137,6 @@ const Mainpage = () => {
         }
       } catch (err) {
         setIsLoading(false);
-        console.log(err);
       }
     };
 
@@ -216,17 +209,12 @@ const Mainpage = () => {
     }
   };
 
-  //console.log(post); //여기에 서버에서 가져온 모든 post list가 담겨있음.
-  //console.log(post);
   return (
     <>
       {isPc && (
         <>
           <div className="blockhere"> </div>
-          <Nav
-            loading={loading}
-            handleClickFiltering={handleClickFiltering}
-          />
+          <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
           <div className="mainPage">
             <div></div>
             <Iconlist />
@@ -237,14 +225,12 @@ const Mainpage = () => {
                   post.data.data.posts.posts.length !== 0 ? (
                     post.data.data.posts.posts.map((post) => {
                       return (
-                        <Card 
-                          centered={true} 
-                          fluid={true} 
-                          key={post._id}>
-                          <div className="effecTest" onClick={() => handleClickPost(true, post._id)}>
-                            <div
-                              className="screen"
-                            >
+                        <Card centered={true} fluid={true} key={post._id}>
+                          <div
+                            className="effecTest"
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
+                            <div className="screen">
                               {/* <div className="top"> 이기능쓰긴함?</div> */}
                               <div className="bottom">
                                 <HeartOutlined className="testIcon" />
@@ -273,7 +259,9 @@ const Mainpage = () => {
                             </div>
                           </div>
 
-                          <Card.Content onClick={() => handleClickPost(true, post._id)}>
+                          <Card.Content
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
                             <Card.Header>
                               <div
                                 className="nothing2"
@@ -303,7 +291,7 @@ const Mainpage = () => {
                                     name="like"
                                     className="mylike"
                                     onClick={(e) => {
-                                      handleClickLikeBtn("like", post._id)
+                                      handleClickLikeBtn("like", post._id);
                                     }}
                                   />
                                 ) : (
@@ -341,9 +329,13 @@ const Mainpage = () => {
                 ) : (
                   <Loading />
                 )}
-               
-                {clickModal ? <Post clickModal={clickModal} closePost={() => handleClickPost(false)} /> : null}
 
+                {clickModal ? (
+                  <Post
+                    clickModal={clickModal}
+                    closePost={() => handleClickPost(false)}
+                  />
+                ) : null}
               </div>
             </div>
             <div className="rightSpace"></div>
@@ -378,7 +370,10 @@ const Mainpage = () => {
                     post.data.data.posts.posts.map((post) => {
                       return (
                         <Card centered={true} fluid={true} key={post._id}>
-                          <div className="effecTest" onClick={() => handleClickPost(true, post._id)}>
+                          <div
+                            className="effecTest"
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
                             <div
                               className="screen"
                               onClick={() => handleClickPost(true, post._id)}
@@ -412,7 +407,9 @@ const Mainpage = () => {
                             </div>
                           </div>
 
-                          <Card.Content onClick={() => handleClickPost(true, post._id)}>
+                          <Card.Content
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
                             <Card.Header>
                               <div
                                 className="nothing2"
@@ -431,7 +428,10 @@ const Mainpage = () => {
                             </Card.Meta>
                             <Card.Description>{post.content}</Card.Description>
                           </Card.Content>
-                          <Card.Content extra onClick={() => handleClickPost(true, post._id)}>
+                          <Card.Content
+                            extra
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
                             {post.likes.length !== 0 &&
                             localStorage.getItem("accessToken") ? (
                               <>
@@ -482,9 +482,11 @@ const Mainpage = () => {
                 )}
 
                 {clickModal ? (
-                  <Post clickModal={clickModal} closePost={() => handleClickPost(false)} />
+                  <Post
+                    clickModal={clickModal}
+                    closePost={() => handleClickPost(false)}
+                  />
                 ) : null}
-
               </div>
             </div>
             <div className="responsiveNewblockPosition"> </div>
@@ -519,7 +521,10 @@ const Mainpage = () => {
                     post.data.data.posts.posts.map((post) => {
                       return (
                         <Card centered={true} fluid={true} key={post._id}>
-                          <div className="effecTest" onClick={() => handleClickPost(true, post._id)}>
+                          <div
+                            className="effecTest"
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
                             <div
                               className="screen"
                               onClick={() => handleClickPost(true, post._id)}
@@ -553,7 +558,9 @@ const Mainpage = () => {
                             </div>
                           </div>
 
-                          <Card.Content onClick={() => handleClickPost(true, post._id)}>
+                          <Card.Content
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
                             <Card.Header>
                               <div
                                 className="nothing2"
@@ -572,7 +579,10 @@ const Mainpage = () => {
                             </Card.Meta>
                             <Card.Description>{post.content}</Card.Description>
                           </Card.Content>
-                          <Card.Content extra onClick={() => handleClickPost(true, post._id)}>
+                          <Card.Content
+                            extra
+                            onClick={() => handleClickPost(true, post._id)}
+                          >
                             {post.likes.length !== 0 &&
                             localStorage.getItem("accessToken") ? (
                               <>
@@ -623,9 +633,11 @@ const Mainpage = () => {
                 )}
 
                 {clickModal ? (
-                  <Post clickModal={clickModal} closePost={() => handleClickPost(false)} />
+                  <Post
+                    clickModal={clickModal}
+                    closePost={() => handleClickPost(false)}
+                  />
                 ) : null}
-
               </div>
             </div>
             {/* <div className="newblockPosition2"> </div>

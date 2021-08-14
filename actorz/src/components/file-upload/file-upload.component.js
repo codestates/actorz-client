@@ -112,18 +112,16 @@ const FileUpload = ({
     setFiles({});
   };
 
-  const handleClickUploadBtn = () => {
-    setUpload(true);
+  const handleClickBtn = (boolean) => {
+    setUpload(boolean);
   };
 
   useEffect(() => {
     updateContentCb(desc, "content");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [desc]);
 
   useEffect(() => {
     updateContentCb(genre, "genre");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [genre]);
 
   return (
@@ -281,13 +279,17 @@ const FileUpload = ({
               <button
                 type="submit"
                 className="upload-btn"
-                onClick={handleClickUploadBtn}
+                onClick={() => handleClickBtn(true)}
               >
                 upload
               </button>
-              {upload ? <Alert content="로그인 후 이용 가능합니다." /> : null}
+              {upload ? (
+                <Alert
+                  content="로그인 후 이용 가능합니다."
+                  handleClickBtn={handleClickBtn}
+                />
+              ) : null}
             </div>
-            {otherProps.isLoading ? <Loading /> : null}
           </div>
         </div>
       )}
@@ -311,7 +313,6 @@ const FileUpload = ({
                 margin: "2rem 0 1rem 0",
                 height: "fit-content",
                 padding: "2rem",
-                // overflowY: "auto"
               }}
             >
               <InputLabel style={{ fontSize: "1.3rem", top: "-2rem" }}>
@@ -469,11 +470,21 @@ const FileUpload = ({
               >
                 cancel
               </button>
-              <button type="submit" className="upload-btn">
+
+              <button
+                type="submit"
+                className="upload-btn"
+                onClick={() => handleClickBtn(true)}
+              >
                 upload
               </button>
+              {upload ? (
+                <Alert
+                  content="로그인 후 이용 가능합니다."
+                  handleClickBtn={handleClickBtn}
+                />
+              ) : null}
             </div>
-            {otherProps.isLoading ? <Loading /> : null}
           </div>
         </div>
       )}

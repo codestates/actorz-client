@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Nav from "../components/Nav";
 import Post from "./Post";
@@ -15,11 +15,10 @@ import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
 import Loading from "../components/loading";
 import failed from "../images/depression.png";
-
 import "antd/dist/antd.css";
 import "../mainpage.css";
-import { Modal } from "antd";
 import "semantic-ui-css/semantic.min.css";
+import Alert from "../components/Alert";
 
 const Like = () => {
   const [clickModal, setClickModal] = useState(false);
@@ -32,7 +31,6 @@ const Like = () => {
 
   const post = useSelector((post) => post.postInfoReducer);
   const user = useSelector((user) => user.userInfoReducer);
-  const dispatch = useDispatch();
 
   const loading = (boolean) => {
     setIsLoading(!boolean);
@@ -94,13 +92,12 @@ const Like = () => {
   };
 
   const redirectPage = () => {
-    Modal.warning({
-      title: "접근 실패",
-      content: "로그인 후 이용 가능합니다.",
-      onOk() {
-        window.location = "/mainpage";
-      },
-    });
+    return (
+      <Alert
+        content="로그인 후 이용 가능합니다."
+        handleClickBtn={() => (window.location = "./mainpage")}
+      />
+    );
   };
 
   const isPc = useMediaQuery({
@@ -114,9 +111,6 @@ const Like = () => {
   const isMobile = useMediaQuery({
     query: "(max-width:767px)",
   });
-  console.log(likePost);
-  console.log(post);
-  console.log(user);
 
   return (
     <>

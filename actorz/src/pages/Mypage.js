@@ -42,7 +42,6 @@ const Mypage = () => {
   const [isloading, setIsLoading] = useState(false);
   const [userPost, setUserPost] = useState({});
   const [clickModal, setClickModal] = useState(false);
-  const [clickLike, setClickLike] = useState(false);
   const [likePost, setLikePost] = useState([]);
 
   let [post_data, setPostData] = useState([]);
@@ -86,27 +85,6 @@ const Mypage = () => {
     p();
   }, [post, user]);
 
-  // const handleDeleteAccount = async () => {
-  //   await server
-  //     .get(`/user/${localStorage.getItem("id")}/delete`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       if (res.status === 205) {
-  //         console.log("회원탈퇴");
-  //         persistor.purge();
-  //         localStorage.removeItem("accessToken");
-  //         localStorage.removeItem("id");
-  //         window.location = "/mainpage";
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       throw err;
-  //     });
-  // };
-
   const isPc = useMediaQuery({
     query: "(min-width:1024px)",
   });
@@ -128,7 +106,12 @@ const Mypage = () => {
   };
 
   const redirectPage = () => {
-    return <Alert content="로그인 후 이용 가능합니다." />;
+    return (
+      <Alert
+        content="로그인 후 이용 가능합니다."
+        handleClickBtn={() => (window.location = "./mainpage")}
+      />
+    );
   };
 
   const handleClickPost = (boolean, id) => {
@@ -260,7 +243,7 @@ const Mypage = () => {
                                             {user.data.userInfo.email}
                                           </li>
                                           {user.data.userInfo.role ===
-                                          "actor" ? ( // role에 따른 정보 가감
+                                          "actor" ? (
                                             <>
                                               <strong>소속사</strong>
                                               {user.data.userInfo.company ? (
@@ -619,7 +602,7 @@ const Mypage = () => {
                                             {user.data.userInfo.email}
                                           </li>
                                           {user.data.userInfo.role ===
-                                          "actor" ? ( // role에 따른 정보 가감
+                                          "actor" ? (
                                             <>
                                               <strong>소속사</strong>
                                               {user.data.userInfo.company ? (
@@ -976,7 +959,7 @@ const Mypage = () => {
                                             {user.data.userInfo.email}
                                           </li>
                                           {user.data.userInfo.role ===
-                                          "actor" ? ( // role에 따른 정보 가감
+                                          "actor" ? (
                                             <>
                                               <strong>소속사</strong>
                                               {user.data.userInfo.company ? (

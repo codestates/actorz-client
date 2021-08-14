@@ -40,7 +40,6 @@ const Nav = () => {
         if (res.status === 205) {
           setLoading(false);
           persistor.purge();
-          console.log("logout success!");
           localStorage.removeItem("accessToken");
           localStorage.removeItem("id");
           window.location = "/mainpage";
@@ -80,7 +79,6 @@ const Nav = () => {
   }, [name, content, age]);
 
   const handleInputValue = (key) => (event) => {
-    console.log(event);
     if (key === "name") {
       setName(event.target.value);
     } else if (key === "conent") {

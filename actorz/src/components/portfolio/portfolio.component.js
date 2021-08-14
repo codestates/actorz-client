@@ -33,7 +33,7 @@ const PortfolioEdit = ({
   handleClickPfEdit,
   myPostsData,
   clickPostBtn,
-  isLoading
+  isLoading,
 }) => {
   const [postsData, setPostsData] = useState([]);
 
@@ -54,7 +54,6 @@ const PortfolioEdit = ({
     clickPostBtn(postsData);
   };
 
-  // 선택한 post가 4개를 초과시, 경고 모달창
   const handleOverFiles = () => {
     Modal.error({
       getContainer: "#upload-modal-container",
@@ -73,17 +72,21 @@ const PortfolioEdit = ({
     <>
       {isPcAndTablet && (
         <>
-          <div id="upload-modal-background"
-            onClick={() => handleClickPfEdit(false)} >
-            <div id="upload-modal-container"
-              onClick={(event) => event.stopPropagation()}>
+          <div
+            id="upload-modal-background"
+            onClick={() => handleClickPfEdit(false)}
+          >
+            <div
+              id="upload-modal-container"
+              onClick={(event) => event.stopPropagation()}
+            >
               <section className="pf headerSection">
                 <label>포스트를 선택해주세요</label>
               </section>
               <section className="pf postsSection">
-                {myPostsData.length === 1 ? 
+                {myPostsData.length === 1 ? (
                   myPostsData[0].media[0].type === "img" ? (
-                    <img 
+                    <img
                       key={myPostsData[0]._id}
                       className="pf postImg"
                       src={myPostsData[0].media[0].path}
@@ -96,27 +99,30 @@ const PortfolioEdit = ({
                       key={myPostsData[0]._id}
                       className="pf postVideo"
                       src={myPostsData[0].media[0].path}
-                      onClick={() => handleClickPost(myPostsData[0])} 
+                      onClick={() => handleClickPost(myPostsData[0])}
                     />
-                  ) : (
+                  )
+                ) : (
                   <Slider {...settings}>
-                    {myPostsData.map((post) => post.media[0].type === "img" ? (
-                      <img 
-                        key={post._id}
-                        className="pf postImg"
-                        src={post.media[0].path}
-                        alt="post first img"
-                        onClick={() => handleClickPost(post)}
-                      />
-                    ) : (
-                      <video
-                        controls
-                        key={post._id}
-                        className="pf postVideo"
-                        src={post.media[0].path}
-                        onClick={() => handleClickPost(post)} 
-                      />
-                    ))}
+                    {myPostsData.map((post) =>
+                      post.media[0].type === "img" ? (
+                        <img
+                          key={post._id}
+                          className="pf postImg"
+                          src={post.media[0].path}
+                          alt="post first img"
+                          onClick={() => handleClickPost(post)}
+                        />
+                      ) : (
+                        <video
+                          controls
+                          key={post._id}
+                          className="pf postVideo"
+                          src={post.media[0].path}
+                          onClick={() => handleClickPost(post)}
+                        />
+                      )
+                    )}
                   </Slider>
                 )}
               </section>
@@ -128,43 +134,42 @@ const PortfolioEdit = ({
                   <PfUploadContainer>
                     <PreviewList>
                       {/* 등록 포스트가 4개이상 선택 될 경우경고 모달 나오게 수정해야함 */}
-                      {postsData.length > 4 ? 
-                        handleOverFiles() : 
-                        postsData.map((post, index) => {
-                          let isImage = post.media[0].type === "img";
-                          return (
-                            <PreviewContainer key={post._id}>
-                              <div>
-                                {(isImage ? (
-                                  <ImagePreview
-                                    src={post.media[0].path}
-                                    alt={`file preview ${index}`}
-                                  />
-                                ) : (
-                                  <VideoPreview 
-                                  src={post.media[0].path}
-                                  alt={`file preview ${index}`}
-                                  />
-                                ))}
-                                <PostMetaData isMediaFile={true}>
-                                  <span>{post.content}</span>
-                                  <aside>
-                                    <RemovePostIcon
-                                      className="fas fa-trash-alt"
-                                      onClick={() => removePost(index)}
+                      {postsData.length > 4
+                        ? handleOverFiles()
+                        : postsData.map((post, index) => {
+                            let isImage = post.media[0].type === "img";
+                            return (
+                              <PreviewContainer key={post._id}>
+                                <div>
+                                  {isImage ? (
+                                    <ImagePreview
+                                      src={post.media[0].path}
+                                      alt={`file preview ${index}`}
                                     />
-                                  </aside>
-                                </PostMetaData>
-                              </div>
-                            </PreviewContainer>
-                          );
-                        })
-                      }
+                                  ) : (
+                                    <VideoPreview
+                                      src={post.media[0].path}
+                                      alt={`file preview ${index}`}
+                                    />
+                                  )}
+                                  <PostMetaData isMediaFile={true}>
+                                    <span>{post.content}</span>
+                                    <aside>
+                                      <RemovePostIcon
+                                        className="fas fa-trash-alt"
+                                        onClick={() => removePost(index)}
+                                      />
+                                    </aside>
+                                  </PostMetaData>
+                                </div>
+                              </PreviewContainer>
+                            );
+                          })}
                     </PreviewList>
                   </PfUploadContainer>
                 ) : null}
               </section>
-              
+
               <div className="pf cancel-or-post-btn">
                 <button
                   className="pf cancel-btn"
@@ -177,29 +182,33 @@ const PortfolioEdit = ({
                 </button>
               </div>
 
-              {isLoading ? (<Loading />) : null}
+              {isLoading ? <Loading /> : null}
             </div>
           </div>
         </>
       )}
       {isMobile && (
         <>
-          <div id="upload-modal-background"
-            onClick={() => handleClickPfEdit(false)} >
-            <div id="upload-modal-container"
+          <div
+            id="upload-modal-background"
+            onClick={() => handleClickPfEdit(false)}
+          >
+            <div
+              id="upload-modal-container"
               style={{
                 height: "100%",
                 width: "100%",
-                padding: "4rem 0 4rem 0"
+                padding: "4rem 0 4rem 0",
               }}
-              onClick={(event) => event.stopPropagation()}>
+              onClick={(event) => event.stopPropagation()}
+            >
               <section className="pf headerSection">
                 <label>포스트를 선택해주세요</label>
               </section>
               <section className="pf postsSection">
-                {myPostsData.length === 1 ? 
+                {myPostsData.length === 1 ? (
                   myPostsData[0].media[0].type === "img" ? (
-                    <img 
+                    <img
                       key={myPostsData[0]._id}
                       className="pf postImg"
                       src={myPostsData[0].media[0].path}
@@ -212,27 +221,30 @@ const PortfolioEdit = ({
                       key={myPostsData[0]._id}
                       className="pf postVideo"
                       src={myPostsData[0].media[0].path}
-                      onClick={() => handleClickPost(myPostsData[0])} 
+                      onClick={() => handleClickPost(myPostsData[0])}
                     />
-                  ) : (
+                  )
+                ) : (
                   <Slider {...settings}>
-                    {myPostsData.map((post) => post.media[0].type === "img" ? (
-                      <img 
-                        key={post._id}
-                        className="pf postImg"
-                        src={post.media[0].path}
-                        alt="post first img"
-                        onClick={() => handleClickPost(post)}
-                      />
-                    ) : (
-                      <video
-                        controls
-                        key={post._id}
-                        className="pf postVideo"
-                        src={post.media[0].path}
-                        onClick={() => handleClickPost(post)} 
-                      />
-                    ))}
+                    {myPostsData.map((post) =>
+                      post.media[0].type === "img" ? (
+                        <img
+                          key={post._id}
+                          className="pf postImg"
+                          src={post.media[0].path}
+                          alt="post first img"
+                          onClick={() => handleClickPost(post)}
+                        />
+                      ) : (
+                        <video
+                          controls
+                          key={post._id}
+                          className="pf postVideo"
+                          src={post.media[0].path}
+                          onClick={() => handleClickPost(post)}
+                        />
+                      )
+                    )}
                   </Slider>
                 )}
               </section>
@@ -244,43 +256,42 @@ const PortfolioEdit = ({
                   <PfUploadContainer>
                     <PreviewList>
                       {/* 등록 포스트가 4개이상 선택 될 경우경고 모달 나오게 수정해야함 */}
-                      {postsData.length > 4 ? 
-                        handleOverFiles() : 
-                        postsData.map((post, index) => {
-                          let isImage = post.media[0].type === "img";
-                          return (
-                            <PreviewContainer key={post._id}>
-                              <div>
-                                {(isImage ? (
-                                  <ImagePreview
-                                    src={post.media[0].path}
-                                    alt={`file preview ${index}`}
-                                  />
-                                ) : (
-                                  <VideoPreview 
-                                  src={post.media[0].path}
-                                  alt={`file preview ${index}`}
-                                  />
-                                ))}
-                                <PostMetaData isMediaFile={true}>
-                                  <span>{post.content}</span>
-                                  <aside>
-                                    <RemovePostIcon
-                                      className="fas fa-trash-alt"
-                                      onClick={() => removePost(index)}
+                      {postsData.length > 4
+                        ? handleOverFiles()
+                        : postsData.map((post, index) => {
+                            let isImage = post.media[0].type === "img";
+                            return (
+                              <PreviewContainer key={post._id}>
+                                <div>
+                                  {isImage ? (
+                                    <ImagePreview
+                                      src={post.media[0].path}
+                                      alt={`file preview ${index}`}
                                     />
-                                  </aside>
-                                </PostMetaData>
-                              </div>
-                            </PreviewContainer>
-                          );
-                        })
-                      }
+                                  ) : (
+                                    <VideoPreview
+                                      src={post.media[0].path}
+                                      alt={`file preview ${index}`}
+                                    />
+                                  )}
+                                  <PostMetaData isMediaFile={true}>
+                                    <span>{post.content}</span>
+                                    <aside>
+                                      <RemovePostIcon
+                                        className="fas fa-trash-alt"
+                                        onClick={() => removePost(index)}
+                                      />
+                                    </aside>
+                                  </PostMetaData>
+                                </div>
+                              </PreviewContainer>
+                            );
+                          })}
                     </PreviewList>
                   </PfUploadContainer>
                 ) : null}
               </section>
-              
+
               <div className="pf cancel-or-post-btn">
                 <button
                   className="pf cancel-btn"
@@ -293,7 +304,7 @@ const PortfolioEdit = ({
                 </button>
               </div>
 
-              {isLoading ? (<Loading />) : null}
+              {isLoading ? <Loading /> : null}
             </div>
           </div>
         </>

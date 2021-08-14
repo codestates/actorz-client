@@ -114,26 +114,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     p();
   }, [post, clickLike]);
 
-  // const handleAddUserCareer = () => {
-  //   if (title.title && year.year && tag) {
-  //     setUserCareer([...userCareer, {
-  //       year: year.year,
-  //       title: title.title,
-  //       type: tag
-  //     }]);
-
-  //   }else{
-  //     Modal.warning({
-  //       content: "모든 항목을 기입 후 추가하시기 바랍니다. 상단의 저장 아이콘을 눌러야 최종 저장됩니다."
-  //     })
-  //   }
-  // }
-
-  // const handleDeleteUserCareer = (id) => {
-  //   setUserCareer(userCareer.splice(id,1));
-  //   console.log(userCareer);
-  // }
-
   const handleAddressComplete = (data) => {
     let fullAddress = data.address;
     let extraAddress = "";
@@ -226,9 +206,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
   };
 
   const onCalChange = (date, dateString) => {
-    console.log(dateString);
-    console.log(typeof dateString);
-
     setYear({ year: dateString });
   };
 
@@ -243,9 +220,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     } else if (key === "password") {
       setPassword({ [key]: event.target.value });
     } else if (key === "bName") {
-      setRecruiter({ 
+      setRecruiter({
         ...recruiter,
-        [key]: event.target.value 
+        [key]: event.target.value,
       });
     } else if (key === "jobTitle") {
       setRecruiter({
@@ -284,7 +261,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       })
       .then((res) => {
         if (res.status === 205) {
-          console.log("회원탈퇴");
           persistor.purge();
           localStorage.removeItem("accessToken");
           localStorage.removeItem("id");
@@ -328,12 +304,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     if (user.data.userInfo.role === "recruiter") {
       newUserInfo.recruiter = recruiter;
     }
-    // dispatch(
-    //   editUserInfo({
-    //     ...newUserInfo,
-    //     dob,
-    //   })
-    // );
+
     await server
       .post(`/user/${newUserInfo.id}/update`, newUserInfo, {
         headers: {
@@ -341,29 +312,27 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         },
       })
       .then((res) => {
-        if(res.status === 200){
-          console.log(user.data.userInfo.careers)
+        if (res.status === 200) {
           dispatch(
             editUserInfo({
               ...res.data.data.userInfo,
-              dob: dob.toString().split("T")[0]
+              dob: dob.toString().split("T")[0],
             })
           );
-  
+
           Modal.success({
             content: "회원정보가 성공적으로 변경되었습니다",
           });
-        }else{
+        } else {
           Modal.error({
-            content: "불투명한 원인으로 회원정보가 변경되지 않았습니다. 다시 시도하시기 바랍니다.",
+            content:
+              "불투명한 원인으로 회원정보가 변경되지 않았습니다. 다시 시도하시기 바랍니다.",
           });
         }
       })
       .catch((err) => {
         throw err;
       });
-
-    
   };
 
   const handleprofileButton = async (event) => {
@@ -452,17 +421,16 @@ const MypageEdit = ({ handeClickEditBtn }) => {
         }
       )
       .then((res) => {
-        if(res.statusCode === 200){
-          console.log(res.data.userInfo)
+        if (res.statusCode === 200) {
           dispatch(
             editUserInfo({
-              ...res.data.userInfo
+              ...res.data.userInfo,
             })
           );
           Modal.success({
             content: "포스트가 성공적으로 삭제되었습니다",
           });
-        }else{
+        } else {
           Modal.error({
             content: "포스트 삭제에 실패했습니다. 다시 시도해주세요.",
           });
@@ -490,7 +458,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
       )
       .then((res) => {
         setClickLike(!clickLike);
-        console.log(post);
       })
       .catch((err) => {
         throw err;
@@ -706,8 +673,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                               </div>
                             )}
                             <div className="passwordModifyButton">
-                              {
-                                user.data.userInfo.provider === "local" ? (
+                              {user.data.userInfo.provider === "local" ? (
                                 <Button
                                   variant="outlined"
                                   className="passwordModifyBtn"
@@ -715,9 +681,8 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                 >
                                   비밀번호 변경
                                 </Button>
-                                ) : null
-                              }
-                              
+                              ) : null}
+
                               <Modal
                                 title="비밀번호 변경"
                                 visible={isModalVisible}
@@ -1218,8 +1183,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                               </div>
                             )}
                             <div className="passwordModifyButton">
-                              {
-                                user.data.userInfo.provider === "local" ? (
+                              {user.data.userInfo.provider === "local" ? (
                                 <Button
                                   variant="outlined"
                                   className="passwordModifyBtn"
@@ -1227,8 +1191,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                 >
                                   비밀번호 변경
                                 </Button>
-                                ) : null
-                              }
+                              ) : null}
                               <Modal
                                 title="비밀번호 변경"
                                 visible={isModalVisible}
@@ -1716,8 +1679,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                               </div>
                             )}
                             <div className="passwordModifyButton">
-                              {
-                                user.data.userInfo.provider === "local" ? (
+                              {user.data.userInfo.provider === "local" ? (
                                 <Button
                                   variant="outlined"
                                   className="passwordModifyBtn"
@@ -1725,8 +1687,7 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                                 >
                                   비밀번호 변경
                                 </Button>
-                                ) : null
-                              }
+                              ) : null}
                               <Modal
                                 title="비밀번호 변경"
                                 visible={isModalVisible}

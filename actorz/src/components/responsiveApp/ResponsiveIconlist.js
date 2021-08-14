@@ -16,7 +16,6 @@ import { Modal } from "antd";
 const ResponsiveIconlist = () => {
   const [clickupload, setClickUpload] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-
   const [newfile, setNewFile] = useState({
     profileImages: [],
   });
@@ -24,6 +23,7 @@ const ResponsiveIconlist = () => {
     content: "",
     genre: "",
   });
+  const dispatch = useDispatch();
 
   const handleClickUpload = (boolean) => {
     if (boolean) {
@@ -49,12 +49,7 @@ const ResponsiveIconlist = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!localStorage.getItem("accessToken")) {
-      Modal.error({
-        getContainer: document.getElementById("upload-modal-container"),
-        content: "로그인 후 이용 가능합니다",
-      });
-    } else if (!content.genre) {
+    if (!content.genre) {
       Modal.warning({
         getContainer: document.getElementById("upload-modal-container"),
         content: "장르를 선택해 주세요",
@@ -73,7 +68,9 @@ const ResponsiveIconlist = () => {
           },
         };
 
-        await axios.put(url, el, config).catch((err) => console.log(err));
+        await axios.put(url, el, config).catch((err) => {
+          throw err;
+        });
 
         let obj;
         if (ext === "mp4") {
@@ -114,7 +111,9 @@ const ResponsiveIconlist = () => {
         });
         redirectPage();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        throw err;
+      });
   };
 
   const redirectPage = () => {

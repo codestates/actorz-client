@@ -43,7 +43,7 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
     setLoading(true);
     try {
       if (email !== "" && password !== "") {
-        await server //로그인
+        await server
           .post(`/login`, {
             email: email.email,
             password: password.password,
@@ -52,13 +52,12 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
             if (res.status === 200) {
               localStorage.setItem("accessToken", res.data.data.accessToken);
               localStorage.setItem("id", res.data.data.id);
-              console.log("로그인에 성공하였습니다!");
               setLoading(false);
               handleClickClose();
             }
           });
 
-        await server //로그인한 유저의 정보를 state에 저장
+        await server
           .get(`/user/${localStorage.getItem("id")}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
@@ -66,7 +65,6 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           })
           .then((res) => {
             if (res.status === 200) {
-              console.log(res.data.data.userInfo);
               dispatch(
                 getUserInfo({
                   ...res.data.data.userInfo,
@@ -87,43 +85,41 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
       setLoading(false);
       if (err.message === "Request failed with status code 401") {
         Modal.warning({
-          maskStyle: {width: "200%", height: "200%"},
+          maskStyle: { width: "200%", height: "200%" },
           getContainer: "#modal-container",
-          style: {maxWidth: "20rem", top: "4rem"},
+          style: { maxWidth: "20rem", top: "4rem" },
           content: (
-          <>
-            <div style={{textAlign: "left"}}>
-              존재하지 않는 이메일 혹은 잘못된
-            </div>
-            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
-              비밀번호 입니다.
-            </div>
-            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
-              확인 후 다시 시도해주세요.
-            </div>
-          </>
+            <>
+              <div style={{ textAlign: "left" }}>
+                존재하지 않는 이메일 혹은 잘못된
+              </div>
+              <div style={{ textAlign: "left", paddingLeft: "2.5rem" }}>
+                비밀번호 입니다.
+              </div>
+              <div style={{ textAlign: "left", paddingLeft: "2.5rem" }}>
+                확인 후 다시 시도해주세요.
+              </div>
+            </>
           ),
           maskClosable: true,
         });
-        //alert("등록되지 않은 회원이거나 잘못된 비밀번호 입니다");
       } else {
         Modal.warning({
-          maskStyle: {width: "200%", height: "200%"},
+          maskStyle: { width: "200%", height: "200%" },
           getContainer: "#modal-container",
-          style: {maxWidth: "20rem", top: "4rem"},
+          style: { maxWidth: "20rem", top: "4rem" },
           content: (
-          <>
-            <div style={{textAlign: "left"}}>
-              예상치 못한 오류가 발생했습니다.
-            </div>
-            <div style={{textAlign: "left", paddingLeft: "2.5rem"}}>
-              잠시 후 다시 이용해주세요
-            </div>
-          </>
+            <>
+              <div style={{ textAlign: "left" }}>
+                예상치 못한 오류가 발생했습니다.
+              </div>
+              <div style={{ textAlign: "left", paddingLeft: "2.5rem" }}>
+                잠시 후 다시 이용해주세요
+              </div>
+            </>
           ),
           maskClosable: true,
         });
-        //alert("예상치 못한 오류가 발생했습니다. 잠시 후 다시 이용해주세요");
       }
     }
   };
@@ -220,36 +216,35 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           </center>
         </>
       )}
-      {
-        isMobile && (
-          <>
-            <center>
-              <form onSubmit={(e) => e.preventDefault()}>
-                <div id="modal-background">
-                  <div id="modal-container-mobile2"
+      {isMobile && (
+        <>
+          <center>
+            <form onSubmit={(e) => e.preventDefault()}>
+              <div id="modal-background">
+                <div id="modal-container-mobile2">
+                  <CloseOutlined
+                    className="closeBtn-mobile"
+                    onClick={handleClickClose}
+                  />
+                  <div
+                    id="modal-container-mobile"
+                    className="modal-get-container"
+                    onClick={(event) => event.stopPropagation()}
                   >
-                    <CloseOutlined
-                      className="closeBtn-mobile"
-                      onClick={handleClickClose}
-                      />
-                    <div
-                      id="modal-container-mobile"
-                      className="modal-get-container"
-                      onClick={(event) => event.stopPropagation()}
-                    >
-                      <div className="modal-title">
-                        <div className="title-mobile">
-                          <div>Login</div>
-
-                        </div>
+                    <div className="modal-title">
+                      <div className="title-mobile">
+                        <div>Login</div>
                       </div>
-                      <div className="modal-welcome-message">Welcome to Actorz</div>
-                      <div className="modal-group">
-                        <input
-                          type="email"
-                          placeholder=" 이메일"
-                          onChange={handleInputValue("email")}
-                        />
+                    </div>
+                    <div className="modal-welcome-message">
+                      Welcome to Actorz
+                    </div>
+                    <div className="modal-group">
+                      <input
+                        type="email"
+                        placeholder=" 이메일"
+                        onChange={handleInputValue("email")}
+                      />
                     </div>
                     <div className="modal-group">
                       <input

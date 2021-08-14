@@ -20,7 +20,6 @@ import Slider from "react-slick";
 
 const settings = {
   className: "pf-select-slick",
-  // autoplay: true,
   infinite: true,
   speed: 1000,
   slidesToShow: 1,
@@ -49,12 +48,10 @@ const Portfolio = () => {
     query: "(max-width:767px)",
   });
 
-  // post modal 창 띄우기 유무
   const handleClickPfEdit = (boolean) => {
     setClickPfEdit(boolean);
   };
 
-  // portfolio post button 클릭
   const handleClickPortfolioPostBtn = async () => {
     setIsLoading(true);
     await server.get(`/post/user/${user.data.userInfo.id}`).then((result) => {
@@ -64,12 +61,10 @@ const Portfolio = () => {
     handleClickPfEdit(true);
   };
 
-  // modal post button 클릭
   const handleClickPostBtn = (postsData) => {
     setSelectData(postsData);
   };
 
-  // save icon 클릭
   const handleClickSaveBtn = async () => {
     if (!selectData[0]) return noSaveModal();
     setIsLoading(true);
@@ -80,7 +75,6 @@ const Portfolio = () => {
     const headers = {
       authorization: `Bearer ${localStorage.getItem("accessToken")}`,
     };
-    // portfolio를 생성한 적이 없다면, 생성 요청
     if (!postsData[0]) {
       return await server
         .post(`portfolio/${user.data.userInfo.id}/create`, bodyData, {
@@ -91,7 +85,6 @@ const Portfolio = () => {
           saveModal();
         });
     }
-    // portfolio 업데이트 요청
     await server
       .post(`portfolio/${user.data.userInfo.id}/update`, bodyData, { headers })
       .then(() => {
@@ -100,7 +93,6 @@ const Portfolio = () => {
       });
   };
 
-  // portfolio 삭제 요청
   const handleDeleteAccount = async () => {
     setIsLoading(true);
     const headers = {
@@ -114,19 +106,10 @@ const Portfolio = () => {
       });
   };
 
-  // 미로그인시 모달 경고창
   const isNotLoginModal = () => {
-    // Modal.warning({
-    //   title: "접근 실패",
-    //   content: "로그인 후 이용 가능합니다.",
-    //   onOk() {
-    //     window.location = "/mainpage";
-    //   },
-    // });
     <Alert content="로그인 후 이용 가능합니다." />;
   };
 
-  // post 미 선택시, 경고 모달
   const noSaveModal = () => {
     Modal.warning({
       title: "저장 실패",
@@ -134,7 +117,6 @@ const Portfolio = () => {
     });
   };
 
-  // 저장 완료 모달창
   const saveModal = () => {
     Modal.success({
       title: "저장 완료",
@@ -145,7 +127,6 @@ const Portfolio = () => {
     });
   };
 
-  // 삭제 완료 모달창
   const deleteModal = () => {
     Modal.success({
       title: "삭제 완료",
@@ -156,7 +137,6 @@ const Portfolio = () => {
     });
   };
 
-  // portfolio page 접근시, portfolio 정보 요청
   useEffect(() => {
     setIsLoading(true);
     server.get(`/portfolio/${user.data.userInfo.id}`).then((result) => {

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Signin from "./Signin";
 import Signup from "./Signup";
 import "antd/dist/antd.css";
-import { Button } from "antd";
 import { Link } from "react-router-dom";
 
 const IntroNav = () => {
@@ -28,10 +27,8 @@ const IntroNav = () => {
   };
 
   const mvMainpage = () => {
-    return (
-      window.location = "/mainpage"
-    );
-  }
+    return (window.location = "/mainpage");
+  };
 
   return (
     <>
@@ -47,11 +44,14 @@ const IntroNav = () => {
             </Link>
           </div>
           {/* <div className="blockPositionNav"> </div> */}
-          
+
           <div className="signBtnPosition">
             <ul>
-              <li className="nav-item"><a href="/mainpage" className="nav-link">메인페이지</a>
-            </li>
+              <li className="nav-item">
+                <a href="/mainpage" className="nav-link">
+                  메인페이지
+                </a>
+              </li>
             </ul>
           </div>
 

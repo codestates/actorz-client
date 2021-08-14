@@ -2,9 +2,9 @@ import React from "react";
 import { AlertOutlined } from "@ant-design/icons";
 import "../styles/Alert.css";
 
-const Alert = ({ content }) => {
+const Alert = ({ content, handleClickBtn }) => {
   const handleClickConfirmBtn = () => {
-    window.location = "/mainpage";
+    handleClickBtn(false);
   };
   return (
     <div id="alert-background">
