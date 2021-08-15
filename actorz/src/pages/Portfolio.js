@@ -107,7 +107,12 @@ const Portfolio = () => {
   };
 
   const isNotLoginModal = () => {
-    <Alert content="로그인 후 이용 가능합니다." />;
+    return (
+      <Alert
+        content="로그인 후 이용 가능합니다."
+        handleClickBtn={() => (window.location = "./mainpage")}
+      />
+    );
   };
 
   const noSaveModal = () => {
@@ -383,7 +388,10 @@ const Portfolio = () => {
                   <Footer />
                 </>
               ) : (
-                isNotLoginModal()
+                <Alert
+                  content="로그인 후 이용 가능합니다."
+                  handleClickBtn={() => (window.location = "./mainpage")}
+                />
               )}
             </>
           ) : (

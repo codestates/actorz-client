@@ -9,16 +9,15 @@ import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import Loading from "../components/loading";
-import { persistor } from "../store/store";
 import { useMediaQuery } from "react-responsive";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
-import { Modal, Tabs, Pagination } from "antd";
+import { Tabs, Pagination } from "antd";
 import { StickyContainer, Sticky } from "react-sticky";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import "../styles/Mypage.css";
-import "antd/dist/antd.css";
 import Alert from "../components/Alert";
+import "antd/dist/antd.css";
 
 const { TabPane } = Tabs;
 
