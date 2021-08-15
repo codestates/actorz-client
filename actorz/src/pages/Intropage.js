@@ -18,6 +18,7 @@ import iphoneG from "../images/iphoneGifcontent.gif";
 import ipadG from "../images/ipadGifcontent.gif";
 
 const Intropage = () => {
+  //const testtesttest = 0;
   const trigger = new ScrollTrigger();
   trigger.add("[data-trigger]");
   trigger.add("[feedback-trigger]");
