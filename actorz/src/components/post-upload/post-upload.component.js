@@ -61,7 +61,6 @@ const Postupload = ({
     delete files[fileName];
     setFiles({ ...files });
     callUpdateFilesCb({ ...files });
-    console.log(files);
   };
 
   return (

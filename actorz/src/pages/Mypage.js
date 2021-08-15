@@ -9,14 +9,14 @@ import Footer from "../components/Footer";
 import FooterFixed from "../components/FooterFixed";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import Loading from "../components/loading";
-import { persistor } from "../store/store";
 import { useMediaQuery } from "react-responsive";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
-import { Modal, Tabs, Pagination } from "antd";
+import { Tabs, Pagination } from "antd";
 import { StickyContainer, Sticky } from "react-sticky";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import "../styles/Mypage.css";
+import Alert from "../components/Alert";
 import "antd/dist/antd.css";
 
 const { TabPane } = Tabs;
@@ -41,7 +41,6 @@ const Mypage = () => {
   const [isloading, setIsLoading] = useState(false);
   const [userPost, setUserPost] = useState({});
   const [clickModal, setClickModal] = useState(false);
-  const [clickLike, setClickLike] = useState(false);
   const [likePost, setLikePost] = useState([]);
 
   let [post_data, setPostData] = useState([]);
@@ -85,27 +84,6 @@ const Mypage = () => {
     p();
   }, [post, user]);
 
-  // const handleDeleteAccount = async () => {
-  //   await server
-  //     .get(`/user/${localStorage.getItem("id")}/delete`, {
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  //       },
-  //     })
-  //     .then((res) => {
-  //       if (res.status === 205) {
-  //         console.log("회원탈퇴");
-  //         persistor.purge();
-  //         localStorage.removeItem("accessToken");
-  //         localStorage.removeItem("id");
-  //         window.location = "/mainpage";
-  //       }
-  //     })
-  //     .catch((err) => {
-  //       throw err;
-  //     });
-  // };
-
   const isPc = useMediaQuery({
     query: "(min-width:1024px)",
   });
@@ -126,18 +104,13 @@ const Mypage = () => {
     }
   };
 
-  const windowLocation = () => {
-    return (window.location = "/mainpage");
-  };
-
   const redirectPage = () => {
-    Modal.warning({
-      title: "접근 실패",
-      content: "로그인 후 이용 가능합니다.",
-      onOk() {
-        windowLocation();
-      },
-    });
+    return (
+      <Alert
+        content="로그인 후 이용 가능합니다."
+        handleClickBtn={() => (window.location = "./mainpage")}
+      />
+    );
   };
 
   const handleClickPost = (boolean, id) => {
@@ -237,7 +210,9 @@ const Mypage = () => {
                                     ) : (
                                       <>
                                         <strong>회사</strong>
-                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                        <li className="company">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
                                       </>
                                     )}
                                   </ul>
@@ -267,7 +242,7 @@ const Mypage = () => {
                                             {user.data.userInfo.email}
                                           </li>
                                           {user.data.userInfo.role ===
-                                          "actor" ? ( // role에 따른 정보 가감
+                                          "actor" ? (
                                             <>
                                               <strong>소속사</strong>
                                               {user.data.userInfo.company ? (
@@ -594,7 +569,9 @@ const Mypage = () => {
                                     ) : (
                                       <>
                                         <strong>회사</strong>
-                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                        <li className="company">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
                                       </>
                                     )}
                                   </ul>
@@ -624,7 +601,7 @@ const Mypage = () => {
                                             {user.data.userInfo.email}
                                           </li>
                                           {user.data.userInfo.role ===
-                                          "actor" ? ( // role에 따른 정보 가감
+                                          "actor" ? (
                                             <>
                                               <strong>소속사</strong>
                                               {user.data.userInfo.company ? (
@@ -638,10 +615,12 @@ const Mypage = () => {
                                           ) : (
                                             <>
                                               <strong>회사</strong>
-                                              {user.data.userInfo.recruiter.bName ? (
+                                              {user.data.userInfo.recruiter
+                                                .bName ? (
                                                 <li className="email">
                                                   {
-                                                    user.data.userInfo.recruiter.bName
+                                                    user.data.userInfo.recruiter
+                                                      .bName
                                                   }
                                                 </li>
                                               ) : (
@@ -946,7 +925,9 @@ const Mypage = () => {
                                     ) : (
                                       <>
                                         <strong>회사</strong>
-                                        <li className="company">{user.data.userInfo.recruiter.bName}</li>
+                                        <li className="company">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
                                       </>
                                     )}
                                   </ul>
@@ -977,7 +958,7 @@ const Mypage = () => {
                                             {user.data.userInfo.email}
                                           </li>
                                           {user.data.userInfo.role ===
-                                          "actor" ? ( // role에 따른 정보 가감
+                                          "actor" ? (
                                             <>
                                               <strong>소속사</strong>
                                               {user.data.userInfo.company ? (

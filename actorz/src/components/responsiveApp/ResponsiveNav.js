@@ -69,7 +69,6 @@ const ResponsiveApp = () => {
         if (res.status === 205) {
           setLoading(false);
           persistor.purge();
-          console.log("logout success!");
           localStorage.removeItem("accessToken");
           window.location = "/mainpage";
         }
@@ -88,7 +87,6 @@ const ResponsiveApp = () => {
   };
 
   const handleInputValue = (key) => (event) => {
-    console.log(event);
     if (key === "name") {
       setName(event.target.value);
     } else if (key === "conent") {

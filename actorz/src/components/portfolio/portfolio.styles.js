@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const PfUploadContainer = styled.section`
   position: relative;
   margin: 0 15px;
-  // border: 2px dotted lightgray;
-  // padding: 1rem;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
@@ -32,76 +30,76 @@ export const VideoPreview = styled.video`
 `;
 
 export const PostMetaData = styled.div`
-display: ${(props) => (props.isImageFile ? "none" : "flex")};
-flex-direction: column;
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-padding: 10px;
-border-radius: 6px;
-color: white;
-font-weight: bold;
-background-color: rgba(5, 5, 5, 0.55);
-font-size: 1rem;
-max-width: 110px;
-max-height: 110px;
+  display: ${(props) => (props.isImageFile ? "none" : "flex")};
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+  border-radius: 6px;
+  color: white;
+  font-weight: bold;
+  background-color: rgba(5, 5, 5, 0.55);
+  font-size: 1rem;
+  max-width: 110px;
+  max-height: 110px;
 
-aside {
-  margin-top: auto;
-  display: flex;
-  justify-content: space-between;
-}
+  aside {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+  }
 `;
 
 export const PreviewContainer = styled.section`
-padding: 0.25rem;
-width: 110px;
-height: 110px;
-border-radius: 6px;
-box-sizing: border-box;
+  padding: 0.25rem;
+  width: 110px;
+  height: 110px;
+  border-radius: 6px;
+  box-sizing: border-box;
 
-&:hover {
-  opacity: 0.55;
+  &:hover {
+    opacity: 0.55;
 
-  ${PostMetaData} {
-    display: flex;
+    ${PostMetaData} {
+      display: flex;
+    }
   }
-}
 
-& > div:first-of-type {
-  height: 100%;
-  position: relative;
-}
+  & > div:first-of-type {
+    height: 100%;
+    position: relative;
+  }
 
-@media only screen and (max-width: 110px) {
-  width: 100%;
-  padding: 0 0 0.4em;
-}
+  @media only screen and (max-width: 110px) {
+    width: 100%;
+    padding: 0 0 0.4em;
+  }
 `;
 
 export const PreviewList = styled.section`
-width: auto;
-align-items: center;
-display: flex;
-flex-wrap: wrap;
-margin: auto;
-margin-top: 5px;
-margin-left: 10px;
-margin-right: 10px;
+  width: auto;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
 
-@media only screen and (max-width: 400px) {
-  flex-direction: column;
-}
+  @media only screen and (max-width: 400px) {
+    flex-direction: column;
+  }
 `;
 
 export const RemovePostIcon = styled.i`
-cursor: pointer;
+  cursor: pointer;
 
-&:hover {
-  transform: scale(1.3);
-}
+  &:hover {
+    transform: scale(1.3);
+  }
 `;
 
 export const PortfolioPostBtn = styled.button`
@@ -188,18 +186,6 @@ export const PortfolioPostBtn = styled.button`
   }
 `;
 
-
-
-
-
-
-
-
-
-
-
-
-
 export const FormField = styled.input`
   font-size: 18px;
   display: block;
@@ -218,11 +204,9 @@ export const FormField = styled.input`
   }
 `;
 
-
 export const DragDropText = styled.p`
   font-weight: bold;
   letter-spacing: 2.2px;
   margin-top: 0;
   text-align: center;
 `;
-
