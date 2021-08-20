@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import { getAllPostInfo } from "../../actions/postAction";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import FileUpload from "../../components/file-upload/file-upload.component";
 import server from "../../apis/server";

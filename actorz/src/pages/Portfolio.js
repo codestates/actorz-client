@@ -370,7 +370,8 @@ const Portfolio = () => {
                     <div className="newblockPosition2"> </div>
 
                     <div className="rightSpace">
-                      <div className="iconList2"> </div>
+                      {/*                       <div className="iconList2"> </div>
+                       */}{" "}
                     </div>
                   </div>
                   <div>

@@ -156,7 +156,8 @@ const Mypage = () => {
                 <>
                   {!isEdit ? (
                     <>
-                      <div className="blockhere"> </div>
+                      {/*                       <div className="blockhere"> </div>
+                       */}{" "}
                       <div className="mainPage">
                         <Nav />
                         <Iconlist />
@@ -488,7 +489,8 @@ const Mypage = () => {
                         <div className="newblockPosition2"> </div>
 
                         <div className="rightSpace">
-                          <div className="iconList2"></div>
+                          {/*                           <div className="iconList2"></div>
+                           */}{" "}
                         </div>
                       </div>
                       <Footer />
@@ -515,7 +517,6 @@ const Mypage = () => {
                 <>
                   {!isEdit ? (
                     <>
-                      <div className="blockhere"> </div>
                       <div className="mainPage">
                         <Nav />
                         <ResponsiveIconlistTablet />
@@ -870,7 +871,6 @@ const Mypage = () => {
                 <>
                   {!isEdit ? (
                     <>
-                      <div className="blockhere"> </div>
                       <div className="mainPage">
                         <ResponsiveNav />
                         <ResponsiveFooter />

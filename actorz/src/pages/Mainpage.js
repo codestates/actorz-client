@@ -1,33 +1,31 @@
 import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useMediaQuery } from "react-responsive";
+import server from "../apis/server";
 import Nav from "../components/Nav";
 import Post from "./Post";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import server from "../apis/server";
 import Iconlist from "../components/Iconlist";
-import { getAllPostInfo, editPostInfo } from "../actions/postAction";
-import { getUserInfo } from "../actions/userAction";
 import SocialSignup from "../components/SocialSignup";
 import Footer from "../components/Footer";
-import { HeartOutlined } from "@ant-design/icons";
-import { Modal } from "antd";
-import { Card, Icon, Image } from "semantic-ui-react";
-import "antd/dist/antd.css";
-import "../mainpage.css";
-import "semantic-ui-css/semantic.min.css";
+import { getAllPostInfo } from "../actions/postAction";
+import { getUserInfo } from "../actions/userAction";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
-import "../styles/ResponsiveMainpage.css";
 import Loading from "../components/loading";
 import { redirectUri } from "../config";
-import failed from "../images/depression.png";
 
+import "../mainpage.css";
 import "../styles/Search.css";
+import "../styles/ResponsiveMainpage.css";
+import "semantic-ui-css/semantic.min.css";
+import "antd/dist/antd.css";
+import { Card, Icon, Image } from "semantic-ui-react";
+import { HeartOutlined } from "@ant-design/icons";
+import { Modal } from "antd";
+import NoContents from "../components/NoContents";
 
 const Mainpage = () => {
-  const [clickupload, setClickUpload] = useState(false);
   const [clickModal, setClickModal] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [oauthSignup, setOauthSignup] = useState("");
@@ -209,21 +207,19 @@ const Mainpage = () => {
     }
   };
 
+  const { data } = post.data;
   return (
     <>
       {isPc && (
         <>
-          <div className="blockhere"> </div>
           <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
           <div className="mainPage">
-            <div></div>
             <Iconlist />
-
             <div className="middleSpace">
               <div className="midContents2 midContentsReverse">
-                {post.data.data ? (
-                  post.data.data.posts.posts.length !== 0 ? (
-                    post.data.data.posts.posts.map((post) => {
+                {data ? (
+                  data.posts.posts.length !== 0 ? (
+                    data.posts.posts.map((post) => {
                       return (
                         <Card centered={true} fluid={true} key={post._id}>
                           <div
@@ -231,7 +227,6 @@ const Mainpage = () => {
                             onClick={() => handleClickPost(true, post._id)}
                           >
                             <div className="screen">
-                              {/* <div className="top"> 이기능쓰긴함?</div> */}
                               <div className="bottom">
                                 <HeartOutlined className="testIcon" />
                               </div>
@@ -263,13 +258,8 @@ const Mainpage = () => {
                             onClick={() => handleClickPost(true, post._id)}
                           >
                             <Card.Header>
-                              <div
-                                className="nothing2"
-                                style={{ width: "fit-content" }}
-                              >
-                                <div className="nothing">
-                                  {post.userInfo.name}
-                                </div>
+                              <div className="nothing">
+                                {post.userInfo.name}
                               </div>
                             </Card.Header>
                             <Card.Meta>
@@ -280,6 +270,7 @@ const Mainpage = () => {
                             </Card.Meta>
                             <Card.Description>{post.content}</Card.Description>
                           </Card.Content>
+
                           <Card.Content extra>
                             {post.likes.length !== 0 &&
                             localStorage.getItem("accessToken") ? (
@@ -319,30 +310,24 @@ const Mainpage = () => {
                       );
                     })
                   ) : (
-                    <center>
-                      <div className="failed-box">
-                        <img src={failed} className="failed-icon"></img>
-                        <span className="failed-span">아무것도 없어요!</span>
-                      </div>
-                    </center>
+                    <NoContents />
                   )
                 ) : (
                   <Loading />
                 )}
-
-                {clickModal ? (
-                  <Post
-                    clickModal={clickModal}
-                    closePost={() => handleClickPost(false)}
-                  />
-                ) : null}
               </div>
             </div>
             <div className="rightSpace"></div>
-            <div></div>
           </div>
-
           <Footer />
+
+          {clickModal ? (
+            <Post
+              clickModal={clickModal}
+              closePost={() => handleClickPost(false)}
+            />
+          ) : null}
+
           {modalSocialSignup ? (
             <SocialSignup
               isMobile={false}
@@ -358,16 +343,15 @@ const Mainpage = () => {
       {isTablet && (
         <>
           <Nav loading={loading} handleClickFiltering={handleClickFiltering} />
-          <div className="blockhere"> </div>
+
           <div className="mainPageResponsive">
             <ResponsiveIconlistTablet />
 
             <div className="middleSpace2">
-              {/* <div className="middleSpaceResponsive2"> */}
               <div className="midContentsResponsive midContentsReverse">
-                {post.data.data ? (
-                  post.data.data.posts.posts.length !== 0 ? (
-                    post.data.data.posts.posts.map((post) => {
+                {data ? (
+                  data.posts.posts.length !== 0 ? (
+                    data.posts.posts.map((post) => {
                       return (
                         <Card centered={true} fluid={true} key={post._id}>
                           <div
@@ -378,7 +362,6 @@ const Mainpage = () => {
                               className="screen"
                               onClick={() => handleClickPost(true, post._id)}
                             >
-                              {/* <div className="top"> 이기능쓰긴함?</div> */}
                               <div className="bottom">
                                 <HeartOutlined className="testIcon" />
                               </div>
@@ -403,7 +386,6 @@ const Mainpage = () => {
                                   </video>
                                 )
                               ) : null}
-                              {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                             </div>
                           </div>
 
@@ -411,13 +393,8 @@ const Mainpage = () => {
                             onClick={() => handleClickPost(true, post._id)}
                           >
                             <Card.Header>
-                              <div
-                                className="nothing2"
-                                style={{ width: "fit-content" }}
-                              >
-                                <div className="nothing">
-                                  {post.userInfo.name}
-                                </div>
+                              <div className="nothing">
+                                {post.userInfo.name}
                               </div>
                             </Card.Header>
                             <Card.Meta>
@@ -470,28 +447,22 @@ const Mainpage = () => {
                       );
                     })
                   ) : (
-                    <center>
-                      <div className="failed-box">
-                        <img src={failed} className="failed-icon"></img>
-                        <span className="failed-span">아무것도 없어요!</span>
-                      </div>
-                    </center>
+                    <NoContents />
                   )
                 ) : (
                   <Loading />
                 )}
-
-                {clickModal ? (
-                  <Post
-                    clickModal={clickModal}
-                    closePost={() => handleClickPost(false)}
-                  />
-                ) : null}
               </div>
             </div>
             <div className="responsiveNewblockPosition"> </div>
           </div>
-          {/* <ResponsiveFooter />  */}
+
+          {clickModal ? (
+            <Post
+              clickModal={clickModal}
+              closePost={() => handleClickPost(false)}
+            />
+          ) : null}
 
           {modalSocialSignup ? (
             <SocialSignup
@@ -507,18 +478,15 @@ const Mainpage = () => {
 
       {isMobile && (
         <>
-          <div className="blockhere"> </div>
           <div className="mainPageResponsive2">
-            {/* <Nav loading={loading} handleClickFiltering={handleClickFiltering} /> */}
             <ResponsiveNav />
-            {/* <Iconlist /> */}
             <ResponsiveFooter />
 
             <div className="middleSpaceResponsive2">
               <div className="midContentsResponsive2 midContentsReverse">
-                {post.data.data ? (
-                  post.data.data.posts.posts.length !== 0 ? (
-                    post.data.data.posts.posts.map((post) => {
+                {data ? (
+                  data.posts.posts.length !== 0 ? (
+                    data.posts.posts.map((post) => {
                       return (
                         <Card centered={true} fluid={true} key={post._id}>
                           <div
@@ -529,7 +497,6 @@ const Mainpage = () => {
                               className="screen"
                               onClick={() => handleClickPost(true, post._id)}
                             >
-                              {/* <div className="top"> 이기능쓰긴함?</div> */}
                               <div className="bottom">
                                 <HeartOutlined className="testIcon" />
                               </div>
@@ -554,7 +521,6 @@ const Mainpage = () => {
                                   </video>
                                 )
                               ) : null}
-                              {/* 사진 다 지워버리면 메인페이지 여기에 어떤 사진을 출력해야 할까, 기본 이미지..? */}
                             </div>
                           </div>
 
@@ -562,13 +528,8 @@ const Mainpage = () => {
                             onClick={() => handleClickPost(true, post._id)}
                           >
                             <Card.Header>
-                              <div
-                                className="nothing2"
-                                style={{ width: "fit-content" }}
-                              >
-                                <div className="nothing">
-                                  {post.userInfo.name}
-                                </div>
+                              <div className="nothing">
+                                {post.userInfo.name}
                               </div>
                             </Card.Header>
                             <Card.Meta>
@@ -621,31 +582,21 @@ const Mainpage = () => {
                       );
                     })
                   ) : (
-                    <center>
-                      <div className="failed-box2">
-                        <img src={failed} className="failed-icon"></img>
-                        <span className="failed-span">아무것도 없어요!</span>
-                      </div>
-                    </center>
+                    <NoContents />
                   )
                 ) : (
                   <Loading />
                 )}
-
-                {clickModal ? (
-                  <Post
-                    clickModal={clickModal}
-                    closePost={() => handleClickPost(false)}
-                  />
-                ) : null}
               </div>
             </div>
-            {/* <div className="newblockPosition2"> </div>
-
-          <div className="rightSpace">
-            <div className="iconList2">{isFilter ? <Search /> : null}</div>
-          </div> */}
           </div>
+
+          {clickModal ? (
+            <Post
+              clickModal={clickModal}
+              closePost={() => handleClickPost(false)}
+            />
+          ) : null}
 
           {modalSocialSignup ? (
             <SocialSignup

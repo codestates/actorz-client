@@ -118,7 +118,6 @@ const Like = () => {
         <>
           {localStorage.getItem("accessToken") ? (
             <>
-              <div className="blockhere"> </div>
               <div className="mainPage">
                 <Nav
                   loading={loading}
@@ -169,20 +168,18 @@ const Like = () => {
 
                               <Card.Content>
                                 <Card.Header>
-                                  <div className="nothing2">
-                                    <Link
-                                      to={{
-                                        pathname: `/posts`,
-                                        state: {
-                                          id: post.userInfo.user_id,
-                                        },
-                                      }}
-                                    >
-                                      <div className="nothing">
-                                        {post.userInfo.name}
-                                      </div>
-                                    </Link>
-                                  </div>
+                                  <Link
+                                    to={{
+                                      pathname: `/posts`,
+                                      state: {
+                                        id: post.userInfo.user_id,
+                                      },
+                                    }}
+                                  >
+                                    <div className="nothing">
+                                      {post.userInfo.name}
+                                    </div>
+                                  </Link>
                                 </Card.Header>
                                 <Card.Meta>
                                   <span className="date">
@@ -246,9 +243,8 @@ const Like = () => {
                 <div className="newblockPosition2"> </div>
 
                 <div className="rightSpace">
-                  <div className="iconList2">
-                    {/* {isFilter ? <Search /> : null} */}
-                  </div>
+                  {/*                   <div className="iconList2"></div>
+                   */}{" "}
                 </div>
               </div>
               <Footer />
@@ -275,7 +271,6 @@ const Like = () => {
                 loading={loading}
                 handleClickFiltering={handleClickFiltering}
               />
-              <div className="blockhere"> </div>
               <div className="mainPageResponsive">
                 <ResponsiveIconlistTablet />
 
@@ -322,20 +317,18 @@ const Like = () => {
 
                               <Card.Content>
                                 <Card.Header>
-                                  <div className="nothing2">
-                                    <Link
-                                      to={{
-                                        pathname: `/posts`,
-                                        state: {
-                                          id: post.userInfo.user_id,
-                                        },
-                                      }}
-                                    >
-                                      <div className="nothing">
-                                        {post.userInfo.name}
-                                      </div>
-                                    </Link>
-                                  </div>
+                                  <Link
+                                    to={{
+                                      pathname: `/posts`,
+                                      state: {
+                                        id: post.userInfo.user_id,
+                                      },
+                                    }}
+                                  >
+                                    <div className="nothing">
+                                      {post.userInfo.name}
+                                    </div>
+                                  </Link>
                                 </Card.Header>
                                 <Card.Meta>
                                   <span className="date">
@@ -399,7 +392,8 @@ const Like = () => {
                 <div className="newblockPosition2"> </div>
 
                 <div className="rightSpace">
-                  <div className="iconList2"></div>
+                  {/*                   <div className="iconList2"></div>
+                   */}{" "}
                 </div>
               </div>
               <Footer />
@@ -422,7 +416,6 @@ const Like = () => {
         <>
           {localStorage.getItem("accessToken") ? (
             <>
-              <div className="blockhere"> </div>
               <div className="mainPageResponsive2">
                 <ResponsiveNav />
 
@@ -469,20 +462,18 @@ const Like = () => {
 
                               <Card.Content>
                                 <Card.Header>
-                                  <div className="nothing2">
-                                    <Link
-                                      to={{
-                                        pathname: `/posts`,
-                                        state: {
-                                          id: post.userInfo.user_id,
-                                        },
-                                      }}
-                                    >
-                                      <div className="nothing">
-                                        {post.userInfo.name}
-                                      </div>
-                                    </Link>
-                                  </div>
+                                  <Link
+                                    to={{
+                                      pathname: `/posts`,
+                                      state: {
+                                        id: post.userInfo.user_id,
+                                      },
+                                    }}
+                                  >
+                                    <div className="nothing">
+                                      {post.userInfo.name}
+                                    </div>
+                                  </Link>
                                 </Card.Header>
                                 <Card.Meta>
                                   <span className="date">

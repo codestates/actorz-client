@@ -13,7 +13,6 @@ body {
 }
 
 .name {
-  /*font: italic 1.2em "Fira Sans", serif;*/
   font-size: 1.5rem;
   margin-bottom: 0.6rem;
 }
@@ -31,17 +30,14 @@ li {
 }
 
 .middleSpace2 {
-  /* 태블릿 반응형 */
   flex: auto;
   background-color: #fafafa;
   margin-top: -1.5rem;
-  /* margin-left: 2rem; */
   margin-top: 1rem;
   margin-bottom: 3rem;
 }
 
 .middleSpace5 {
-  /* 태블릿 반응형 */
   flex: auto;
   background-color: #fafafa;
   margin-top: 1rem;
@@ -65,21 +61,14 @@ li {
 
 .careerContent {
   margin-bottom: 0.5rem;
-  /*text-align: left;*/
-  /*background-color: yellow;*/ /* TEST  */
 }
 
 .career li {
-  /*font-family: "Nanum Gothic", sans-serif;*/
   font-size: 1rem;
   text-align: left;
 }
 
 .fixedSize {
-  /*
-  width: 15rem;
-  height: 20rem;*/
-  /*background-color: yellow;*/
   flex: 1;
   margin-top: 2rem;
 }
@@ -93,16 +82,11 @@ li {
   object-fit: cover;
 }
 
-.midContentDownPart .div {
-  /* display: flex; */
-}
-
 .fixedContent {
   display: flex;
   flex-direction: column;
   text-align: center;
   padding: 2rem;
-  /*max-width:100%;*/
   flex: 1;
   height: 20rem;
   background-color: #fafafa;
@@ -114,7 +98,6 @@ li {
   flex-direction: column;
   text-align: left;
   padding: 2rem;
-  /*max-width:100%;*/
   flex: 1;
   min-height: 20rem;
   background-color: #fafafa;
@@ -122,7 +105,6 @@ li {
 
 .displayPosition {
   display: flex;
-  /*flex-direction: column;*/
   text-align: center;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -147,13 +129,10 @@ li {
   padding: 0.625rem;
 }
 
-/* * Button */
 .buttonHeader {
   display: flex;
   justify-content: space-between;
-
   font-size: 2rem;
-  /* padding: 0.5rem; */
   border-bottom: 1px solid lightgray;
 }
 
@@ -183,9 +162,6 @@ li {
   width: 3rem;
 }
 
-/* i.like.icon::before {
-  color: red;
-} */
 .pagination {
   display: flex;
   justify-content: center;
