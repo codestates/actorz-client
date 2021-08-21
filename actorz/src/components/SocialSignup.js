@@ -7,7 +7,6 @@ import { Modal } from "antd";
 import server from "../apis/server";
 import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
-import { redirectUri } from "../config";
 import { DatePicker } from "antd";
 import AddressModal from "./AddressModal";
 import "moment/locale/ko";

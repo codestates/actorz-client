@@ -152,7 +152,7 @@ const Mypage = () => {
         <>
           {!isloading ? (
             <>
-              {localStorage.getItem("accessToken") ? (
+              {user.isLogin ? (
                 <>
                   {!isEdit ? (
                     <>
@@ -513,7 +513,7 @@ const Mypage = () => {
         <>
           {!isloading ? (
             <>
-              {localStorage.getItem("accessToken") ? (
+              {user.isLogin ? (
                 <>
                   {!isEdit ? (
                     <>
@@ -867,7 +867,7 @@ const Mypage = () => {
         <>
           {!isloading ? (
             <>
-              {localStorage.getItem("accessToken") ? (
+              {user.isLogin ? (
                 <>
                   {!isEdit ? (
                     <>
