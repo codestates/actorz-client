@@ -468,12 +468,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
     <>
       {isPc && (
         <>
-          <div className="blockhere"> </div>
           <div className="mainPage">
             <Nav />
             <Iconlist />
-
-            <div className="newblockPosition"> </div>
 
             <div className="middleSpace">
               <div className="midContents">
@@ -974,11 +971,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 </div>
               </div>
             </div>
-            <div className="newblockPosition2"> </div>
-
-            <div className="rightSpace">
-              <div className="iconList2"> </div>
-            </div>
           </div>
           <Footer />
         </>
@@ -986,12 +978,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
       {isTablet && (
         <>
-          <div className="blockhere"> </div>
           <div className="mainPage">
             <Nav />
             <ResponsiveIconlistTablet />
-
-            <div className="newblockPosition"> </div>
 
             <div className="middleSpace2">
               <div className="midContents">
@@ -1474,7 +1463,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 </div>
               </div>
             </div>
-            <div className="responsiveNewblockPosition2"> </div>
           </div>
           <FooterFixed />
         </>
@@ -1482,12 +1470,9 @@ const MypageEdit = ({ handeClickEditBtn }) => {
 
       {isMobile && (
         <>
-          <div className="blockhere"> </div>
           <div className="mainPage">
             <ResponsiveNav />
             <ResponsiveFooter />
-
-            <div className="newblockPosition"> </div>
 
             <div className="middleSpace5">
               <div className="midContents">
@@ -1970,7 +1955,6 @@ const MypageEdit = ({ handeClickEditBtn }) => {
                 </div>
               </div>
             </div>
-            <div className="responsiveNewblockPosition2"> </div>
           </div>
         </>
       )}

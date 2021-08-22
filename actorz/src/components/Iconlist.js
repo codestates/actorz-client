@@ -9,6 +9,7 @@ import {
   SnippetsOutlined,
 } from "@ant-design/icons";
 import "antd/dist/antd.css";
+import "../styles/Iconlist.css";
 import { Link } from "react-router-dom";
 import FileUpload from "../components/file-upload/file-upload.component";
 import server from "../apis/server";

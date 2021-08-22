@@ -1,0 +1,17 @@
+.failed-box {
+  margin-top: 10rem;
+}
+
+.failed-box2 {
+  margin-top: 10rem;
+}
+
+.failed-span {
+  font-size: 1.5rem;
+  color: rgb(59, 84, 195);
+  font-family: "Jua", sans-serif;
+}
+
+.failed-icon {
+  width: 6rem;
+}

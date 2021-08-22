@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import Slider from "react-slick";
+import Loading from "../loading";
+import { Modal } from "antd";
+import { NextArrow, PrevArrow } from "./portfolio.customArrow";
 import { useMediaQuery } from "react-responsive";
 
 import {
@@ -11,12 +14,7 @@ import {
   PreviewList,
   RemovePostIcon,
 } from "./portfolio.styles";
-
 import "../../styles/Fileupload.css";
-
-import Loading from "../loading";
-import { Modal } from "antd";
-import { NextArrow, PrevArrow } from "./portfolio.customArrow";
 
 const settings = {
   className: "pf-slick",
@@ -133,7 +131,6 @@ const PortfolioEdit = ({
                 {postsData[0] ? (
                   <PfUploadContainer>
                     <PreviewList>
-                      {/* 등록 포스트가 4개이상 선택 될 경우경고 모달 나오게 수정해야함 */}
                       {postsData.length > 4
                         ? handleOverFiles()
                         : postsData.map((post, index) => {
@@ -255,7 +252,6 @@ const PortfolioEdit = ({
                 {postsData[0] ? (
                   <PfUploadContainer>
                     <PreviewList>
-                      {/* 등록 포스트가 4개이상 선택 될 경우경고 모달 나오게 수정해야함 */}
                       {postsData.length > 4
                         ? handleOverFiles()
                         : postsData.map((post, index) => {

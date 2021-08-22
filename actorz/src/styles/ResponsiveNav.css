@@ -26,11 +26,6 @@ body {
   margin-right: 20rem;
 }
 
-#ResponsiveNavHeader {
-  /* width: 100%;
-  max-width: 100%; */
-}
-
 .search2 {
   display: flex;
   justify-content: space-between;
@@ -48,17 +43,6 @@ body {
 .ant-popover {
   position: fixed;
 }
-
-/* .nav-btn {
-  border: 0rem;
-  border-radius: 0.3rem;
-  width: 7rem;
-  height: 2rem;
-  display: flex;
-  padding: 0.5rem 0rem 0rem 2rem;
-  margin-bottom: 0.3rem;
-  background-color: rgb(233, 239, 240);
-} */
 
 .nav-btn-login {
   border: 0rem;

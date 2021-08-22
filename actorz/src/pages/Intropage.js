@@ -142,14 +142,12 @@ const Intropage = () => {
     setPosition(window.scrollY);
   };
 
-
   useEffect(() => {
     window.addEventListener("scroll", onScroll);
     return () => {
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
-              
   
   window.onload = function () {
     setTimeout(function () {
