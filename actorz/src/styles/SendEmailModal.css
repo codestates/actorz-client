@@ -1,15 +1,14 @@
 ::-webkit-scrollbar {
-  width: 0.35rem; 
-} 
-
-::-webkit-scrollbar-thumb { 
- background-color: #d6d6d6;
-} 
-
-::-webkit-scrollbar-track { 
- background-color: rgb(255, 255, 255);
+  width: 0.35rem;
 }
 
+::-webkit-scrollbar-thumb {
+  background-color: #d6d6d6;
+}
+
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
+}
 
 #email-modal-background {
   position: fixed;
@@ -24,7 +23,6 @@
 }
 
 #email-modal-container {
-  /* overflow-y: auto; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -134,7 +132,7 @@
   margin: 0.2rem 0 0 0.6rem;
 }
 
-.email-form-radio-input{
+.email-form-radio-input {
   background-color: rgb(236, 248, 255);
   border-bottom: dotted lightgray 1px;
 }
@@ -162,8 +160,6 @@
 .email-send-btn-position {
   width: 100%;
   margin: 2rem 0 0rem 0;
-  /* display: flex;
-  flex-direction: row-reverse; */
 }
 
 .email-form-textArea {
@@ -177,9 +173,7 @@
   padding-bottom: 1.5rem;
 }
 
-/* MOBILE */
 #email-modal-container-mobile {
-  /* overflow-y: auto; */
   position: absolute;
   display: flex;
   flex-direction: row;
@@ -220,7 +214,7 @@
   max-height: fit-content;
 }
 
- #email-modal-header-content-mobile {
+#email-modal-header-content-mobile {
   display: flex;
   width: 2.5rem;
   height: 2.5rem;
@@ -235,7 +229,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 90%
+  width: 90%;
 }
 .email-welcome-message-mobile {
   font-size: 0.9rem;

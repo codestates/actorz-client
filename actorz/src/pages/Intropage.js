@@ -155,7 +155,6 @@ const Intropage = () => {
     <>
       {isPc && (
         <>
-          {/* <div className="blockhere"> </div> */}
           <IntroNav />
           <div className="mainContentsEffectP">
             <Slider {...settings} className="freeGroup">

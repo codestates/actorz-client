@@ -76,7 +76,6 @@ li {
 .testPic {
   width: 15rem;
   height: 15rem;
-  /* flex: 1; */
   border-radius: 70%;
   margin-bottom: 0.5rem;
   object-fit: cover;

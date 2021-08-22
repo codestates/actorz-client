@@ -153,7 +153,6 @@ const FileUpload = ({
                 {...otherProps}
               />
               <FilePreviewContainer>
-                {/* <span>To Upload</span> */}
                 <PreviewList>
                   {Object.keys(files).length > 4
                     ? handleOverFiles()
@@ -323,7 +322,6 @@ const FileUpload = ({
               </DragDropText>
               <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
                 <i className="fas fa-file-upload" />
-                {/* <span> Upload {otherProps.multiple ? "files" : "a file"}</span> */}
                 <span> 업로드 하기! 클릭! </span>
               </UploadFileBtn>
               <FormField
@@ -335,9 +333,7 @@ const FileUpload = ({
                 {...otherProps}
               />
               <FilePreviewContainer>
-                {/* <span>To Upload</span> */}
                 <div style={{ width: "100%", alignContent: "center" }}>
-                  {/* <PreviewList style={{display: "flex", flexDirection: "row", maxWidth: "20rem"}}> */}
                   <PreviewList
                     style={{ display: "flex", flexFlow: "row wrap" }}
                   >

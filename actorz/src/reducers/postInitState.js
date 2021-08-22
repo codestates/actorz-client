@@ -14,7 +14,6 @@ export const postInitState = {
         createdAt: null,
         updatedAt: null,
         genre: null,
-        /* 'tags': [...], */
         likes: [],
       },
     ],

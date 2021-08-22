@@ -219,10 +219,7 @@ const Posts = (props) => {
             )}
             <div className="newblockPosition2"> </div>
 
-            <div className="rightSpace">
-              {/*               <div className="iconList2"> </div>
-               */}{" "}
-            </div>
+            <div className="rightSpace"></div>
           </div>
           <Footer />
         </>
@@ -358,10 +355,6 @@ const Posts = (props) => {
               <Loading />
             )}
             <div className="responsiveNewblockPosition2"> </div>
-
-            {/*          <div className="rightSpace">
-              <div className="iconList2"> </div>
-            </div> */}
           </div>
           <FooterFixed />
         </>

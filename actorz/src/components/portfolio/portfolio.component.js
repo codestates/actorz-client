@@ -252,7 +252,6 @@ const PortfolioEdit = ({
                 {postsData[0] ? (
                   <PfUploadContainer>
                     <PreviewList>
-                      {/* 등록 포스트가 4개이상 선택 될 경우경고 모달 나오게 수정해야함 */}
                       {postsData.length > 4
                         ? handleOverFiles()
                         : postsData.map((post, index) => {

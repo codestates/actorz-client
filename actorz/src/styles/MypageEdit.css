@@ -27,7 +27,7 @@ div.postsGallery {
   color: #000000;
   background-color: #ffffffc1;
   border-radius: 70%;
-  border: 2.5px solid #ffffff00
+  border: 2.5px solid #ffffff00;
 }
 
 .galleryComponents > section > div > div > aside > i:hover {
@@ -52,8 +52,6 @@ div.postsGallery {
 
 .filebox label {
   display: inline-block;
-  /* width: 7.79rem; */
-  /* padding: .5em .75em;  */
   padding: 0em 0.1em;
   color: rgb(0, 0, 0);
   font-size: inherit;
@@ -61,7 +59,6 @@ div.postsGallery {
   vertical-align: middle;
   background-color: #fdfdfd;
   cursor: pointer;
-  /* border: 1px solid #dddada;  */
   border-bottom-color: #e2e2e2;
   border-radius: 80%;
   margin-bottom: 0.5rem;
@@ -96,7 +93,6 @@ div.postsGallery {
   transition: 0.5s ease;
   background-color: #000000;
 
-  /* flex: 1; */
   border-radius: 70%;
   margin-bottom: 0.5rem;
   object-fit: cover;
@@ -113,7 +109,6 @@ div.postsGallery {
   transform: translate(-50%, -50%);
   text-align: center;
 }
-/* 프로필 이미지 수정 css 반투명 검은색 hover */
 .profileImgContainer {
   position: relative;
 }
@@ -121,7 +116,6 @@ div.postsGallery {
 .ant-calendar-input-wrap {
   display: none;
 }
-
 
 .profileImgContainer:hover .profileImgEdit {
   opacity: 0.7;
@@ -184,25 +178,12 @@ li {
   font-size: 2.5rem;
   margin-top: 0.6rem;
 }
-/*
-.career-btn {
-  position: absolute;
-  border: 0px;
-  background-color: white;
-}
-*/
 
 .profileTitleName {
-  /* flex: left; */
   font-size: 1.3rem;
   margin-top: 0.5rem;
   font-family: Lato;
   margin-left: 1rem;
-}
-
-.profileButtonAll {
-  /* float: right; 
-  display:inline-block; */
 }
 
 .careerTitle2 {
@@ -235,22 +216,8 @@ li {
   z-index: 1;
 }
 
-.career-box {
-}
-
 .career-box li {
   padding: 0.5rem;
-  /*
-  font-family: "Nanum Gothic", sans-serif;
-  font-size: 20px;
-  margin-top: 30px;
-  margin-left: 100px;
-  margin-bottom: 60px;
-  padding-top: 15px;
-  padding-left: 15px;
-  height: 130px;
-  width: 800px;
-  */
   margin-bottom: 1rem;
   border: 1px solid lightgray;
 }
@@ -264,15 +231,10 @@ li {
 }
 
 .career-delete-btn {
-  /* position: absolute; */
-  /*margin-left: 0;*/
   flex: 1;
   text-align: right;
   align-self: flex-end;
   margin-bottom: 0.5rem;
-
-  /* border: 0px; */
-  /* background-color: white; */
 }
 
 .tag {
@@ -290,17 +252,11 @@ li {
 }
 
 .career-year {
-  /*
-  border-left: 1px solid #e0e0e0;
-  */
   margin-left: 4rem;
   margin-right: 0.5rem;
 }
 
 .career-year2 {
-  /*
-  border-left: 1px solid #e0e0e0;
-  */
   margin-top: 0.5rem;
 }
 
@@ -353,7 +309,6 @@ li {
 
 .careerDivide4 {
   display: flex;
-  /* flex-direction: column; */
 }
 
 .careerDivide5 {
@@ -382,7 +337,6 @@ li {
 .profileCenter {
   border-top: 1px lightgrey solid;
   margin-bottom: 1rem;
-  /* text-align: center; */
   display: flex;
   justify-content: center;
 }
