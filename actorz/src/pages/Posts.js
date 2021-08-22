@@ -118,7 +118,9 @@ const Posts = (props) => {
                         <p className="name">{userinfo.userInfo.name}</p>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{userinfo.userInfo.dob.toString().split("T")[0]}</li>
+                          <li className="dob">
+                            {userinfo.userInfo.dob.toString().split("T")[0]}
+                          </li>
                           <strong>이메일</strong>
                           <li className="email">{userinfo.userInfo.email}</li>
                           {userinfo.userInfo.role === "actor" ? (
@@ -217,9 +219,7 @@ const Posts = (props) => {
             )}
             <div className="newblockPosition2"> </div>
 
-            <div className="rightSpace">
-              <div className="iconList2"> </div>
-            </div>
+            <div className="rightSpace"></div>
           </div>
           <Footer />
         </>
@@ -255,7 +255,9 @@ const Posts = (props) => {
                         <p className="name">{userinfo.userInfo.name}</p>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{userinfo.userInfo.dob.toString().split("T")[0]}</li>
+                          <li className="dob">
+                            {userinfo.userInfo.dob.toString().split("T")[0]}
+                          </li>
                           <strong>이메일</strong>
                           <li className="email">{userinfo.userInfo.email}</li>
                           {userinfo.userInfo.role === "actor" ? (
@@ -353,10 +355,6 @@ const Posts = (props) => {
               <Loading />
             )}
             <div className="responsiveNewblockPosition2"> </div>
-
-            {/*          <div className="rightSpace">
-              <div className="iconList2"> </div>
-            </div> */}
           </div>
           <FooterFixed />
         </>
@@ -392,7 +390,9 @@ const Posts = (props) => {
                         <p className="name">{userinfo.userInfo.name}</p>
                         <ul>
                           <strong>생년월일</strong>
-                          <li className="dob">{userinfo.userInfo.dob.toString().split("T")[0]}</li>
+                          <li className="dob">
+                            {userinfo.userInfo.dob.toString().split("T")[0]}
+                          </li>
                           <strong>이메일</strong>
                           <li className="email">{userinfo.userInfo.email}</li>
                           {userinfo.userInfo.role === "actor" ? (

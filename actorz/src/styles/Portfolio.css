@@ -2,15 +2,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap");
 
 ::-webkit-scrollbar {
-  width: 0.35rem; 
-} 
+  width: 0.35rem;
+}
 
-::-webkit-scrollbar-thumb { 
- background-color: #000000;
-} 
+::-webkit-scrollbar-thumb {
+  background-color: #000000;
+}
 
-::-webkit-scrollbar-track { 
- background-color: rgb(255, 255, 255);
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
 }
 
 .pf.middleSpace2 {
@@ -52,7 +52,6 @@
 }
 
 .portFolioEdit {
-  /* position: absolute; */
   display: flex;
   flex-direction: column;
   justify-items: center;
@@ -96,7 +95,7 @@
   max-height: 100%;
 }
 
-.pf.fas { 
+.pf.fas {
   font-size: 25px;
   color: gray;
   margin-top: 120px;
@@ -138,11 +137,9 @@
 }
 
 .pf.postHeader {
-  /* height: 50px; */
   line-height: 40px;
   min-height: 50px;
-  padding: 1.0rem 0.5rem 0 0.5rem;
-  /* padding: 0 0.5rem 0 0.5rem; */
+  padding: 1rem 0.5rem 0 0.5rem;
   border-top: 1px solid lightgray;
   margin-bottom: 0;
   text-align: center;
@@ -162,4 +159,3 @@
 .pf.slick-track {
   max-height: 100%;
 }
-

@@ -1,33 +1,15 @@
 #modal-background {
   position: fixed;
-  /* flex-direction: column; */
-  /* top: -26vh; */
-  /* left: -15vw; */
-  top:0;
+  top: 0;
   width: 100%;
   height: 100%;
   z-index: 10000;
-  /*
-   width, height : 100주면 센터로간다. 
-   로그아웃 때문에 모달창의 센터를 맞추면 보기가 흉해진다.
-   코드로 자체적으로 효과를 주어 값을 올릴지 버튼을 지금처럼
-   수동적으로 위로 올려서 쓸지 고민해봐야함. (반응형 적용시 모달창이 생각보다 올라감)
-  */
-  /* padding-top: 14rem;
-  padding-left: 45rem; */
-  /* justify-content: center;
-  align-items: center; */
-
-  /* background-color: rgba(221, 222, 220, 0.6); */
   background-color: rgba(0, 0, 0, 0.5);
   transition: 0.5s linear;
-  
 }
 
 #modal-container {
   overflow-y: auto;
-  /* display: flex;  */
-  /* opacity: 0; */
   margin: 0 auto;
   transform: translate(-50%, -50%);
   transition: all 1s ease;
@@ -35,7 +17,6 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 23rem;
-  /* max-width: 35rem; */
   height: fit-content;
   max-width: 100%;
   max-height: 100%;
@@ -44,13 +25,10 @@
   background-color: #fafafa;
   align-content: center;
   transition: 0.5s ease;
-  /* padding: 4rem 0 6rem 0; */
 }
 
 #modal-container-mobile {
   margin-top: 3rem;
-  /* display: flex;  */
-  /* opacity: 0; */
   padding-bottom: 1em;
   transform: translate(-50%, -50%);
   transition: all 1s ease;
@@ -95,14 +73,6 @@
   transition: 0.5s ease;
 }
 
-/*
-.modalCancleBtn {
-  background-color: red;
-  width:0.6rem;
-  height:0.6rem;
-}
-*/
-
 .modal-group {
   padding: 0.6rem;
 }
@@ -131,19 +101,15 @@
   padding-bottom: 1rem;
 }
 
-
-
 .modal-btn {
   position: absolute;
   top: 0.625rem;
   left: 20.25rem;
-  /* left: 30rem;  */
   font-size: 3rem;
   border: 0;
   color: rgb(129, 163, 207);
   background-color: black;
-} 
-
+}
 
 .btn-login {
   font-size: 0.5rem;
@@ -152,26 +118,16 @@
   border: 1px solid lightgray;
   border-radius: 0.8rem;
   margin-top: 1.1rem;
-  /* padding: 1rem; */
   background: #fafafa;
-
 }
 
-
 button.btn-login.login {
-  /* margin-top: 1rem;
-  margin-bottom: 0.5rem; */
 }
 
 .oauth-logo {
   width: 1rem;
   height: 1rem;
   float: left;
-}
-
-#modal-section {
-  /* display: flex; */
-  /* display: block; */
 }
 
 .modal-group {
@@ -183,11 +139,8 @@ button.btn-login.login {
   height: 2rem;
   font-size: 1rem;
   margin-top: 0.5rem;
-  /* padding: 5px; */
   background-color: #fafafa;
   font-family: Lato;
-  /* font-family: 'Montserrat', Arial, Helvetica, sans-serif; */
-  /* font-family: cursive; */
 }
 
 .modal-welcome-message {
@@ -203,17 +156,11 @@ input {
   padding-top: 1.5rem;
   font-size: 1rem;
   align-self: flex-end;
+}
 
-}
-/*
-.googleLoginBtn {
-  width: 20rem;
-  height: 3rem;
-}
-*/
 .title-mobile > div,
 .title div {
- flex: 10;
+  flex: 10;
 }
 
 .closeBtn {
@@ -233,15 +180,8 @@ input {
   margin-top: 5%;
 }
 
-/*
-.buttonHeader {
-  height: 0.5rem;
-}
-*/
-
 .title {
   font-family: cursive;
-  /* font-family: 'Montserrat', Arial, Helvetica, sans-serif; */
   font-size: 1.5rem;
   padding: 1.5rem;
   display: flex;
@@ -250,12 +190,10 @@ input {
 
 .title-mobile {
   font-family: cursive;
-  /* font-family: 'Montserrat', Arial, Helvetica, sans-serif; */
   font-size: 1.5rem;
   margin: 1.5rem;
   display: flex;
 }
-
 
 #loginpadding-bottom {
   padding-bottom: 3rem;
@@ -281,16 +219,12 @@ input {
   font-size: 0.9rem;
 }
 
-.loginBtnPosition {
-}
-
 .signUpbtnPosition {
   width: 100%;
   margin-top: 3rem;
   margin-bottom: 2rem;
   align-content: center;
 }
-
 
 .signUpbtnPosition2 {
   width: 100%;
@@ -299,7 +233,7 @@ input {
   align-content: center;
 }
 
-.signUpbtnPosition2 > div{
+.signUpbtnPosition2 > div {
   display: flex;
   width: fit-content;
 }
@@ -317,7 +251,6 @@ input {
   font-size: 0.9rem;
   margin-left: 0.5rem;
   border-bottom: solid 1px lightgray;
-
 }
 
 .movetoSignUpBtn:hover {
@@ -330,110 +263,128 @@ input {
   background-color: #eceff1;
 }
 
-/* css loading */
 .cssload-spin-box {
-	position: absolute;
-	margin: auto;
-	/* left: 0;
-	top: 0;
-	bottom: 0;
-	right: 0; */
+  position: absolute;
+  margin: auto;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-	width: 23px;
-	height: 23px;
-	border-radius: 100%;
-	box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-		-o-box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-		-ms-box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-		-webkit-box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-		-moz-box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-	animation: cssload-spin ease infinite 4.6s;
-		-o-animation: cssload-spin ease infinite 4.6s;
-		-ms-animation: cssload-spin ease infinite 4.6s;
-		-webkit-animation: cssload-spin ease infinite 4.6s;
-		-moz-animation: cssload-spin ease infinite 4.6s;
+  width: 23px;
+  height: 23px;
+  border-radius: 100%;
+  box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+    -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  -o-box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+    -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  -ms-box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+    -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  -webkit-box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+    -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  -moz-box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+    -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  animation: cssload-spin ease infinite 4.6s;
+  -o-animation: cssload-spin ease infinite 4.6s;
+  -ms-animation: cssload-spin ease infinite 4.6s;
+  -webkit-animation: cssload-spin ease infinite 4.6s;
+  -moz-animation: cssload-spin ease infinite 4.6s;
 }
 
-
-
 @keyframes cssload-spin {
-	0%,
-	100% {
-		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-	}
-	25% {
-		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
-	}
-	50% {
-		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
-	}
-	75% {
-		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
-	}
+  0%,
+  100% {
+    box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+      -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  }
+  25% {
+    box-shadow: -23px 23px rgb(223, 223, 223), -23px -23px rgb(79, 77, 73),
+      23px -23px rgb(223, 223, 223), 23px 23px rgb(79, 77, 73);
+  }
+  50% {
+    box-shadow: -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223),
+      23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223);
+  }
+  75% {
+    box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf,
+      -23px -23px #4f4d49;
+  }
 }
 
 @-o-keyframes cssload-spin {
-	0%,
-	100% {
-		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-	}
-	25% {
-		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
-	}
-	50% {
-		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
-	}
-	75% {
-		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
-	}
+  0%,
+  100% {
+    box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+      -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  }
+  25% {
+    box-shadow: -23px 23px rgb(223, 223, 223), -23px -23px rgb(79, 77, 73),
+      23px -23px rgb(223, 223, 223), 23px 23px rgb(79, 77, 73);
+  }
+  50% {
+    box-shadow: -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223),
+      23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223);
+  }
+  75% {
+    box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf,
+      -23px -23px #4f4d49;
+  }
 }
 
 @-ms-keyframes cssload-spin {
-	0%,
-	100% {
-		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-	}
-	25% {
-		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
-	}
-	50% {
-		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
-	}
-	75% {
-		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
-	}
+  0%,
+  100% {
+    box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+      -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  }
+  25% {
+    box-shadow: -23px 23px rgb(223, 223, 223), -23px -23px rgb(79, 77, 73),
+      23px -23px rgb(223, 223, 223), 23px 23px rgb(79, 77, 73);
+  }
+  50% {
+    box-shadow: -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223),
+      23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223);
+  }
+  75% {
+    box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf,
+      -23px -23px #4f4d49;
+  }
 }
 
 @-webkit-keyframes cssload-spin {
-	0%,
-	100% {
-		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-	}
-	25% {
-		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
-	}
-	50% {
-		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
-	}
-	75% {
-		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
-	}
+  0%,
+  100% {
+    box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+      -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  }
+  25% {
+    box-shadow: -23px 23px rgb(223, 223, 223), -23px -23px rgb(79, 77, 73),
+      23px -23px rgb(223, 223, 223), 23px 23px rgb(79, 77, 73);
+  }
+  50% {
+    box-shadow: -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223),
+      23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223);
+  }
+  75% {
+    box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf,
+      -23px -23px #4f4d49;
+  }
 }
 
 @-moz-keyframes cssload-spin {
-	0%,
-	100% {
-		box-shadow: 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223);
-	}
-	25% {
-		box-shadow: -23px 23px rgb(223,223,223), -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73);
-	}
-	50% {
-		box-shadow: -23px -23px rgb(79,77,73), 23px -23px rgb(223,223,223), 23px 23px rgb(79,77,73), -23px 23px rgb(223,223,223);
-	}
-	75% {
-		box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf, -23px -23px #4f4d49;
-	}
+  0%,
+  100% {
+    box-shadow: 23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223),
+      -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223);
+  }
+  25% {
+    box-shadow: -23px 23px rgb(223, 223, 223), -23px -23px rgb(79, 77, 73),
+      23px -23px rgb(223, 223, 223), 23px 23px rgb(79, 77, 73);
+  }
+  50% {
+    box-shadow: -23px -23px rgb(79, 77, 73), 23px -23px rgb(223, 223, 223),
+      23px 23px rgb(79, 77, 73), -23px 23px rgb(223, 223, 223);
+  }
+  75% {
+    box-shadow: 23px -23px #dfdfdf, 23px 23px #4f4d49, -23px 23px #dfdfdf,
+      -23px -23px #4f4d49;
+  }
 }

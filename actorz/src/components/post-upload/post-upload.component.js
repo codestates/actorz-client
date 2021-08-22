@@ -4,14 +4,12 @@ import {
   FileUploadContainer,
   FormField,
   DragDropText,
-  UploadFileBtn,
   FilePreviewContainer,
   ImagePreview,
   PreviewContainer,
   PreviewList,
   FileMetaData,
   RemoveFileIcon,
-  InputLabel,
 } from "./post-upload.styles";
 import "../../styles/Fileupload.css";
 
@@ -71,10 +69,7 @@ const Postupload = ({
           <br></br>
           <span>Click Here!</span>
         </DragDropText>
-        {/* <UploadFileBtn type="button" onClick={handleUploadBtnClick}>
-          <i className="fas fa-file-upload" />
-          <span> Upload {otherProps.multiple ? "files" : "a file"}</span>
-        </UploadFileBtn> */}
+
         <FormField
           type="file"
           ref={fileInputField}
@@ -84,7 +79,6 @@ const Postupload = ({
           {...otherProps}
         />
         <FilePreviewContainer>
-          {/* <span>To Upload</span> */}
           <PreviewList className="post-edit-preview-container-mobile">
             {Object.keys(files).map((fileName, index) => {
               let file = files[fileName];

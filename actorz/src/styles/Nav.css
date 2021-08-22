@@ -6,10 +6,7 @@ img.search-img {
   width: 0.4rem;
 }
 
-.product-search {
-  margin: 0rem 0.4rem 0rem 0rem;
-}
-
-.product-search-btn {
-  margin: 0rem 0.1rem 0rem 0.1rem;
+.headerLogo {
+  width: 50px;
+  height: 33px;
 }

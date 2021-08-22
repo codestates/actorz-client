@@ -1,0 +1,18 @@
+.noEffect {
+  text-decoration: none;
+  color: black;
+}
+
+.iconList {
+  padding: 0.2rem;
+  border: solid 1px #e0e0e0;
+  background-color: #fafafa;
+  width: 11rem;
+  height: 15.27rem;
+  display: inline-block;
+  margin-top: 5.3rem;
+  margin-left: -2rem;
+  border-radius: 0.5rem;
+  margin-right: 0.5rem;
+  position: fixed;
+}

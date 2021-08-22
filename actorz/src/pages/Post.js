@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { editLike } from "../actions/postAction";
+import { useMediaQuery } from "react-responsive";
 import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
 import Nav from "../components/Nav";
 import PostEdit from "./PostEdit";
 import Loading from "../components/loading";
-import { Link } from "react-router-dom";
 import { Icon, Card, Dropdown } from "semantic-ui-react";
-import "../styles/Post.css";
 import SendEmail from "../components/SendEmail";
-import "../styles/Fileupload.css";
 import { Modal } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import { useMediaQuery } from "react-responsive";
+import "../styles/Post.css";
+import "../styles/Fileupload.css";
 
 const Post = ({ clickModal, closePost }) => {
   const [isEdit, setIsEdit] = useState(false);
   const [isloading, setIsLoading] = useState(false);
   const [postinfo, setPostinfo] = useState({});
   const [likebtnclick, setlikebtnclick] = useState(false);
-  const post = useSelector((post) => post.postInfoReducer);
-  const user = useSelector((user) => user.userInfoReducer);
   const [like, setIsLike] = useState(false);
   const [profile, setProfile] = useState();
   const [emailClick, setEmailClick] = useState(false);
+
+  const user = useSelector((user) => user.userInfoReducer);
   const dispatch = useDispatch();
 
   const isPcOrTablet = useMediaQuery({
@@ -38,7 +38,7 @@ const Post = ({ clickModal, closePost }) => {
   let url = window.location.pathname.slice(index + 1);
 
   useEffect(() => {
-    const f = async () => {
+    const getInfo = async () => {
       await server
         .get(`/post/${url}`)
         .then((res) => {
@@ -46,7 +46,9 @@ const Post = ({ clickModal, closePost }) => {
           setProfile(res.data.data.userPic);
           setIsLoading(true);
         })
-        .catch((err) => {});
+        .catch((err) => {
+          throw err;
+        });
 
       await server
         .post(
@@ -67,7 +69,7 @@ const Post = ({ clickModal, closePost }) => {
           throw err;
         });
     };
-    f();
+    getInfo();
   }, [dispatch, likebtnclick, isEdit]);
 
   const handleClickEditBtn = (boolean) => {

@@ -43,7 +43,6 @@ const IntroNav = () => {
               />
             </Link>
           </div>
-          {/* <div className="blockPositionNav"> </div> */}
 
           <div className="signBtnPosition">
             <ul>
@@ -54,33 +53,6 @@ const IntroNav = () => {
               </li>
             </ul>
           </div>
-
-          {/* <div className="signBtnPosition">
-            <Button
-              variant="outlined"
-              className="navSignInBtn"
-              onClick={mvMainpage}
-            >
-              메인페이지 이동
-            </Button>
-          </div>  */}
-          {/* <div className="signBtnPosition">
-            <Button
-              variant="outlined"
-              className="navSignInBtn"
-              onClick={handleClickSignin}
-            >
-              Sign in
-            </Button>
-            &nbsp;
-            <Button
-              variant="outlined"
-              className="navSignInBtn"
-              onClick={handleClickSignup}
-            >
-              Sign up
-            </Button>
-          </div> */}
         </div>
 
         {clickSignin ? (

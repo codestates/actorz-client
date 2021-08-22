@@ -1,13 +1,13 @@
 ::-webkit-scrollbar {
-  width: 0.35rem; 
-} 
+  width: 0.35rem;
+}
 
-::-webkit-scrollbar-thumb { 
- background-color: #d6d6d6;
-} 
+::-webkit-scrollbar-thumb {
+  background-color: #d6d6d6;
+}
 
-::-webkit-scrollbar-track { 
- background-color: rgb(255, 255, 255);
+::-webkit-scrollbar-track {
+  background-color: rgb(255, 255, 255);
 }
 
 .reposition {
@@ -35,7 +35,6 @@
 .modal-group-signup {
   display: flex;
   padding: 0.6rem;
-  /* color: red; */
   width: fit-content;
   font-size: 1.25rem;
   margin-top: 0.5rem;
@@ -44,7 +43,6 @@
 .modal-group-signup2 {
   display: flex;
   padding: 0.6rem;
-  /* color: red; */
   font-size: 1.25rem;
   margin-left: 1rem;
 }
@@ -58,7 +56,6 @@
   margin-top: 0.3rem;
   color: red;
 }
-
 
 .modal-group-signup input {
   width: 15rem;
@@ -77,7 +74,6 @@
   font-family: Lato;
 }
 
-
 .modal-group-signup > input {
   font-size: 0.8rem;
   width: 15rem;
@@ -93,7 +89,7 @@
 }
 
 .company-address-box {
-  display: flex; 
+  display: flex;
 }
 
 .modal-group-signup3 {
@@ -101,7 +97,6 @@
   width: 3rem;
   font-size: 0.8rem;
   background: #fafafa;
-
 }
 
 .modal-group-signup4 {
@@ -109,9 +104,7 @@
   width: 3rem;
   font-size: 0.8rem;
   background: #fafafa;
-
 }
-
 
 .modal-group-signup2 > input {
   font-size: 0.8rem;
@@ -136,7 +129,6 @@
   border: 1px solid lightgray;
   border-radius: 0.8rem;
   margin-top: 0.8rem;
-  /* padding: 1rem; */
   background: #fafafa;
 }
 
@@ -156,7 +148,7 @@
   padding-right: 1.25rem;
 }
 
-.modal-group-signup-role input{
+.modal-group-signup-role input {
   margin-top: 1rem;
 }
 
@@ -184,7 +176,6 @@ input {
   font-size: 0.8rem;
 }
 
-
 .modal-welcome-message2 {
   background-color: red;
 }
@@ -192,6 +183,4 @@ input {
 .moreInfo {
   height: fit-content;
   background: #fafafa;
-
 }
-
