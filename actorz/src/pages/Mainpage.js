@@ -6,6 +6,8 @@ import Nav from "../components/Nav";
 import Iconlist from "../components/Iconlist";
 import SocialSignup from "../components/SocialSignup";
 import Footer from "../components/Footer";
+import NoContents from "../components/NoContents";
+import PostList from "../components/PostList";
 import { getUserInfo } from "../actions/userAction";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
@@ -19,8 +21,6 @@ import "../styles/ResponsiveMainpage.css";
 import "semantic-ui-css/semantic.min.css";
 import "antd/dist/antd.css";
 import { Modal } from "antd";
-import NoContents from "../components/NoContents";
-import PostList from "../components/PostList";
 
 const Mainpage = () => {
   const [oauthSignup, setOauthSignup] = useState("");

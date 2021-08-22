@@ -24,7 +24,7 @@ const Like = () => {
   const user = useSelector((user) => user.userInfoReducer);
 
   useEffect(() => {
-    const p = async () => {
+    const getInfo = async () => {
       await server
         .get(`/like/${user.data.userInfo.id}`)
         .then((res) => {
@@ -34,7 +34,7 @@ const Like = () => {
           throw err;
         });
     };
-    p();
+    getInfo();
   });
 
   const redirectPage = () => {

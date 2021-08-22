@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
+import server from "../apis/server";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { removePostPhoto } from "../actions/postAction";
 import Nav from "../components/Nav";
 import Postupload from "../components/post-upload/post-upload.component";
-import server from "../apis/server";
-import { CloseOutlined } from "@ant-design/icons";
 import Loading from "../components/loading";
 import { Icon, Card, Dropdown } from "semantic-ui-react";
-
-import "../styles/PostEdit.css";
+import { useSelector, useDispatch } from "react-redux";
+import { removePostPhoto } from "../actions/postAction";
+import { CloseOutlined } from "@ant-design/icons";
 import { useMediaQuery } from "react-responsive";
+import "../styles/PostEdit.css";
+
 import {
   RemoveFileIcon3,
   FileMetaData2,

@@ -159,14 +159,11 @@ const Portfolio = () => {
         <>
           {!isLoading ? (
             <>
-              {localStorage.getItem("accessToken") ? (
+              {user.isLogin ? (
                 <>
-                  <div className="blockhere"> </div>
                   <div className="mainPage">
                     <Nav />
                     <Iconlist />
-
-                    <div className="newblockPosition"> </div>
 
                     <div className="middleSpace">
                       <div className="midContents">
@@ -264,9 +261,7 @@ const Portfolio = () => {
                               </ul>
                             </div>
                           </div>
-                          {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
                           <div className="pf careerTitle">Career </div>
-                          {/* <div className="iconTitle">🏆</div> */}
                           <div className="careerContent">
                             {user.data.userInfo.careers ? (
                               <div className="career">
@@ -367,12 +362,6 @@ const Portfolio = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="newblockPosition2"> </div>
-
-                    <div className="rightSpace">
-                      {/*                       <div className="iconList2"> </div>
-                       */}{" "}
-                    </div>
                   </div>
                   <div>
                     {clickPfEdit ? (
@@ -406,12 +395,9 @@ const Portfolio = () => {
             <>
               {localStorage.getItem("accessToken") ? (
                 <>
-                  <div className="blockhere"> </div>
                   <div className="mainPageResponsive">
                     <Nav />
                     <ResponsiveIconlistTablet />
-
-                    <div className="pf newblockPosition"> </div>
 
                     <div className="pf middleSpace2">
                       <div className="midContents">
@@ -509,9 +495,7 @@ const Portfolio = () => {
                               </ul>
                             </div>
                           </div>
-                          {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
                           <div className="pf careerTitle">Career </div>
-                          {/* <div className="iconTitle">🏆</div> */}
                           <div className="careerContent">
                             {user.data.userInfo.careers ? (
                               <div className="career">
@@ -606,7 +590,6 @@ const Portfolio = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="pf newblockPosition2"> </div>
                   </div>
                   <div>
                     {clickPfEdit ? (
@@ -636,11 +619,8 @@ const Portfolio = () => {
             <>
               {localStorage.getItem("accessToken") ? (
                 <>
-                  <div className="blockhere"> </div>
                   <div className="mainPageResponsive2">
                     <ResponsiveNav />
-
-                    <div className="newblockPosition"> </div>
 
                     <div className="middleSpace3">
                       <div className="midContents">
@@ -738,9 +718,7 @@ const Portfolio = () => {
                               </ul>
                             </div>
                           </div>
-                          {/* 영화랑 드라마 경력 나눌꺼면 여기서 */}
                           <div className="pf careerTitle">Career </div>
-                          {/* <div className="iconTitle">🏆</div> */}
                           <div className="careerContent">
                             {user.data.userInfo.careers ? (
                               <div className="career">
@@ -835,7 +813,6 @@ const Portfolio = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="newblockPosition2"> </div>
                   </div>
                   <div>
                     {clickPfEdit ? (
