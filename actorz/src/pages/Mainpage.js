@@ -91,7 +91,7 @@ const Mainpage = () => {
     setIsLoading(true);
     const oauthLogin = async () => {
       try {
-        const [provider, code] = oauthSignup.split("=");
+        const [provider, code] = oauthSignup.split("=");  
         if (!code.includes("@")) {
           await server
             .post(`/login/${provider}`, { code })
