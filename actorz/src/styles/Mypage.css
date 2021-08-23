@@ -131,6 +131,7 @@ li {
 .buttonHeader {
   display: flex;
   justify-content: space-between;
+  margin-top: 3.3rem;
   font-size: 2rem;
   border-bottom: 1px solid lightgray;
 }
@@ -218,4 +219,11 @@ ul.pagination li a.active {
 
 ul.ant-pagination {
   text-align: center;
+}
+
+/* isMobile */
+@media (max-width: 767px) {
+  .stickyContainerPosition {
+    margin-bottom: 3rem;
+  }
 }
