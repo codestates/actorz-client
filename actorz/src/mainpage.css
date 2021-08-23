@@ -86,14 +86,6 @@ p {
   margin-bottom: 3rem;
 }
 
-.mainPageResponsive {
-  width: 100%;
-}
-
-.mainPageResponsive2 {
-  padding-bottom: 100px;
-}
-
 .middleSpace::-webkit-scrollbar {
   display: none;
 }
@@ -107,20 +99,8 @@ div.ui.centered.fluid.card {
   margin: 0.5rem 0 0.5rem 0;
 }
 
-.midContents,
-.midContents2,
-.midContentsResponsive {
-  margin-top: 4rem;
-  border: solid 0px #e0e0e0;
-  background-color: #fafafa;
-}
-.midContentsResponsive2 {
-  margin-top: 4rem;
-  border: solid 0px #e0e0e0;
-  background-color: #fafafa;
-}
-
 .midContents2 {
+  margin-top: 4rem;
   border: solid 1px #fafafa;
   background-color: #fafafa;
 }
@@ -174,11 +154,6 @@ div.ui.centered.fluid.card {
   margin-left: 0.75rem;
   margin-top: 0.5rem;
   text-align: center;
-}
-
-.spaceDirection {
-  display: flex;
-  flex-direction: column;
 }
 
 .homeButton {
@@ -275,4 +250,66 @@ img.ui.image.exampleIMG {
 
 i.like.icon.mylike::before {
   color: red;
+}
+
+div.search2 {
+  display: none;
+}
+
+div.responsiveIconList {
+  display: none;
+}
+
+div.ResponsiveFooter {
+  display: none;
+}
+
+/* isTablet */
+@media (min-width: 768px) and (max-width: 1023px) {
+  div.iconList {
+    display: none;
+  }
+
+  div.responsiveIconList {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .middleSpace {
+    width: 100%;
+  }
+
+  .leftSpace {
+    text-align: center;
+    width: 15%;
+    height: 100vh;
+    background-color: #fafafa;
+  }
+}
+
+/* isMobile */
+@media (max-width: 767px) {
+  div.search {
+    display: none;
+  }
+
+  div.iconList {
+    display: none;
+  }
+
+  div.ResponsiveFooter {
+    display: block;
+  }
+
+  div.search2 {
+    display: flex;
+  }
+
+  .middleSpace {
+    width: 100%;
+  }
+
+  .leftSpace {
+    width: 0%;
+  }
 }

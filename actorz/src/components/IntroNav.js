@@ -26,10 +26,6 @@ const IntroNav = () => {
     }
   };
 
-  const mvMainpage = () => {
-    return (window.location = "/mainpage");
-  };
-
   return (
     <>
       <div id="nav">

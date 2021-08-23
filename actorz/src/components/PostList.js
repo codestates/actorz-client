@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import server from "../apis/server";
 import { Modal } from "antd";
 import Post from "../pages/Post";
-import { getAllPostInfo, editLike } from "../actions/postAction";
+import { getAllPostInfo } from "../actions/postAction";
 
 const PostList = ({ post, page }) => {
   const [clickModal, setClickModal] = useState(false);

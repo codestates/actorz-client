@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { _Button, Comment } from "semantic-ui-react";
 import iphoneG from "../images/iphoneGifcontent.gif";
 import ipadG from "../images/ipadGifcontent.gif";
 
 const IntroProfileEffect = () => {
-
   const [position, setPosition] = useState(0);
 
   const onScroll = () => {
@@ -18,54 +17,50 @@ const IntroProfileEffect = () => {
     };
   }, []);
 
-
   return (
     <>
       <div className="blockPosition"></div>
-        <div data-trigger className="startContentsTitle">
-          <div>포트폴리오에 사진과 영상을 담을 수 있다면 어떨까?</div>
-          <br />
-          <br />
-          <br />
-          {/* <h4> * 실제 한국예술종합학교 학생들의 설문 조사를 바탕으로 작성하였습니다. </h4> */}
-        </div>
+      <div data-trigger className="startContentsTitle">
+        <div>포트폴리오에 사진과 영상을 담을 수 있다면 어떨까?</div>
+        <br />
+        <br />
+        <br />
+      </div>
 
-        <div className="blockPosition"></div>
-        {/* <div className="blockPositionDivide"></div> */}
+      <div className="blockPosition"></div>
 
-        <div data-trigger className="startContentsTitle">
-          그렇다면 어떠한 고객이 사용하면 좋을까?
-        </div>
+      <div data-trigger className="startContentsTitle">
+        그렇다면 어떠한 고객이 사용하면 좋을까?
+      </div>
 
-        <div className="blockPosition"></div>
-        {/* <div className="blockPositionDivide"></div> */}
+      <div className="blockPosition"></div>
 
-        <div data-trigger className="startContentsTitle">
-          답은
-        </div>
+      <div data-trigger className="startContentsTitle">
+        답은
+      </div>
 
-        <div className="blockPosition"></div>
+      <div className="blockPosition"></div>
 
-        <div data-trigger className="startContentsTitle">
-          <img
-            className="mainActorPic"
-            src="https://media.vlpt.us/images/iooi75/post/ebbbb9d9-784d-4210-b961-2f1d833423b5/Screen%20Shot%202021-07-17%20at%202.16.19%20AM.png"
-            alt=""
-          />
-
-          <div className="blockPositionDivide"></div>
-          <div data-trigger className="contentsPositionWhere">
-            {" "}
-            배우{" "}
-          </div>
-        </div>
+      <div data-trigger className="startContentsTitle">
+        <img
+          className="mainActorPic"
+          src="https://media.vlpt.us/images/iooi75/post/ebbbb9d9-784d-4210-b961-2f1d833423b5/Screen%20Shot%202021-07-17%20at%202.16.19%20AM.png"
+          alt=""
+        />
 
         <div className="blockPositionDivide"></div>
-        <div className="blockPosition"></div>
-
-        <div data-trigger className="startContentsTitle">
-          실제 한국예술종합학교 학생들의 피드백을 종합
+        <div data-trigger className="contentsPositionWhere">
+          {" "}
+          배우{" "}
         </div>
+      </div>
+
+      <div className="blockPositionDivide"></div>
+      <div className="blockPosition"></div>
+
+      <div data-trigger className="startContentsTitle">
+        실제 한국예술종합학교 학생들의 피드백을 종합
+      </div>
       <div className="blockPosition"></div>
       <div className="profilesEffectTest">
         <Comment.Group
@@ -108,11 +103,11 @@ const IntroProfileEffect = () => {
                 <span>8 days ago</span>
               </Comment.Metadata>
               <Comment.Text>
-                여태까지 뽑는 사람/회사 중심으로 만들어진 어플이
-                대부분이었는데, 배우 중심이면 좋겠습니다. 단순히 예쁘고 잘난
-                사람들, 또는 멋진 사진을 찍은 사람이 상위권에 오르는 것이
-                아니라 진짜 배우를 발굴해낼 수 있는 기능을 할 수 있으면
-                좋겠습니다. 좋은 어플을 만들어주셔서 감사합니다.
+                여태까지 뽑는 사람/회사 중심으로 만들어진 어플이 대부분이었는데,
+                배우 중심이면 좋겠습니다. 단순히 예쁘고 잘난 사람들, 또는 멋진
+                사진을 찍은 사람이 상위권에 오르는 것이 아니라 진짜 배우를
+                발굴해낼 수 있는 기능을 할 수 있으면 좋겠습니다. 좋은 어플을
+                만들어주셔서 감사합니다.
               </Comment.Text>
               <Comment.Actions>
                 <a>Reply</a>
@@ -160,9 +155,9 @@ const IntroProfileEffect = () => {
                 <span>6 days ago</span>
               </Comment.Metadata>
               <Comment.Text>
-                현재는 개인유튜브를 개설하여 그곳에 출연영상들을 올리고
-                있는데, 간혹 저작권 등의 문제로 본인의 출연영상을 유튜브에
-                못 올릴 때도 있었기 때문에. [저작권 문제]
+                현재는 개인유튜브를 개설하여 그곳에 출연영상들을 올리고 있는데,
+                간혹 저작권 등의 문제로 본인의 출연영상을 유튜브에 못 올릴 때도
+                있었기 때문에. [저작권 문제]
               </Comment.Text>
               <Comment.Actions>
                 <a>Reply</a>
@@ -212,8 +207,8 @@ const IntroProfileEffect = () => {
               </Comment.Metadata>
               <Comment.Text>
                 {" "}
-                어플을 통해 여러 에이전시들에 프로필을 간편하게 보낼 수
-                있다면 좋을 것 같습니다
+                어플을 통해 여러 에이전시들에 프로필을 간편하게 보낼 수 있다면
+                좋을 것 같습니다
               </Comment.Text>
               <Comment.Actions>
                 <a>Reply</a>
@@ -314,10 +309,9 @@ const IntroProfileEffect = () => {
               </Comment.Metadata>
               <Comment.Text>
                 타 사이트와의 명백한 차이점? 배우들은 개개인의 작품활동을
-                하기위해 사이트에 등록을 합니다.. 본인에게 작품이 캐스팅이
-                되고, 활동을 할 수 있어야하는데 어떠한 작품에 어떤 경로로
-                어떤 제작진이 살펴보는지에 대한 정보공유(?)가 있으면 좋을것
-                같아요
+                하기위해 사이트에 등록을 합니다.. 본인에게 작품이 캐스팅이 되고,
+                활동을 할 수 있어야하는데 어떠한 작품에 어떤 경로로 어떤
+                제작진이 살펴보는지에 대한 정보공유(?)가 있으면 좋을것 같아요
               </Comment.Text>
               <Comment.Actions>
                 <a>Reply</a>
@@ -438,8 +432,8 @@ const IntroProfileEffect = () => {
                 <span>11 days ago</span>
               </Comment.Metadata>
               <Comment.Text>
-                사진만으로 배우의 매력을 다 알 수 없다고 생각하기 때문에
-                다른 무언가가 필요해요{" "}
+                사진만으로 배우의 매력을 다 알 수 없다고 생각하기 때문에 다른
+                무언가가 필요해요{" "}
               </Comment.Text>
               <Comment.Actions>
                 <a>Reply</a>
@@ -488,8 +482,8 @@ const IntroProfileEffect = () => {
                 <span>8 days ago</span>
               </Comment.Metadata>
               <Comment.Text>
-                배우들끼리 사진수업을 듣고 서로 찍어줄 수 있는 플랫폼,
-                협력자가 되면 좋겠단 생각이 듭니다.
+                배우들끼리 사진수업을 듣고 서로 찍어줄 수 있는 플랫폼, 협력자가
+                되면 좋겠단 생각이 듭니다.
               </Comment.Text>
               <Comment.Actions>
                 <a>Reply</a>
@@ -573,6 +567,6 @@ const IntroProfileEffect = () => {
       <div className="blockPositionDivide"></div>
     </>
   );
-}
+};
 
 export default IntroProfileEffect;

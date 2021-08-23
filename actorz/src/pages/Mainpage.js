@@ -29,22 +29,10 @@ const Mainpage = () => {
   const post = useSelector((post) => post.postInfoReducer);
   const dispatch = useDispatch();
 
-  const isPc = useMediaQuery({
-    query: "(min-width:1024px)",
-  });
-
-  const isTablet = useMediaQuery({
-    query: "(min-width:768px) and (max-width:1023px)",
-  });
-
-  const isMobile = useMediaQuery({
-    query: "(max-width:767px)",
-  });
-
   useEffect(() => {
     const oauthLogin = async () => {
       try {
-        const [provider, code] = oauthSignup.split("=");  
+        const [provider, code] = oauthSignup.split("=");
         if (!code.includes("@")) {
           await server
             .post(`/login/${provider}`, { code })
@@ -120,109 +108,37 @@ const Mainpage = () => {
   const { data } = post.data;
   return (
     <>
-      {isPc && (
-        <>
-          <div className="mainPage">
-            <Nav />
-            <Iconlist />
-            <div className="middleSpace">
-              <div className="midContents2 midContentsReverse">
-                {data ? (
-                  data.posts.posts.length !== 0 ? (
-                    <PostList post={data.posts.posts} page={"mainpage"} />
-                  ) : (
-                    <NoContents />
-                  )
-                ) : (
-                  <Loading />
-                )}
-              </div>
-            </div>
+      <ResponsiveIconlistTablet />
+      <div className="mainPage">
+        <Nav />
+        <Iconlist />
+        <div className="middleSpace">
+          <div className="midContents2 midContentsReverse">
+            {data ? (
+              data.posts.posts.length !== 0 ? (
+                <PostList post={data.posts.posts} page={"mainpage"} />
+              ) : (
+                <NoContents />
+              )
+            ) : (
+              <Loading />
+            )}
           </div>
-          <Footer />
+        </div>
+      </div>
+      <Footer />
+      <ResponsiveNav />
+      <ResponsiveFooter />
 
-          {modalSocialSignup ? (
-            <SocialSignup
-              isMobile={false}
-              oauthSignup={oauthSignup}
-              modalSocialClose={() => {
-                setModalSocialSignup(false);
-              }}
-            ></SocialSignup>
-          ) : null}
-        </>
-      )}
-
-      {isTablet && (
-        <>
-          <Nav />
-          <div className="mainPageResponsive">
-            <ResponsiveIconlistTablet />
-
-            <div className="middleSpace2">
-              <div className="midContentsResponsive midContentsReverse">
-                {data ? (
-                  data.posts.posts.length !== 0 ? (
-                    data.posts.posts.map((post) => {
-                      return <PostList post={post} />;
-                    })
-                  ) : (
-                    <NoContents />
-                  )
-                ) : (
-                  <Loading />
-                )}
-              </div>
-            </div>
-            <div className="responsiveNewblockPosition"> </div>
-          </div>
-
-          {modalSocialSignup ? (
-            <SocialSignup
-              isMobile={false}
-              oauthSignup={oauthSignup}
-              modalSocialClose={() => {
-                setModalSocialSignup(false);
-              }}
-            ></SocialSignup>
-          ) : null}
-        </>
-      )}
-
-      {isMobile && (
-        <>
-          <div className="mainPageResponsive2">
-            <ResponsiveNav />
-            <ResponsiveFooter />
-
-            <div className="middleSpaceResponsive2">
-              <div className="midContentsResponsive2 midContentsReverse">
-                {data ? (
-                  data.posts.posts.length !== 0 ? (
-                    data.posts.posts.map((post) => {
-                      return <PostList post={post} />;
-                    })
-                  ) : (
-                    <NoContents />
-                  )
-                ) : (
-                  <Loading />
-                )}
-              </div>
-            </div>
-          </div>
-
-          {modalSocialSignup ? (
-            <SocialSignup
-              isMobile={true}
-              oauthSignup={oauthSignup}
-              modalSocialClose={() => {
-                setModalSocialSignup(false);
-              }}
-            ></SocialSignup>
-          ) : null}
-        </>
-      )}
+      {modalSocialSignup ? (
+        <SocialSignup
+          isMobile={false}
+          oauthSignup={oauthSignup}
+          modalSocialClose={() => {
+            setModalSocialSignup(false);
+          }}
+        ></SocialSignup>
+      ) : null}
     </>
   );
 };
