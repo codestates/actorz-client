@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Nav from "../components/Nav";
 import SocialSignup from "../components/SocialSignup";
 import server from "../apis/server";
@@ -46,135 +46,44 @@ const Like = () => {
     );
   };
 
-  const isPc = useMediaQuery({
-    query: "(min-width:1024px)",
-  });
-
-  const isTablet = useMediaQuery({
-    query: "(min-width:768px) and (max-width:1023px)",
-  });
-
-  const isMobile = useMediaQuery({
-    query: "(max-width:767px)",
-  });
   return (
     <>
-      {isPc && (
+      {user.isLogin ? (
         <>
-          {user.isLogin ? (
-            <>
-              <div className="mainPage">
-                <Nav />
-                <Iconlist />
+          <ResponsiveIconlistTablet />
+          <div className="mainPage">
+            <Nav />
+            <Iconlist />
 
-                <div className="middleSpace">
-                  <div className="midContents2 midContentsReverse">
-                    {likePost ? (
-                      likePost.length !== 0 ? (
-                        <PostList post={likePost} page={"likepage"} />
-                      ) : (
-                        <NoContents />
-                      )
-                    ) : (
-                      <Loading />
-                    )}
-                  </div>
-                </div>
+            <div className="middleSpace">
+              <div className="midContents2 midContentsReverse">
+                {likePost ? (
+                  likePost.length !== 0 ? (
+                    <PostList post={likePost} page={"likepage"} />
+                  ) : (
+                    <NoContents />
+                  )
+                ) : (
+                  <Loading />
+                )}
               </div>
-              <Footer />
+            </div>
+          </div>
+          <Footer />
+          <ResponsiveNav />
+          <ResponsiveFooter />
 
-              {modalSocialSignup ? (
-                <SocialSignup
-                  oauthSignup={oauthSignup}
-                  modalSocialClose={() => {
-                    setModalSocialSignup(false);
-                  }}
-                ></SocialSignup>
-              ) : null}
-            </>
-          ) : (
-            redirectPage()
-          )}
+          {modalSocialSignup ? (
+            <SocialSignup
+              oauthSignup={oauthSignup}
+              modalSocialClose={() => {
+                setModalSocialSignup(false);
+              }}
+            ></SocialSignup>
+          ) : null}
         </>
-      )}
-
-      {isTablet && (
-        <>
-          {user.isLogin ? (
-            <>
-              <Nav />
-              <div className="mainPageResponsive">
-                <ResponsiveIconlistTablet />
-
-                <div className="middleSpace2">
-                  <div className="midContentsResponsive midContentsReverse">
-                    {likePost ? (
-                      likePost.length !== 0 ? (
-                        likePost.map((post) => {
-                          return <PostList post={post} />;
-                        })
-                      ) : (
-                        <NoContents />
-                      )
-                    ) : (
-                      <Loading />
-                    )}
-                  </div>
-                </div>
-              </div>
-              <Footer />
-              {modalSocialSignup ? (
-                <SocialSignup
-                  oauthSignup={oauthSignup}
-                  modalSocialClose={() => {
-                    setModalSocialSignup(false);
-                  }}
-                ></SocialSignup>
-              ) : null}
-            </>
-          ) : (
-            redirectPage()
-          )}
-        </>
-      )}
-
-      {isMobile && (
-        <>
-          {user.isLogin ? (
-            <>
-              <div className="mainPageResponsive2">
-                <ResponsiveNav />
-
-                <div className="middleSpaceResponsive2">
-                  <div className="midContentsResponsive2 midContentsReverse">
-                    {likePost ? (
-                      likePost.length !== 0 ? (
-                        likePost.map((post) => {
-                          return <PostList post={post} />;
-                        })
-                      ) : (
-                        <NoContents />
-                      )
-                    ) : (
-                      <Loading />
-                    )}
-                  </div>
-                </div>
-              </div>
-              <ResponsiveFooter />
-              {modalSocialSignup ? (
-                <SocialSignup
-                  oauthSignup={oauthSignup}
-                  modalSocialClose={() => {
-                    setModalSocialSignup(false);
-                  }}
-                ></SocialSignup>
-              ) : null}
-            </>
-          ) : (
-            redirectPage()
-          )}
-        </>
+      ) : (
+        redirectPage()
       )}
     </>
   );

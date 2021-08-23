@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useMediaQuery } from "react-responsive";
 import server from "../apis/server";
 import Nav from "../components/Nav";
 import Iconlist from "../components/Iconlist";

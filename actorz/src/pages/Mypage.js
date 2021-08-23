@@ -481,7 +481,7 @@ const Mypage = () => {
         </>
       )}
 
-      {isTablet && (
+      {/* {isTablet && (
         <>
           {user.isLogin ? (
             <>
@@ -1147,7 +1147,7 @@ const Mypage = () => {
             redirectPage()
           )}
         </>
-      )}
+      )} */}
     </>
   );
 };
