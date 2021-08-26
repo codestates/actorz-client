@@ -6,7 +6,6 @@ import Google from "../components/Googlelogin";
 import Naver from "../components/Naverlogin";
 import Loading from "../components/loading";
 import { Modal } from "antd";
-import { useMediaQuery } from "react-responsive";
 import { CloseOutlined } from "@ant-design/icons";
 import "../styles/SigninModal.css";
 
@@ -199,96 +198,6 @@ const Signin = ({ handleClickSignin, handleClickSignup }) => {
           </div>
         </form>
       </center>
-      {/* {isMobile && (
-        <>
-          <center>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div id="modal-background">
-                <div id="modal-container-mobile2">
-                  <CloseOutlined
-                    className="closeBtn-mobile"
-                    onClick={handleClickClose}
-                  />
-                  <div
-                    id="modal-container-mobile"
-                    className="modal-get-container"
-                    onClick={(event) => event.stopPropagation()}
-                  >
-                    <div className="modal-title">
-                      <div className="title-mobile">
-                        <div>Login</div>
-                      </div>
-                    </div>
-                    <div className="modal-welcome-message">
-                      Welcome to Actorz
-                    </div>
-                    <div className="modal-group">
-                      <input
-                        type="email"
-                        placeholder=" 이메일"
-                        onChange={handleInputValue("email")}
-                      />
-                    </div>
-                    <div className="modal-group">
-                      <input
-                        type="password"
-                        placeholder=" 비밀번호"
-                        onChange={handleInputValue("password")}
-                      />
-                    </div>
-                    <div>
-                      {err ? <div className="err-message">{err}</div> : null}
-                    </div>
-                    <div className="modalButtonPosition">
-                      <div className="loginBtnPosition">
-                        <button
-                          className="btn-login login"
-                          type="submit"
-                          onClick={handleClickSigninBtn}
-                        >
-                          <div
-                            className="settingBtn"
-                            style={{ marginLeft: "0.8rem" }}
-                          >
-                            로그인
-                            <div className="loading">
-                              {loading ? <Loading /> : ""}
-                            </div>
-                          </div>
-                        </button>
-                      </div>
-                      <div className="modalButtonPosition">
-                        <div className="loginBtnPosition">
-                          <Google handleClickClose={handleClickClose} />
-                        </div>
-                        <div className="loginBtnPosition">
-                          <Naver handleClickClose={handleClickClose} />
-                        </div>
-                        <div className="signUpbtnPosition">
-                          <div>
-                            <div className="movetoSignUp">
-                              아직 계정이 없으십니까?
-                            </div>
-                            <div
-                              className="movetoSignUpBtn"
-                              onClick={() => {
-                                handleClickSignin(false);
-                                handleClickSignup(true);
-                              }}
-                            >
-                              회원가입 하러 하기
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </center>
-        </>
-      )} */}
     </>
   );
 };
