@@ -34,7 +34,6 @@ import {
   removeUserCareer,
 } from "../actions/userAction";
 import {
-  RemoveFileIcon,
   RemoveFileIcon2,
   FileMetaData2,
   PreviewContainer,
