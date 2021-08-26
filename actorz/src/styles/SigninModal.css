@@ -388,3 +388,14 @@ input {
       -23px -23px #4f4d49;
   }
 }
+
+/* isMobile */
+@media (max-width: 767px) {
+  div#modal-container.modal-get-container {
+    width: 100%;
+  }
+
+  #loginpadding-top {
+    margin-left: 1.5rem;
+  }
+}
