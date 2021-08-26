@@ -6,9 +6,7 @@ import Post from "./Post";
 import MypageEdit from "./MypageEdit";
 import Iconlist from "../components/Iconlist";
 import Footer from "../components/Footer";
-import FooterFixed from "../components/FooterFixed";
 import ResponsiveNav from "../components/responsiveApp/ResponsiveNav";
-import { useMediaQuery } from "react-responsive";
 import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import ResponsiveIconlistTablet from "../components/responsiveApp/ResponsiveIconlistTablet";
 import { Tabs, Pagination } from "antd";
@@ -82,18 +80,6 @@ const Mypage = () => {
     getInfo();
   }, [post, user]);
 
-  const isPc = useMediaQuery({
-    query: "(min-width:1024px)",
-  });
-
-  const isTablet = useMediaQuery({
-    query: "(min-width:768px) and (max-width:1023px)",
-  });
-
-  const isMobile = useMediaQuery({
-    query: "(max-width:767px)",
-  });
-
   const handeClickEditBtn = (boolean) => {
     if (boolean) {
       setIsEdit(true);
@@ -133,1020 +119,333 @@ const Mypage = () => {
     setLikeMaxIndex((like_maxIndex = page * like_pageSize));
   };
 
-  if (isPc) {
-    post_pageSize = 6;
-    like_pageSize = 6;
-  } else if (isTablet) {
-    post_pageSize = 8;
-    like_pageSize = 8;
-  } else {
-    post_pageSize = 4;
-    like_pageSize = 4;
-  }
+  // if (isPc) {
+  //   post_pageSize = 6;
+  //   like_pageSize = 6;
+  // } else if (isTablet) {
+  //   post_pageSize = 8;
+  //   like_pageSize = 8;
+  // } else {
+  //   post_pageSize = 4;
+  //   like_pageSize = 4;
+  // }
+  post_pageSize = 6;
+  like_pageSize = 6;
 
   return (
     <>
-      {isPc && (
+      {user.isLogin ? (
         <>
-          {user.isLogin ? (
+          {!isEdit ? (
             <>
-              {!isEdit ? (
-                <>
-                  <div className="mainPage">
-                    <Nav />
-                    <Iconlist />
+              <ResponsiveIconlistTablet />
 
-                    <div className="middleSpace">
-                      <div className="midContents">
-                        <div className="buttonHeader">
-                          <div className="profileTitleName">
-                            {user.data.userInfo.name}'s profile
-                          </div>
-                          <div className="profileButtonAll">
-                            <EditOutlined
-                              className="editButton"
-                              onClick={() => handeClickEditBtn(true)}
-                            />
-                          </div>
-                        </div>
+              <div className="mainPage">
+                <Nav />
+                <Iconlist />
 
-                        <div className="midContentDownPart">
-                          <div className="displayPosition">
-                            <div className="fixedSize">
-                              <img
-                                alt="testPic"
-                                src={user.data.userInfo.mainPic}
-                                className="testPic"
-                              />
-                            </div>
-
-                            <div className="fixedContent">
-                              <ul>
-                                <div className="nameTitle">
-                                  {user.data.userInfo.name}
-                                </div>
-                                <strong>생년월일</strong>
-                                <li className="dob">
-                                  {user.data.userInfo.dob}
-                                </li>
-                                <strong>이메일</strong>
-                                <li className="email">
-                                  {user.data.userInfo.email}
-                                </li>
-                                {user.data.userInfo.role === "actor" ? (
-                                  <>
-                                    <strong>소속사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.company}
-                                    </li>
-                                  </>
-                                ) : (
-                                  <>
-                                    <strong>회사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.recruiter.bName}
-                                    </li>
-                                  </>
-                                )}
-                              </ul>
-                            </div>
-                          </div>
-                          <div className="stickyContainerPosition">
-                            <StickyContainer>
-                              <Tabs
-                                defaultActiveKey="1"
-                                renderTabBar={renderTabBar}
-                                centered="true"
-                              >
-                                <TabPane tab="INFO" key="1">
-                                  <div className="fixedContent2">
-                                    <ul>
-                                      <div className="nameTitle">
-                                        {user.data.userInfo.name}
-                                      </div>
-                                      <strong>생년월일</strong>
-
-                                      <li className="dob">
-                                        {user.data.userInfo.dob}
-                                      </li>
-
-                                      <strong>이메일</strong>
-                                      <li className="email">
-                                        {user.data.userInfo.email}
-                                      </li>
-                                      {user.data.userInfo.role === "actor" ? (
-                                        <>
-                                          <strong>소속사</strong>
-                                          {user.data.userInfo.company ? (
-                                            <li className="company">
-                                              {user.data.userInfo.company}
-                                            </li>
-                                          ) : (
-                                            <li className="company"></li>
-                                          )}
-                                        </>
-                                      ) : (
-                                        <>
-                                          <strong>회사</strong>
-                                          {user.data.userInfo.recruiter
-                                            .bName ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bName
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>직책</strong>
-                                          {user.data.userInfo.recruiter
-                                            .jobTitle ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .jobTitle
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 이메일</strong>
-                                          {user.data.userInfo.recruiter
-                                            .bEmail ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bEmail
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 전화번호</strong>
-                                          {user.data.userInfo.recruiter
-                                            .phoneNum ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .phoneNum
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 주소</strong>
-                                          {user.data.userInfo.recruiter.bAddress
-                                            .city ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.city
-                                              }
-                                              <br />
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.street
-                                              }
-                                              <br />
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.zipCode
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                        </>
-                                      )}
-                                    </ul>
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="POSTS" key="2">
-                                  <div>
-                                    <div className="postsGallery">
-                                      {userPost.posts
-                                        ? userPost.posts.map((post, index) => {
-                                            return (
-                                              index >= post_minIndex &&
-                                              index < post_maxIndex && (
-                                                <>
-                                                  <div
-                                                    key={index}
-                                                    className="galleryComponents"
-                                                    onClick={() =>
-                                                      handleClickPost(
-                                                        true,
-                                                        post._id
-                                                      )
-                                                    }
-                                                  >
-                                                    {post.media[0].type ===
-                                                    "img" ? (
-                                                      <img
-                                                        alt=""
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></img>
-                                                    ) : (
-                                                      <video
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></video>
-                                                    )}
-                                                  </div>
-                                                </>
-                                              )
-                                            );
-                                          })
-                                        : null}
-
-                                      {clickModal ? (
-                                        <Post
-                                          handleClickPost={handleClickPost}
-                                        />
-                                      ) : null}
-                                    </div>
-                                    <Pagination
-                                      pageSize={post_pageSize}
-                                      current={post_current}
-                                      total={post_data.length}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="CAREER" key="3">
-                                  <div className="careerContent">
-                                    {user.data.userInfo.careers ? (
-                                      <div className="career">
-                                        {user.data.userInfo.careers.map(
-                                          (career) => {
-                                            return (
-                                              <li key={career._id}>
-                                                {`${
-                                                  career.year.split("T")[0]
-                                                }` +
-                                                  ` ${career.title}` +
-                                                  ` / ` +
-                                                  `${career.type}`}
-                                              </li>
-                                            );
-                                          }
-                                        )}
-                                      </div>
-                                    ) : (
-                                      <div className="career"></div>
-                                    )}
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="LIKES" key="4">
-                                  <div>
-                                    <div className="postsGallery">
-                                      {likePost
-                                        ? likePost.map((post, index) => {
-                                            return (
-                                              index >= like_minIndex &&
-                                              index < like_maxIndex && (
-                                                <>
-                                                  <div
-                                                    key={index}
-                                                    className="galleryComponents"
-                                                    onClick={() =>
-                                                      handleClickPost(
-                                                        true,
-                                                        post._id
-                                                      )
-                                                    }
-                                                  >
-                                                    {post.media[0].type ===
-                                                    "img" ? (
-                                                      <img
-                                                        alt=""
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></img>
-                                                    ) : (
-                                                      <video
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></video>
-                                                    )}
-                                                  </div>
-                                                </>
-                                              )
-                                            );
-                                          })
-                                        : null}
-
-                                      {clickModal ? (
-                                        <Post
-                                          handleClickPost={handleClickPost}
-                                        />
-                                      ) : null}
-                                    </div>
-                                    <Pagination
-                                      pageSize={like_pageSize}
-                                      current={like_current}
-                                      total={like_data.length}
-                                      onChange={handleLikeChange}
-                                    />
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="TAGGED" key="5">
-                                  컨텐츠 준비 중입니다.
-                                </TabPane>
-                              </Tabs>
-                            </StickyContainer>
-                          </div>
-                        </div>
+                <div className="middleSpace">
+                  <div className="midContents">
+                    <div className="buttonHeader">
+                      <div className="profileTitleName">
+                        {user.data.userInfo.name}'s profile
+                      </div>
+                      <div className="profileButtonAll">
+                        <EditOutlined
+                          className="editButton"
+                          onClick={() => handeClickEditBtn(true)}
+                        />
                       </div>
                     </div>
-                    <div className="newblockPosition2"> </div>
 
-                    <div className="rightSpace"></div>
-                  </div>
-                  <Footer />
-                </>
-              ) : (
-                <MypageEdit handeClickEditBtn={handeClickEditBtn} />
-              )}
-            </>
-          ) : (
-            redirectPage()
-          )}
-        </>
-      )}
-
-      {isTablet && (
-        <>
-          {user.isLogin ? (
-            <>
-              {!isEdit ? (
-                <>
-                  <div className="mainPage">
-                    <Nav />
-                    <ResponsiveIconlistTablet />
-
-                    <div className="newblockPosition"> </div>
-
-                    <div className="middleSpace2">
-                      <div className="midContents">
-                        <div className="buttonHeader">
-                          <div className="profileTitleName">
-                            {user.data.userInfo.name}'s profile
-                          </div>
-
-                          <div className="profileButtonAll">
-                            <EditOutlined
-                              className="editButton"
-                              onClick={() => handeClickEditBtn(true)}
-                            />
-                          </div>
+                    <div className="midContentDownPart">
+                      <div className="displayPosition">
+                        <div className="fixedSize">
+                          <img
+                            alt="testPic"
+                            src={user.data.userInfo.mainPic}
+                            className="testPic"
+                          />
                         </div>
-                        <div className="midContentDownPart">
-                          <div className="displayPosition">
-                            <div className="fixedSize">
-                              <img
-                                alt="testPic"
-                                src={user.data.userInfo.mainPic}
-                                className="testPic"
-                              />
+
+                        <div className="fixedContent">
+                          <ul>
+                            <div className="nameTitle">
+                              {user.data.userInfo.name}
                             </div>
-
-                            <div className="fixedContent">
-                              <ul>
-                                <div className="nameTitle">
-                                  {user.data.userInfo.name}
-                                </div>
-                                <strong>생년월일</strong>
-                                <li className="dob">
-                                  {user.data.userInfo.dob}
+                            <strong>생년월일</strong>
+                            <li className="dob">{user.data.userInfo.dob}</li>
+                            <strong>이메일</strong>
+                            <li className="email">
+                              {user.data.userInfo.email}
+                            </li>
+                            {user.data.userInfo.role === "actor" ? (
+                              <>
+                                <strong>소속사</strong>
+                                <li className="company">
+                                  {user.data.userInfo.company}
                                 </li>
-                                <strong>이메일</strong>
-                                <li className="email">
-                                  {user.data.userInfo.email}
+                              </>
+                            ) : (
+                              <>
+                                <strong>회사</strong>
+                                <li className="company">
+                                  {user.data.userInfo.recruiter.bName}
                                 </li>
-                                {user.data.userInfo.role === "actor" ? (
-                                  <>
-                                    <strong>소속사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.company}
-                                    </li>
-                                  </>
-                                ) : (
-                                  <>
-                                    <strong>회사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.recruiter.bName}
-                                    </li>
-                                  </>
-                                )}
-                              </ul>
-                            </div>
-                          </div>
-                          <div className="stickyContainerPosition">
-                            <StickyContainer>
-                              <Tabs
-                                defaultActiveKey="1"
-                                renderTabBar={renderTabBar}
-                                centered="true"
-                              >
-                                <TabPane tab="INFO" key="1">
-                                  <div className="fixedContent2">
-                                    <ul>
-                                      <div className="nameTitle">
-                                        {user.data.userInfo.name}
-                                      </div>
-                                      <strong>생년월일</strong>
-                                      <li className="dob">
-                                        {user.data.userInfo.dob}
-                                      </li>
-
-                                      <strong>이메일</strong>
-                                      <li className="email">
-                                        {user.data.userInfo.email}
-                                      </li>
-                                      {user.data.userInfo.role === "actor" ? (
-                                        <>
-                                          <strong>소속사</strong>
-                                          {user.data.userInfo.company ? (
-                                            <li className="company">
-                                              {user.data.userInfo.company}
-                                            </li>
-                                          ) : (
-                                            <li className="company"></li>
-                                          )}
-                                        </>
-                                      ) : (
-                                        <>
-                                          <strong>회사</strong>
-                                          {user.data.userInfo.recruiter
-                                            .bName ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bName
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>직책</strong>
-                                          {user.data.userInfo.recruiter
-                                            .jobTitle ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .jobTitle
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 이메일</strong>
-                                          {user.data.userInfo.recruiter
-                                            .bEmail ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bEmail
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 전화번호</strong>
-                                          {user.data.userInfo.recruiter
-                                            .phoneNum ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .phoneNum
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 주소</strong>
-                                          {user.data.userInfo.recruiter.bAddress
-                                            .city ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.city
-                                              }
-                                              <br />
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.street
-                                              }
-                                              <br />
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.zipCode
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                        </>
-                                      )}
-                                    </ul>
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="POSTS" key="2">
-                                  <div>
-                                    <div className="postsGallery">
-                                      {userPost.posts
-                                        ? userPost.posts.map((post, index) => {
-                                            return (
-                                              index >= post_minIndex &&
-                                              index < post_maxIndex && (
-                                                <>
-                                                  <div
-                                                    key={index}
-                                                    className="galleryComponents"
-                                                    onClick={() =>
-                                                      handleClickPost(
-                                                        true,
-                                                        post._id
-                                                      )
-                                                    }
-                                                  >
-                                                    {post.media[0].type ===
-                                                    "img" ? (
-                                                      <img
-                                                        alt=""
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></img>
-                                                    ) : (
-                                                      <video
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></video>
-                                                    )}
-                                                  </div>
-                                                </>
-                                              )
-                                            );
-                                          })
-                                        : null}
-
-                                      {clickModal ? (
-                                        <Post
-                                          handleClickPost={handleClickPost}
-                                        />
-                                      ) : null}
-                                    </div>
-                                    <Pagination
-                                      pageSize={post_pageSize}
-                                      current={post_current}
-                                      total={post_data.length}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="CAREER" key="3">
-                                  <div className="careerContent">
-                                    {user.data.userInfo.careers ? (
-                                      <div className="career">
-                                        {user.data.userInfo.careers.map(
-                                          (career) => {
-                                            return (
-                                              <li key={career._id}>
-                                                {`${
-                                                  career.year.split("T")[0]
-                                                }` +
-                                                  ` ${career.title}` +
-                                                  ` / ` +
-                                                  `${career.type}`}
-                                              </li>
-                                            );
-                                          }
-                                        )}
-                                      </div>
-                                    ) : (
-                                      <div className="career"></div>
-                                    )}
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="LIKES" key="4">
-                                  <div>
-                                    <div className="postsGallery">
-                                      {likePost
-                                        ? likePost.map((post, index) => {
-                                            return (
-                                              index >= like_minIndex &&
-                                              index < like_maxIndex && (
-                                                <>
-                                                  <div
-                                                    key={index}
-                                                    className="galleryComponents"
-                                                    onClick={() =>
-                                                      handleClickPost(
-                                                        true,
-                                                        post._id
-                                                      )
-                                                    }
-                                                  >
-                                                    {post.media[0].type ===
-                                                    "img" ? (
-                                                      <img
-                                                        alt=""
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></img>
-                                                    ) : (
-                                                      <video
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></video>
-                                                    )}
-                                                  </div>
-                                                </>
-                                              )
-                                            );
-                                          })
-                                        : null}
-
-                                      {clickModal ? (
-                                        <Post
-                                          handleClickPost={handleClickPost}
-                                        />
-                                      ) : null}
-                                    </div>
-                                    <Pagination
-                                      pageSize={like_pageSize}
-                                      current={like_current}
-                                      total={like_data.length}
-                                      onChange={handleLikeChange}
-                                    />
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="TAGGED" key="5">
-                                  컨텐츠 준비 중입니다.
-                                </TabPane>
-                              </Tabs>
-                            </StickyContainer>
-                          </div>
+                              </>
+                            )}
+                          </ul>
                         </div>
                       </div>
-                    </div>
-                    <div className="responsiveNewblockPosition2"> </div>
-                  </div>
-                  <FooterFixed />
-                </>
-              ) : (
-                <MypageEdit handeClickEditBtn={handeClickEditBtn} />
-              )}
-            </>
-          ) : (
-            redirectPage()
-          )}
-        </>
-      )}
+                      <div className="stickyContainerPosition">
+                        <StickyContainer>
+                          <Tabs
+                            defaultActiveKey="1"
+                            renderTabBar={renderTabBar}
+                            centered="true"
+                          >
+                            <TabPane tab="INFO" key="1">
+                              <div className="fixedContent2">
+                                <ul>
+                                  <div className="nameTitle">
+                                    {user.data.userInfo.name}
+                                  </div>
+                                  <strong>생년월일</strong>
 
-      {isMobile && (
-        <>
-          {user.isLogin ? (
-            <>
-              {!isEdit ? (
-                <>
-                  <div className="mainPage">
-                    <ResponsiveNav />
-                    <ResponsiveFooter />
+                                  <li className="dob">
+                                    {user.data.userInfo.dob}
+                                  </li>
 
-                    <div className="newblockPosition"> </div>
-
-                    <div className="middleSpace3">
-                      <div className="midContents">
-                        <div className="buttonHeader">
-                          <div className="profileTitleName">
-                            {user.data.userInfo.name}'s profile
-                          </div>
-
-                          <div className="profileButtonAll">
-                            <EditOutlined
-                              className="editButton"
-                              onClick={() => handeClickEditBtn(true)}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="midContentDownPart">
-                          <div className="displayPosition">
-                            <div className="fixedSize">
-                              <img
-                                alt="testPic"
-                                src={user.data.userInfo.mainPic}
-                                className="testPic"
-                              />
-                            </div>
-
-                            <div className="fixedContent">
-                              <ul>
-                                <div className="nameTitle">
-                                  {user.data.userInfo.name}
-                                </div>
-                                <strong>생년월일</strong>
-                                <li className="dob">
-                                  {user.data.userInfo.dob}
-                                </li>
-                                <strong>이메일</strong>
-                                <li className="email">
-                                  {user.data.userInfo.email}
-                                </li>
-                                {user.data.userInfo.role === "actor" ? (
-                                  <>
-                                    <strong>소속사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.company}
-                                    </li>
-                                  </>
-                                ) : (
-                                  <>
-                                    <strong>회사</strong>
-                                    <li className="company">
-                                      {user.data.userInfo.recruiter.bName}
-                                    </li>
-                                  </>
-                                )}
-                              </ul>
-                            </div>
-                          </div>
-                          <div className="stickyContainerPosition">
-                            <StickyContainer>
-                              <Tabs
-                                defaultActiveKey="1"
-                                renderTabBar={renderTabBar}
-                                centered="true"
-                              >
-                                <TabPane tab="INFO" key="1">
-                                  <div className="fixedContent2">
-                                    <ul>
-                                      <div className="nameTitle">
-                                        {user.data.userInfo.name}
-                                      </div>
-                                      <strong>생년월일</strong>
-
-                                      <li className="dob">
-                                        {user.data.userInfo.dob}
-                                      </li>
-
-                                      <strong>이메일</strong>
-                                      <li className="email">
-                                        {user.data.userInfo.email}
-                                      </li>
-                                      {user.data.userInfo.role === "actor" ? (
-                                        <>
-                                          <strong>소속사</strong>
-                                          {user.data.userInfo.company ? (
-                                            <li className="company">
-                                              {user.data.userInfo.company}
-                                            </li>
-                                          ) : (
-                                            <li className="company"></li>
-                                          )}
-                                        </>
+                                  <strong>이메일</strong>
+                                  <li className="email">
+                                    {user.data.userInfo.email}
+                                  </li>
+                                  {user.data.userInfo.role === "actor" ? (
+                                    <>
+                                      <strong>소속사</strong>
+                                      {user.data.userInfo.company ? (
+                                        <li className="company">
+                                          {user.data.userInfo.company}
+                                        </li>
                                       ) : (
-                                        <>
-                                          <strong>회사</strong>
-                                          {user.data.userInfo.recruiter
-                                            .bName ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bName
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>직책</strong>
-                                          {user.data.userInfo.recruiter
-                                            .jobTitle ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .jobTitle
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 이메일</strong>
-                                          {user.data.userInfo.recruiter
-                                            .bEmail ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bEmail
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 전화번호</strong>
-                                          {user.data.userInfo.recruiter
-                                            .phoneNum ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .phoneNum
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                          <strong>회사 주소</strong>
-                                          {user.data.userInfo.recruiter.bAddress
-                                            .city ? (
-                                            <li className="email">
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.city
-                                              }
-                                              <br />
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.street
-                                              }
-                                              <br />
-                                              {
-                                                user.data.userInfo.recruiter
-                                                  .bAddress.zipCode
-                                              }
-                                            </li>
-                                          ) : (
-                                            <li className="email"></li>
-                                          )}
-                                        </>
+                                        <li className="company"></li>
                                       )}
-                                    </ul>
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="POSTS" key="2">
-                                  <div>
-                                    <div className="postsGallery">
-                                      {userPost.posts
-                                        ? userPost.posts.map((post, index) => {
-                                            return (
-                                              index >= post_minIndex &&
-                                              index < post_maxIndex && (
-                                                <>
-                                                  <div
-                                                    key={index}
-                                                    className="galleryComponents"
-                                                    onClick={() =>
-                                                      handleClickPost(
-                                                        true,
-                                                        post._id
-                                                      )
-                                                    }
-                                                  >
-                                                    {post.media[0].type ===
-                                                    "img" ? (
-                                                      <img
-                                                        alt=""
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></img>
-                                                    ) : (
-                                                      <video
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></video>
-                                                    )}
-                                                  </div>
-                                                </>
-                                              )
-                                            );
-                                          })
-                                        : null}
-
-                                      {clickModal ? (
-                                        <Post
-                                          handleClickPost={handleClickPost}
-                                        />
-                                      ) : null}
-                                    </div>
-                                    <Pagination
-                                      pageSize={post_pageSize}
-                                      current={post_current}
-                                      total={post_data.length}
-                                      onChange={handleChange}
-                                    />
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="CAREER" key="3">
-                                  <div className="careerContent">
-                                    {user.data.userInfo.careers ? (
-                                      <div className="career">
-                                        {user.data.userInfo.careers.map(
-                                          (career) => {
-                                            return (
-                                              <li key={career._id}>
-                                                {`${
-                                                  career.year.split("T")[0]
-                                                }` +
-                                                  ` ${career.title}` +
-                                                  ` / ` +
-                                                  `${career.type}`}
-                                              </li>
-                                            );
+                                    </>
+                                  ) : (
+                                    <>
+                                      <strong>회사</strong>
+                                      {user.data.userInfo.recruiter.bName ? (
+                                        <li className="email">
+                                          {user.data.userInfo.recruiter.bName}
+                                        </li>
+                                      ) : (
+                                        <li className="email"></li>
+                                      )}
+                                      <strong>직책</strong>
+                                      {user.data.userInfo.recruiter.jobTitle ? (
+                                        <li className="email">
+                                          {
+                                            user.data.userInfo.recruiter
+                                              .jobTitle
                                           }
-                                        )}
-                                      </div>
-                                    ) : (
-                                      <div className="career"></div>
+                                        </li>
+                                      ) : (
+                                        <li className="email"></li>
+                                      )}
+                                      <strong>회사 이메일</strong>
+                                      {user.data.userInfo.recruiter.bEmail ? (
+                                        <li className="email">
+                                          {user.data.userInfo.recruiter.bEmail}
+                                        </li>
+                                      ) : (
+                                        <li className="email"></li>
+                                      )}
+                                      <strong>회사 전화번호</strong>
+                                      {user.data.userInfo.recruiter.phoneNum ? (
+                                        <li className="email">
+                                          {
+                                            user.data.userInfo.recruiter
+                                              .phoneNum
+                                          }
+                                        </li>
+                                      ) : (
+                                        <li className="email"></li>
+                                      )}
+                                      <strong>회사 주소</strong>
+                                      {user.data.userInfo.recruiter.bAddress
+                                        .city ? (
+                                        <li className="email">
+                                          {
+                                            user.data.userInfo.recruiter
+                                              .bAddress.city
+                                          }
+                                          <br />
+                                          {
+                                            user.data.userInfo.recruiter
+                                              .bAddress.street
+                                          }
+                                          <br />
+                                          {
+                                            user.data.userInfo.recruiter
+                                              .bAddress.zipCode
+                                          }
+                                        </li>
+                                      ) : (
+                                        <li className="email"></li>
+                                      )}
+                                    </>
+                                  )}
+                                </ul>
+                              </div>
+                            </TabPane>
+                            <TabPane tab="POSTS" key="2">
+                              <div>
+                                <div className="postsGallery">
+                                  {userPost.posts
+                                    ? userPost.posts.map((post, index) => {
+                                        return (
+                                          index >= post_minIndex &&
+                                          index < post_maxIndex && (
+                                            <>
+                                              <div
+                                                key={index}
+                                                className="galleryComponents"
+                                                onClick={() =>
+                                                  handleClickPost(
+                                                    true,
+                                                    post._id
+                                                  )
+                                                }
+                                              >
+                                                {post.media[0].type ===
+                                                "img" ? (
+                                                  <img
+                                                    alt=""
+                                                    className="postGallery-img"
+                                                    key={post._id}
+                                                    src={post.media[0].path}
+                                                  ></img>
+                                                ) : (
+                                                  <video
+                                                    className="postGallery-img"
+                                                    key={post._id}
+                                                    src={post.media[0].path}
+                                                  ></video>
+                                                )}
+                                              </div>
+                                            </>
+                                          )
+                                        );
+                                      })
+                                    : null}
+
+                                  {clickModal ? (
+                                    <Post handleClickPost={handleClickPost} />
+                                  ) : null}
+                                </div>
+                                <Pagination
+                                  pageSize={post_pageSize}
+                                  current={post_current}
+                                  total={post_data.length}
+                                  onChange={handleChange}
+                                />
+                              </div>
+                            </TabPane>
+                            <TabPane tab="CAREER" key="3">
+                              <div className="careerContent">
+                                {user.data.userInfo.careers ? (
+                                  <div className="career">
+                                    {user.data.userInfo.careers.map(
+                                      (career) => {
+                                        return (
+                                          <li key={career._id}>
+                                            {`${career.year.split("T")[0]}` +
+                                              ` ${career.title}` +
+                                              ` / ` +
+                                              `${career.type}`}
+                                          </li>
+                                        );
+                                      }
                                     )}
                                   </div>
-                                </TabPane>
-                                <TabPane tab="LIKES" key="4">
-                                  <div>
-                                    <div className="postsGallery">
-                                      {likePost
-                                        ? likePost.map((post, index) => {
-                                            return (
-                                              index >= like_minIndex &&
-                                              index < like_maxIndex && (
-                                                <>
-                                                  <div
-                                                    key={index}
-                                                    className="galleryComponents"
-                                                    onClick={() =>
-                                                      handleClickPost(
-                                                        true,
-                                                        post._id
-                                                      )
-                                                    }
-                                                  >
-                                                    {post.media[0].type ===
-                                                    "img" ? (
-                                                      <img
-                                                        alt=""
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></img>
-                                                    ) : (
-                                                      <video
-                                                        className="postGallery-img"
-                                                        key={post._id}
-                                                        src={post.media[0].path}
-                                                      ></video>
-                                                    )}
-                                                  </div>
-                                                </>
-                                              )
-                                            );
-                                          })
-                                        : null}
+                                ) : (
+                                  <div className="career"></div>
+                                )}
+                              </div>
+                            </TabPane>
+                            <TabPane tab="LIKES" key="4">
+                              <div>
+                                <div className="postsGallery">
+                                  {likePost
+                                    ? likePost.map((post, index) => {
+                                        return (
+                                          index >= like_minIndex &&
+                                          index < like_maxIndex && (
+                                            <>
+                                              <div
+                                                key={index}
+                                                className="galleryComponents"
+                                                onClick={() =>
+                                                  handleClickPost(
+                                                    true,
+                                                    post._id
+                                                  )
+                                                }
+                                              >
+                                                {post.media[0].type ===
+                                                "img" ? (
+                                                  <img
+                                                    alt=""
+                                                    className="postGallery-img"
+                                                    key={post._id}
+                                                    src={post.media[0].path}
+                                                  ></img>
+                                                ) : (
+                                                  <video
+                                                    className="postGallery-img"
+                                                    key={post._id}
+                                                    src={post.media[0].path}
+                                                  ></video>
+                                                )}
+                                              </div>
+                                            </>
+                                          )
+                                        );
+                                      })
+                                    : null}
 
-                                      {clickModal ? (
-                                        <Post
-                                          handleClickPost={handleClickPost}
-                                        />
-                                      ) : null}
-                                    </div>
-                                    <Pagination
-                                      pageSize={like_pageSize}
-                                      current={like_current}
-                                      total={like_data.length}
-                                      onChange={handleLikeChange}
-                                    />
-                                  </div>
-                                </TabPane>
-                                <TabPane tab="TAGGED" key="5">
-                                  컨텐츠 준비 중입니다.
-                                </TabPane>
-                              </Tabs>
-                            </StickyContainer>
-                          </div>
-                        </div>
+                                  {clickModal ? (
+                                    <Post handleClickPost={handleClickPost} />
+                                  ) : null}
+                                </div>
+                                <Pagination
+                                  pageSize={like_pageSize}
+                                  current={like_current}
+                                  total={like_data.length}
+                                  onChange={handleLikeChange}
+                                />
+                              </div>
+                            </TabPane>
+                            <TabPane tab="TAGGED" key="5">
+                              컨텐츠 준비 중입니다.
+                            </TabPane>
+                          </Tabs>
+                        </StickyContainer>
                       </div>
                     </div>
                   </div>
-                </>
-              ) : (
-                <MypageEdit handeClickEditBtn={handeClickEditBtn} />
-              )}
+                </div>
+              </div>
+              <Footer />
+              <ResponsiveNav />
+              <ResponsiveFooter />
             </>
           ) : (
-            redirectPage()
+            <MypageEdit handeClickEditBtn={handeClickEditBtn} />
           )}
         </>
+      ) : (
+        redirectPage()
       )}
     </>
   );

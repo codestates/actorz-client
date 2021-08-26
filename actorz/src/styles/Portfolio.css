@@ -13,8 +13,8 @@
   background-color: rgb(255, 255, 255);
 }
 
-.pf.middleSpace2 {
-  max-width: 70%;
+.middleSpace {
+  margin-right: 5rem;
 }
 
 .pf.headerSection {

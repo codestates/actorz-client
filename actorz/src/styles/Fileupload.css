@@ -87,3 +87,15 @@ div.genre {
 div input {
   margin: 0px 2px 0px 12px;
 }
+
+div.portFolioEdit {
+  margin-bottom: 6rem;
+}
+
+@media (max-width: 767px) {
+  #upload-modal-container {
+    height: 100%;
+    width: 100%;
+    padding: 4rem 0rem 4rem 0rem;
+  }
+}

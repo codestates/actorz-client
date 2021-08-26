@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { Link } from "react-router-dom";
-import "../App.css";
-import "antd/dist/antd.css";
-import { Button, Carousel } from "antd";
+
 import IntroNav from "../components/IntroNav";
-import ResponsiveApp from "../components/responsiveApp/ResponsiveNav";
 import Footer from "../components/Footer";
-import ResponsiveFooter from "../components/responsiveApp/ResponsiveFooter";
 import Slider from "react-slick";
 import { _Button, Comment, Card, Icon } from "semantic-ui-react";
 import GotoTop from "../components/GotoTop";
@@ -19,6 +15,8 @@ import ipadG from "../images/ipadGifcontent.gif";
 import IntroBackPics from "../components/IntroBackPics";
 import IntroProfileEffect from "../components/IntroProfileEffect";
 import IntroCommentEffect from "../components/IntroCommentEffect";
+import "../App.css";
+import "antd/dist/antd.css";
 
 const Intropage = () => {
   const trigger = new ScrollTrigger();
@@ -37,20 +35,6 @@ const Intropage = () => {
   const isMobile = useMediaQuery({
     query: "(max-width:767px)",
   });
-
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 2500,
-    autoplaySpeed: 1000,
-    pauseOnHover: false,
-    autoplay: true,
-    draggable: false,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-    fade: true,
-  };
 
   const settingsInApp = {
     dots: false,
@@ -92,7 +76,6 @@ const Intropage = () => {
     autoplay: true,
     autoplaySpeed: 3500,
   };
-
 
   const extraHeart = (
     <a>
@@ -148,7 +131,7 @@ const Intropage = () => {
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
-  
+
   window.onload = function () {
     setTimeout(function () {
       window.scrollTo(0, 0);
@@ -160,7 +143,7 @@ const Intropage = () => {
       {isPc && (
         <>
           <IntroNav />
-          <IntroBackPics /> 
+          <IntroBackPics />
           <IntroProfileEffect />
           <IntroCommentEffect />
           <GotoTop />
@@ -171,7 +154,7 @@ const Intropage = () => {
       {isTablet && (
         <>
           <IntroNav />
-          <IntroBackPics /> 
+          <IntroBackPics />
           <div className="blockPosition"></div>
           <div data-trigger className="startContentsTitleT">
             포트폴리오에 사진과 영상을 담을 수 있다면 어떨까?
