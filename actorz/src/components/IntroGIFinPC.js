@@ -7,6 +7,10 @@ const IntroGIFinPC = () => {
     query: "(min-width:1600px)",
   });
 
+  const isMobile = useMediaQuery({
+    query: "(max-width:767px)",
+  });
+
   return (
     <div data-trigger className="startContentsTitle">
       어떠한 기기에서도
@@ -36,7 +40,7 @@ const IntroGIFinPC = () => {
           </div>
         </div> 
         
-        : <>
+        : <> { !isMobile ? <>
           <div className="device1T">
             <div data-trigger>
               <img
@@ -61,8 +65,23 @@ const IntroGIFinPC = () => {
               <img alt="" className="ipadGifT" src={ipadG} />
             </div>
           </div>
-        </>
-        }
+        </> 
+        : <>
+
+          <div className="device1M">
+            <div data-trigger>
+              <img alt="" className="iphoneGifM" src={iphoneG} />
+            </div>
+          </div>
+
+          <div className="blockPositionDivide"></div>
+
+          <div className="device2M">
+            <div data-trigger>
+              <img alt="" className="ipadGifM" src={ipadG} />
+            </div>
+          </div> </> }
+       </> }
         
     </div>
   );

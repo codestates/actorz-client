@@ -37,7 +37,7 @@ const IntroProfileEffect = () => {
     <>
       <div className="blockPosition"></div>
       <div data-trigger className="startContentsTitle">
-        <div>포트폴리오에 사진과 영상을 담을 수 있다면 어떨까?</div>
+        <div>포트폴리오에 <br /><br /><br />사진과 영상을 담을 수 있다면 어떨까?</div>
         <br />
         <br />
         <br />
@@ -46,7 +46,7 @@ const IntroProfileEffect = () => {
       <div className="blockPosition"></div>
 
       <div data-trigger className="startContentsTitle">
-        그렇다면 어떠한 고객이 사용하면 좋을까?
+        그렇다면 <br /><br /><br /> 어떠한 고객이 사용하면 좋을까?
       </div>
 
       <div className="blockPosition"></div>
@@ -75,21 +75,24 @@ const IntroProfileEffect = () => {
       <div className="blockPosition"></div>
 
       <div data-trigger className="startContentsTitle">
-        실제 한국예술종합학교 학생들의 피드백을 종합
+        실제 한국예술종합학교 학생들의  <br /><br /><br />피드백을 종합
       </div>
       <div className="blockPosition"></div>
       <ProfilesEffectinTablet />
       <div className="blockPositionDivide"></div>
-      <div className="blockPositionDivide"></div><div className="gifContetsDivider">
-      <div className="gifContents" data-trigger>
-        <img
-          src="https://media.vlpt.us/images/iooi75/post/61f023dd-ca12-46f7-843b-70b108ca17f1/Jul-16-2021%2022-02-30.gif"
-          alt=""
-        />
-        <div data-trigger className="blockPosition30">
-          사진도
+      <div className="blockPositionDivide"></div>
+
+      {!isMobile ? 
+      <div className="gifContetsDivider">
+        <div className="gifContents" data-trigger>
+          <img
+            src="https://media.vlpt.us/images/iooi75/post/61f023dd-ca12-46f7-843b-70b108ca17f1/Jul-16-2021%2022-02-30.gif"
+            alt=""
+          />
+          <div data-trigger className="blockPosition30">
+            사진도
+          </div>
         </div>
-      </div>
 
         <div className="blockPositionDivider">
           <div data-trigger className="blockPosition20">
@@ -103,6 +106,44 @@ const IntroProfileEffect = () => {
           </div>
         </div>
       </div>
+      :
+      <>
+        <div data-trigger className="blockPosition30">
+          영상도
+        </div>
+
+        <div className="blockPositionDivide"></div>
+
+
+        <div className="gifPositioning">
+          <div className="gifContentsM" data-trigger>
+            <img
+              className="gifM"
+              src="https://media.vlpt.us/images/iooi75/post/61f023dd-ca12-46f7-843b-70b108ca17f1/Jul-16-2021%2022-02-30.gif"
+              alt=""
+            />
+          </div>
+        </div>
+
+        <div className="blockPositionDivide"></div>
+
+        <div data-trigger className="blockPosition30">
+          사진도
+        </div>
+
+        <div className="blockPositionDivide"></div>
+
+        <div className="gifContentsM" data-trigger>
+          <img
+            className="pictureReposition"
+            src="https://media.vlpt.us/images/iooi75/post/566f2ed8-e8ff-4a59-b33f-4afc2a23fd79/Screen%20Shot%202021-07-16%20at%2010.39.54%20PM.png"
+            alt=""
+          />
+        </div>
+      </>
+      }
+
+
 
 
       <div className="blockPositionDivide"></div>
