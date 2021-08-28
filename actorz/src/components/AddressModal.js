@@ -1,36 +1,10 @@
 import React, { useEffect, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "antd/lib/modal/Modal";
+import "../styles/SignupModal.css";
 
 const AddressModal = ({ addr, setAddr, isMobile }) => {
   const [addPopUp, setAddPopUp] = useState(false);
-  const [divHeight, setDivHeight] = useState("30rem");
-  const [divWidth, setDivWidth] = useState("30rem");
-  const [boxHeight, setBoxHeight] = useState("30rem");
-  const [boxWidth, setBoxWidth] = useState("30rem");
-  const [boxPosition, setBoxPosition] = useState("12%");
-  const [boxLeftPosition, setBoxLeftPosition] = useState("0%");
-  const [modalPosition, setModalPosition] = useState("17%");
-
-  useEffect(() => {
-    if (isMobile) {
-      setDivHeight("28rem");
-      setDivWidth("100%");
-      setBoxHeight("31rem");
-      setBoxWidth("100%");
-      setBoxPosition("3.5rem");
-      setBoxLeftPosition("0rem");
-      setModalPosition("4rem");
-    } else {
-      setDivHeight("30rem");
-      setDivWidth("20rem");
-      setBoxHeight("30rem");
-      setBoxWidth("30rem");
-      setBoxPosition("12%");
-      setBoxLeftPosition("0%");
-      setModalPosition("6rem");
-    }
-  }, [isMobile]);
 
   const handleOpenAdd = () => {
     setAddPopUp(true);
@@ -81,32 +55,17 @@ const AddressModal = ({ addr, setAddr, isMobile }) => {
       <Modal
         maskStyle={{ height: "200%", width: "200%", backgroundColor: "white" }}
         footer={null}
-        width={setBoxWidth}
-        style={{ maxWidth: "23rem", maxHeight: "100%", top: modalPosition }}
+        width="23rem"
+        style={{ maxWidth: "23rem", maxHeight: "100%", top: "4rem" }}
         visible={addPopUp}
         maskClosable={true}
         title="회사 주소 검색"
         onCancel={() => setAddPopUp(false)}
         getContainer={".modal-get-container"}
       >
-        <div
-          style={{
-            width: divWidth,
-            height: divHeight,
-          }}
-        >
+        <div className="modal_div">
           <DaumPostcode
-            style={{
-              display: "block",
-              position: "absolute",
-              top: boxPosition,
-              left: boxLeftPosition,
-              width: boxWidth,
-              height: boxHeight,
-              maxHeight: "100%",
-              maxWidth: "23rem",
-              padding: "0.7em",
-            }}
+            className="daumpostcode"
             onComplete={handleAddressComplete}
           />
         </div>

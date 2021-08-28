@@ -66,7 +66,7 @@ p {
   background-color: #fafafa;
 }
 
-.middleSpace {
+.main_middleSpace {
   width: 45%;
   background-color: #fafafa;
   -ms-overflow-style: none;
@@ -86,7 +86,7 @@ p {
   margin-bottom: 3rem;
 }
 
-.middleSpace::-webkit-scrollbar {
+.main_middleSpace::-webkit-scrollbar {
   display: none;
 }
 
@@ -100,7 +100,7 @@ div.ui.centered.fluid.card {
 }
 
 .midContents2 {
-  margin-top: 4rem;
+  margin-top: 2.5rem;
   border: solid 1px #fafafa;
   background-color: #fafafa;
 }
@@ -275,8 +275,8 @@ div.ResponsiveFooter {
     flex-direction: column;
   }
 
-  .middleSpace {
-    width: 100%;
+  .main_middleSpace {
+    width: 82%;
   }
 
   .leftSpace {
@@ -305,7 +305,7 @@ div.ResponsiveFooter {
     display: flex;
   }
 
-  .middleSpace {
+  .main_middleSpace {
     width: 100%;
   }
 

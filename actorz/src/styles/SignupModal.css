@@ -141,6 +141,13 @@
 .modal-title .title {
   font-size: 1.25rem;
   padding-bottom: 1.25rem;
+  padding-right: 0rem;
+  /*   margin-right: 0rem;
+ */
+}
+
+.closeBtn {
+  padding-bottom: 4rem;
 }
 
 .modal-group-signup-role {
@@ -183,4 +190,60 @@ input {
 .moreInfo {
   height: fit-content;
   background: #fafafa;
+}
+
+.modal_div {
+  height: 30rem;
+  width: 20rem;
+}
+
+.closeBtn {
+  flex: 1 1;
+  font-size: 2.2rem;
+  color: #a5a4a4;
+  align-self: flex-start;
+  width: 100;
+  float: right;
+  margin-right: 8%;
+  margin-top: 5%;
+  margin-bottom: 0%;
+}
+
+div.daumpostcode {
+  display: block;
+  position: "absolute";
+  top: 12%;
+  left: 0%;
+  width: 30rem;
+  height: 30rem;
+  max-height: 100%;
+  max-width: 23rem;
+  padding: 0.7rem;
+}
+
+/* isMobile */
+@media (max-width: 767px) {
+  .closeBtn {
+    flex: 1 1;
+    font-size: 2.2rem;
+    color: #a5a4a4;
+    align-self: flex-start;
+    width: 100;
+    float: right;
+    margin-right: 8%;
+    margin-top: 5%;
+    margin-bottom: 0%;
+  }
+
+  .modal_div {
+    height: 28rem;
+    width: 100%;
+  }
+
+  div.daumpostcode {
+    top: 3.5rem;
+    left: 0rem;
+    width: 100%;
+    height: 31rem;
+  }
 }
