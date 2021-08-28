@@ -111,7 +111,7 @@ const Mainpage = () => {
       <div className="mainPage">
         <Nav />
         <Iconlist />
-        <div className="middleSpace">
+        <div className="main_middleSpace">
           <div className="midContents2 midContentsReverse">
             {data ? (
               data.posts.posts.length !== 0 ? (
