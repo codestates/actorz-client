@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useMediaQuery } from "react-responsive";
 import { useDispatch } from "react-redux";
 import server from "../apis/server";
 import Loading from "../components/loading";
@@ -29,14 +28,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
   const [role, setRole] = useState("배우");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-
-  const isPcORTablet = useMediaQuery({
-    query: "(min-width:768px)",
-  });
-
-  const isMobile = useMediaQuery({
-    query: "(max-width:767px)",
-  });
 
   const handleInputActorValue = (key) => (event) => {
     setActorSignup({ ...actorSignup, [key]: event.target.value });
@@ -435,7 +426,6 @@ const SocialSignup = ({ oauthSignup, modalSocialClose }) => {
                         }}
                       >
                         <AddressModal
-                          isMobile={isMobile}
                           setAddr={setAddr}
                           addr={addr}
                         ></AddressModal>

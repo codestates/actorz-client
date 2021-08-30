@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "antd/lib/modal/Modal";
 import "../styles/SignupModal.css";

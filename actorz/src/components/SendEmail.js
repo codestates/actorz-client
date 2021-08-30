@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
 import { CloseOutlined } from "@ant-design/icons";
-
-import "../styles/SendEmailModal.css";
-
 import server from "../apis/server";
 import Loading from "../components/loading";
 import DaumPostcode from "react-daum-postcode";
+import "../styles/SendEmailModal.css";
 import { Modal, Button, Radio, Space, Input } from "antd";
 
 const SendEmail = ({ closePost, setEmailClick, userInfo, postData }) => {
