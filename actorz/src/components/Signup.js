@@ -7,7 +7,6 @@ import Loading from "../components/loading";
 import { getUserInfo } from "../actions/userAction";
 import AddressModal from "./AddressModal";
 import { DatePicker } from "antd";
-import { useMediaQuery } from "react-responsive";
 import "moment/locale/ko";
 import ko_KR from "antd/lib/date-picker/locale/ko_KR";
 import "../styles/SignupModal.css";
@@ -43,9 +42,7 @@ const Signup = ({ handleClickSignup, handleClickSignin }) => {
   };
 
   const setGender = (gender) => {
-    if (gender === "남") {
-      return false;
-    } else if (gender === "여") {
+    if (gender === "여") {
       return true;
     } else {
       return false;
