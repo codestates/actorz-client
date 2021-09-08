@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useMediaQuery } from "react-responsive";
-import { CloseOutlined } from "@ant-design/icons";
 import server from "../apis/server";
 import Loading from "../components/loading";
 import DaumPostcode from "react-daum-postcode";
-import "../styles/SendEmailModal.css";
+import { CloseOutlined } from "@ant-design/icons";
 import { Modal, Button, Radio, Space, Input } from "antd";
+import "../styles/SendEmailModal.css";
 
 const SendEmail = ({ closePost, setEmailClick, userInfo, postData }) => {
   const { TextArea } = Input;
@@ -137,18 +137,18 @@ const SendEmail = ({ closePost, setEmailClick, userInfo, postData }) => {
 
   return (
     <>
-      {isPcOrTablet && (
-        <>
-          <center>
-            <form onSubmit={(e) => e.preventDefault()}>
+      <>
+        <center>
+          <form onSubmit={(e) => e.preventDefault()}>
+            <div
+              id="email-modal-background"
+              onClick={() => setEmailClick(false)}
+            >
               <div
-                id="email-modal-background"
-                onClick={() => setEmailClick(false)}
+                id="email-modal-container"
+                onClick={(event) => event.stopPropagation()}
               >
-                <div
-                  id="email-modal-container"
-                  onClick={(event) => event.stopPropagation()}
-                >
+                <div id="email-container-mobile-vertical-center">
                   <div id="email-container">
                     <div id="email-modal-header">
                       <div id="email-modal-header-content">
@@ -347,11 +347,11 @@ const SendEmail = ({ closePost, setEmailClick, userInfo, postData }) => {
                   </div>
                 </div>
               </div>
-            </form>
-          </center>
-        </>
-      )}
-      {isMobile && (
+            </div>
+          </form>
+        </center>
+      </>
+      {/* {isMobile && (
         <>
           <center>
             <form onSubmit={(e) => e.preventDefault()}>
@@ -518,7 +518,7 @@ const SendEmail = ({ closePost, setEmailClick, userInfo, postData }) => {
             </form>
           </center>
         </>
-      )}
+      )} */}
     </>
   );
 };
